@@ -8,6 +8,10 @@ Jellyfish client SDK in React Native
 npm install react-native-client-sdk
 ```
 
+## Docs
+
+API documentation is available [here](https://jellyfish-dev.github.io/react-native-client-sdk/)
+
 ## Usage
 
 ```js
