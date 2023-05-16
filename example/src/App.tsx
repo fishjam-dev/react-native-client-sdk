@@ -1,18 +1,15 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-client-sdk';
+import { StyleSheet, View, Button, TextInput, Text } from 'react-native';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>Room name</Text>
+      <TextInput style={styles.input} />
+      <Text>Username</Text>
+      <TextInput style={styles.input} />
+      <Button title="Connect" />
     </View>
   );
 }
@@ -23,9 +20,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  input: {
+    height: 40,
+    width: 150,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 30,
+    margin: 20,
   },
 });
