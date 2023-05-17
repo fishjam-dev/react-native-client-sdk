@@ -5,7 +5,7 @@ Jellyfish client SDK in React Native
 ## Installation
 
 ```sh
-npm install react-native-client-sdk
+npm install @jellyfish-dev/react-native-client-sdk
 ```
 
 ## Docs
@@ -13,14 +13,6 @@ npm install react-native-client-sdk
 API documentation is available [here](https://jellyfish-dev.github.io/react-native-client-sdk/)
 
 ## Usage
-
-```js
-import { multiply } from 'react-native-client-sdk';
-
-// ...
-
-const result = await multiply(3, 7);
-```
 
 ## Contributing
 
