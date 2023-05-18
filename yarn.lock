@@ -7864,6 +7864,11 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+phoenix@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/phoenix/-/phoenix-1.7.2.tgz#7bee9d5dd6dc3a8b30b94bb5e058375a4063a931"
+  integrity sha512-jwWDOsUNEQZkLNSwzfLJ6AMFUkyZ+ILU+NkBBtoAK020QPpV/dYEQHGMQoFScj89MFjJlLdkE1W97i8S+4FdGg==
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
