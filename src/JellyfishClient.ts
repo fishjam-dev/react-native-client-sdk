@@ -25,17 +25,12 @@ export class JellyfishClient {
 
     this.websocket.addEventListener('open', () => {
       console.log('OPEN');
-      // this.emit('onSocketOpen', event);
     });
-    this.websocket.addEventListener('error', (event) => {
+    this.websocket.addEventListener('error', () => {
       console.log('error');
-
-      // this.emit('onSocketError', event);
     });
-    this.websocket.addEventListener('close', (event) => {
+    this.websocket.addEventListener('close', () => {
       console.log('close');
-
-      // this.emit('onSocketClose', event);
     });
 
     this.websocket.addEventListener('open', () => {

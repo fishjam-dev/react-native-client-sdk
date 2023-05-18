@@ -5,10 +5,10 @@
  * @format
  */
 const exclusionList = require('metro-config/src/defaults/exclusionList');
-const pak = require('../../package.json');
+const pak = require('../package.json');
 const path = require('path');
 
-const root = path.resolve(__dirname, '../..');
+const root = path.resolve(__dirname, '..');
 
 const modules = Object.keys({
   ...pak.peerDependencies,

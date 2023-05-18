@@ -9,7 +9,6 @@ import React, {useRef} from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   useColorScheme,
   View,
   Button,
@@ -26,7 +25,7 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const client = useRef(null);
+  const client = useRef<JellyfishClient | null>(null);
 
   const connect = () => {
     client.current = new JellyfishClient();
@@ -35,7 +34,6 @@ function App(): JSX.Element {
 
   const disconnect = () => {
     if (client.current) {
-      console.log('cleanup');
       client.current.cleanUp();
     }
   };
@@ -49,31 +47,12 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Button title="Connect" onPress={connect}></Button>
-          <Button title="Disconnect" onPress={disconnect}></Button>
+          <Button title="Connect" onPress={connect} />
+          <Button title="Disconnect" onPress={disconnect} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

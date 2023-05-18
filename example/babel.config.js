@@ -5,7 +5,7 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          '@jellyfish-dev/react-native-client-sdk': '../..',
+          '@jellyfish-dev/react-native-client-sdk': '..',
         },
       },
     ],
