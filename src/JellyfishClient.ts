@@ -1,5 +1,12 @@
+import { ConnectionOptions } from '@jellyfish-dev/react-native-membrane-webrtc';
 import { useEffect, useRef } from 'react';
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
+
+const LINKING_ERROR =
+  `The package 'react-native-membrane' doesn't seem to be linked. Make sure: \n\n` +
+  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  '- You rebuilt the app after installing the package\n' +
+  '- You are not using Expo managed workflow\n';
 
 const Membrane = NativeModules.Membrane
   ? NativeModules.Membrane
@@ -7,7 +14,7 @@ const Membrane = NativeModules.Membrane
       {},
       {
         get() {
-          throw new Error('LINKING_ERROR');
+          throw new Error(LINKING_ERROR);
         },
       }
     );
@@ -15,11 +22,6 @@ const Membrane = NativeModules.Membrane
 const eventEmitter = new NativeEventEmitter(Membrane);
 
 export function useJellyfishClient() {
-  const connectionOptions = {
-    token: '',
-    peerMetadata: { name: 'Bob' },
-    isSimulcastOn: false,
-  };
   const websocket = useRef<WebSocket | null>(null);
 
   const sendMediaEvent = (mediaEvent: string) => {
@@ -27,9 +29,7 @@ export function useJellyfishClient() {
       type: 'mediaEvent',
       data: mediaEvent,
     };
-
-    const message = JSON.stringify(messageJS);
-    websocket.current?.send(message);
+    websocket.current?.send(JSON.stringify(messageJS));
   };
 
   useEffect(() => {
@@ -40,7 +40,11 @@ export function useJellyfishClient() {
     return () => eventListener.remove();
   }, []);
 
-  const connect = async (url: string, peerToken: string) => {
+  const connect = async (
+    url: string,
+    peerToken: string,
+    connectionOptions: Partial<ConnectionOptions>
+  ) => {
     websocket.current = new WebSocket(url);
 
     websocket.current.addEventListener('open', () => {
@@ -81,7 +85,7 @@ export function useJellyfishClient() {
 
     websocket.current.addEventListener('open', async () => {
       await Membrane.create(url, connectionOptions);
-      await Membrane.join({ name: 'Bob' });
+      await Membrane.join();
     });
   };
 
