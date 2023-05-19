@@ -5,7 +5,7 @@ import {
   VideoRendererView,
   useRoomParticipants,
 } from '@jellyfish-dev/react-native-client-sdk';
-console.log('ROOM 1 ', useRoomParticipants);
+
 export const Room = () => {
   const participants = useRoomParticipants();
 
@@ -15,11 +15,14 @@ export const Room = () => {
         <View style={styles.participants}>
           {participants.map(p => {
             return p.tracks.find(t => t.type === 'Video')?.id ? (
-              <VideoRendererView
-                trackId={p.tracks.find(t => t.type === 'Video')!!.id}
-                style={styles.video}
-                key={p.tracks.find(t => t.type === 'Video')!!.id}
-              />
+              <View style={styles.videoContainer}>
+                {/* @ts-ignore */}
+                <VideoRendererView
+                  trackId={p.tracks.find(t => t.type === 'Video')!!.id}
+                  style={styles.video}
+                  key={p.tracks.find(t => t.type === 'Video')!!.id}
+                />
+              </View>
             ) : null;
           })}
         </View>
@@ -30,10 +33,7 @@ export const Room = () => {
 
 const styles = StyleSheet.create({
   video: {
-    width: 150,
-    height: 150,
-    backgroundColor: 'red',
-    margin: 10,
+    flex: 1,
   },
   participants: {
     flex: 1,
@@ -41,5 +41,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  videoContainer: {
+    width: 150,
+    height: 150,
+    margin: 10,
+    backgroundColor: 'grey',
   },
 });

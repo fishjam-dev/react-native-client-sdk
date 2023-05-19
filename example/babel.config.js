@@ -1,11 +1,15 @@
+const pak = require('../package.json');
+const path = require('path');
+
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     [
       'module-resolver',
       {
+        root: ['.'],
         alias: {
-          '@jellyfish-dev/react-native-client-sdk': '..',
+          [pak.name]: path.join(__dirname, '..', 'src/index.tsx'),
         },
       },
     ],

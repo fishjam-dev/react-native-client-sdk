@@ -29,7 +29,6 @@ export function useJellyfishClient() {
     };
 
     const message = JSON.stringify(messageJS);
-    console.log('SEND MEDIA EVENT', message);
     websocket.current?.send(message);
   };
 
@@ -45,13 +44,13 @@ export function useJellyfishClient() {
     websocket.current = new WebSocket(url);
 
     websocket.current.addEventListener('open', () => {
-      console.log('OPEN');
+      console.log('open');
     });
     websocket.current.addEventListener('error', (err) => {
       console.log('error', err);
     });
-    websocket.current.addEventListener('close', (ev) => {
-      console.log('close', ev);
+    websocket.current.addEventListener('close', (event) => {
+      console.log('close', event);
     });
 
     websocket.current.addEventListener('open', () => {
@@ -64,7 +63,6 @@ export function useJellyfishClient() {
           },
         })
       );
-      console.log('SEND');
     });
 
     websocket.current.addEventListener('message', (event) => {
@@ -72,13 +70,11 @@ export function useJellyfishClient() {
 
       if (data.type === 'controlMessage') {
         if (data.data.type === 'authenticated') {
-          console.log('auth good');
+          console.log('authenticated');
         } else if (data.data.type === 'unauthenticated') {
-          console.log('auth error');
+          console.log('authentication error');
         }
       } else {
-        console.log('INNE', data);
-
         Membrane.receiveMediaEvent(data.data);
       }
     });

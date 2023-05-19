@@ -5,35 +5,58 @@
  * @format
  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   Button,
   TextInput,
   StyleSheet,
+  PermissionsAndroid,
+  Platform,
+  View,
 } from 'react-native';
 
-import {
-  useJellyfishClient,
-  useRoomParticipants,
-} from '@jellyfish-dev/react-native-client-sdk';
-console.log('APP 1 ', useRoomParticipants);
+import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Room} from './src/Room';
-console.log('APP 2 ', useRoomParticipants);
 import {JELLYFISH_URL} from '@env';
 
 function App(): JSX.Element {
   const {connect, cleanUp} = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('Peer token');
-  const part = useRoomParticipants();
+
+  useEffect(() => {
+    async function request() {
+      if (Platform.OS === 'ios') {
+        return;
+      }
+      try {
+        const granted = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+        ]);
+        if (
+          granted[PermissionsAndroid.PERMISSIONS.CAMERA] ===
+            PermissionsAndroid.RESULTS.GRANTED &&
+          granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO] ===
+            PermissionsAndroid.RESULTS.GRANTED
+        ) {
+          console.log('You can use the camera');
+        } else {
+          console.log('Camera permission denied');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+
+    request();
+  }, []);
 
   const connectToRoom = () => {
     connect(JELLYFISH_URL, peerToken);
     setIsConnected(true);
-    console.log('app', part);
   };
 
   const disconnect = async () => {
@@ -42,31 +65,51 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangePeerToken}
-          value={peerToken}
-        />
-        {isConnected ? (
-          <Button title="Disconnect" onPress={disconnect} />
-        ) : (
-          <Button title="Connect" onPress={connectToRoom} />
-        )}
+    <View style={styles.app}>
+      {isConnected ? (
+        <Button title="Disconnect" onPress={disconnect} />
+      ) : (
+        <View style={styles.noCallBody}>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangePeerToken}
+            value={peerToken}
+          />
+          <View style={styles.button}>
+            <Button title="Connect" onPress={connectToRoom} />
+          </View>
+        </View>
+      )}
 
-        {isConnected && <Room />}
-      </ScrollView>
-    </SafeAreaView>
+      {isConnected && (
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <Room />
+        </ScrollView>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  app: {
+    flex: 1,
+    backgroundColor: '#BFE7F8',
+  },
+  noCallBody: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   input: {
     alignSelf: 'center',
     width: 200,
     height: 50,
     borderWidth: 1,
+  },
+  button: {
+    alignSelf: 'center',
+    width: 150,
+    margin: 15,
   },
 });
 
