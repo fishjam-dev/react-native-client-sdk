@@ -159,5 +159,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc#jellyfish"
   }
 }

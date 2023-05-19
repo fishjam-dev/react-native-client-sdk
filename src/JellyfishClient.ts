@@ -1,4 +1,21 @@
-import { NativeModules } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { NativeModules, NativeEventEmitter } from 'react-native';
+export {
+  useRoomParticipants,
+  useAudioSettings,
+  useAudioTrackMetadata,
+  useCameraState,
+  useMicrophoneState,
+  useScreencast,
+  useVideoTrackMetadata,
+  useSimulcast,
+  useBandwidthEstimation,
+  useBandwidthLimit,
+  useRTCStatistics,
+  changeWebRTCLoggingSeverity,
+  VideoRendererView,
+  VideoPreviewView,
+} from '@jellyfish-dev/react-native-membrane-webrtc';
 
 const Membrane = NativeModules.Membrane
   ? NativeModules.Membrane
@@ -11,43 +28,64 @@ const Membrane = NativeModules.Membrane
       }
     );
 
-export class JellyfishClient {
-  url = 'ws://localhost:4000/socket/peer/websocket';
-  connectionOptions = {
+const eventEmitter = new NativeEventEmitter(Membrane);
+
+export function useJellyfishClient() {
+  const url = 'ws://192.168.83.221:4000/socket/peer/websocket';
+  const connectionOptions = {
     token: '',
     peerMetadata: { name: 'Bob' },
     isSimulcastOn: false,
   };
-  websocket: WebSocket | null = null;
+  const websocket = useRef<WebSocket | null>(null);
 
-  connect = async () => {
-    this.websocket = new WebSocket(this.url);
+  const sendMediaEvent = (mediaEvent: string) => {
+    const messageJS = {
+      type: 'mediaEvent',
+      data: mediaEvent,
+    };
 
-    this.websocket.addEventListener('open', () => {
+    const message = JSON.stringify(messageJS);
+    console.log('SEND MEDIA EVENT', message);
+    websocket.current?.send(message);
+  };
+
+  useEffect(() => {
+    const eventListener = eventEmitter.addListener(
+      'SendMediaEvent',
+      sendMediaEvent
+    );
+    return () => eventListener.remove();
+  }, []);
+
+  const connect = async () => {
+    websocket.current = new WebSocket(url);
+
+    websocket.current.addEventListener('open', () => {
       console.log('OPEN');
     });
-    this.websocket.addEventListener('error', () => {
-      console.log('error');
+    websocket.current.addEventListener('error', (err) => {
+      console.log('error', err);
     });
-    this.websocket.addEventListener('close', () => {
-      console.log('close');
+    websocket.current.addEventListener('close', (ev) => {
+      console.log('close', ev);
     });
 
-    this.websocket.addEventListener('open', () => {
-      this.websocket?.send(
+    websocket.current.addEventListener('open', () => {
+      websocket.current?.send(
         JSON.stringify({
           type: 'controlMessage',
           data: {
             type: 'authRequest',
             token:
-              'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACRiNzkwYzY2MC0xZTZhLTQ5NjctODIxZi02ZDQyNzE5ZGJiZjdkAAdyb29tX2lkbQAAACQ3ZThmM2RhYS1hOGIzLTQ1MDUtYTZiNC1iNWVmYmIwMDg1NjduBgAciwkuiAFiAAFRgA.o1W2fTWF_vd5O6xw70KxBr4fMyWe9GB6uYavoQxjbBs',
+              'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACQ5MGQ3M2FmZS05YzEwLTQ5MWQtYmI2ZS1jZTU0MmVmZTFjZDlkAAdyb29tX2lkbQAAACQ0N2VjZjg3Yy0wZjQ2LTRjZjItYTI5Yi1hOWI3ZjNiYzNmOGFuBgD5ajEziAFiAAFRgA.VmcdQQs4UDB6e3tPIX4m_Tvm2OsKg_3exwlpiofKkVQ',
           },
         })
       );
       console.log('SEND');
     });
 
-    this.websocket.addEventListener('message', (event) => {
+    websocket.current.addEventListener('message', (event) => {
       const data = JSON.parse(event.data);
 
       if (data.type === 'controlMessage') {
@@ -57,20 +95,24 @@ export class JellyfishClient {
           console.log('auth error');
         }
       } else {
+        console.log(data);
+
         Membrane.receiveMediaEvent(event.data);
       }
     });
 
-    await Membrane.create(this.url, this.connectionOptions);
-    this.websocket.addEventListener('open', async () => {
+    websocket.current.addEventListener('open', async () => {
+      await Membrane.create(url, connectionOptions);
       await Membrane.join({ name: 'Bob' });
     });
   };
 
-  cleanUp() {
+  const cleanUp = () => {
     Membrane.disconnect();
-    this.websocket?.close();
-    this.websocket = null;
+    websocket.current?.close();
+    websocket.current = null;
     console.log('onDisconnected');
-  }
+  };
+
+  return { connect, cleanUp };
 }

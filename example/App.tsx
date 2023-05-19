@@ -5,16 +5,22 @@
  * @format
  */
 
-import React, {useRef} from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
   useColorScheme,
   View,
   Button,
+  StyleSheet,
 } from 'react-native';
 
-import {JellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  useJellyfishClient,
+  VideoPreviewView,
+  useRoomParticipants,
+  VideoRendererView,
+} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -25,17 +31,20 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const client = useRef<JellyfishClient | null>(null);
+  const {connect, cleanUp} = useJellyfishClient();
+  const participants = useRoomParticipants();
 
-  const connect = () => {
-    client.current = new JellyfishClient();
-    client.current.connect();
+  const disconnect = async () => {
+    cleanUp();
   };
-
-  const disconnect = () => {
-    if (client.current) {
-      client.current.cleanUp();
-    }
+  const debug = () => {
+    console.log('xD');
+    console.log(participants);
+    console.log('xD');
+    console.log(
+      'TRACKS',
+      participants.map(p => p.tracks),
+    );
   };
 
   return (
@@ -49,10 +58,28 @@ function App(): JSX.Element {
           }}>
           <Button title="Connect" onPress={connect} />
           <Button title="Disconnect" onPress={disconnect} />
+          <Button title="part" onPress={debug} />
         </View>
+        {/* <VideoPreviewView style={styles.preview} /> */}
+        {participants.map(p => {
+          return (
+            <VideoRendererView
+              trackId={p.tracks.find(t => t.type === 'Video')}
+              style={styles.preview}
+            />
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  preview: {
+    width: 200,
+    height: 200,
+    backgroundColor: 'red',
+  },
+});
 
 export default App;
