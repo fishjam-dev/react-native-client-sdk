@@ -5,80 +5,68 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  useColorScheme,
-  View,
   Button,
+  TextInput,
   StyleSheet,
 } from 'react-native';
 
 import {
   useJellyfishClient,
-  VideoPreviewView,
   useRoomParticipants,
-  VideoRendererView,
 } from '@jellyfish-dev/react-native-client-sdk';
+console.log('APP 1 ', useRoomParticipants);
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Room} from './src/Room';
+console.log('APP 2 ', useRoomParticipants);
+import {JELLYFISH_URL} from '@env';
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   const {connect, cleanUp} = useJellyfishClient();
-  const participants = useRoomParticipants();
+  const [isConnected, setIsConnected] = useState(false);
+  const [peerToken, onChangePeerToken] = React.useState('Peer token');
+  const part = useRoomParticipants();
+
+  const connectToRoom = () => {
+    connect(JELLYFISH_URL, peerToken);
+    setIsConnected(true);
+    console.log('app', part);
+  };
 
   const disconnect = async () => {
     cleanUp();
-  };
-  const debug = () => {
-    console.log('xD');
-    console.log(participants);
-    console.log('xD');
-    console.log(
-      'TRACKS',
-      participants.map(p => p.tracks),
-    );
+    setIsConnected(false);
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Button title="Connect" onPress={connect} />
+    <SafeAreaView>
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangePeerToken}
+          value={peerToken}
+        />
+        {isConnected ? (
           <Button title="Disconnect" onPress={disconnect} />
-          <Button title="part" onPress={debug} />
-        </View>
-        {/* <VideoPreviewView style={styles.preview} /> */}
-        {participants.map(p => {
-          return (
-            <VideoRendererView
-              trackId={p.tracks.find(t => t.type === 'Video')}
-              style={styles.preview}
-            />
-          );
-        })}
+        ) : (
+          <Button title="Connect" onPress={connectToRoom} />
+        )}
+
+        {isConnected && <Room />}
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  preview: {
+  input: {
+    alignSelf: 'center',
     width: 200,
-    height: 200,
-    backgroundColor: 'red',
+    height: 50,
+    borderWidth: 1,
   },
 });
 

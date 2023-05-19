@@ -1,21 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { NativeModules, NativeEventEmitter } from 'react-native';
-export {
-  useRoomParticipants,
-  useAudioSettings,
-  useAudioTrackMetadata,
-  useCameraState,
-  useMicrophoneState,
-  useScreencast,
-  useVideoTrackMetadata,
-  useSimulcast,
-  useBandwidthEstimation,
-  useBandwidthLimit,
-  useRTCStatistics,
-  changeWebRTCLoggingSeverity,
-  VideoRendererView,
-  VideoPreviewView,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
 
 const Membrane = NativeModules.Membrane
   ? NativeModules.Membrane
@@ -31,7 +15,6 @@ const Membrane = NativeModules.Membrane
 const eventEmitter = new NativeEventEmitter(Membrane);
 
 export function useJellyfishClient() {
-  const url = 'ws://192.168.83.221:4000/socket/peer/websocket';
   const connectionOptions = {
     token: '',
     peerMetadata: { name: 'Bob' },
@@ -58,7 +41,7 @@ export function useJellyfishClient() {
     return () => eventListener.remove();
   }, []);
 
-  const connect = async () => {
+  const connect = async (url: string, peerToken: string) => {
     websocket.current = new WebSocket(url);
 
     websocket.current.addEventListener('open', () => {
@@ -77,8 +60,7 @@ export function useJellyfishClient() {
           type: 'controlMessage',
           data: {
             type: 'authRequest',
-            token:
-              'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACQ5MGQ3M2FmZS05YzEwLTQ5MWQtYmI2ZS1jZTU0MmVmZTFjZDlkAAdyb29tX2lkbQAAACQ0N2VjZjg3Yy0wZjQ2LTRjZjItYTI5Yi1hOWI3ZjNiYzNmOGFuBgD5ajEziAFiAAFRgA.VmcdQQs4UDB6e3tPIX4m_Tvm2OsKg_3exwlpiofKkVQ',
+            token: peerToken,
           },
         })
       );
@@ -95,9 +77,9 @@ export function useJellyfishClient() {
           console.log('auth error');
         }
       } else {
-        console.log(data);
+        console.log('INNE', data);
 
-        Membrane.receiveMediaEvent(event.data);
+        Membrane.receiveMediaEvent(data.data);
       }
     });
 
