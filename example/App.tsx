@@ -14,6 +14,7 @@ import {
   PermissionsAndroid,
   Platform,
   View,
+  Permission,
 } from 'react-native';
 
 import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
@@ -33,13 +34,13 @@ function App(): JSX.Element {
       }
       try {
         const granted = await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+          PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
         ]);
         if (
-          granted[PermissionsAndroid.PERMISSIONS.CAMERA] ===
+          granted[PermissionsAndroid.PERMISSIONS.CAMERA as Permission] ===
             PermissionsAndroid.RESULTS.GRANTED &&
-          granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO] ===
+          granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission] ===
             PermissionsAndroid.RESULTS.GRANTED
         ) {
           console.log('You can use the camera');
@@ -55,9 +56,13 @@ function App(): JSX.Element {
   }, []);
 
   const connectToRoom = async () => {
-    await connect(JELLYFISH_URL, peerToken);
-    setIsConnected(true);
-    await join({name: 'RN mobile'});
+    try {
+      await connect(JELLYFISH_URL, peerToken);
+      setIsConnected(true);
+      await join({name: 'RN mobile'});
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const disconnect = async () => {

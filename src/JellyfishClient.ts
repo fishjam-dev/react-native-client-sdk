@@ -50,11 +50,6 @@ export function useJellyfishClient() {
     return () => eventListener.remove();
   }, []);
 
-  useEffect(() => {
-    const eventListener = eventEmitter.addListener('MembraneError', setError);
-    return () => eventListener.remove();
-  }, []);
-
   /**
    * Connects to the server using the websocket connection.
    *
@@ -70,36 +65,41 @@ export function useJellyfishClient() {
     setError(null);
     websocket.current = new WebSocket(url);
 
-    websocket.current.addEventListener('open', () => {
-      console.log('WebSocket was opened');
-    });
-    websocket.current.addEventListener('error', (err) => {
-      console.error('WebSocket error occured', err);
-      setError(err.message);
-    });
-    websocket.current.addEventListener('close', () => {
-      console.log('WebSocket was closed');
-    });
+    const processIncomingMessages = new Promise<void>((resolve, reject) => {
+      websocket.current?.addEventListener('open', () => {
+        console.log('WebSocket was opened');
+      });
 
-    websocket.current.addEventListener('open', () => {
-      websocket.current?.send(
-        JSON.stringify({
-          type: 'controlMessage',
-          data: {
-            type: 'authRequest',
-            token: peerToken,
-          },
-        })
-      );
-    });
+      websocket.current?.addEventListener('close', (event) => {
+        if (event.code !== 1000) {
+          reject(new Error('WebSocket was closed.'));
+        }
+        console.log('WebSocket was closed.');
+      });
 
-    const processIncomingMessages = new Promise((resolve, reject) => {
+      websocket.current?.addEventListener('error', (err) => {
+        console.error('WebSocket error occured', err);
+        setError(err.message);
+      });
+
+      websocket.current?.addEventListener('open', () => {
+        websocket.current?.send(
+          JSON.stringify({
+            type: 'controlMessage',
+            data: {
+              type: 'authRequest',
+              token: peerToken,
+            },
+          })
+        );
+      });
+
       websocket.current?.addEventListener('message', (event) => {
         const data = JSON.parse(event.data);
 
         if (data.type === 'controlMessage') {
           if (data.data.type === 'authenticated') {
-            resolve(true);
+            resolve();
           } else if (data.data.type === 'unauthenticated') {
             reject(new Error('Authentication failed'));
           }
