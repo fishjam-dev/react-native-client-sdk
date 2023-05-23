@@ -47,7 +47,7 @@ export function useJellyfishClient() {
   }, []);
 
   /**
-   * Connects to the server using the websocket connection
+   * Connects to the server using the websocket connection.
    *
    * @param url - websocket url
    * @param peerToken - token used to authenticate when joining the room
@@ -56,7 +56,7 @@ export function useJellyfishClient() {
   const connect = async (
     url: string,
     peerToken: string,
-    connectionOptions?: Partial<ConnectionOptions>
+    connectionOptions: Partial<ConnectionOptions> = {}
   ) => {
     websocket.current = new WebSocket(url);
 
@@ -100,10 +100,10 @@ export function useJellyfishClient() {
   };
 
   /**
-   * Tries to join the room. If user is accepted then {@link JellyfishClient.onJoinSuccess} will be called.
-   * In other case {@link JellyfishClient.onJoinError} is invoked.
+   * Tries to join the room. If user is accepted then onJoinSuccess will be called.
+   * In other case onJoinError is invoked.
    * @param peerMetadata - Any information that other peers will receive in onPeerJoined
-   * after accepting this peer
+   * after accepting this peer.
    */
   const join = async (peerMetadata: Metadata = {}) => {
     await Membrane.join(peerMetadata);
@@ -123,7 +123,7 @@ export function useJellyfishClient() {
   /**
    * Leaves the room. This function should be called when user leaves the room in a clean way e.g. by clicking a
    * dedicated, custom button `disconnect`. As a result there will be generated one more media event that should be sent
-   * to the RTC Engine. Thanks to it each other peer will be notified that peer left in {@link MessageEvents.onPeerLeft},
+   * to the RTC Engine. Thanks to it each other peer will be notified that peer left in MessageEvents.onPeerLeft.
    */
   const leave = () => {
     Membrane.disconnect();
