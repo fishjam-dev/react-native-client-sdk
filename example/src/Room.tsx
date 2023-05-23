@@ -18,7 +18,6 @@ export const Room = () => {
               <View
                 style={styles.videoContainer}
                 key={p.tracks.find(t => t.type === 'Video')!!.id}>
-                {/* @ts-ignore */}
                 <VideoRendererView
                   trackId={p.tracks.find(t => t.type === 'Video')!!.id}
                   style={styles.video}
