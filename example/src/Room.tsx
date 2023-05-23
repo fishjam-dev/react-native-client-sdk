@@ -14,15 +14,11 @@ export const Room = () => {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.participants}>
           {participants.map(p => {
-            return p.tracks.find(t => t.type === 'Video')?.id ? (
-              <View
-                style={styles.videoContainer}
-                key={p.tracks.find(t => t.type === 'Video')!!.id}>
+            const trackId = p.tracks.find(t => t.type === 'Video')?.id;
+            return trackId ? (
+              <View style={styles.videoContainer} key={trackId}>
                 {/* @ts-ignore */}
-                <VideoRendererView
-                  trackId={p.tracks.find(t => t.type === 'Video')!!.id}
-                  style={styles.video}
-                />
+                <VideoRendererView trackId={trackId} style={styles.video} />
               </View>
             ) : null;
           })}

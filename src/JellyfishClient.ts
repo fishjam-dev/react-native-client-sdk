@@ -2,7 +2,7 @@ import {
   Metadata,
   ConnectionOptions,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
 const LINKING_ERROR =
@@ -28,6 +28,7 @@ const eventEmitter = new NativeEventEmitter(Membrane);
  * A hook used to interact with jellyfish server.
  */
 export function useJellyfishClient() {
+  const [error, setError] = useState<string | null>(null);
   const websocket = useRef<WebSocket | null>(null);
 
   const sendMediaEvent = (mediaEvent: string) => {
@@ -49,6 +50,11 @@ export function useJellyfishClient() {
     return () => eventListener.remove();
   }, []);
 
+  useEffect(() => {
+    const eventListener = eventEmitter.addListener('MembraneError', setError);
+    return () => eventListener.remove();
+  }, []);
+
   /**
    * Connects to the server using the websocket connection.
    *
@@ -61,16 +67,18 @@ export function useJellyfishClient() {
     peerToken: string,
     connectionOptions: Partial<ConnectionOptions> = {}
   ) => {
+    setError(null);
     websocket.current = new WebSocket(url);
 
     websocket.current.addEventListener('open', () => {
-      console.log('open');
+      console.log('WebSocket was opened');
     });
     websocket.current.addEventListener('error', (err) => {
-      console.log('error', err);
+      console.error('WebSocket error occured', err);
+      setError(err.message);
     });
-    websocket.current.addEventListener('close', (event) => {
-      console.log('close', event);
+    websocket.current.addEventListener('close', () => {
+      console.log('WebSocket was closed');
     });
 
     websocket.current.addEventListener('open', () => {
@@ -85,20 +93,23 @@ export function useJellyfishClient() {
       );
     });
 
-    websocket.current.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data);
+    const processIncomingMessages = new Promise((resolve, reject) => {
+      websocket.current?.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data);
 
-      if (data.type === 'controlMessage') {
-        if (data.data.type === 'authenticated') {
-          console.log('authenticated');
-        } else if (data.data.type === 'unauthenticated') {
-          console.log('authentication error');
+        if (data.type === 'controlMessage') {
+          if (data.data.type === 'authenticated') {
+            resolve(true);
+          } else if (data.data.type === 'unauthenticated') {
+            reject(new Error('Authentication failed'));
+          }
+        } else {
+          Membrane.receiveMediaEvent(data.data);
         }
-      } else {
-        Membrane.receiveMediaEvent(data.data);
-      }
+      });
     });
 
+    await processIncomingMessages;
     await Membrane.create(url, connectionOptions);
   };
 
@@ -109,6 +120,7 @@ export function useJellyfishClient() {
    * after accepting this peer.
    */
   const join = async (peerMetadata: Metadata = {}) => {
+    setError(null);
     await Membrane.join(peerMetadata);
   };
 
@@ -117,6 +129,7 @@ export function useJellyfishClient() {
    * it will close the websocket anyway.
    */
   const cleanUp = () => {
+    setError(null);
     Membrane.disconnect();
     websocket.current?.close();
     websocket.current = null;
@@ -128,8 +141,9 @@ export function useJellyfishClient() {
    * to the RTC Engine. Thanks to it each other peer will be notified that peer left in MessageEvents.onPeerLeft.
    */
   const leave = () => {
+    setError(null);
     Membrane.disconnect();
   };
 
-  return { connect, join, cleanUp, leave };
+  return { connect, join, cleanUp, leave, error };
 }
