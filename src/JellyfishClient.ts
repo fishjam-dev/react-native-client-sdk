@@ -1,4 +1,7 @@
-import { ConnectionOptions } from '@jellyfish-dev/react-native-membrane-webrtc';
+import {
+  Metadata,
+  ConnectionOptions,
+} from '@jellyfish-dev/react-native-membrane-webrtc';
 import { useEffect, useRef } from 'react';
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
@@ -21,6 +24,9 @@ const Membrane = NativeModules.Membrane
 
 const eventEmitter = new NativeEventEmitter(Membrane);
 
+/**
+ * A hook used to interact with jellyfish server.
+ */
 export function useJellyfishClient() {
   const websocket = useRef<WebSocket | null>(null);
 
@@ -40,10 +46,17 @@ export function useJellyfishClient() {
     return () => eventListener.remove();
   }, []);
 
+  /**
+   * Connects to the server using the websocket connection
+   *
+   * @param url - websocket url
+   * @param peerToken - token used to authenticate when joining the room
+   * @param connectionOptions - Configuration object for the connection
+   */
   const connect = async (
     url: string,
     peerToken: string,
-    connectionOptions: Partial<ConnectionOptions>
+    connectionOptions?: Partial<ConnectionOptions>
   ) => {
     websocket.current = new WebSocket(url);
 
@@ -83,12 +96,23 @@ export function useJellyfishClient() {
       }
     });
 
-    websocket.current.addEventListener('open', async () => {
-      await Membrane.create(url, connectionOptions);
-      await Membrane.join();
-    });
+    await Membrane.create(url, connectionOptions);
   };
 
+  /**
+   * Tries to join the room. If user is accepted then {@link JellyfishClient.onJoinSuccess} will be called.
+   * In other case {@link JellyfishClient.onJoinError} is invoked.
+   * @param peerMetadata - Any information that other peers will receive in onPeerJoined
+   * after accepting this peer
+   */
+  const join = async (peerMetadata: Metadata = {}) => {
+    await Membrane.join(peerMetadata);
+  };
+
+  /**
+   * Disconnect from the room, and close the websocket connection. Tries to leave the room gracefully, but if it fails,
+   * it will close the websocket anyway.
+   */
   const cleanUp = () => {
     Membrane.disconnect();
     websocket.current?.close();
@@ -96,5 +120,14 @@ export function useJellyfishClient() {
     console.log('onDisconnected');
   };
 
-  return { connect, cleanUp };
+  /**
+   * Leaves the room. This function should be called when user leaves the room in a clean way e.g. by clicking a
+   * dedicated, custom button `disconnect`. As a result there will be generated one more media event that should be sent
+   * to the RTC Engine. Thanks to it each other peer will be notified that peer left in {@link MessageEvents.onPeerLeft},
+   */
+  const leave = () => {
+    Membrane.disconnect();
+  };
+
+  return { connect, join, cleanUp, leave };
 }

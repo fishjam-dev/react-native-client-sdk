@@ -5,6 +5,8 @@
  * @format
  */
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import React, {useState, useEffect} from 'react';
 import {
   ScrollView,
@@ -22,7 +24,7 @@ import {Room} from './src/Room';
 import {JELLYFISH_URL} from '@env';
 
 function App(): JSX.Element {
-  const {connect, cleanUp} = useJellyfishClient();
+  const {connect, join, cleanUp} = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('Peer token');
 
@@ -54,9 +56,14 @@ function App(): JSX.Element {
     request();
   }, []);
 
-  const connectToRoom = () => {
-    connect(JELLYFISH_URL, peerToken);
+  const connectToRoom = async () => {
+    await connect(
+      JELLYFISH_URL,
+      'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACRkOWRjYWUxNS02YWY4LTRkNmMtYjU1Ny04ZDE5OGM5OGY2ZjdkAAdyb29tX2lkbQAAACQzMzFhZjdkMS00YWM1LTQ5ODUtOWJhZS1lODcwOTI0ZjFhYjluBgDhcVtHiAFiAAFRgA.SeABKMGYGm0Sqw7r1MjtVmu2MPHUf10ATUN0M8OF9ZY',
+      {},
+    );
     setIsConnected(true);
+    await join({name: 'RN mobile'});
   };
 
   const disconnect = async () => {
@@ -67,7 +74,9 @@ function App(): JSX.Element {
   return (
     <View style={styles.app}>
       {isConnected ? (
-        <Button title="Disconnect" onPress={disconnect} />
+        <View style={[styles.button, styles.disconnectButton]}>
+          <Button title="Disconnect" onPress={disconnect} />
+        </View>
       ) : (
         <View style={styles.noCallBody}>
           <TextInput
@@ -110,6 +119,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 150,
     margin: 15,
+  },
+  disconnectButton: {
+    marginTop: 30,
   },
 });
 
