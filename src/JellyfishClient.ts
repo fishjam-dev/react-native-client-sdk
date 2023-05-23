@@ -31,6 +31,9 @@ export function useJellyfishClient() {
   const websocket = useRef<WebSocket | null>(null);
 
   const sendMediaEvent = (mediaEvent: string) => {
+    if (websocket.current?.readyState !== WebSocket.OPEN) {
+      return;
+    }
     const messageJS = {
       type: 'mediaEvent',
       data: mediaEvent,
@@ -117,7 +120,6 @@ export function useJellyfishClient() {
     Membrane.disconnect();
     websocket.current?.close();
     websocket.current = null;
-    console.log('onDisconnected');
   };
 
   /**
