@@ -57,10 +57,7 @@ function App(): JSX.Element {
   }, []);
 
   const connectToRoom = async () => {
-    await connect(
-      JELLYFISH_URL,
-      'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACRlMWMxYjEzMC1hMzNkLTQ3YTAtYWEyOS04YTY5ZDlkMmQxYjJkAAdyb29tX2lkbQAAACRiOGY5NWM5ZC1kMzUyLTRlN2EtYjA4My1hOTRhYmI2ZWEyNGVuBgDjtxhIiAFiAAFRgA.6zM6nEyYRbElh7hU0mXFkao8U0QFQCKvoF1lfr6UwSg',
-    );
+    await connect(JELLYFISH_URL, peerToken);
     setIsConnected(true);
     await join({name: 'RN mobile'});
   };
