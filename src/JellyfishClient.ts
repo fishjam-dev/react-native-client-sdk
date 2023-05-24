@@ -4,6 +4,7 @@ import {
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 import { useEffect, useRef, useState } from 'react';
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
+import { PeerMessage } from './protos/jellyfish/peer_notifications';
 
 const LINKING_ERROR =
   `The package 'react-native-membrane' doesn't seem to be linked. Make sure: \n\n` +
@@ -24,10 +25,6 @@ const Membrane = NativeModules.Membrane
 
 const eventEmitter = new NativeEventEmitter(Membrane);
 
-const generateMessage = (event: WebSocketCloseEvent) => {
-  return [event.message, event.code, event.reason].join(' ');
-};
-
 /**
  * A hook used to interact with jellyfish server.
  */
@@ -39,11 +36,11 @@ export function useJellyfishClient() {
     if (websocket.current?.readyState !== WebSocket.OPEN) {
       return;
     }
-    const messageJS = {
-      type: 'mediaEvent',
-      data: mediaEvent,
-    };
-    websocket.current?.send(JSON.stringify(messageJS));
+    const message = PeerMessage.encode({
+      mediaEvent: { data: mediaEvent },
+    }).finish();
+
+    websocket.current?.send(message);
   };
 
   useEffect(() => {
@@ -71,13 +68,13 @@ export function useJellyfishClient() {
 
     const processIncomingMessages = new Promise<void>((resolve, reject) => {
       websocket.current?.addEventListener('open', () => {
-        console.log('WebSocket was opened.');
+        console.log('WebSocket was opened');
       });
 
       websocket.current?.addEventListener('close', (event) => {
-        if (event.code !== 1000 || event.isTrusted === false) {
-          setError(generateMessage(event));
+        if (event.code !== 1000) {
           reject(new Error('WebSocket was closed.'));
+          setError(event.message ?? '');
         }
         console.log('WebSocket was closed.');
       });
@@ -88,28 +85,25 @@ export function useJellyfishClient() {
       });
 
       websocket.current?.addEventListener('open', () => {
-        websocket.current?.send(
-          JSON.stringify({
-            type: 'controlMessage',
-            data: {
-              type: 'authRequest',
-              token: peerToken,
-            },
-          })
-        );
+        const message = PeerMessage.encode({
+          authRequest: { token: peerToken },
+        }).finish();
+        websocket.current?.send(message);
       });
 
       websocket.current?.addEventListener('message', (event) => {
-        const data = JSON.parse(event.data);
-
-        if (data.type === 'controlMessage') {
-          if (data.data.type === 'authenticated') {
+        const uint8Array = new Uint8Array(event.data);
+        try {
+          const data = PeerMessage.decode(uint8Array);
+          if (data.authenticated !== undefined) {
             resolve();
-          } else if (data.data.type === 'unauthenticated') {
-            reject(new Error('Authentication failed'));
+          } else if (data.authRequest !== undefined) {
+            reject(new Error(' failedTODO'));
+          } else if (data.mediaEvent !== undefined) {
+            Membrane.receiveMediaEvent(data.mediaEvent.data);
           }
-        } else {
-          Membrane.receiveMediaEvent(data.data);
+        } catch (e) {
+          setError(String(e));
         }
       });
     });

@@ -15,7 +15,6 @@ import {
   Platform,
   View,
   Permission,
-  Text,
 } from 'react-native';
 
 import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
@@ -24,9 +23,9 @@ import {Room} from './src/Room';
 import {JELLYFISH_URL} from '@env';
 
 function App(): JSX.Element {
-  const {connect, join, cleanUp, error} = useJellyfishClient();
+  const {connect, join, cleanUp} = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
-  const [peerToken, onChangePeerToken] = React.useState('');
+  const [peerToken, onChangePeerToken] = React.useState('Peer token');
 
   useEffect(() => {
     async function request() {
@@ -58,7 +57,10 @@ function App(): JSX.Element {
 
   const connectToRoom = async () => {
     try {
-      await connect(JELLYFISH_URL, peerToken);
+      await connect(
+        JELLYFISH_URL,
+        'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACRkN2JkZTRkZi1kOTgwLTQyMTAtYmUyOC0zNGY1MzYwNjA1ZTFkAAdyb29tX2lkbQAAACRiNGFhM2VmNi1lMGFhLTQwMmMtYmYwYy0xOThmY2Q1MDkzZWNuBgBG4MlNiAFiAAFRgA.Kdx6M9UgZdeesyLvBJVtbSzgONxrsUDbWzU9NXeQScg',
+      );
       setIsConnected(true);
       await join({name: 'RN mobile'});
     } catch (e) {
@@ -73,7 +75,6 @@ function App(): JSX.Element {
 
   return (
     <View style={styles.app}>
-      <Text style={styles.errorMessage}>{error}</Text>
       {isConnected ? (
         <View style={[styles.button, styles.disconnectButton]}>
           <Button title="Disconnect" onPress={disconnect} />
@@ -84,8 +85,6 @@ function App(): JSX.Element {
             style={styles.input}
             onChangeText={onChangePeerToken}
             value={peerToken}
-            placeholder="Peer token"
-            placeholderTextColor="#000"
           />
           <View style={styles.button}>
             <Button title="Connect" onPress={connectToRoom} />
@@ -117,7 +116,6 @@ const styles = StyleSheet.create({
     width: 200,
     height: 50,
     borderWidth: 1,
-    color: 'black',
   },
   button: {
     alignSelf: 'center',
@@ -126,12 +124,6 @@ const styles = StyleSheet.create({
   },
   disconnectButton: {
     marginTop: 30,
-  },
-  errorMessage: {
-    color: 'black',
-    textAlign: 'center',
-    margin: 25,
-    fontSize: 20,
   },
 });
 
