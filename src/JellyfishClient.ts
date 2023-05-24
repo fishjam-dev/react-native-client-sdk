@@ -73,6 +73,7 @@ export function useJellyfishClient() {
       websocket.current?.addEventListener('close', (event) => {
         if (event.code !== 1000) {
           reject(new Error('WebSocket was closed.'));
+          setError(event.message ?? '');
         }
         console.log('WebSocket was closed.');
       });
