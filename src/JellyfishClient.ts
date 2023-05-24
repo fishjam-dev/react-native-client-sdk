@@ -102,7 +102,9 @@ export function useJellyfishClient() {
           if (data.authenticated !== undefined) {
             resolve();
           } else if (data.authRequest !== undefined) {
-            reject(new Error(' failedTODO'));
+            reject(
+              new Error('Received unexpected control message: authRequest')
+            );
           } else if (data.mediaEvent !== undefined) {
             Membrane.receiveMediaEvent(data.mediaEvent.data);
           }
