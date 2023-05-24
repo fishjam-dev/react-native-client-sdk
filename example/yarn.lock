@@ -1197,11 +1197,6 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@jellyfish-dev/react-native-client-sdk@..":
-  version "0.1.0"
-  dependencies:
-    "@jellyfish-dev/react-native-membrane-webrtc" "https://github.com/jellyfish-dev/react-native-membrane-webrtc#jellyfish"
-
 "@jellyfish-dev/react-native-membrane-webrtc@https://github.com/jellyfish-dev/react-native-membrane-webrtc#jellyfish":
   version "5.1.0"
   resolved "https://github.com/jellyfish-dev/react-native-membrane-webrtc#6af9cd087d3720df8de1ec1da6b8a760539d6874"

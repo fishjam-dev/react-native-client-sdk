@@ -17,7 +17,6 @@ export const Room = () => {
             const trackId = p.tracks.find(t => t.type === 'Video')?.id;
             return trackId ? (
               <View style={styles.videoContainer} key={trackId}>
-                {/* @ts-ignore */}
                 <VideoRendererView trackId={trackId} style={styles.video} />
               </View>
             ) : null;
