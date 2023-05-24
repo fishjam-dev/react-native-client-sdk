@@ -1,6 +1,8 @@
 {
-  "extends": "../tsconfig",
+  "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
-    // Avoid expo-cli auto-generating a tsconfig
+    "paths": {
+      "@jellyfish-dev/react-native-client-sdk": ["../src/index.tsx"]
+    }
   }
 }
