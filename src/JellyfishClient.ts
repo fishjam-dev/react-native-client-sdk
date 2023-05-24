@@ -4,6 +4,7 @@ import {
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 import { useEffect, useRef, useState } from 'react';
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
+import { PeerMessage } from './protos/jellyfish/peer_notifications';
 
 const LINKING_ERROR =
   `The package 'react-native-membrane' doesn't seem to be linked. Make sure: \n\n` +
@@ -39,11 +40,11 @@ export function useJellyfishClient() {
     if (websocket.current?.readyState !== WebSocket.OPEN) {
       return;
     }
-    const messageJS = {
-      type: 'mediaEvent',
-      data: mediaEvent,
-    };
-    websocket.current?.send(JSON.stringify(messageJS));
+    const message = PeerMessage.encode({
+      mediaEvent: { data: mediaEvent },
+    }).finish();
+
+    websocket.current?.send(message);
   };
 
   useEffect(() => {
@@ -88,28 +89,27 @@ export function useJellyfishClient() {
       });
 
       websocket.current?.addEventListener('open', () => {
-        websocket.current?.send(
-          JSON.stringify({
-            type: 'controlMessage',
-            data: {
-              type: 'authRequest',
-              token: peerToken,
-            },
-          })
-        );
+        const message = PeerMessage.encode({
+          authRequest: { token: peerToken },
+        }).finish();
+        websocket.current?.send(message);
       });
 
       websocket.current?.addEventListener('message', (event) => {
-        const data = JSON.parse(event.data);
-
-        if (data.type === 'controlMessage') {
-          if (data.data.type === 'authenticated') {
+        const uint8Array = new Uint8Array(event.data);
+        try {
+          const data = PeerMessage.decode(uint8Array);
+          if (data.authenticated !== undefined) {
             resolve();
-          } else if (data.data.type === 'unauthenticated') {
-            reject(new Error('Authentication failed'));
+          } else if (data.authRequest !== undefined) {
+            reject(
+              new Error('Received unexpected control message: authRequest')
+            );
+          } else if (data.mediaEvent !== undefined) {
+            Membrane.receiveMediaEvent(data.mediaEvent.data);
           }
-        } else {
-          Membrane.receiveMediaEvent(data.data);
+        } catch (e) {
+          setError(String(e));
         }
       });
     });
