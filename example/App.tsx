@@ -18,13 +18,16 @@ import {
   Text,
 } from 'react-native';
 
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  JellyfishContextProvider,
+  useJellyfishState,
+} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Room} from './src/Room';
 import {JELLYFISH_URL} from '@env';
 
 function App(): JSX.Element {
-  const {connect, join, cleanUp, error} = useJellyfishClient();
+  const {connect, join, cleanUp, error} = useJellyfishState();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('');
 
@@ -58,7 +61,7 @@ function App(): JSX.Element {
 
   const connectToRoom = async () => {
     try {
-      await connect(JELLYFISH_URL, peerToken);
+      await connect(JELLYFISH_URL, peerToken, {});
       setIsConnected(true);
       await join({name: 'RN mobile'});
     } catch (e) {
@@ -72,33 +75,35 @@ function App(): JSX.Element {
   };
 
   return (
-    <View style={styles.app}>
-      <Text style={styles.errorMessage}>{error}</Text>
-      {isConnected ? (
-        <View style={[styles.button, styles.disconnectButton]}>
-          <Button title="Disconnect" onPress={disconnect} />
-        </View>
-      ) : (
-        <View style={styles.noCallBody}>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangePeerToken}
-            value={peerToken}
-            placeholder="Peer token"
-            placeholderTextColor="#000"
-          />
-          <View style={styles.button}>
-            <Button title="Connect" onPress={connectToRoom} />
+    <JellyfishContextProvider>
+      <View style={styles.app}>
+        <Text style={styles.errorMessage}>{error}</Text>
+        {isConnected ? (
+          <View style={[styles.button, styles.disconnectButton]}>
+            <Button title="Disconnect" onPress={disconnect} />
           </View>
-        </View>
-      )}
+        ) : (
+          <View style={styles.noCallBody}>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangePeerToken}
+              value={peerToken}
+              placeholder="Peer token"
+              placeholderTextColor="#000"
+            />
+            <View style={styles.button}>
+              <Button title="Connect" onPress={connectToRoom} />
+            </View>
+          </View>
+        )}
 
-      {isConnected && (
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <Room />
-        </ScrollView>
-      )}
-    </View>
+        {isConnected && (
+          <ScrollView contentInsetAdjustmentBehavior="automatic">
+            <Room />
+          </ScrollView>
+        )}
+      </View>
+    </JellyfishContextProvider>
   );
 }
 
