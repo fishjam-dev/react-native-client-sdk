@@ -11,13 +11,13 @@ import {
   Text,
 } from 'react-native';
 
-import {useJellyfishState} from '@jellyfish-dev/react-native-client-sdk';
+import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Room} from './Room';
 import {JELLYFISH_URL} from '@env';
 
 function ConnectScreen(): JSX.Element {
-  const {connect, join, cleanUp, error} = useJellyfishState();
+  const {connect, join, cleanUp, error} = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('');
 
