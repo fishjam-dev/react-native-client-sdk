@@ -1,10 +1,12 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, View, StyleSheet} from 'react-native';
 
-import {useJellyfishState} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  useRoomParticipants,
+  VideoRendererView,
+} from '@jellyfish-dev/react-native-client-sdk';
 
 export const Room = () => {
-  const {useRoomParticipants, VideoRendererView} = useJellyfishState();
   const participants = useRoomParticipants();
 
   return (
