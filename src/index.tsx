@@ -1,4 +1,4 @@
-export * from './JellyfishClient';
+export * from './JellyfishClientContext';
 export {
   useRoomParticipants,
   useAudioSettings,

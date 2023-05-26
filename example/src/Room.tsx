@@ -2,8 +2,8 @@ import React from 'react';
 import {SafeAreaView, ScrollView, View, StyleSheet} from 'react-native';
 
 import {
-  VideoRendererView,
   useRoomParticipants,
+  VideoRendererView,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 export const Room = () => {
