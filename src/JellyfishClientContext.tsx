@@ -186,7 +186,7 @@ function useJellyfishClient() {
   const context = React.useContext(JellyfishContext);
   if (context === undefined) {
     throw new Error(
-      'useJellyfishClient must be used within a JellyfishContext'
+      'useJellyfishClient must be used within a JellyfishContextProvider'
     );
   }
   return context;
