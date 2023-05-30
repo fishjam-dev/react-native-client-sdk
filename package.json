@@ -56,6 +56,7 @@
     "@commitlint/config-conventional": "^17.0.2",
     "@react-native-community/eslint-config": "^3.0.2",
     "@release-it/conventional-changelog": "^5.0.0",
+    "@testing-library/react": "^14.0.0",
     "@types/jest": "^28.1.2",
     "@types/react": "^18.2.6",
     "commitlint": "^17.0.2",
@@ -65,9 +66,12 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.3",
     "jest": "^28.1.1",
+    "jest-environment-jsdom": "^29.5.0",
+    "jest-websocket-mock": "^2.4.0",
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
     "react": "18.2.0",
+    "react-dom": "^18.2.0",
     "react-native": "0.71.7",
     "react-native-builder-bob": "^0.20.0",
     "release-it": "^15.0.0",
@@ -91,7 +95,11 @@
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
-    ]
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@jellyfish-dev/react-native-membrane-webrtc|@react-native|react-native)/)"
+    ],
+    "testEnvironment": "jsdom"
   },
   "commitlint": {
     "extends": [
