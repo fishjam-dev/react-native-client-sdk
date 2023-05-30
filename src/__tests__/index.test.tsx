@@ -28,6 +28,9 @@ jest.mock('react-native', () => ({
   },
 }));
 
+const socketUrl = 'ws://localhost:1234';
+const peerToken = 'token';
+
 function encodePeerMessage(peerMessage: object) {
   const encodedAsNodeBuffer = PeerMessage.encode(peerMessage).finish();
 
@@ -44,17 +47,13 @@ describe('JellyfishClient', () => {
   });
 
   const setUpAndConnect = async () => {
-    const server = new WS('ws://localhost:1234');
+    const server = new WS(socketUrl);
 
     const { result } = renderHook(() => useJellyfishClient(), {
       wrapper: JellyfishContextProvider,
     });
 
-    const connectPromise = result.current.connect(
-      'ws://localhost:1234',
-      'token',
-      {}
-    );
+    const connectPromise = result.current.connect(socketUrl, peerToken, {});
 
     await server.connected;
 
@@ -62,7 +61,7 @@ describe('JellyfishClient', () => {
 
     expect(msg).toEqual(
       PeerMessage.encode({
-        authRequest: { token: 'token' },
+        authRequest: { token: peerToken },
       }).finish()
     );
 
@@ -82,7 +81,7 @@ describe('JellyfishClient', () => {
   });
 
   it('rejects if socket error', async () => {
-    const server = new WS('ws://localhost:1234');
+    const server = new WS(socketUrl);
 
     const {
       result: {
@@ -92,7 +91,7 @@ describe('JellyfishClient', () => {
       wrapper: JellyfishContextProvider,
     });
 
-    const connectPromise = connect('ws://localhost:1234', 'token', {});
+    const connectPromise = connect(socketUrl, peerToken, {});
 
     act(() => {
       server.error({ code: 1234, reason: 'An error', wasClean: false });
@@ -108,7 +107,7 @@ describe('JellyfishClient', () => {
     act(() => {
       server.error({ code: 3000, reason: 'An error', wasClean: false });
     });
-    expect(result.current.error).toEqual('3000 An error');
+    expect(result.current.error).toEqual('WebSocket was closed: 3000 An error');
   });
 
   it('sends media event', async () => {

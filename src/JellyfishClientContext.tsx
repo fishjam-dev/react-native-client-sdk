@@ -28,7 +28,10 @@ const Membrane = NativeModules.Membrane
 const eventEmitter = new NativeEventEmitter(Membrane);
 
 const generateMessage = (event: WebSocketCloseEvent) => {
-  return [event.message, event.code, event.reason].filter((i) => !!i).join(' ');
+  return (
+    'WebSocket was closed: ' +
+    [event.message, event.code, event.reason].filter((i) => !!i).join(' ')
+  );
 };
 
 const JellyfishContext = React.createContext<
@@ -106,7 +109,7 @@ const JellyfishContextProvider = (props: any) => {
       websocket.current?.addEventListener('close', (event) => {
         if (event.code !== 1000 || event.isTrusted === false) {
           setError(generateMessage(event));
-          reject(new Error('WebSocket was closed: ' + generateMessage(event)));
+          reject(new Error(generateMessage(event)));
         }
       });
 
