@@ -8,6 +8,32 @@ Jellyfish client SDK in React Native
 npm install @jellyfish-dev/react-native-client-sdk
 ```
 
+### Expo plugin
+Even though this is not a native library, it has a dependency on `@jellyfish-dev/react-native-membrane-webrtc` which requires native configuration.
+If you're using development builds with `eas build` or bare workflow you can try using expo plugin to do the configuration below for you.
+Simply run:
+
+```
+expo install @jellyfish-dev/react-native-client-sdk
+```
+
+Add plugin to your `app.json`:
+
+```json
+{
+  "expo": {
+    "name": "example",
+    ...
+    "plugins": [
+      "@jellyfish-dev/react-native-membrane-webrtc"
+    ]
+  }
+}
+```
+
+On bare workflow run `expo prebuild` to configure the app, then run `pod install`.
+On development build `eas build` should take care of it.
+
 ### Android
 
 1. Add camera and microphone permissions to your `AndroidManifest.xml`.
