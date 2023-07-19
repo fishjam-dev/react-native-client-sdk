@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc#2fc84bde452b888ea3c1ace195c671a5d99a5878",
+    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc",
     "expo": "^48.0.0",
     "react": "18.2.0",
     "react-native": "0.71.8"

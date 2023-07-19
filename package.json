@@ -168,7 +168,7 @@
     ]
   },
   "dependencies": {
-    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc#2fc84bde452b888ea3c1ace195c671a5d99a5878",
+    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc",
     "expo-modules-core": "1.2.7"
   }
 }

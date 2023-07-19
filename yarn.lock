@@ -1353,9 +1353,9 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@jellyfish-dev/react-native-membrane-webrtc@https://github.com/jellyfish-dev/react-native-membrane-webrtc#2fc84bde452b888ea3c1ace195c671a5d99a5878":
+"@jellyfish-dev/react-native-membrane-webrtc@https://github.com/jellyfish-dev/react-native-membrane-webrtc":
   version "6.0.0"
-  resolved "https://github.com/jellyfish-dev/react-native-membrane-webrtc#2fc84bde452b888ea3c1ace195c671a5d99a5878"
+  resolved "https://github.com/jellyfish-dev/react-native-membrane-webrtc#d0aa1aa174550152ac3f1816446ecde9844f6160"
   dependencies:
     phoenix "^1.7.6"
 

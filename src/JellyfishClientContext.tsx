@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { Metadata } from '@jellyfish-dev/react-native-membrane-webrtc';
-import { requireNativeModule } from 'expo-modules-core';
+import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
 
 import { useEffect, useRef, useState } from 'react';
 import { NativeEventEmitter } from 'react-native';
 import { PeerMessage } from './protos/jellyfish/peer_notifications';
-import { NativeModulesProxy } from 'expo-modules-core';
 
 const membraneModule = requireNativeModule('MembraneWebRTC');
 

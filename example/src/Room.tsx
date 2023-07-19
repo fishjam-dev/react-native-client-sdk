@@ -1,14 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {SafeAreaView, ScrollView, View, StyleSheet} from 'react-native';
 
 import * as Jelly from '@jellyfish-dev/react-native-client-sdk';
 
 export const Room = () => {
   const endpoints = Jelly.useEndpoints();
-
-  useEffect(() => {
-    console.log(endpoints.map(e => [e, e.tracks.map(t => t.id)]));
-  }, [endpoints]);
 
   return (
     <SafeAreaView>
@@ -40,7 +36,6 @@ export const Room = () => {
 const styles = StyleSheet.create({
   video: {
     flex: 1,
-    width: '100%',
   },
   participants: {
     flex: 1,

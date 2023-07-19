@@ -14,7 +14,6 @@ import {
 import {
   useJellyfishClient,
   useCamera,
-  VideoPreviewView,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import {Room} from './Room';
@@ -95,10 +94,6 @@ function ConnectScreen(): JSX.Element {
         </View>
       )}
 
-      <View style={styles.videoContainer}>
-        <VideoPreviewView style={{flex: 1}}></VideoPreviewView>
-      </View>
-
       {isConnected && (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           <Room />
@@ -138,12 +133,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 25,
     fontSize: 20,
-  },
-  videoContainer: {
-    width: 150,
-    height: 150,
-    margin: 10,
-    backgroundColor: 'grey',
   },
 });
 
