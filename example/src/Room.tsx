@@ -19,16 +19,8 @@ export const Room = () => {
             const trackId = p.tracks.find(
               t => t.type === 'Video' || t.metadata.type === 'camera',
             )?.id;
-            console.log(
-              <Jelly.VideoRendererView
-                trackId={trackId ? trackId : 'xD'}
-                style={styles.video}
-              />,
-            );
-            // console.log(
-            //   trackId,
-            //   p.tracks.find(t => t.id === trackId),
-            // );
+
+            console.log('TRACK ID', trackId);
 
             return trackId ? (
               <View style={styles.videoContainer} key={trackId}>
