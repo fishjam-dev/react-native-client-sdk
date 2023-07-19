@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  Metadata,
-  ConnectionOptions,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+import { Metadata } from '@jellyfish-dev/react-native-membrane-webrtc';
 import { requireNativeModule } from 'expo-modules-core';
 
 import { useEffect, useRef, useState } from 'react';
@@ -31,13 +28,8 @@ const JellyfishContext = React.createContext<
        *
        * @param url - websocket url
        * @param peerToken - token used to authenticate when joining the room
-       * @param connectionOptions - Configuration object for the connection
        */
-      connect: (
-        url: string,
-        peerToken: string,
-        connectionOptions: Partial<ConnectionOptions>
-      ) => Promise<void>;
+      connect: (url: string, peerToken: string) => Promise<void>;
 
       /**
        * Tries to join the room. If user is accepted then onJoinSuccess will be called.
@@ -86,11 +78,7 @@ const JellyfishContextProvider = (props: any) => {
     return () => eventListener.remove();
   }, []);
 
-  const connect = async (
-    url: string,
-    peerToken: string,
-    connectionOptions: Partial<ConnectionOptions> = {}
-  ) => {
+  const connect = async (url: string, peerToken: string) => {
     setError(null);
     websocket.current = new WebSocket(url);
 
