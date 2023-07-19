@@ -11,7 +11,11 @@ import {
   Text,
 } from 'react-native';
 
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  useJellyfishClient,
+  useCamera,
+  VideoPreviewView,
+} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Room} from './Room';
 import {JELLYFISH_URL} from '@env';
@@ -20,6 +24,7 @@ function ConnectScreen(): JSX.Element {
   const {connect, join, cleanUp, error} = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('');
+  const {startCamera} = useCamera();
 
   useEffect(() => {
     async function request() {
@@ -51,8 +56,13 @@ function ConnectScreen(): JSX.Element {
 
   const connectToRoom = async () => {
     try {
-      await connect(JELLYFISH_URL, peerToken, {});
+      await connect(
+        JELLYFISH_URL,
+        'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACRiOTQyNTg0Yy0wOTVjLTQ4ZjMtYTYwMC01OTA0NmUwM2U5N2RkAAdyb29tX2lkbQAAACRmYWJmYWQ5OC0wODhhLTQyZjUtOTBlZC1kZTczZGFlMmY3NmJuBgAmOddsiQFiAAFRgA.TcCxSVal8zwdOLx55hN21ZRf9KcRIM0ZLKZUKYfKnlE',
+        {},
+      );
       setIsConnected(true);
+      await startCamera();
       await join({name: 'RN mobile'});
     } catch (e) {
       console.log(e);
@@ -85,6 +95,10 @@ function ConnectScreen(): JSX.Element {
           </View>
         </View>
       )}
+
+      <View style={styles.videoContainer}>
+        <VideoPreviewView style={{flex: 1}}></VideoPreviewView>
+      </View>
 
       {isConnected && (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -125,6 +139,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 25,
     fontSize: 20,
+  },
+  videoContainer: {
+    width: 150,
+    height: 150,
+    margin: 10,
+    backgroundColor: 'grey',
   },
 });
 

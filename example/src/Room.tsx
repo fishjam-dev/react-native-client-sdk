@@ -1,23 +1,41 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, ScrollView, View, StyleSheet} from 'react-native';
 
-import {
-  useRoomParticipants,
-  VideoRendererView,
-} from '@jellyfish-dev/react-native-client-sdk';
+import * as Jelly from '@jellyfish-dev/react-native-client-sdk';
 
 export const Room = () => {
-  const participants = useRoomParticipants();
+  const endpoints = Jelly.useEndpoints();
+
+  useEffect(() => {
+    console.log(endpoints.map(e => [e, e.tracks.map(t => t.id)]));
+  }, [endpoints]);
 
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.participants}>
-          {participants.map(p => {
-            const trackId = p.tracks.find(t => t.type === 'Video')?.id;
+          {endpoints.map(p => {
+            // console.log(p.tracks);
+            const trackId = p.tracks.find(
+              t => t.type === 'Video' || t.metadata.type === 'camera',
+            )?.id;
+            console.log(
+              <Jelly.VideoRendererView
+                trackId={trackId ? trackId : 'xD'}
+                style={styles.video}
+              />,
+            );
+            // console.log(
+            //   trackId,
+            //   p.tracks.find(t => t.id === trackId),
+            // );
+
             return trackId ? (
               <View style={styles.videoContainer} key={trackId}>
-                <VideoRendererView trackId={trackId} style={styles.video} />
+                <Jelly.VideoRendererView
+                  trackId={trackId}
+                  style={styles.video}
+                />
               </View>
             ) : null;
           })}
@@ -30,6 +48,7 @@ export const Room = () => {
 const styles = StyleSheet.create({
   video: {
     flex: 1,
+    width: '100%',
   },
   participants: {
     flex: 1,
