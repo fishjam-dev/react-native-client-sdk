@@ -59,7 +59,6 @@ function ConnectScreen(): JSX.Element {
       await connect(
         JELLYFISH_URL,
         'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACRlMjU2MGJmZC1mMmM1LTQ2ZmItYmZjYi1iNzk0ZjY4MmY0MjBkAAdyb29tX2lkbQAAACQzN2U3NjE2OS0wZjhhLTQwMDUtOTUxZS1kYzc2OWQ5OTIyMzFuBgAeX6BtiQFiAAFRgA.f5Q6fWY-0jOdRWLyk0SMs3xi3l1M4xQfmsbQE8DxSBw',
-        {},
       );
       setIsConnected(true);
       await startCamera();

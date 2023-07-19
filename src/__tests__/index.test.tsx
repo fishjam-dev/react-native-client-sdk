@@ -53,7 +53,7 @@ describe('JellyfishClient', () => {
       wrapper: JellyfishContextProvider,
     });
 
-    const connectPromise = result.current.connect(socketUrl, peerToken, {});
+    const connectPromise = result.current.connect(socketUrl, peerToken);
 
     await server.connected;
 
@@ -91,7 +91,7 @@ describe('JellyfishClient', () => {
       wrapper: JellyfishContextProvider,
     });
 
-    const connectPromise = connect(socketUrl, peerToken, {});
+    const connectPromise = connect(socketUrl, peerToken);
 
     act(() => {
       server.error({ code: 1234, reason: 'An error', wasClean: false });
