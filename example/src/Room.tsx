@@ -1,29 +1,26 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, View, StyleSheet} from 'react-native';
 
-import * as Jelly from '@jellyfish-dev/react-native-client-sdk';
+import {
+  useEndpoints,
+  VideoRendererView,
+} from '@jellyfish-dev/react-native-client-sdk';
 
 export const Room = () => {
-  const endpoints = Jelly.useEndpoints();
+  const endpoints = useEndpoints();
 
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.participants}>
-          {endpoints.map(p => {
-            // console.log(p.tracks);
-            const trackId = p.tracks.find(
+          {endpoints.map(e => {
+            const trackId = e.tracks.find(
               t => t.type === 'Video' || t.metadata.type === 'camera',
             )?.id;
 
-            console.log('TRACK ID', trackId);
-
             return trackId ? (
               <View style={styles.videoContainer} key={trackId}>
-                <Jelly.VideoRendererView
-                  trackId={trackId}
-                  style={styles.video}
-                />
+                <VideoRendererView trackId={trackId} style={styles.video} />
               </View>
             ) : null;
           })}
