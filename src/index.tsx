@@ -1,6 +1,10 @@
+import {
+  Endpoint,
+  useEndpoints,
+} from '@jellyfish-dev/react-native-membrane-webrtc';
+
 export * from './JellyfishClientContext';
 export {
-  useEndpoints,
   useAudioSettings,
   updateAudioTrackMetadata,
   useCamera,
@@ -14,3 +18,11 @@ export {
   VideoRendererView,
   VideoPreviewView,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
+
+type Peer = Endpoint;
+
+/**
+ * This hook provides live updates of room peers.
+ * @returns An array of room peers.
+ */
+export const usePeers: () => Peer[] = useEndpoints;

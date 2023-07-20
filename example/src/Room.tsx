@@ -2,19 +2,19 @@ import React from 'react';
 import {SafeAreaView, ScrollView, View, StyleSheet} from 'react-native';
 
 import {
-  useEndpoints,
+  usePeers,
   VideoRendererView,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 export const Room = () => {
-  const endpoints = useEndpoints();
+  const peers = usePeers();
 
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.participants}>
-          {endpoints.map(e => {
-            const trackId = e.tracks.find(
+          {peers.map(p => {
+            const trackId = p.tracks.find(
               t => t.type === 'Video' || t.metadata.type === 'camera',
             )?.id;
 
