@@ -131,10 +131,6 @@ describe('JellyfishClient', () => {
   it('receives media event', async () => {
     const { server } = await setUpAndConnect();
 
-    // const receivePromise = new Promise((resolve) => {
-    //   mockrrr.mockImplementation(resolve);
-    // });
-
     server.send(
       encodePeerMessage({
         mediaEvent: {
@@ -142,8 +138,6 @@ describe('JellyfishClient', () => {
         },
       })
     );
-
-    // await receivePromise;
 
     expect(
       requireNativeModule('MembraneWebRTC').receiveMediaEvent

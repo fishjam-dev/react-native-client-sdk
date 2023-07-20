@@ -1,23 +1,11 @@
 import React from 'react';
 
-import {
-  Metadata,
-  NativeMembraneMock,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+import { Metadata } from '@jellyfish-dev/react-native-membrane-webrtc';
 import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
 
 import { useEffect, useRef, useState } from 'react';
 import { NativeEventEmitter } from 'react-native';
 import { PeerMessage } from './protos/jellyfish/peer_notifications';
-
-const isJest = () => {
-  console.log('is jest', process.env.NODE_ENV === 'test');
-  return process.env.NODE_ENV === 'test';
-};
-
-// const membraneModule = isJest()
-//   ? NativeMembraneMock
-//   : requireNativeModule('MembraneWebRTC');
 
 const membraneModule = requireNativeModule('MembraneWebRTC');
 
@@ -121,7 +109,6 @@ const JellyfishContextProvider = (props: any) => {
               new Error('Received unexpected control message: authRequest')
             );
           } else if (data.mediaEvent !== undefined) {
-            console.log('DATA', data.mediaEvent.data);
             membraneModule.receiveMediaEvent(data.mediaEvent.data);
           }
         } catch (e) {
