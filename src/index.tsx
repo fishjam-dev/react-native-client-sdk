@@ -1,5 +1,6 @@
 import {
   Endpoint,
+  updateEndpointMetadata,
   useEndpoints,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
@@ -12,7 +13,6 @@ export {
   useScreencast,
   updateVideoTrackMetadata,
   useBandwidthEstimation,
-  updateEndpointMetadata,
   useRTCStatistics,
   changeWebRTCLoggingSeverity,
   VideoRendererView,
@@ -26,3 +26,9 @@ type Peer = Endpoint;
  * @returns An array of room peers.
  */
 export const usePeers: () => Peer[] = useEndpoints;
+
+/**
+ * Function that updates peer's metadata on the server.
+ * @param metadata a map `string -> any` containing user's metadata to be sent to the server.
+ */
+export const updatePeerMetadata = updateEndpointMetadata;
