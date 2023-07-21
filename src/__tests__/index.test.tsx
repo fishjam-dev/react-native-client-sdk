@@ -2,30 +2,34 @@ import WS from 'jest-websocket-mock';
 import { renderHook, act } from '@testing-library/react';
 import { JellyfishContextProvider, useJellyfishClient } from '..';
 import { PeerMessage } from '../protos/jellyfish/peer_notifications';
-import { NativeModules } from 'react-native';
+import { requireNativeModule } from 'expo-modules-core';
 
-let sendEvent: null | ((mediaEvent: string) => void) = null;
+let sendEvent: null | (({ event }: { event: string }) => void) = null;
+
+jest.mock('expo-modules-core', () => ({
+  EventEmitter: jest.fn().mockImplementation(() => ({
+    addListener: jest.fn((_, _sendEvent) => {
+      sendEvent = _sendEvent;
+      return { remove: jest.fn() };
+    }),
+  })),
+  requireNativeModule: jest.fn().mockReturnValue({
+    receiveMediaEvent: jest.fn(),
+    create: jest.fn(),
+  }),
+  NativeModulesProxy: jest.fn().mockImplementation(() => {
+    return jest.fn();
+  }),
+}));
 
 jest.mock('@jellyfish-dev/react-native-membrane-webrtc');
 jest.mock('react-native', () => ({
-  NativeModules: {
-    Membrane: {
-      receiveMediaEvent: jest.fn(),
-      create: jest.fn(),
-    },
-  },
-  Platform: {
-    select: jest.fn(),
-  },
   NativeEventEmitter: jest.fn().mockImplementation(() => ({
     addListener: jest.fn((_, _sendEvent) => {
       sendEvent = _sendEvent;
       return { remove: jest.fn() };
     }),
   })),
-  UIManager: {
-    getViewManagerConfig: jest.fn(),
-  },
 }));
 
 const socketUrl = 'ws://localhost:1234';
@@ -53,7 +57,7 @@ describe('JellyfishClient', () => {
       wrapper: JellyfishContextProvider,
     });
 
-    const connectPromise = result.current.connect(socketUrl, peerToken, {});
+    const connectPromise = result.current.connect(socketUrl, peerToken);
 
     await server.connected;
 
@@ -91,7 +95,7 @@ describe('JellyfishClient', () => {
       wrapper: JellyfishContextProvider,
     });
 
-    const connectPromise = connect(socketUrl, peerToken, {});
+    const connectPromise = connect(socketUrl, peerToken);
 
     act(() => {
       server.error({ code: 1234, reason: 'An error', wasClean: false });
@@ -113,7 +117,7 @@ describe('JellyfishClient', () => {
   it('sends media event', async () => {
     const { server } = await setUpAndConnect();
 
-    sendEvent?.('join');
+    sendEvent?.({ event: 'join' });
 
     const msg = await server.nextMessage;
 
@@ -127,10 +131,6 @@ describe('JellyfishClient', () => {
   it('receives media event', async () => {
     const { server } = await setUpAndConnect();
 
-    const receivePromise = new Promise((resolve) => {
-      NativeModules.Membrane.receiveMediaEvent.mockImplementation(resolve);
-    });
-
     server.send(
       encodePeerMessage({
         mediaEvent: {
@@ -139,10 +139,11 @@ describe('JellyfishClient', () => {
       })
     );
 
-    await receivePromise;
-
-    expect(NativeModules.Membrane.receiveMediaEvent).toHaveBeenCalledWith(
-      'sdpOffer'
-    );
+    expect(
+      requireNativeModule('MembraneWebRTC').receiveMediaEvent
+    ).toBeCalledTimes(1);
+    expect(
+      requireNativeModule('MembraneWebRTC').receiveMediaEvent
+    ).toHaveBeenCalledWith('sdpOffer');
   });
 });

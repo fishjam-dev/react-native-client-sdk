@@ -11,7 +11,10 @@ import {
   Text,
 } from 'react-native';
 
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  useJellyfishClient,
+  useCamera,
+} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Room} from './Room';
 import {JELLYFISH_URL} from '@env';
@@ -20,6 +23,7 @@ function ConnectScreen(): JSX.Element {
   const {connect, join, cleanUp, error} = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('');
+  const {startCamera} = useCamera();
 
   useEffect(() => {
     async function request() {
@@ -51,8 +55,9 @@ function ConnectScreen(): JSX.Element {
 
   const connectToRoom = async () => {
     try {
-      await connect(JELLYFISH_URL, peerToken, {});
+      await connect(JELLYFISH_URL, peerToken);
       setIsConnected(true);
+      await startCamera();
       await join({name: 'RN mobile'});
     } catch (e) {
       console.log(e);

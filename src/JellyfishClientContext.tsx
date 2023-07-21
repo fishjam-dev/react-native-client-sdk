@@ -1,31 +1,17 @@
 import React from 'react';
 
-import {
-  Metadata,
-  ConnectionOptions,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+import { Metadata } from '@jellyfish-dev/react-native-membrane-webrtc';
+import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
+
 import { useEffect, useRef, useState } from 'react';
-import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
+import { NativeEventEmitter } from 'react-native';
 import { PeerMessage } from './protos/jellyfish/peer_notifications';
 
-const LINKING_ERROR =
-  `The package 'react-native-membrane' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
+const membraneModule = requireNativeModule('MembraneWebRTC');
 
-const Membrane = NativeModules.Membrane
-  ? NativeModules.Membrane
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
-
-const eventEmitter = new NativeEventEmitter(Membrane);
+const eventEmitter = new NativeEventEmitter(
+  membraneModule ?? NativeModulesProxy.MembraneWebRTC
+);
 
 const generateMessage = (event: WebSocketCloseEvent) => {
   return (
@@ -41,13 +27,8 @@ const JellyfishContext = React.createContext<
        *
        * @param url - websocket url
        * @param peerToken - token used to authenticate when joining the room
-       * @param connectionOptions - Configuration object for the connection
        */
-      connect: (
-        url: string,
-        peerToken: string,
-        connectionOptions: Partial<ConnectionOptions>
-      ) => Promise<void>;
+      connect: (url: string, peerToken: string) => Promise<void>;
 
       /**
        * Tries to join the room. If user is accepted then onJoinSuccess will be called.
@@ -78,14 +59,13 @@ const JellyfishContextProvider = (props: any) => {
   const [error, setError] = useState<string | null>(null);
   const websocket = useRef<WebSocket | null>(null);
 
-  const sendMediaEvent = (mediaEvent: string) => {
+  const sendMediaEvent = ({ event }: { event: string }) => {
     if (websocket.current?.readyState !== WebSocket.OPEN) {
       return;
     }
     const message = PeerMessage.encode({
-      mediaEvent: { data: mediaEvent },
+      mediaEvent: { data: event },
     }).finish();
-
     websocket.current?.send(message);
   };
 
@@ -97,11 +77,7 @@ const JellyfishContextProvider = (props: any) => {
     return () => eventListener.remove();
   }, []);
 
-  const connect = async (
-    url: string,
-    peerToken: string,
-    connectionOptions: Partial<ConnectionOptions> = {}
-  ) => {
+  const connect = async (url: string, peerToken: string) => {
     setError(null);
     websocket.current = new WebSocket(url);
 
@@ -115,7 +91,9 @@ const JellyfishContextProvider = (props: any) => {
 
       websocket.current?.addEventListener('open', () => {
         const message = PeerMessage.encode({
-          authRequest: { token: peerToken },
+          authRequest: {
+            token: peerToken,
+          },
         }).finish();
         websocket.current?.send(message);
       });
@@ -131,7 +109,7 @@ const JellyfishContextProvider = (props: any) => {
               new Error('Received unexpected control message: authRequest')
             );
           } else if (data.mediaEvent !== undefined) {
-            Membrane.receiveMediaEvent(data.mediaEvent.data);
+            membraneModule.receiveMediaEvent(data.mediaEvent.data);
           }
         } catch (e) {
           setError(String(e));
@@ -140,24 +118,24 @@ const JellyfishContextProvider = (props: any) => {
     });
 
     await processIncomingMessages;
-    await Membrane.create(url, connectionOptions);
+    await membraneModule.create();
   };
 
   const join = async (peerMetadata: Metadata = {}) => {
     setError(null);
-    await Membrane.join(peerMetadata);
+    await membraneModule.connect(peerMetadata);
   };
 
   const cleanUp = () => {
     setError(null);
-    Membrane.disconnect();
+    membraneModule.disconnect();
     websocket.current?.close();
     websocket.current = null;
   };
 
   const leave = () => {
     setError(null);
-    Membrane.disconnect();
+    membraneModule.disconnect();
   };
 
   const value = {
