@@ -1,3 +1,4 @@
+[![CI](https://github.com/jellyfish-dev/react-native-client-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/jellyfish-dev/react-native-client-sdk/actions/workflows/ci.yml)
 # react-native-client-sdk
 
 Jellyfish client SDK in React Native
