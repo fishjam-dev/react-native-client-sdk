@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
-    "@react-native-community/eslint-config": "^3.0.2",
+    "@react-native/eslint-config": "^0.72.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^28.1.2",
@@ -72,7 +72,7 @@
     "prettier": "^2.0.5",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
-    "react-native": "0.71.7",
+    "react-native": "0.72.3",
     "react-native-builder-bob": "^0.20.0",
     "release-it": "^15.0.0",
     "ts-proto": "^1.148.0",
@@ -126,7 +126,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@react-native-community",
+      "@react-native",
       "prettier"
     ],
     "rules": {
@@ -169,6 +169,6 @@
   },
   "dependencies": {
     "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc",
-    "expo-modules-core": "1.2.7"
+    "expo-modules-core": "1.5.7"
   }
 }
