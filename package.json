@@ -39,8 +39,8 @@
   },
   "keywords": [
     "react-native",
-    "ios",
-    "android"
+    "Jellyfish",
+    "@jellyfish-dev/react-native-client-sdk"
   ],
   "repository": "https://github.com/jellyfish-dev/react-native-client-sdk",
   "author": "jellyfish-dev <contact@membrane.stream> (https://github.com/jellyfish-dev)",
