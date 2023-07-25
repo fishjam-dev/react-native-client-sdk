@@ -1,7 +1,7 @@
 {
   "name": "@jellyfish-dev/react-native-client-sdk",
   "version": "0.1.0",
-  "description": "test",
+  "description": "React native client sdk for the Jellyfish server.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
