@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "React native client sdk for the Jellyfish server.",
   "main": "lib/commonjs/index",
+  "license": "Apache-2.0",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
@@ -44,7 +45,6 @@
   ],
   "repository": "https://github.com/jellyfish-dev/react-native-client-sdk",
   "author": "jellyfish-dev <contact@membrane.stream> (https://github.com/jellyfish-dev)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jellyfish-dev/react-native-client-sdk/issues"
   },
