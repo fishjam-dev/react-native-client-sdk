@@ -64,3 +64,4 @@ yarn-error.log
 
 # Env
 .env.development
+/ios/JellyfishExample.xcworkspace/contents.xcworkspacedata
