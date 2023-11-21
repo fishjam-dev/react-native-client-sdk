@@ -1,28 +1,32 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  ScrollView,
-  Button,
-  TextInput,
-  StyleSheet,
+  Dimensions,
+  Image,
+  Permission,
   PermissionsAndroid,
   Platform,
-  View,
-  Permission,
+  SafeAreaView,
+  StyleSheet,
   Text,
+  View,
 } from 'react-native';
 
 import {
-  useJellyfishClient,
   useCamera,
+  useJellyfishClient,
 } from '@jellyfish-dev/react-native-client-sdk';
 
-import {Room} from './Room';
-import {JELLYFISH_URL} from '@env';
+import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 
-function ConnectScreen(): JSX.Element {
-  const {connect, join, cleanUp, error} = useJellyfishClient();
-  const [isConnected, setIsConnected] = useState(false);
-  const [peerToken, onChangePeerToken] = React.useState('');
+import {JELLYFISH_URL} from '@env';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AppRootStackParamList} from '../navigators/AppNavigator';
+
+type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
+
+const ConnectScreen = ({navigation}: Props) => {
+  const {connect, join, error} = useJellyfishClient();
+  const [peerToken, onChangePeerToken] = useState('');
   const {startCamera} = useCamera();
 
   useEffect(() => {
@@ -56,74 +60,53 @@ function ConnectScreen(): JSX.Element {
   const connectToRoom = async () => {
     try {
       await connect(JELLYFISH_URL, peerToken);
-      setIsConnected(true);
       await startCamera();
       await join({name: 'RN mobile'});
+      navigation.navigate('Room');
     } catch (e) {
       console.log(e);
     }
   };
 
-  const disconnect = async () => {
-    cleanUp();
-    setIsConnected(false);
-  };
-
   return (
-    <View style={styles.app}>
-      <Text style={styles.errorMessage}>{error}</Text>
-      {isConnected ? (
-        <View style={[styles.button, styles.disconnectButton]}>
-          <Button title="Disconnect" onPress={disconnect} />
-        </View>
-      ) : (
-        <View style={styles.noCallBody}>
+    <DismissKeyboard>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          {error && <Text style={styles.errorMessage}>{error}</Text>}
+          <Image
+            style={styles.logo}
+            source={require('../assets/jellyfish-logo.png')}
+            resizeMode="contain"
+            resizeMethod="scale"
+          />
           <TextInput
-            style={styles.input}
             onChangeText={onChangePeerToken}
             value={peerToken}
             placeholder="Peer token"
-            placeholderTextColor="#000"
           />
-          <View style={styles.button}>
-            <Button title="Connect" onPress={connectToRoom} />
-          </View>
+          <Button title="Connect" onPress={connectToRoom} />
+          <QRCodeScanner onCodeScanned={onChangePeerToken} />
         </View>
-      )}
-
-      {isConnected && (
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <Room />
-        </ScrollView>
-      )}
-    </View>
+      </SafeAreaView>
+    </DismissKeyboard>
   );
-}
+};
+
+export default ConnectScreen;
+
+const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  app: {
+  safeArea: {
     flex: 1,
     backgroundColor: '#BFE7F8',
   },
-  noCallBody: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  container: {
     flex: 1,
-  },
-  input: {
-    alignSelf: 'center',
-    width: 200,
-    height: 50,
-    borderWidth: 1,
-    color: 'black',
-  },
-  button: {
-    alignSelf: 'center',
-    width: 150,
-    margin: 15,
-  },
-  disconnectButton: {
-    marginTop: 30,
+    justifyContent: 'center',
+    backgroundColor: '#BFE7F8',
+    padding: 20,
+    gap: 24,
   },
   errorMessage: {
     color: 'black',
@@ -131,6 +114,7 @@ const styles = StyleSheet.create({
     margin: 25,
     fontSize: 20,
   },
+  logo: {
+    width: windowWidth - 40,
+  },
 });
-
-export default ConnectScreen;

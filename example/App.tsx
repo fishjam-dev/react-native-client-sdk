@@ -1,20 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
+import AppProvider from './providers/AppProvider';
+import AppNavigator from './navigators/AppNavigator';
 
-import {JellyfishContextProvider} from '@jellyfish-dev/react-native-client-sdk';
-import ConnectScreen from './src/ConnectScreen';
-
-function App(): JSX.Element {
+function App() {
   return (
-    <JellyfishContextProvider>
-      <ConnectScreen />
-    </JellyfishContextProvider>
+    <AppProvider>
+      <AppNavigator />
+    </AppProvider>
   );
 }
 
