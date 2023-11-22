@@ -21,16 +21,21 @@ export {
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 type Peer<
-  Q extends Metadata,
-  T extends Metadata,
-  P extends Metadata
-> = Endpoint<Q, T, P>;
+  MetadataType extends Metadata,
+  VideoTrackMetadataType extends Metadata,
+  AudioTrackMetadataType extends Metadata
+> = Endpoint<MetadataType, VideoTrackMetadataType, AudioTrackMetadataType>;
 
 /**
  * This hook provides live updates of room peers.
  * @returns An array of room peers.
  */
-export const usePeers: () => Peer<any, any, any>[] = useEndpoints;
+export const usePeers: <
+  MetadataType extends Metadata,
+  VideoTrackMetadataType extends Metadata,
+  AudioTrackMetadataType extends Metadata
+>() => Peer<MetadataType, VideoTrackMetadataType, AudioTrackMetadataType>[] =
+  useEndpoints;
 
 /**
  * Function that updates peer's metadata on the server.
