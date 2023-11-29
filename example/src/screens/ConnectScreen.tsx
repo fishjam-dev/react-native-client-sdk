@@ -20,7 +20,7 @@ import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 
 import {JELLYFISH_URL} from '@env';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppRootStackParamList} from '../navigators/AppNavigator';
+import {AppRootStackParamList} from '../../navigators/AppNavigator';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 
@@ -75,7 +75,7 @@ const ConnectScreen = ({navigation}: Props) => {
           {error && <Text style={styles.errorMessage}>{error}</Text>}
           <Image
             style={styles.logo}
-            source={require('../assets/jellyfish-logo.png')}
+            source={require('../../assets/jellyfish-logo.png')}
             resizeMode="contain"
             resizeMethod="scale"
           />

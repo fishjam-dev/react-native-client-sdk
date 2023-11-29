@@ -1,4 +1,4 @@
-import {TextColors} from '../utils/Colors';
+import {TextColors} from '../../utils/Colors';
 import React, {type ReactNode} from 'react';
 import {
   Dimensions,

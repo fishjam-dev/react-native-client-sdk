@@ -1,4 +1,4 @@
-import {AdditionalColors, BrandColors, TextColors} from '../utils/Colors';
+import {AdditionalColors, BrandColors, TextColors} from '../../utils/Colors';
 import {TextInputTextStyle, Typo} from './Typo';
 import React, {useState} from 'react';
 import {StyleSheet, TextInput as RNTextInput, View} from 'react-native';

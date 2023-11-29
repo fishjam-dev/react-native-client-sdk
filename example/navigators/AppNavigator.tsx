@@ -1,7 +1,7 @@
 import {NavigationContainer, NavigationProp} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ConnectScreen from '../screens/ConnectScreen';
-import RoomScreen from '../screens/RoomScreen';
+import ConnectScreen from '../src/screens/ConnectScreen';
+import RoomScreen from '../src/screens/RoomScreen';
 import React from 'react';
 
 export type AppRootStackParamList = {

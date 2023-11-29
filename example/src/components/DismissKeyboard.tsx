@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableWithoutFeedback, Keyboard} from 'react-native';
-import {AppParentNode} from '../types/AppParentNode';
+import {AppParentNode} from '../../types/AppParentNode';
 
 const DismissKeyboard = (props: AppParentNode) => {
   return (

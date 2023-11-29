@@ -1,4 +1,4 @@
-import {AdditionalColors, BrandColors} from '../utils/Colors';
+import {AdditionalColors, BrandColors} from '../../utils/Colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import React from 'react';
 import {

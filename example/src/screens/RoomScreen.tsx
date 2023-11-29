@@ -10,7 +10,7 @@ import {
   useScreencast,
 } from '@jellyfish-dev/react-native-client-sdk';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppRootStackParamList} from '../navigators/AppNavigator';
+import {AppRootStackParamList} from '../../navigators/AppNavigator';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 

@@ -1,4 +1,4 @@
-import {AdditionalColors, BrandColors, TextColors} from '../utils/Colors';
+import {AdditionalColors, BrandColors, TextColors} from '../../utils/Colors';
 import {Typo} from './Typo';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
