@@ -19,7 +19,7 @@ import {
 import {Room} from './Room';
 import {JELLYFISH_URL} from '@env';
 
-function ConnectScreen(): JSX.Element {
+const ConnectScreen = () => {
   const {connect, join, cleanUp, error} = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('');
@@ -98,7 +98,7 @@ function ConnectScreen(): JSX.Element {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   app: {

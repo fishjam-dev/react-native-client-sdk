@@ -10,7 +10,7 @@ import React from 'react';
 import {JellyfishContextProvider} from '@jellyfish-dev/react-native-client-sdk';
 import ConnectScreen from './src/ConnectScreen';
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   return (
     <JellyfishContextProvider>
       <ConnectScreen />
