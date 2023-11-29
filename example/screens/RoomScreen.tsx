@@ -17,7 +17,7 @@ type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
 
-  const {cleanUp, leave} = useJellyfishClient();
+  const {leave} = useJellyfishClient();
   const {isCameraOn, flipCamera, toggleCamera} = useCamera();
   const {isScreencastOn, toggleScreencast} = useScreencast();
 
@@ -32,12 +32,14 @@ const RoomScreen = ({navigation}: Props) => {
   const onDisconnectTap = useCallback(() => {
     leave();
     navigation.goBack();
-  }, [cleanUp, navigation.goBack]);
+  }, [leave, navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
       <VideosGrid
-        tracks={peers.map(peer => peer.tracks[0]?.id).filter(t => t)}
+        tracks={peers.flatMap(peer =>
+          peer.tracks[0]?.id !== undefined ? [peer.tracks[0].id] : [],
+        )}
       />
       <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
         <InCallButton

@@ -12,15 +12,15 @@
   },
   "dependencies": {
     "@expo-google-fonts/noto-sans": "^0.2.3",
-    "@jellyfish-dev/react-native-membrane-webrtc": "^7.0.2",
+    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@types/lodash": "^4.14.201",
-    "expo": "^49.0.4",
+    "expo": "49.0.4",
     "expo-barcode-scanner": "~12.5.3",
     "expo-font": "~11.4.0",
-    "react": "^18.2.0",
-    "react-native": "^0.72.7",
+    "react": "18.2.0",
+    "react-native": "0.72.3",
     "react-native-reanimated": "^3.5.4",
     "react-native-safe-area-context": "^4.7.4",
     "react-native-screens": "^3.27.0"
@@ -32,7 +32,7 @@
     "@react-native/eslint-config": "^0.72.2",
     "@tsconfig/react-native": "^3.0.0",
     "@types/jest": "^29.2.1",
-    "@types/react": "^18.2.37",
+    "@types/react": "18.2.0",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "babel-plugin-module-resolver": "^5.0.0",
@@ -47,8 +47,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "engines": {
-    "yarn": "1.22.19"
   }
 }

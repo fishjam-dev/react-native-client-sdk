@@ -2,7 +2,12 @@
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@jellyfish-dev/react-native-client-sdk": ["../src/index.tsx"],
+      "baseUrl": [
+        "."
+      ],
+      "@jellyfish-dev/react-native-client-sdk": [
+        "../src/index.tsx"
+      ]
     }
   }
 }
