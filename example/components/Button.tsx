@@ -2,6 +2,7 @@ import {AdditionalColors, BrandColors, TextColors} from '../utils/Colors';
 import {Typo} from './Typo';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import AccessibilityLabel from '../types/AccesabilityLabel';
 
 const StandardButtonStyles = StyleSheet.create({
   common: {
@@ -33,11 +34,12 @@ type StandardButtonProps = {
   disabled?: boolean;
   onPress: () => void;
   title: string;
-};
+} & AccessibilityLabel;
 
 const Button = ({
   type = 'primary',
   disabled = false,
+  accessibilityLabel,
   onPress,
   title,
 }: StandardButtonProps) => {
@@ -83,7 +85,10 @@ const Button = ({
   };
 
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabled}>
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+      accessibilityLabel={accessibilityLabel}>
       <View style={GetStylesForButtonType(type)}>
         <Typo
           variant="button"

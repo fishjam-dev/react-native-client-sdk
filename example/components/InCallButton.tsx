@@ -7,6 +7,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import AccessibilityLabel from '../types/AccesabilityLabel';
 
 const IconSize = 25;
 
@@ -35,12 +36,13 @@ type InCallButtonProps = {
   type?: ButtonTypeName;
   onPress: (event: GestureResponderEvent) => void;
   iconName: keyof typeof MaterialCommunityIcons.glyphMap;
-};
+} & AccessibilityLabel;
 
 const InCallButton = ({
   type = 'primary',
   onPress,
   iconName,
+  accessibilityLabel,
 }: InCallButtonProps) => {
   const GetStylesForButtonType = (type: ButtonTypeName) => {
     return [
@@ -61,7 +63,7 @@ const InCallButton = ({
   };
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} accessibilityLabel={accessibilityLabel}>
       <View style={GetStylesForButtonType(type)}>
         <MaterialCommunityIcons
           name={iconName}

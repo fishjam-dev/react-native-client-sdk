@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {StyleSheet, TextInput as RNTextInput, View} from 'react-native';
 
 import isEmpty from 'lodash/isEmpty';
+import AccessibilityLabel from '../types/AccesabilityLabel';
 
 const TextInputStyles = StyleSheet.create({
   main: {
@@ -49,12 +50,13 @@ type TextInputProps = {
   onChangeText?: OnChangeTextType;
   sublabel?: string;
   sublabelIconSize?: number;
-};
+} & AccessibilityLabel;
 
 export const TextInput = ({
   placeholder = '',
   sublabel,
   value,
+  accessibilityLabel,
   editable = true,
   onChangeText = () => {},
 }: TextInputProps) => {
@@ -90,6 +92,7 @@ export const TextInput = ({
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
         value={value}
+        accessibilityLabel={accessibilityLabel}
         onFocus={onFocus}
         onBlur={offFocus}
         editable={editable}

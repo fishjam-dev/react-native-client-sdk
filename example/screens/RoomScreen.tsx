@@ -9,15 +9,22 @@ import {
   usePeers,
   useScreencast,
 } from '@jellyfish-dev/react-native-client-sdk';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppRootStackParamList} from '../navigators/AppNavigator';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {AppRootStackParamList} from '../navigators/AppNavigator';
+
+import {
+  DISCONNECT_BUTTON,
+  TOGGLE_CAMERA_BUTTON,
+  SWITCH_CAMERA_BUTTON,
+  SHARE_SCREEN_BUTTON,
+} from '../types/ComponentLabels';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
 
-  const {cleanUp, leave} = useJellyfishClient();
+  const {leave} = useJellyfishClient();
   const {isCameraOn, flipCamera, toggleCamera} = useCamera();
   const {isScreencastOn, toggleScreencast} = useScreencast();
 
@@ -32,24 +39,32 @@ const RoomScreen = ({navigation}: Props) => {
   const onDisconnectTap = useCallback(() => {
     leave();
     navigation.goBack();
-  }, [cleanUp, navigation.goBack]);
+  }, [navigation, leave]);
 
   return (
     <SafeAreaView style={styles.container}>
       <VideosGrid
-        tracks={peers.map(peer => peer.tracks[0]?.id).filter(t => t)}
+        tracks={
+          peers.map(peer => peer.tracks[0]?.id).filter(t => t) as string[]
+        }
       />
       <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
         <InCallButton
           type="disconnect"
           iconName="phone-hangup"
           onPress={onDisconnectTap}
+          accessibilityLabel={DISCONNECT_BUTTON}
         />
         <InCallButton
           iconName={isCameraOn ? 'camera-off' : 'camera'}
           onPress={toggleCamera}
+          accessibilityLabel={TOGGLE_CAMERA_BUTTON}
         />
-        <InCallButton iconName="camera-switch" onPress={flipCamera} />
+        <InCallButton
+          iconName="camera-switch"
+          onPress={flipCamera}
+          accessibilityLabel={SWITCH_CAMERA_BUTTON}
+        />
         <InCallButton
           iconName={isScreencastOn ? 'share-off' : 'share'}
           onPress={() =>
@@ -57,6 +72,7 @@ const RoomScreen = ({navigation}: Props) => {
               screencastMetadata: {displayName: 'Mobile phone'},
             })
           }
+          accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
       </View>
     </SafeAreaView>

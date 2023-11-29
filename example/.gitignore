@@ -65,3 +65,4 @@ yarn-error.log
 # Env
 .env.development
 /ios/JellyfishExample.xcworkspace/contents.xcworkspacedata
+/ios/jellyfish_ipa/
