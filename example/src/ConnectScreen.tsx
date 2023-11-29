@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   Button,
@@ -16,14 +16,14 @@ import {
   useCamera,
 } from '@jellyfish-dev/react-native-client-sdk';
 
-import {Room} from './Room';
-import {JELLYFISH_URL} from '@env';
+import { Room } from './Room';
+import { JELLYFISH_URL } from '@env';
 
 function ConnectScreen(): JSX.Element {
-  const {connect, join, cleanUp, error} = useJellyfishClient();
+  const { connect, join, cleanUp, error } = useJellyfishClient();
   const [isConnected, setIsConnected] = useState(false);
   const [peerToken, onChangePeerToken] = React.useState('');
-  const {startCamera} = useCamera();
+  const { startCamera } = useCamera();
 
   useEffect(() => {
     async function request() {
@@ -37,9 +37,9 @@ function ConnectScreen(): JSX.Element {
         ]);
         if (
           granted[PermissionsAndroid.PERMISSIONS.CAMERA as Permission] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
+          PermissionsAndroid.RESULTS.GRANTED &&
           granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission] ===
-            PermissionsAndroid.RESULTS.GRANTED
+          PermissionsAndroid.RESULTS.GRANTED
         ) {
           console.log('You can use the camera');
         } else {
@@ -58,7 +58,7 @@ function ConnectScreen(): JSX.Element {
       await connect(JELLYFISH_URL, peerToken);
       setIsConnected(true);
       await startCamera();
-      await join({name: 'RN mobile'});
+      await join({ name: 'RN mobile' });
     } catch (e) {
       console.log(e);
     }
@@ -74,7 +74,7 @@ function ConnectScreen(): JSX.Element {
       <Text style={styles.errorMessage}>{error}</Text>
       {isConnected ? (
         <View style={[styles.button, styles.disconnectButton]}>
-          <Button title="Disconnect" onPress={disconnect} />
+          <Button title='Disconnect' onPress={disconnect} />
         </View>
       ) : (
         <View style={styles.noCallBody}>
@@ -82,17 +82,17 @@ function ConnectScreen(): JSX.Element {
             style={styles.input}
             onChangeText={onChangePeerToken}
             value={peerToken}
-            placeholder="Peer token"
-            placeholderTextColor="#000"
+            placeholder='Peer token'
+            placeholderTextColor='#000'
           />
           <View style={styles.button}>
-            <Button title="Connect" onPress={connectToRoom} />
+            <Button title='Connect' onPress={connectToRoom} />
           </View>
         </View>
       )}
 
       {isConnected && (
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <ScrollView contentInsetAdjustmentBehavior='automatic'>
           <Room />
         </ScrollView>
       )}
