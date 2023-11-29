@@ -35,7 +35,7 @@ export function VideosGrid({tracks}: Props) {
             trackId={v}
             entering={FadeInDown.duration(200)}
             layout={Layout.duration(150)}
-            style={{flex: 1}}
+            style={styles.video}
           />
         </Animated.View>
       ))}

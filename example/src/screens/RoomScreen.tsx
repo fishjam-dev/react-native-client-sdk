@@ -41,7 +41,7 @@ const RoomScreen = ({navigation}: Props) => {
           peer.tracks[0]?.id !== undefined ? [peer.tracks[0].id] : [],
         )}
       />
-      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
+      <View style={styles.buttonsWrapper}>
         <InCallButton
           type="disconnect"
           iconName="phone-hangup"
@@ -74,5 +74,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#F1FAFE',
     padding: 24,
+  },
+  buttonsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 20,
   },
 });

@@ -37,29 +37,28 @@ type InCallButtonProps = {
   iconName: keyof typeof MaterialCommunityIcons.glyphMap;
 };
 
+const GetStylesForButtonType = (type: ButtonTypeName) => {
+  return [
+    InCallButtonStyles.common,
+    type === 'primary'
+      ? InCallButtonStyles.primary
+      : InCallButtonStyles.disconnect,
+  ];
+};
+
+const GetIconColorForButtonType = (type: ButtonTypeName) => {
+  switch (type) {
+    case 'primary':
+      return BrandColors.darkBlue100;
+    case 'disconnect':
+      return AdditionalColors.white;
+  }
+};
 const InCallButton = ({
   type = 'primary',
   onPress,
   iconName,
 }: InCallButtonProps) => {
-  const GetStylesForButtonType = (type: ButtonTypeName) => {
-    return [
-      InCallButtonStyles.common,
-      type === 'primary'
-        ? InCallButtonStyles.primary
-        : InCallButtonStyles.disconnect,
-    ];
-  };
-
-  const GetIconColorForButtonType = (type: ButtonTypeName) => {
-    switch (type) {
-      case 'primary':
-        return BrandColors.darkBlue100;
-      case 'disconnect':
-        return AdditionalColors.white;
-    }
-  };
-
   return (
     <Pressable onPress={onPress}>
       <View style={GetStylesForButtonType(type)}>

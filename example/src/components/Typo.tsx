@@ -186,6 +186,34 @@ type TypoProps = {
   children: ReactNode;
 } & TextProps;
 
+const GetStyleForVariant = (variant: VariantName, textColor: string) => {
+  const windowWidth = Dimensions.get('window').width;
+
+  const HeadlineStylesDynamic =
+    windowWidth > SMALL_WINDOW_BREAKPOINT ? Headlines : HeadlinesSmall;
+  const TextStylesDynamic =
+    windowWidth > SMALL_WINDOW_BREAKPOINT ? TextStyles : TextStylesSmall;
+
+  const variantMap: {[key: string]: TextStyle} = {
+    h1: HeadlineStylesDynamic.h1,
+    h2: HeadlineStylesDynamic.h2,
+    h3: HeadlineStylesDynamic.h3,
+    h4: HeadlineStylesDynamic.h4,
+    h5: HeadlineStylesDynamic.h5,
+    'body-big': TextStylesDynamic.bodyBig,
+    'body-small': TextStylesDynamic.bodySmall,
+    label: TextStylesDynamic.label,
+    caption: TextStylesDynamic.caption,
+    button: TextStylesDynamic.button,
+    'video-label': TextStylesCustom.videoLabel,
+    'chat-regular': TextStylesCustom.chatRegular,
+    'chat-semibold': TextStylesCustom.chatSemibold,
+    'chat-title': TextStylesCustom.chatTitle,
+  };
+
+  return [{color: textColor} as TextStyle, variantMap[variant]];
+};
+
 export const Typo = ({
   variant = 'body-big',
   color = TextColors.darkText,
@@ -198,34 +226,6 @@ export const Typo = ({
     NotoSans_500Medium,
     NotoSans_600SemiBold,
   });
-
-  const windowWidth = Dimensions.get('window').width;
-
-  const GetStyleForVariant = (variant: VariantName, textColor: string) => {
-    const HeadlineStylesDynamic =
-      windowWidth > SMALL_WINDOW_BREAKPOINT ? Headlines : HeadlinesSmall;
-    const TextStylesDynamic =
-      windowWidth > SMALL_WINDOW_BREAKPOINT ? TextStyles : TextStylesSmall;
-
-    const variantMap: {[key: string]: TextStyle} = {
-      h1: HeadlineStylesDynamic.h1,
-      h2: HeadlineStylesDynamic.h2,
-      h3: HeadlineStylesDynamic.h3,
-      h4: HeadlineStylesDynamic.h4,
-      h5: HeadlineStylesDynamic.h5,
-      'body-big': TextStylesDynamic.bodyBig,
-      'body-small': TextStylesDynamic.bodySmall,
-      label: TextStylesDynamic.label,
-      caption: TextStylesDynamic.caption,
-      button: TextStylesDynamic.button,
-      'video-label': TextStylesCustom.videoLabel,
-      'chat-regular': TextStylesCustom.chatRegular,
-      'chat-semibold': TextStylesCustom.chatSemibold,
-      'chat-title': TextStylesCustom.chatTitle,
-    };
-
-    return [{color: textColor} as TextStyle, variantMap[variant]];
-  };
 
   return (
     <Text style={[...GetStyleForVariant(variant, color), style]} {...textProps}>

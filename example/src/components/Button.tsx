@@ -1,7 +1,7 @@
 import {AdditionalColors, BrandColors, TextColors} from '../../utils/Colors';
 import {Typo} from './Typo';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 
 const StandardButtonStyles = StyleSheet.create({
   common: {
@@ -35,59 +35,54 @@ type StandardButtonProps = {
   title: string;
 };
 
+type ButtonStyle = {
+  buttonStyle: ViewStyle;
+  textColor: string;
+};
+
+const GetStylesForButton = (
+  type: StandardButtonTypeName,
+  disabled: boolean,
+): ButtonStyle => {
+  if (disabled) {
+    return {
+      buttonStyle: StandardButtonStyles.disabled,
+      textColor: TextColors.white,
+    };
+  }
+  switch (type) {
+    case 'primary':
+      return {
+        buttonStyle: StandardButtonStyles.primary,
+        textColor: TextColors.white,
+      };
+
+    case 'danger':
+      return {
+        buttonStyle: StandardButtonStyles.danger,
+        textColor: TextColors.white,
+      };
+
+    case 'secondary':
+      return {
+        buttonStyle: StandardButtonStyles.secondary,
+        textColor: TextColors.darkText,
+      };
+  }
+};
+
 const Button = ({
   type = 'primary',
   disabled = false,
   onPress,
   title,
 }: StandardButtonProps) => {
-  const GetBackgroundColorStyle = (
-    type: StandardButtonTypeName,
-    disabled: boolean,
-  ) => {
-    if (disabled) {
-      return StandardButtonStyles.disabled;
-    }
-    switch (type) {
-      case 'primary':
-        return StandardButtonStyles.primary;
-      case 'danger':
-        return StandardButtonStyles.danger;
-      case 'secondary':
-        return StandardButtonStyles.secondary;
-    }
-  };
-
-  const GetStylesForButtonType = (type: StandardButtonTypeName) => {
-    return [
-      StandardButtonStyles.common,
-      GetBackgroundColorStyle(type, disabled),
-    ];
-  };
-
-  const GetTextColorForButtonType = (
-    type: StandardButtonTypeName,
-    disabled: boolean,
-  ) => {
-    if (disabled) {
-      return TextColors.white;
-    }
-    switch (type) {
-      case 'primary':
-        return TextColors.white;
-      case 'danger':
-        return TextColors.white;
-      case 'secondary':
-        return TextColors.darkText;
-    }
-  };
+  const {buttonStyle, textColor} = GetStylesForButton(type, disabled);
 
   return (
     <TouchableOpacity onPress={onPress} disabled={disabled}>
-      <View style={GetStylesForButtonType(type)}>
-        <Typo
-          variant="button"
-          color={GetTextColorForButtonType(type, disabled)}>
+      <View style={buttonStyle}>
+        <Typo variant="button" color={textColor}>
           {title}
         </Typo>
       </View>
