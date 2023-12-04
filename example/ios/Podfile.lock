@@ -18,7 +18,7 @@ PODS:
   - EXImageLoader (4.3.0):
     - ExpoModulesCore
     - React-Core
-  - Expo (49.0.20):
+  - Expo (49.0.21):
     - ExpoModulesCore
   - ExpoKeepAwake (12.3.0):
     - ExpoModulesCore
@@ -532,35 +532,10 @@ PODS:
     - React-jsi (= 0.72.7)
     - React-logger (= 0.72.7)
     - React-perflogger (= 0.72.7)
-  - RNReanimated (3.5.4):
-    - DoubleConversion
-    - FBLazyVector
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React-callinvoker
+  - RNReanimated (3.6.1):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
-    - React-Core/DevSupport
-    - React-Core/RCTWebSocket
-    - React-CoreModules
-    - React-cxxreact
-    - React-hermes
-    - React-jsi
-    - React-jsiexecutor
-    - React-jsinspector
-    - React-RCTActionSheet
-    - React-RCTAnimation
-    - React-RCTAppDelegate
-    - React-RCTBlob
-    - React-RCTImage
-    - React-RCTLinking
-    - React-RCTNetwork
-    - React-RCTSettings
-    - React-RCTText
     - ReactCommon/turbomodule/core
-    - Yoga
   - RNScreens (3.27.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
@@ -802,7 +777,7 @@ SPEC CHECKSUMS:
   EXFileSystem: f8b838a880254de42a5a7da20ed5ce12e2697c1b
   EXFont: 738c44c390953ebcbab075a4848bfbef025fd9ee
   EXImageLoader: 34b214f9387e98f3c73989f15d8d5b399c9ab3f7
-  Expo: 25b41ba5d4a3af57234dca132f6b9e1f5b0bd4b5
+  Expo: 61a8e1aa94311557c137c0a4dfd4fe78281cfbb4
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoModulesCore: c480fd4e3c7c8e81f0a6ba3a7c56869f25fe016d
   FBLazyVector: 5fbbff1d7734827299274638deb8ba3024f6c597
@@ -857,7 +832,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 7649c3b46c8dee1853691ecf60146a16ae59253c
   React-utils: 56838edeaaf651220d1e53cd0b8934fb8ce68415
   ReactCommon: 5f704096ccf7733b390f59043b6fa9cc180ee4f6
-  RNReanimated: ab2e96c6d5591c3dfbb38a464f54c8d17fb34a87
+  RNReanimated: fdbaa9c964bbab7fac50c90862b6cc5f041679b9
   RNScreens: 3c2d122f5e08c192e254c510b212306da97d2581
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   SwiftLogJellyfish: 6207ec91ef3913d303ac797b73298248ee360eb0
