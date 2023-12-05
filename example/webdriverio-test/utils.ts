@@ -47,7 +47,7 @@ function getAndroidDeviceCapabilities(
     'appium:deviceName': name,
     'appium:autoGrantPermissions': true,
     'appium:app': process.env.ANDROID_APP_PATH,
-    'appium:newCommandTimeout': 240,
+    'appium:newCommandTimeout': 2000,
   };
 }
 
@@ -60,7 +60,7 @@ function getIosDeviceCapabilities(
     'appium:automationName': 'XCUITest',
     'appium:udid': id,
     'appium:app': process.env.IOS_APP_PATH,
-    'appium:newCommandTimeout': 240,
+    'appium:newCommandTimeout': 2000,
     'appium:xcodeOrgId': teamId,
     'appium:xcodeSigningId': 'App Developer',
   };
@@ -70,7 +70,7 @@ const getCapabilityIfDeviceAvailable = (
   deviceName: string | undefined,
   capabilityGetter: (deviceName: string) => Capabilities.RemoteCapability,
 ): Capabilities.RemoteCapability | undefined => {
-  return deviceName === undefined ? undefined : capabilityGetter(deviceName);
+  return deviceName ? capabilityGetter(deviceName) : undefined;
 };
 
 const androidDeviceName = process.env.ANDROID_DEVICE_NAME;
