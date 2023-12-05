@@ -27,7 +27,7 @@
   - your path should look like path/to/your/app/JellyfishExample.ipa
 
 7. Run yarn install in webdriveio-test folder
-2. [install wdio cli](https://v6.webdriver.io/docs/clioptions.html)
+2. [install wdio cli (Do not run npx wdio config, it is not necessary because it is already configured)](https://v6.webdriver.io/docs/clioptions.html)
 3. Run jellyfish ( if locally this command can be handy:
 
    docker run -p 50000-50050:50000-50050/udp \
