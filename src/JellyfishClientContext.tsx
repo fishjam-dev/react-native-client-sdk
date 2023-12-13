@@ -1,12 +1,30 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback } from 'react';
 
-import { Metadata } from '@jellyfish-dev/react-native-membrane-webrtc';
-import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
+import {
+  Metadata,
+  useAudioSettings,
+  VideoQuality,
+  CaptureDevice,
+  updateVideoTrackMetadata,
+  updateAudioTrackMetadata,
+  useCamera,
+  useMicrophone,
+  useScreencast,
+  ScreencastQuality,
+} from '@jellyfish-dev/react-native-membrane-webrtc';
+
+import {
+  requireNativeModule,
+  NativeModulesProxy,
+  Platform,
+} from 'expo-modules-core';
 
 import { useEffect, useRef, useState } from 'react';
 import { NativeEventEmitter } from 'react-native';
 import { PeerMessage } from './protos/jellyfish/peer_notifications';
 
+type VideoroomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 const membraneModule = requireNativeModule('MembraneWebRTC');
 
 const eventEmitter = new NativeEventEmitter(
@@ -22,6 +40,15 @@ const generateMessage = (event: WebSocketCloseEvent) => {
 
 const JellyfishContext = React.createContext<
   | {
+      isCameraOn: boolean;
+      toggleCamera: () => void;
+      isMicrophoneOn: boolean;
+      toggleMicrophone: () => void;
+      isScreencastOn: boolean;
+      toggleScreencastAndUpdateMetadata: () => void;
+      joinRoom: () => Promise<void>;
+      flipCamera: () => void;
+      getCaptureDevices: () => Promise<CaptureDevice[]>;
       /**
        * Connects to the server using the websocket connection.
        *
@@ -56,6 +83,24 @@ const JellyfishContext = React.createContext<
 >(undefined);
 
 const JellyfishContextProvider = (props: any) => {
+  const [isCameraOn, setIsCameraOn] = useState(true);
+  const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
+  const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
+    null
+  );
+  const {
+    toggleCamera: membraneToggleCamera,
+    startCamera,
+    flipCamera,
+    getCaptureDevices,
+  } = useCamera();
+  const { toggleMicrophone: membraneToggleMicrophone, startMicrophone } =
+    useMicrophone();
+  const { isScreencastOn, toggleScreencast: membraneToggleScreencast } =
+    useScreencast();
+  useAudioSettings();
+  const [videoroomState, setVideoroomState] =
+    useState<VideoroomState>('BeforeMeeting');
   const [error, setError] = useState<string | null>(null);
   const websocket = useRef<WebSocket | null>(null);
 
@@ -98,7 +143,7 @@ const JellyfishContextProvider = (props: any) => {
         websocket.current?.send(message);
       });
 
-      websocket.current?.addEventListener('message', (event) => {
+      websocket.current?.addEventListener('message', async (event) => {
         const uint8Array = new Uint8Array(event.data);
         try {
           const data = PeerMessage.decode(uint8Array);
@@ -121,6 +166,63 @@ const JellyfishContextProvider = (props: any) => {
     await membraneModule.create();
   };
 
+  const joinRoom = useCallback(async () => {
+    await join({ name: 'RN mobile' });
+
+    await startCamera({
+      simulcastConfig: {
+        enabled: true,
+        activeEncodings:
+          Platform.OS === 'android' ? ['l', 'm', 'h'] : ['l', 'h'],
+      },
+      quality: VideoQuality.HD_169,
+      maxBandwidth: { l: 150, m: 500, h: 1500 },
+      videoTrackMetadata: { active: isCameraOn, type: 'camera' },
+      captureDeviceId: currentCamera?.id,
+      cameraEnabled: isCameraOn,
+    });
+    await startMicrophone({
+      audioTrackMetadata: { active: isMicrophoneOn, type: 'audio' },
+      microphoneEnabled: isMicrophoneOn,
+    });
+    setVideoroomState('InMeeting');
+  }, [isCameraOn, isMicrophoneOn]);
+
+  useEffect(() => {
+    getCaptureDevices().then((devices) => {
+      setCurrentCamera(devices.find((device) => device.isFrontFacing) || null);
+    });
+  });
+  const toggleCamera = useCallback(async () => {
+    if (videoroomState === 'InMeeting') {
+      await membraneToggleCamera();
+      await updateVideoTrackMetadata({ active: !isCameraOn, type: 'camera' });
+    }
+    setIsCameraOn(!isCameraOn);
+  }, [isCameraOn, videoroomState]);
+
+  const toggleMicrophone = useCallback(async () => {
+    if (videoroomState === 'InMeeting') {
+      await membraneToggleMicrophone();
+      await updateAudioTrackMetadata({
+        active: !isMicrophoneOn,
+        type: 'audio',
+      });
+    }
+    setIsMicrophoneOn(!isMicrophoneOn);
+  }, [isMicrophoneOn, videoroomState]);
+
+  const toggleScreencastAndUpdateMetadata = useCallback(() => {
+    membraneToggleScreencast({
+      screencastMetadata: {
+        displayName: 'presenting',
+        type: 'screensharing',
+        active: 'true',
+      },
+      quality: ScreencastQuality.HD15,
+    });
+  }, []);
+
   const join = async (peerMetadata: Metadata = {}) => {
     setError(null);
     await membraneModule.connect(peerMetadata);
@@ -139,6 +241,15 @@ const JellyfishContextProvider = (props: any) => {
   };
 
   const value = {
+    joinRoom,
+    flipCamera,
+    toggleCamera,
+    toggleMicrophone,
+    toggleScreencastAndUpdateMetadata,
+    isCameraOn,
+    isMicrophoneOn,
+    isScreencastOn,
+    getCaptureDevices,
     connect,
     join,
     cleanUp,
