@@ -99,8 +99,7 @@ jobs:
         run: echo "y" | avdmanager --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
 
       - name: Display list of avds
-        run: |
-          $HOME/Android/Sdk/emulator -list-avds
+        run: $HOME/Android/Sdk/emulator -list-avds
 
       - name: Start emulator
         run: |
