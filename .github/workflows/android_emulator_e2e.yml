@@ -142,7 +142,7 @@ jobs:
       - name: Run tests
         run: |
           cd $GITHUB_WORKSPACE/example/webdriverio-test
-          npx wdio run ./wdio.conf.ts | tee appium.txt
+          npx wdio run ./wdio.conf.ts | tee $GITHUB_WORKSPACE/example/webdriverio-test/appium.txt
 
       - name: Upload test output
         uses: actions/upload-artifact@v3
