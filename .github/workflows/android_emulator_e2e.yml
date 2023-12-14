@@ -135,9 +135,6 @@ jobs:
           npx wdio run ./wdio.conf.ts 2>&1  | tee appium.txt
           sleep 10
 
-      - name: Find appium.txt
-        run: find / -name "appium.txt" 2>/dev/null
-
       - name: Upload test output
         uses: actions/upload-artifact@v3
         with:
