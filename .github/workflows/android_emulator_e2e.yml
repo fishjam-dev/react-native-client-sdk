@@ -69,38 +69,28 @@ jobs:
           java-version: '18'
           distribution: 'zulu'
 
-      - name: Update path
-        run: |
-          echo "$ANDROID_SDK_ROOT/cmdline-tools/tools" >> $GITHUB_PATH
-          echo "$ANDROID_SDK_ROOT/cmdline-tools/tools/bin" >> $GITHUB_PATH
-          echo "$ANDROID_SDK_ROOT/emulator" >> $GITHUB_PATH
-          echo "$ANDROID_SDK_ROOT/tools/bin" >> $GITHUB_PATH
-          echo "$ANDROID_SDK_ROOT/platform-tools" >> $GITHUB_PATH
-          echo "$ANDROID_SDK_ROOT/build-tools/$BUILD_TOOLS" >> $GITHUB_PATH
-
-
-      - name: Download android cmd lines tools
-        run: |
-          sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp
-          unzip /tmp/$ANDROID_CMD -d $ANDROID_SDK_ROOT
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 8512546
 
       - name: Accept licenses
-        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+        run: echo "y" | sdkmanager --licenses
 
       - name: Install  emulator
-        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https $EMULATOR_PACKAGE
+        run: echo "y" | sdkmanager --verbose --no_https $EMULATOR_PACKAGE
 
       - name: Install platform version
-        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https $PLATFORM_VERSION
+        run:  echo "y" | sdkmanager --verbose --no_https $PLATFORM_VERSION
 
       - name: Install  build tool
-        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https $BUILD_TOOL
+        run:  echo "y" | sdkmanager --verbose --no_https $BUILD_TOOL
 
       - name: Install  platform tools
-        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https "platform-tools"
+        run:  echo "y" | sdkmanager --verbose --no_https "platform-tools"
 
       - name: List installed
-        run: $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager  --list_installed
+        run: sdkmanager  --list_installed
 
       - name: emulator command
         run: echo " echo "no" | avdmanager  --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE""
