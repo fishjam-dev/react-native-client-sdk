@@ -80,25 +80,25 @@ jobs:
 
 
       - name: Install android cmd lines tools
-        run: sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp &&  unzip -d $ANDROID_SDK_ROOT /tmp/$ANDROID_CMD && mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/tools && cd $ANDROID_SDK_ROOT/cmdline-tools &&  mv NOTICE.txt source.properties bin lib tools/  && cd $ANDROID_SDK_ROOT/cmdline-tools/tools && ls
+        run: sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp && unzip -d $ANDROID_SDK_ROOT/cmdline-tools /tmp/$ANDROID_CMD && mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/
 
       - name: Accept licenses
-        run: echo "y" | sdkmanager --licenses
+        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
 
       - name: Install  emulator
-        run:  echo "y" | sdkmanager --verbose --no_https $EMULATOR_PACKAGE
+        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https $EMULATOR_PACKAGE
 
       - name: Install platform version
-        run:  sdkmanager --verbose --no_https $PLATFORM_VERSION
+        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https $PLATFORM_VERSION
 
       - name: Install  build tool
-        run:  sdkmanager --verbose --no_https $BUILD_TOOL
+        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https $BUILD_TOOL
 
       - name: Install  platform tools
-        run:  sdkmanager --verbose --no_https "platform-tools"
+        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose --no_https "platform-tools"
 
       - name: List installed
-        run: sdkmanager  --list_installed
+        run: $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager  --list_installed
 
       - name: emulator command
         run: echo " echo "no" | avdmanager  --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE""
