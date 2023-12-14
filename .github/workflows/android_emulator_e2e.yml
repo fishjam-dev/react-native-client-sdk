@@ -82,25 +82,24 @@ jobs:
       - name: Install android cmd lines tools
         run: |
           sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp
-          sudo mkdir -p $ANDROID_SDK_ROOT
           unzip /tmp/$ANDROID_CMD -d $ANDROID_SDK_ROOT
           ls -l $ANDROID_SDK_ROOT
-          mv $ANDROID_SDK_ROOT/cmdline-tools/latest/* $ANDROID_SDK_ROOT/cmdline-tools/
+          mv $ANDROID_SDK_ROOT/cmdline-tools/tools/* $ANDROID_SDK_ROOT/cmdline-tools/
 
       - name: Accept licenses
-        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --licenses
+        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager --licenses
 
       - name: Install  emulator
-        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --verbose --no_https $EMULATOR_PACKAGE
+        run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager --verbose --no_https $EMULATOR_PACKAGE
 
       - name: Install platform version
-        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --verbose --no_https $PLATFORM_VERSION
+        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager --verbose --no_https $PLATFORM_VERSION
 
       - name: Install  build tool
-        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --verbose --no_https $BUILD_TOOL
+        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager --verbose --no_https $BUILD_TOOL
 
       - name: Install  platform tools
-        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --verbose --no_https "platform-tools"
+        run:  echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager --verbose --no_https "platform-tools"
 
       - name: List installed
         run: $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager  --list_installed
