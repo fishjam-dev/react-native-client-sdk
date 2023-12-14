@@ -101,9 +101,9 @@ jobs:
       - name: Start emulator
         run: |
           echo "Starting emulator and waiting for boot to complete...."
-          /usr/local/lib/android/sdk/tools/emulator -avd nexus -no-window -no-boot-anim -m 2048 &
+          /usr/local/lib/android/sdk/tools/emulator -avd nexus -no-window -no-boot-anim -memory 2048 &
+          while [ "`adb shell getprop sys.boot_completed | tr -d '\r'`" != "1" ]; do echo "Waiting for emulator boot..."; sleep 5; done
           adb wait-for-device
-          while [ "`adb shell getprop sys.boot_completed | tr -d '\r'`" != "1" ]; do echo "Waiting for emulator boot..."; sleep 1; done
           echo "Emulator has finished booting"
           adb devices
           sleep 30
