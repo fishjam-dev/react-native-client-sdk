@@ -1,0 +1,157 @@
+name: e2e_android
+on:
+  push:
+    branches:
+      - locally-e2e-test-automation
+  pull_request:
+    branches:
+      - locally-e2e-test-automation
+
+jobs:
+  e2e_android:
+    runs-on: ubuntu-latest
+    services:
+      jellyfish:
+        image: ghcr.io/jellyfish-dev/jellyfish:0.2.0
+        env:
+          JF_CHECK_ORIGIN: false
+          JF_HOST: localhost:5002
+          JF_PORT: "5002"
+          JF_WEBRTC_USED: true
+          JF_WEBRTC_TURN_PORT_RANGE: 50000-50050
+          JF_WEBRTC_TURN_IP: 127.0.0.1
+          JF_WEBRTC_TURN_LISTEN_IP: 0.0.0.0
+          JF_SERVER_API_TOKEN: development
+        ports:
+          - 5002:5002
+          - 50000-50050:50000-50050/udp
+    env:
+      ANDROID_SDK__ROOT: /opt/android
+      ARCH: "x86_64"
+      TARGET: "default"
+      API_LEVEL: "33"
+      BUILD_TOOLS: "33.0.0"
+      ANDROID_API_LEVEL: android;33
+      ANDROID_APIS: google_apis;x86_64
+      EMULATOR_PACKAGE: system-images;android-33;default;x86_64
+      EMULATOR_NAME: "nexus"
+      EMULATOR_DEVICE: "Nexus 6"
+      PLATFORM_VERSION: platforms;android-33
+      BUILD_TOOL: "build-tools;33.0.0"
+      ANDROID_CMD: "commandlinetools-linux-10406996_latest.zip"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create .env file in webdriverio-test directory
+        run: |
+          echo -e "
+          JELLYFISH_URL=ws://10.0.2.2:5002/socket/peer/websocket
+          ANDROID_DEVICE_NAME=$EMULATOR_DEVICE
+          ANDROID_APP_PATH=$GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
+          " > $GITHUB_WORKSPACE/example/webdriverio-test/.env
+
+      - name: Display .env file
+        run: cat $GITHUB_WORKSPACE/example/webdriverio-test/.env
+
+      - name: Enable KVM group perms
+        run: |
+            echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+            sudo udevadm control --reload-rules
+            sudo udevadm trigger --name-match=kvm
+
+      - name: Install dependencies
+        run:  sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2
+
+      - name: Setup Java 18
+        uses: actions/setup-java@v4
+        with:
+          java-version: '18'
+          distribution: 'zulu'
+
+      - name: Update path
+        run: echo "$ANDROID_SDK__ROOT/cmdline-tools/tools" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK__ROOT/cmdline-tools/tools/bin" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK__ROOT/emulator" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK__ROOT/tools/bin" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK__ROOT/platform-tools" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK__ROOT/build-tools/$BUILD_TOOLS" >> $GITHUB_PATH
+
+
+      - name: Install android cmd lines tools
+        run: sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp &&  unzip -d $ANDROID_SDK__ROOT /tmp/$ANDROID_CMD && mkdir -p $ANDROID_SDK__ROOT/cmdline-tools/tools && cd $ANDROID_SDK__ROOT/cmdline-tools &&  mv NOTICE.txt source.properties bin lib tools/  && cd $ANDROID_SDK__ROOT/cmdline-tools/tools && ls
+
+      - name: Accept licenses
+        run: echo "y" | sdkmanager --licenses
+
+      - name: Install  emulator
+        run:  echo "y" | sdkmanager --verbose --no_https $EMULATOR_PACKAGE
+
+      - name: Install platform version
+        run:  sdkmanager --verbose --no_https $PLATFORM_VERSION
+
+      - name: Install  build tool
+        run:  sdkmanager --verbose --no_https $BUILD_TOOL
+
+      - name: Install  platform tools
+        run:  sdkmanager --verbose --no_https "platform-tools"
+
+      - name: List installed
+        run: sdkmanager  --list_installed
+
+      - name: emulator command
+        run: echo " echo "no" | avdmanager  --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE""
+
+      - name: Create emulator
+        run: echo "no" | avdmanager  --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
+
+      - name: Start emulator
+        run: |
+          echo "Starting emulator and waiting for boot to complete...."
+          ls -la $ANDROID_HOME/emulator
+          $ANDROID_HOME/emulator -avd "nexus" -gpu host -no-boot-anim  -qemu -m 2048 > /dev/null 2>&1 &
+          adb wait-for-device
+          while ["`adb shell getprop sys.boot_completed | tr - d '\r' `" != "1" ]; do echo "Waiting for emulator boot..."; sleep 1; done
+          echo "Emulator has finished booting"
+          adb devices
+          sleep 30
+
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          yarn-version: '1.22.x'
+
+      - name: Run yarn install in all directories
+        run: |
+          cd $GITHUB_WORKSPACE
+          yarn install
+          cd $GITHUB_WORKSPACE/example
+          yarn install
+          cd $GITHUB_WORKSPACE/example/webdriverio-test
+          yarn install
+
+      - name: Install appium
+        run: npm i --location=global appium
+
+      - name: Install UIAnimator 2
+        run: appium driver install uiautomator2
+
+
+      - name: Build app
+        run: |
+          cd $GITHUB_WORKSPACE/example/android
+          ./gradlew assembleRelease
+
+      - name: Run tests
+        run: |
+          cd $GITHUB_WORKSPACE/example/webdriverio-test
+          npx wdio run ./wdio.conf.ts | tee appium.txt
+
+      - name: Upload test output
+        uses: actions/upload-artifact@v3
+        with:
+            name: appium
+            path: $GITHUB_WORKSPACE/example/webdriverio-test/appium.txt
+
