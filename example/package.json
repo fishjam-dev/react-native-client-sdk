@@ -59,6 +59,6 @@
     "preset": "react-native"
   },
   "engines": {
-    "yarn": "1.22.15"
+    "yarn": "1.22.21"
   }
 }

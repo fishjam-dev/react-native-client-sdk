@@ -60,7 +60,7 @@ jobs:
             sudo udevadm trigger --name-match=kvm
 
       - name: Install dependencies
-        run:  sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2
+        run: sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2
 
       - name: Setup Java 18
         uses: actions/setup-java@v4
@@ -71,7 +71,7 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          cmdline-tools-version: 8512546
+          cmdline-tools-version: 10406996
 
       - name: Accept licenses
         run: echo "y" | sdkmanager --licenses
@@ -97,9 +97,6 @@ jobs:
 
       - name: Display list of avds
         run: /usr/local/lib/android/sdk/tools/emulator -list-avds
-
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2 xvfb
 
       - name: Start emulator
         run: |
