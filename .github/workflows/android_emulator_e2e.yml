@@ -70,16 +70,16 @@ jobs:
           distribution: 'zulu'
 
       - name: Update path
-        run: echo "$ANDROID_SDK__ROOT/cmdline-tools/tools" >> $GITHUB_PATH
-      - run: echo "$ANDROID_SDK__ROOT/cmdline-tools/tools/bin" >> $GITHUB_PATH
-      - run: echo "$ANDROID_SDK__ROOT/emulator" >> $GITHUB_PATH
-      - run: echo "$ANDROID_SDK__ROOT/tools/bin" >> $GITHUB_PATH
-      - run: echo "$ANDROID_SDK__ROOT/platform-tools" >> $GITHUB_PATH
-      - run: echo "$ANDROID_SDK__ROOT/build-tools/$BUILD_TOOLS" >> $GITHUB_PATH
+        run: echo "$ANDROID_SDK_ROOT/cmdline-tools/tools" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK_ROOT/cmdline-tools/tools/bin" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK_ROOT/emulator" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK_ROOT/tools/bin" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK_ROOT/platform-tools" >> $GITHUB_PATH
+      - run: echo "$ANDROID_SDK_ROOT/build-tools/$BUILD_TOOLS" >> $GITHUB_PATH
 
 
       - name: Install android cmd lines tools
-        run: sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp &&  unzip -d $ANDROID_SDK__ROOT /tmp/$ANDROID_CMD && mkdir -p $ANDROID_SDK__ROOT/cmdline-tools/tools && cd $ANDROID_SDK__ROOT/cmdline-tools &&  mv NOTICE.txt source.properties bin lib tools/  && cd $ANDROID_SDK__ROOT/cmdline-tools/tools && ls
+        run: sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp &&  unzip -d $ANDROID_SDK_ROOT /tmp/$ANDROID_CMD && mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/tools && cd $ANDROID_SDK_ROOT/cmdline-tools &&  mv NOTICE.txt source.properties bin lib tools/  && cd $ANDROID_SDK_ROOT/cmdline-tools/tools && ls
 
       - name: Accept licenses
         run: echo "y" | sdkmanager --licenses
