@@ -83,9 +83,10 @@ jobs:
         run: |
           sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp
           unzip /tmp/$ANDROID_CMD -d $ANDROID_SDK_ROOT
+
       - name: Install android cmd lines tools
         run: |
-          ls -l $ANDROID_SDK_ROOT
+          ls  $ANDROID_SDK_ROOT/
           mv $ANDROID_SDK_ROOT/cmdline-tools/tools/* $ANDROID_SDK_ROOT/cmdline-tools/
 
       - name: Accept licenses
