@@ -70,9 +70,7 @@ const getBasePath = () => {
 };
 
 const getWebsocketUrl = (secure: boolean = false) =>
-  `${secure ? 'wss' : 'ws'}://${getBasePath()}:${
-    process.env.JELLYFISH_PORT
-  }/socket/peer/websocket`;
+  `${secure ? 'wss' : 'ws'}://${getBasePath()}:5002/socket/peer/websocket`;
 
 const getAndroidDeviceCapabilities = (
   name: string,
