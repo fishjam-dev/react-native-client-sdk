@@ -10,21 +10,21 @@ on:
 jobs:
   e2e_android:
     runs-on: ubuntu-latest
-#    services:
-#      jellyfish:
-#        image: ghcr.io/jellyfish-dev/jellyfish:0.2.0
-#        env:
-#          JF_CHECK_ORIGIN: false
-#          JF_HOST: localhost:5002
-#          JF_PORT: "5002"
-#          JF_WEBRTC_USED: true
-#          JF_WEBRTC_TURN_PORT_RANGE: 50000-50050
-#          JF_WEBRTC_TURN_IP: 127.0.0.1
-#          JF_WEBRTC_TURN_LISTEN_IP: 0.0.0.0
-#          JF_SERVER_API_TOKEN: development
-#        ports:
-#          - 5002:5002
-#          - 50000-50050:50000-50050/udp
+    services:
+      jellyfish:
+        image: ghcr.io/jellyfish-dev/jellyfish:0.2.0
+        env:
+          JF_CHECK_ORIGIN: false
+          JF_HOST: localhost:5002
+          JF_PORT: "5002"
+          JF_WEBRTC_USED: true
+          JF_WEBRTC_TURN_PORT_RANGE: 50000-50050
+          JF_WEBRTC_TURN_IP: 127.0.0.1
+          JF_WEBRTC_TURN_LISTEN_IP: 0.0.0.0
+          JF_SERVER_API_TOKEN: development
+        ports:
+          - 5002:5002
+          - 50000-50050:50000-50050/udp
     env:
       ARCH: "x86_64"
       TARGET: "default"

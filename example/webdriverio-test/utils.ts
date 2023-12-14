@@ -66,7 +66,7 @@ const tapApp = async (driver: WebdriverIO.Browser) => {
   ]);
 };
 const getBasePath = () => {
-  return process.env.DOCKER_TEST === 'TRUE' ? 'jellyfish' : 'localhost';
+  return '10.0.2.2';
 };
 
 const getWebsocketUrl = (secure: boolean = false) =>
