@@ -105,10 +105,13 @@ jobs:
       - name: Create emulator
         run: echo "no" | avdmanager  --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
 
+      - name: Display list of avds
+        run: |
+          emulator -list-avds
       - name: Start emulator
         run: |
           echo "Starting emulator and waiting for boot to complete...."
-          ls -la $ANDROID_HOME/emulator
+
           emulator -avd "nexus" -no-window -no-boot-anim -m 2048 -qemu
           adb wait-for-device
           while ["`adb shell getprop sys.boot_completed | tr - d '\r' `" != "1" ]; do echo "Waiting for emulator boot..."; sleep 1; done
