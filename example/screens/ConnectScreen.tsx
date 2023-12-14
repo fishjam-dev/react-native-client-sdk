@@ -13,10 +13,7 @@ import {
 
 import {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} from '../types/ComponentLabels';
 
-import {
-  useCamera,
-  useJellyfishClient,
-} from '@jellyfish-dev/react-native-client-sdk';
+import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 
@@ -26,11 +23,9 @@ import {AppRootStackParamList} from '../navigators/AppNavigator';
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 
 const ConnectScreen = ({navigation}: Props) => {
-  const {connect, join, error} = useJellyfishClient();
+  const {connect, error} = useJellyfishClient();
   const [peerToken, onChangePeerToken] = useState('');
   const [jellyfishUrl, onChangeJellyfishUrl] = useState('');
-  const {startCamera} = useCamera();
-
   useEffect(() => {
     async function request() {
       if (Platform.OS === 'ios') {
@@ -59,12 +54,10 @@ const ConnectScreen = ({navigation}: Props) => {
     request();
   }, []);
 
-  const connectToRoom = async () => {
+  const navigateToPreview = async () => {
     try {
-      await connect(jellyfishUrl, peerToken);
-      await startCamera();
-      await join({name: 'RN mobile'});
-      navigation.navigate('Room');
+      await connect(jellyfishUrl, peerToken.trim());
+      navigation.navigate('Preview');
     } catch (e) {
       console.log(e);
     }
@@ -95,7 +88,7 @@ const ConnectScreen = ({navigation}: Props) => {
           />
           <Button
             title="Connect"
-            onPress={connectToRoom}
+            onPress={navigateToPreview}
             accessibilityLabel={CONNECT_BUTTON}
           />
           <QRCodeScanner onCodeScanned={onChangePeerToken} />

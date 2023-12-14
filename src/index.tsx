@@ -20,6 +20,8 @@ export {
   VideoPreviewView,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
+export type { CaptureDevice } from '@jellyfish-dev/react-native-membrane-webrtc';
+
 type Peer<
   MetadataType extends Metadata,
   VideoTrackMetadataType extends Metadata,

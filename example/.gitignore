@@ -66,3 +66,9 @@ yarn-error.log
 .env.development
 /ios/JellyfishExample.xcworkspace/contents.xcworkspacedata
 /ios/jellyfish_ipa/
+
+
+wwwroot/*.js
+node_modules
+typings
+dist
