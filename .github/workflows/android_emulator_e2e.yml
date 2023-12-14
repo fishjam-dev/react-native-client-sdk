@@ -98,10 +98,15 @@ jobs:
       - name: Display list of avds
         run: /usr/local/lib/android/sdk/tools/emulator -list-avds
 
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2 xvfb
+
+
+
       - name: Start emulator
         run: |
           echo "Starting emulator and waiting for boot to complete...."
-          /usr/local/lib/android/sdk/tools/emulator -avd nexus -no-window -no-boot-anim -memory 2048 &
+          xvfb-run -a /usr/local/lib/android/sdk/tools/emulator -avd nexus -no-window -no-boot-anim  &
           while [ "`adb shell getprop sys.boot_completed | tr -d '\r'`" != "1" ]; do echo "Waiting for emulator boot..."; sleep 5; done
           adb wait-for-device
           echo "Emulator has finished booting"
