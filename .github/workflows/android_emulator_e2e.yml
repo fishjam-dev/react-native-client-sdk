@@ -94,16 +94,14 @@ jobs:
       - name: Setup environment and create AVD
         run: echo "y" | avdmanager --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
 
-      - name: Find emulator
-        run: find / -name emulator* 2>/dev/null
 
       - name: Display list of avds
-        run: $HOME/Android/Sdk/emulator -list-avds
+        run: /usr/local/lib/android/sdk/tools/emulator -list-avds
 
       - name: Start emulator
         run: |
           echo "Starting emulator and waiting for boot to complete...."
-          $HOME/Android/Sdk/emulator -avd nexus -no-window -no-boot-anim -m 2048 &
+          /usr/local/lib/android/sdk/tools/emulator -avd nexus -no-window -no-boot-anim -m 2048 &
           adb wait-for-device
           while [ "`adb shell getprop sys.boot_completed | tr -d '\r'`" != "1" ]; do echo "Waiting for emulator boot..."; sleep 1; done
           echo "Emulator has finished booting"
