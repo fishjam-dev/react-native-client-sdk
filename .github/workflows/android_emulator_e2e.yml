@@ -83,8 +83,8 @@ jobs:
         run: |
           sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp
           sudo mkdir -p $ANDROID_SDK_ROOT
-          sudo chown -R $USER:$USER $ANDROID_SDK_ROOT
           unzip /tmp/$ANDROID_CMD -d $ANDROID_SDK_ROOT
+          ls -l $ANDROID_SDK_ROOT
           mv $ANDROID_SDK_ROOT/cmdline-tools/latest/* $ANDROID_SDK_ROOT/cmdline-tools/
 
       - name: Accept licenses
