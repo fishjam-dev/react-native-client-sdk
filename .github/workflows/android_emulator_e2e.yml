@@ -26,7 +26,7 @@ jobs:
 #          - 5002:5002
 #          - 50000-50050:50000-50050/udp
     env:
-      ANDROID_SDK__ROOT: /opt/android
+      ANDROID_SDK_ROOT: /opt/android
       ARCH: "x86_64"
       TARGET: "default"
       API_LEVEL: "33"
