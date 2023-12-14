@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       jellyfish:
-        image: ghcr.io/jellyfish-dev/jellyfish:0.2.0
+        image: ghcr.io/jellyfish-dev/jellyfish:0.2.1
         env:
           JF_CHECK_ORIGIN: false
           JF_HOST: localhost:5002
