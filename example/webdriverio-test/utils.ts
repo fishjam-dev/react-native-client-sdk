@@ -1,8 +1,8 @@
 import {Capabilities} from '@wdio/types';
 import * as assert from 'assert';
 
-const TIMEOUT = 300;
-const INTERVAL = 300;
+const TIMEOUT = 2000;
+const INTERVAL = 2000;
 
 type TimeoutConfig = {
   timeout: number;
@@ -26,7 +26,7 @@ const getElement = async (
 ) => {
   const element = await driver.$(selector);
   if (shouldExist) {
-    element.waitForExist(timeout);
+    await element.waitForExist(timeout);
     assert.ok(element);
   }
   return element;
