@@ -82,8 +82,10 @@ jobs:
       - name: Install android cmd lines tools
         run: |
           sudo wget https://dl.google.com/android/repository/${ANDROID_CMD} -P /tmp
-          sudo unzip -d $ANDROID_SDK_ROOT/cmdline-tools /tmp/$ANDROID_CMD
-          sudo mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/
+          sudo mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
+          sudo chown -R $USER:$USER $ANDROID_SDK_ROOT
+          unzip /tmp/$ANDROID_CMD -d $ANDROID_SDK_ROOT/cmdline-tools
+          mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools
 
       - name: Accept licenses
         run: echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
