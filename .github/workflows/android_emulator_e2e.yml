@@ -87,6 +87,7 @@ jobs:
       - name: Install android cmd lines tools
         run: |
           ls  $ANDROID_SDK_ROOT/
+          ls  $ANDROID_SDK_ROOT/cmdline-tools/
           mv $ANDROID_SDK_ROOT/cmdline-tools/tools/* $ANDROID_SDK_ROOT/cmdline-tools/
 
       - name: Accept licenses
