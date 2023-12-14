@@ -105,9 +105,15 @@ jobs:
       - name: Create emulator
         run: echo "no" | avdmanager  --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
 
+      - name: List AVD directory
+        run: |
+          ls $HOME/.android/avd
+
       - name: Display list of avds
         run: |
           emulator -list-avds
+
+
       - name: Start emulator
         run: |
           echo "Starting emulator and waiting for boot to complete...."
