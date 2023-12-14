@@ -39,7 +39,7 @@ import * as assert from 'assert';
 const createJellysifhRoom = async () => {
   const configParam: ConfigurationParameters = {
     accessToken: 'development',
-    basePath: `http://localhost:5002`,
+    basePath: `http://10.0.2.2:5002`,
   };
   const config = new Configuration(configParam);
   const {createRoom} = RoomApiFp(config);
@@ -58,7 +58,7 @@ const addPeerToRoom = async (
 ) => {
   const configParam: ConfigurationParameters = {
     accessToken: 'development',
-    basePath: `http://localhost:5002`,
+    basePath: `http://10.0.2.2:5002`,
   };
   const config = new Configuration(configParam);
   const {addPeer} = RoomApiFp(config);
