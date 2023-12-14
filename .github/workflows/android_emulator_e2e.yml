@@ -26,7 +26,6 @@ jobs:
 #          - 5002:5002
 #          - 50000-50050:50000-50050/udp
     env:
-      ANDROID_SDK_ROOT: /opt/android
       ARCH: "x86_64"
       TARGET: "default"
       API_LEVEL: "33"
@@ -86,9 +85,6 @@ jobs:
       - name: Install  build tool
         run:  echo "y" | sdkmanager --verbose --no_https $BUILD_TOOL
 
-      - name: Install  platform tools
-        run:  echo "y" | sdkmanager --verbose --no_https "platform-tools"
-
       - name: List installed
         run: sdkmanager  --list_installed
 
@@ -97,6 +93,9 @@ jobs:
 
       - name: Setup environment and create AVD
         run: echo "y" | avdmanager --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
+
+      - name: Find emulator
+        run: find / -name emulator* 2>/dev/null
 
       - name: Display list of avds
         run: $HOME/Android/Sdk/emulator -list-avds
