@@ -48,12 +48,9 @@ const PreviewScreen = ({navigation}: Props) => {
       availableCameras.current = devices;
       setCurrentCamera(devices.find(device => device.isFrontFacing) || null);
     });
-
-    console.log('INFO AFTER GETTING CAMERAS');
     console.log(availableCameras.current);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    console.log('INFO AFTER GETTING CAMERAS');
+  }, [getCaptureDevices]);
 
   useEffect(() => {
     console.log('INFO WELCOME IN PREVIEW SCREEN');
