@@ -53,7 +53,7 @@ const PreviewScreen = ({navigation}: Props) => {
     console.log(availableCameras.current);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentCamera]);
+  }, []);
 
   useEffect(() => {
     console.log('INFO WELCOME IN PREVIEW SCREEN');
