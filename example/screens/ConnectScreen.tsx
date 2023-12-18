@@ -60,7 +60,7 @@ const ConnectScreen = ({navigation}: Props) => {
       console.log('NO ERROR');
       navigation.navigate('Preview');
     } catch (e) {
-      console.log('ERROR' + e);
+      console.log('ERROR ' + e);
     }
   };
 

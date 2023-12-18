@@ -129,6 +129,12 @@ jobs:
           cd $GITHUB_WORKSPACE/example/android
           ./gradlew assembleRelease
 
+      - name: Logs from app to file
+        run: |
+          cd $GITHUB_WORKSPACE/example/webdriverio-test
+          adb -e  logcat "*:S" ReactNative:V ReactNativeJS:V > logs.txt &
+
+
       - name: Run tests
         run: |
           cd $GITHUB_WORKSPACE/example/webdriverio-test
@@ -140,4 +146,10 @@ jobs:
         with:
             name: appium.txt
             path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/appium.txt
+
+      - name: Upload logs from app
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs.txt
+          path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/logs.txt
 
