@@ -89,6 +89,8 @@ describe('Walk through app', async () => {
   it('type jellyfish url and token', async () => {
     assert.ok(peerDetail !== undefined);
     const webSocketUrl = getWebsocketUrl();
+    console.log(webSocketUrl);
+    console.log(peerDetail?.token);
     await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
     await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
     await compareInputValue(driver, '~' + TOKEN_INPUT, peerDetail?.token);

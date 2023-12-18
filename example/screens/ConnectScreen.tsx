@@ -57,9 +57,10 @@ const ConnectScreen = ({navigation}: Props) => {
   const navigateToPreview = async () => {
     try {
       await connect(jellyfishUrl, peerToken.trim());
+      console.log('NO ERROR');
       navigation.navigate('Preview');
     } catch (e) {
-      console.log(e);
+      console.log('ERROR' + e);
     }
   };
 
