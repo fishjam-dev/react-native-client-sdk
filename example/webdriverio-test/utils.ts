@@ -24,6 +24,7 @@ const getElement = async (
   shouldExist: boolean = true,
   timeout: TimeoutConfig = findTimeoutConfig(selector),
 ) => {
+  await driver.pause(2000);
   const element = await driver.$(selector);
   if (shouldExist) {
     await element.waitForExist(timeout);

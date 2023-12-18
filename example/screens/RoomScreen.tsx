@@ -46,6 +46,10 @@ const RoomScreen = ({navigation}: Props) => {
     return () => backHandler.remove();
   }, []);
 
+  useEffect(() => {
+    console.log('INFO HELLO FROM ROOM SCREEN');
+  }, []);
+
   const getListOfPlotNames = useCallback(() => {
     if (statistics.length > 0 && showStats) {
       setLabels(Object.keys(statistics[statistics.length - 1] || []));
@@ -57,12 +61,18 @@ const RoomScreen = ({navigation}: Props) => {
   }, [getListOfPlotNames, statistics]);
 
   const toggleStatistics = () => {
+    console.log('INFO BEFORE TOGGLE STATISTIC');
     setShowStats(!showStats);
+    console.log('INFO AFTER TOGGLE STATISTIC');
   };
 
   const onDisconnectPress = useCallback(() => {
+    console.log('INFO BEFORE LEAVE');
     leave();
+    console.log('INFO AFTER LEAVE');
+    console.log('INFO BEFORE NAVIGATE TO CONNECT');
     navigation.navigate('Connect');
+    console.log('INFO AFTER NAVIGATE TO CONNECT');
   }, [navigation, leave]);
 
   return (
@@ -107,17 +117,29 @@ const RoomScreen = ({navigation}: Props) => {
         />
         <InCallButton
           iconName={isMicrophoneOn ? 'microphone-off' : 'microphone'}
-          onPress={toggleMicrophone}
+          onPress={async () => {
+            console.log('INFO BEFORE TOGGLE MICROPHONE');
+            await toggleMicrophone();
+            console.log('INFO AFTER TOGGLE MICROPHONE');
+          }}
           accessibilityLabel={TOGGLE_MICROPHONE_BUTTON}
         />
         <InCallButton
           iconName={isCameraOn ? 'camera-off' : 'camera'}
-          onPress={toggleCamera}
+          onPress={async () => {
+            console.log('INFO BEFORE TOGGLE CAMERA');
+            await toggleCamera();
+            console.log('INFO AFTER TOGGLE CAMERA');
+          }}
           accessibilityLabel={TOGGLE_CAMERA_BUTTON}
         />
         <InCallButton
           iconName="camera-switch"
-          onPress={flipCamera}
+          onPress={async () => {
+            console.log('INFO BEFORE FLIP CAMERA');
+            await flipCamera();
+            console.log('INFO AFTER FLIP CAMERA');
+          }}
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
         />
         <InCallButton
@@ -127,11 +149,13 @@ const RoomScreen = ({navigation}: Props) => {
         />
         <InCallButton
           iconName={isScreencastOn ? 'share-off' : 'share'}
-          onPress={() =>
-            toggleScreencast({
+          onPress={async () => {
+            console.log('INFO BEFORE TOGGLE SCREENCAST');
+            await toggleScreencast({
               screencastMetadata: {displayName: 'Mobile phone'},
-            })
-          }
+            });
+            console.log('INFO AFTER TOGGLE SCREENCAST');
+          }}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
       </View>
