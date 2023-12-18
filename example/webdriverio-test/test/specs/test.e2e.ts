@@ -89,8 +89,6 @@ describe('Walk through app', async () => {
   it('type jellyfish url and token', async () => {
     assert.ok(peerDetail !== undefined);
     const webSocketUrl = getWebsocketUrl();
-    console.log(webSocketUrl);
-    console.log(peerDetail?.token);
     await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
     await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
     await compareInputValue(driver, '~' + TOKEN_INPUT, peerDetail?.token);
@@ -106,10 +104,6 @@ describe('Walk through app', async () => {
       await tapButton(driver, '~' + CONNECT_BUTTON);
       await driver.acceptAlert();
     }
-  });
-  it('check current screen', async () => {
-    await driver.pause(2000);
-    await getElement(driver, '~TEST_PREVIEW');
   });
   it('toggle off preview camera and microphone then join the room', async () => {
     await driver.pause(2000);

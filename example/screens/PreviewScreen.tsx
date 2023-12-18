@@ -42,12 +42,22 @@ const PreviewScreen = ({navigation}: Props) => {
   const availableCameras = useRef<CaptureDevice[]>([]);
 
   useEffect(() => {
+    console.log('INFO BEFORE GETTING CAMERAS');
+
     getCaptureDevices().then(devices => {
       availableCameras.current = devices;
       setCurrentCamera(devices.find(device => device.isFrontFacing) || null);
     });
+
+    console.log('INFO AFTER GETTING CAMERAS');
+    console.log(availableCameras.current);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCamera]);
+
+  useEffect(() => {
+    console.log('INFO WELCOME IN PREVIEW SCREEN');
+  }, []);
 
   const switchCamera = useCallback(() => {
     const cameras = availableCameras.current;
