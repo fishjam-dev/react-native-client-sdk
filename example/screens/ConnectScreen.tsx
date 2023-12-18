@@ -67,7 +67,7 @@ const ConnectScreen = ({navigation}: Props) => {
   return (
     <DismissKeyboard>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
+        <View style={styles.container} accessibilityLabel={'TEST_CONNECT'}>
           {error && <Text style={styles.errorMessage}>{error}</Text>}
           <Image
             style={styles.logo}

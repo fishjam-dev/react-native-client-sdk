@@ -105,6 +105,10 @@ describe('Walk through app', async () => {
       await driver.acceptAlert();
     }
   });
+  it('check current screen', async () => {
+    await getElement(driver, '~TEST_CONNECT');
+    await getElement(driver, '~TEST_PREVIEW');
+  });
   it('toggle off preview camera and microphone then join the room', async () => {
     await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
     await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);

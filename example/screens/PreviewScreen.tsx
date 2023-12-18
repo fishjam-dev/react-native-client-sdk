@@ -78,7 +78,7 @@ const PreviewScreen = ({navigation}: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.cameraPreview}>
+      <View style={styles.cameraPreview} accessibilityLabel={'TEST_PREVIEW'}>
         {isCameraOn ? (
           <VideoPreviewView
             style={styles.membraneVideoPreview}
