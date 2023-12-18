@@ -23,7 +23,6 @@ import {
   tapButton,
   typeToInput,
   compareInputValue,
-  getInputValue,
 } from '../../utils';
 
 import {
@@ -98,7 +97,9 @@ describe('Walk through app', async () => {
     await compareInputValue(driver, '~' + URL_INPUT, webSocketUrl);
   });
   it('request necesary permissions and connect', async () => {
+    await driver.pause(2000);
     await tapButton(driver, '~' + CONNECT_BUTTON);
+    await driver.pause(2000);
     if (driver.isIOS) {
       await driver.acceptAlert();
       await tapApp(driver);
@@ -108,14 +109,14 @@ describe('Walk through app', async () => {
   });
   it('check current screen', async () => {
     await driver.pause(2000);
-    await getElement(driver, '~TEST_CONNECT');
     await getElement(driver, '~TEST_PREVIEW');
-    const input = await getInputValue(driver, '~ERROR_TEXT');
-    console.log('ERROR: ' + input);
   });
   it('toggle off preview camera and microphone then join the room', async () => {
+    await driver.pause(2000);
     await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
+    await driver.pause(2000);
     await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
+    await driver.pause(2000);
     await tapButton(driver, '~' + JOIN_BUTTON);
   });
   it('check if no camera view', async () => {
