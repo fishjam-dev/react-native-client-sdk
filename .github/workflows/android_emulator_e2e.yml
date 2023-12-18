@@ -94,7 +94,7 @@ jobs:
         run: |
           /usr/local/lib/android/sdk/tools/emulator -list-avds
           echo "Starting emulator and waiting for boot to complete...."
-          /usr/local/lib/android/sdk/tools/emulator -avd nexus -no-window -grpc 8554 -no-boot-anim -qemu -m 2048 &
+          xvfb-run -a /usr/local/lib/android/sdk/tools/emulator -avd nexus -grpc 8554 -no-boot-anim &
           while [ "`adb shell getprop sys.boot_completed | tr -d '\r'`" != "1" ]; do echo "Waiting for emulator boot..."; sleep 5; done
           adb wait-for-device
           echo "Emulator has finished booting"
