@@ -23,6 +23,7 @@ import {
   tapButton,
   typeToInput,
   compareInputValue,
+  getInputValue,
 } from '../../utils';
 
 import {
@@ -106,8 +107,11 @@ describe('Walk through app', async () => {
     }
   });
   it('check current screen', async () => {
+    await driver.pause(2000);
     await getElement(driver, '~TEST_CONNECT');
     await getElement(driver, '~TEST_PREVIEW');
+    const input = await getInputValue(driver, '~ERROR_TEXT');
+    console.log('ERROR: ' + input);
   });
   it('toggle off preview camera and microphone then join the room', async () => {
     await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);

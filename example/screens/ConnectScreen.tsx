@@ -68,7 +68,11 @@ const ConnectScreen = ({navigation}: Props) => {
     <DismissKeyboard>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container} accessibilityLabel={'TEST_CONNECT'}>
-          {error && <Text style={styles.errorMessage}>{error}</Text>}
+          {error && (
+            <Text style={styles.errorMessage} accessibilityLabel={'ERROR_TEXT'}>
+              {error}
+            </Text>
+          )}
           <Image
             style={styles.logo}
             source={require('../assets/jellyfish-logo.png')}
