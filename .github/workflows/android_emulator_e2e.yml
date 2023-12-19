@@ -134,12 +134,26 @@ jobs:
           cd $GITHUB_WORKSPACE/example/webdriverio-test
           adb -e  logcat "*:S" ReactNative:V ReactNativeJS:V > logs.txt &
 
+      - name: Start screen recording
+        run: adb shell screenrecord /sdcard/recording.mp4 &
 
       - name: Run tests
         run: |
           cd $GITHUB_WORKSPACE/example/webdriverio-test
           npx wdio run ./wdio.conf.ts 2>&1  | tee appium.txt
           sleep 10
+
+      - name: Stop screen recording and collect the recording
+        run: |
+          RECORD_PID=$(adb shell pgrep -f "/system/bin/screenrecord")
+          adb shell kill ${RECORD_PID}
+          adb pull /sdcard/recording.mp4 .
+
+      - name: Upload the screen recording
+        uses: actions/upload-artifact@v2
+        with:
+          name: ScreenRecording
+          path: recording.mp4
 
       - name: Upload test output
         uses: actions/upload-artifact@v3
