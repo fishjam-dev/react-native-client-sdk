@@ -145,10 +145,6 @@ jobs:
           npx wdio run ./wdio.conf.ts 2>&1  | tee appium.txt
           sleep 10
 
-      - name: Get recording from phone
-        run: |
-          adb pull /sdcard/recording.mp4 .
-
       - name: Upload test output
         uses: actions/upload-artifact@v3
         with:
