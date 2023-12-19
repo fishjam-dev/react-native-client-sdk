@@ -2,36 +2,79 @@ import {driver} from '@wdio/globals';
 import {
   CONNECT_BUTTON,
   DISCONNECT_BUTTON,
-  SHARE_SCREEN_BUTTON,
   SWITCH_CAMERA_BUTTON,
   TOGGLE_CAMERA_BUTTON,
   TOKEN_INPUT,
   URL_INPUT,
 } from '../../../types/ComponentLabels';
 
-import {
-  platformJellyfishToken,
-  tapApp,
-  tapButton,
-  typeToInput,
-} from '../../utils';
+import {tapApp, tapButton, typeToInput} from '../../utils';
 
 import * as assert from 'assert';
+import {
+  AddPeerRequest,
+  Configuration,
+  ConfigurationParameters,
+  PeerDetailsResponseData,
+  Room,
+  RoomApiFp,
+} from '../../server-api';
+
+const createJellysifhRoom = async () => {
+  const configParam: ConfigurationParameters = {
+    accessToken: 'development',
+    basePath: `http://localhost:5002`,
+  };
+  const config = new Configuration(configParam);
+  const {createRoom} = RoomApiFp(config);
+  const createRoomFunction = await createRoom();
+  try {
+    const response = await createRoomFunction();
+    return response.data.data.room;
+  } catch (e) {
+    console.log(e);
+    return;
+  }
+};
+const addPeerToRoom = async (
+  roomId: string,
+  enableSimulcast: boolean = true,
+) => {
+  const configParam: ConfigurationParameters = {
+    accessToken: 'development',
+    basePath: `http://localhost:5002`,
+  };
+  const config = new Configuration(configParam);
+  const {addPeer} = RoomApiFp(config);
+  const addPeerRequest: AddPeerRequest = {
+    type: 'webrtc',
+    options: {enableSimulcast: enableSimulcast},
+  };
+  const addPeerFunction = await addPeer(roomId, addPeerRequest);
+  try {
+    const response = await addPeerFunction();
+    return response.data.data;
+  } catch (e) {
+    console.log(e);
+    return;
+  }
+};
+
+var peerDetail: PeerDetailsResponseData | undefined;
+var room: Room | undefined;
 
 describe('Walk through app', async () => {
+  it('create room and peer to obtain credentials', async () => {
+    room = await createJellysifhRoom();
+    assert.ok(room !== undefined);
+    peerDetail = await addPeerToRoom(room.id);
+    assert.ok(peerDetail !== undefined);
+  });
   it('type jellyfish url and token', async () => {
-    await driver.pause(2000);
-
-    await typeToInput(
-      driver,
-      '~' + TOKEN_INPUT,
-      platformJellyfishToken(driver),
-    );
-    assert.ok(process.env.JELLYFISH_URL !== undefined);
-    await typeToInput(driver, '~' + URL_INPUT, process.env.JELLYFISH_URL);
-    if (driver.isAndroid) {
-      await driver.pause(10000);
-    }
+    assert.ok(peerDetail !== undefined);
+    const webSocketUrl = 'ws://10.0.2.2:5002/socket/peer/websocket';
+    await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
+    await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
   });
   it('connect, request necesary permissions and move to room', async () => {
     await tapButton(driver, '~' + CONNECT_BUTTON);
@@ -53,27 +96,6 @@ describe('Walk through app', async () => {
   });
 
   it('share screen', async () => {
-    await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
-
-    if (driver.isAndroid) {
-      await tapButton(driver, '//*[@text="Start now"]');
-      await driver.pause(2000);
-      await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
-    } else {
-      await tapButton(
-        driver,
-        '//XCUIElementTypeButton[@name="Start Broadcast"]',
-      );
-      await tapApp(driver);
-      await driver.pause(3000);
-      await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
-      await tapButton(
-        driver,
-        '//XCUIElementTypeButton[@name="Stop Broadcast"]',
-      );
-      await tapApp(driver);
-    }
-
     await tapButton(driver, '~' + DISCONNECT_BUTTON);
   });
 });

@@ -3,28 +3,33 @@ on:
   push:
     branches:
       - locally-e2e-test-automation
+      - e2e-automate-before-merging-Mikolaj-test-branch
+      - main
   pull_request:
     branches:
       - locally-e2e-test-automation
+      - e2e-automate-before-merging-Mikolaj-test-branch
+      - main
 
 jobs:
   e2e_android:
     runs-on: ubuntu-latest
-#    services:
-#      jellyfish:
-#        image: ghcr.io/jellyfish-dev/jellyfish:0.2.0
-#        env:
-#          JF_CHECK_ORIGIN: false
-#          JF_HOST: localhost:5002
-#          JF_PORT: "5002"
-#          JF_WEBRTC_USED: true
-#          JF_WEBRTC_TURN_PORT_RANGE: 50000-50050
-#          JF_WEBRTC_TURN_IP: 127.0.0.1
-#          JF_WEBRTC_TURN_LISTEN_IP: 0.0.0.0
-#          JF_SERVER_API_TOKEN: development
-#        ports:
-#          - 5002:5002
-#          - 50000-50050:50000-50050/udp
+    timeout-minutes: 40
+    services:
+      jellyfish:
+        image: ghcr.io/jellyfish-dev/jellyfish:0.2.1
+        env:
+          JF_CHECK_ORIGIN: false
+          JF_HOST: localhost:5002
+          JF_PORT: "5002"
+          JF_WEBRTC_USED: true
+          JF_WEBRTC_TURN_PORT_RANGE: 50000-50050
+          JF_WEBRTC_TURN_IP: 127.0.0.1
+          JF_WEBRTC_TURN_LISTEN_IP: 0.0.0.0
+          JF_SERVER_API_TOKEN: development
+        ports:
+          - 5002:5002
+          - 50000-50050:50000-50050/udp
     env:
       ARCH: "x86_64"
       TARGET: "default"
@@ -50,14 +55,11 @@ jobs:
           ANDROID_APP_PATH=$GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
           " > $GITHUB_WORKSPACE/example/webdriverio-test/.env
 
-      - name: Display .env file
-        run: cat $GITHUB_WORKSPACE/example/webdriverio-test/.env
-
       - name: Enable KVM group perms
         run: |
-            echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-            sudo udevadm control --reload-rules
-            sudo udevadm trigger --name-match=kvm
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2
@@ -85,26 +87,19 @@ jobs:
       - name: Install  build tool
         run:  echo "y" | sdkmanager --verbose --no_https $BUILD_TOOL
 
-      - name: List installed
-        run: sdkmanager  --list_installed
-
-      - name: emulator command
-        run: echo " echo "no" | avdmanager  --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE""
-
       - name: Setup environment and create AVD
         run: echo "y" | avdmanager --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
 
-
-      - name: Display list of avds
-        run: /usr/local/lib/android/sdk/tools/emulator -list-avds
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2 xvfb
 
       - name: Start emulator
+        timeout-minutes: 10
         run: |
+          /usr/local/lib/android/sdk/tools/emulator -list-avds
           echo "Starting emulator and waiting for boot to complete...."
-          xvfb-run -a /usr/local/lib/android/sdk/tools/emulator -avd nexus -no-window -no-boot-anim  &
+          xvfb-run -a /usr/local/lib/android/sdk/tools/emulator -avd nexus -grpc 8554 -camera-back emulated -camera-front emulated -no-boot-anim &
           while [ "`adb shell getprop sys.boot_completed | tr -d '\r'`" != "1" ]; do echo "Waiting for emulator boot..."; sleep 5; done
           adb wait-for-device
           echo "Emulator has finished booting"
@@ -133,20 +128,35 @@ jobs:
       - name: Install UIAnimator 2
         run: appium driver install uiautomator2
 
-
       - name: Build app
+        timeout-minutes: 20
         run: |
           cd $GITHUB_WORKSPACE/example/android
           ./gradlew assembleRelease
 
+      - name: Logs from app to file
+        run: |
+          cd $GITHUB_WORKSPACE/example/webdriverio-test
+          adb -e  logcat "*:S" ReactNative:V ReactNativeJS:V > logs.txt &
+
       - name: Run tests
         run: |
           cd $GITHUB_WORKSPACE/example/webdriverio-test
-          npx wdio run ./wdio.conf.ts | tee appium.txt
+          npx wdio run ./wdio.conf.ts 2>&1  | tee appium.txt
+          sleep 10
+
+      - name: Get recording from phone
+        run: |
+          adb pull /sdcard/recording.mp4 .
 
       - name: Upload test output
         uses: actions/upload-artifact@v3
         with:
-            name: appium
-            path: $GITHUB_WORKSPACE/example/webdriverio-test/appium.txt
+          name: appium.txt
+          path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/appium.txt
 
+      - name: Upload logs from app
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs.txt
+          path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/logs.txt
