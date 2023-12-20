@@ -1,7 +1,7 @@
 import {Capabilities} from '@wdio/types';
 import * as assert from 'assert';
 
-const TIMEOUT = 300;
+const TIMEOUT = 3000;
 const INTERVAL = 300;
 
 type TimeoutConfig = {
@@ -10,7 +10,7 @@ type TimeoutConfig = {
   interval: number;
 };
 
-const findTimeoutConfig = (selector: string) => {
+const findTimeoutConfig = (selector: string): TimeoutConfig => {
   return {
     timeout: TIMEOUT,
     timeoutMsg: `Element with selector ${selector} not found within the specified time`,
@@ -21,14 +21,11 @@ const findTimeoutConfig = (selector: string) => {
 const getElement = async (
   driver: WebdriverIO.Browser,
   selector: string,
-  shouldExist: boolean = true,
+  reverse: boolean = false,
   timeout: TimeoutConfig = findTimeoutConfig(selector),
 ) => {
   const element = await driver.$(selector);
-  if (shouldExist) {
-    element.waitForExist(timeout);
-    assert.ok(element);
-  }
+  await element.waitForExist({...timeout, reverse: reverse});
   return element;
 };
 
@@ -44,9 +41,9 @@ const typeToInput = async (
 const compareInputValue = async (
   driver: WebdriverIO.Browser,
   selector: string,
-  aspectedValue: string | undefined,
+  expectedValue: string | undefined,
 ) => {
-  assert.equal(await getInputValue(driver, selector), aspectedValue);
+  assert.equal(await getInputValue(driver, selector), expectedValue);
 };
 
 const getInputValue = async (driver: WebdriverIO.Browser, selector: string) => {
@@ -65,14 +62,12 @@ const tapApp = async (driver: WebdriverIO.Browser) => {
     {action: 'release'},
   ]);
 };
-const getBasePath = () => {
-  return process.env.DOCKER_TEST === 'TRUE' ? 'jellyfish' : 'localhost';
-};
 
-const getWebsocketUrl = (secure: boolean = false) =>
-  `${secure ? 'wss' : 'ws'}://${getBasePath()}:${
-    process.env.JELLYFISH_PORT
-  }/socket/peer/websocket`;
+const getWebsocketUrl = (host: string, secure: boolean = false) =>
+  `${secure ? 'wss' : 'ws'}://${host}/socket/peer/websocket`;
+
+const getHttpUrl = (host: string, secure: boolean = false) =>
+  `${secure ? 'https' : 'http'}://${host}`;
 
 const getAndroidDeviceCapabilities = (
   name: string,
@@ -127,11 +122,11 @@ export {
   tapApp,
   typeToInput,
   tapButton,
-  getBasePath,
   getElement,
   getInputValue,
   compareInputValue,
   findTimeoutConfig,
   getWebsocketUrl,
+  getHttpUrl,
   capabilities,
 };

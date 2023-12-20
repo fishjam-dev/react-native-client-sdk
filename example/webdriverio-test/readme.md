@@ -5,9 +5,9 @@
 1. [Install appium](https://appium.io/docs/en/2.1/quickstart/install/)
 2. [Install UIAutomator2 (for android)](https://appium.io/docs/en/2.1/quickstart/uiauto2-driver/)
 3. [Install XCUITest (for ios)](https://appium.github.io/appium-xcuitest-driver/5.11/setup/#real-devices)
-4. [Dont forget about this (for ios)](https://appium.github.io/appium-xcuitest-driver/5.11/real-device-config/)
+4. [Don't forget about this (for ios)](https://appium.github.io/appium-xcuitest-driver/5.11/real-device-config/)
 5. Run yarn install
-6. Check file .env, there are some necesary env variables
+6. Check file .env, there are some necessary env variables
 
 - JELLYFISH_URL - address of your Jellyfish server (ws://ip_adress:port_number/socket/peer/websocket)
 - ANDROID_JELLYFISH_TOKEN - peer token for your android device
@@ -41,5 +41,5 @@
    -e JF_WEBRTC_TURN_LISTEN_IP=0.0.0.0 \
    -e JF_SERVER_API_TOKEN=development \
    ghcr.io/jellyfish-dev/jellyfish:0.2.0
-4. Run test in webdriveio-test folder : (npx) wdio run ./wdio.conf.ts
+4. Run test in webdriveio-test folder : npm run wdio wdio.conf.ts  
 

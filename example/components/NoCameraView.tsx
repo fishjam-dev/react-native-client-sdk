@@ -4,15 +4,15 @@ import {View, StyleSheet} from 'react-native';
 import {Typo} from './Typo';
 import {BrandColors} from '../utils/Colors';
 
-import AccessibilityLabel from '../types/AccesabilityLabel';
+import AccessibilityLabel from '../types/AccessibilityLabel';
 
 type NoCameraViewProps = {
-  username: string;
+  username?: string;
   isSmallTile?: boolean;
 } & AccessibilityLabel;
 
 export const NoCameraView = ({
-  username,
+  username = '',
   isSmallTile = false,
   accessibilityLabel,
 }: NoCameraViewProps) => {

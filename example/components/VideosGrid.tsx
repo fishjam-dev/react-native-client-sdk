@@ -2,14 +2,14 @@ import {VideoRendererView} from '@jellyfish-dev/react-native-client-sdk';
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Animated, {FadeInDown, Layout} from 'react-native-reanimated';
-import {VIDEO_CELL} from '../types/ComponentLabels';
+import {roomScreenLabels} from '../types/ComponentLabels';
 
 type Props = {
   tracks: string[];
 };
 
 const {width} = Dimensions.get('window');
-
+const {VIDEO_CELL} = roomScreenLabels;
 const AnimatedVideoRenderer =
   // @ts-ignore
   Animated.createAnimatedComponent(VideoRendererView);

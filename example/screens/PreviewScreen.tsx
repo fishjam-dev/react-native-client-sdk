@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useCallback} from 'react';
+import React, {useEffect, useRef, useCallback} from 'react';
 import {
   BackHandler,
   SafeAreaView,
@@ -10,23 +10,23 @@ import {InCallButton} from '../components';
 
 import {
   useJellyfishClient,
-  VideoPreviewView,
   CaptureDevice,
 } from '@jellyfish-dev/react-native-client-sdk';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
 
-import {
+import {previewScreenLabels} from '../types/ComponentLabels';
+import {BrandColors} from '../utils/Colors';
+import {NoCameraView} from '../components/NoCameraView';
+import VideoPreview from '../components/VideoPreview';
+
+type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
+const {
   JOIN_BUTTON,
   TOGGLE_CAMERA_BUTTON,
   SWITCH_CAMERA_BUTTON,
   TOGGLE_MICROPHONE_BUTTON,
-} from '../types/ComponentLabels';
-import {BrandColors} from '../utils/Colors';
-import {NoCameraView} from '../components/NoCameraView';
-
-type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
-
+} = previewScreenLabels;
 const PreviewScreen = ({navigation}: Props) => {
   const {
     toggleCamera,
@@ -35,33 +35,31 @@ const PreviewScreen = ({navigation}: Props) => {
     isMicrophoneOn,
     joinRoom,
     getCaptureDevices,
+    setCurrentCamera,
+    currentCamera,
   } = useJellyfishClient();
-  const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
-    null,
-  );
   const availableCameras = useRef<CaptureDevice[]>([]);
-
   useEffect(() => {
     getCaptureDevices().then(devices => {
       availableCameras.current = devices;
       setCurrentCamera(devices.find(device => device.isFrontFacing) || null);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentCamera]);
+  }, []);
 
   const switchCamera = useCallback(() => {
     const cameras = availableCameras.current;
     if (currentCamera === null) {
       return;
     }
-
+    //todo Switches between front-facing and back-facing cameras or displays a list of available cameras.
     setCurrentCamera(
       cameras[
         (cameras.findIndex(device => device === currentCamera) + 1) %
           cameras.length
       ] || null,
     );
-  }, [currentCamera]);
+  }, [currentCamera, setCurrentCamera]);
 
   const onJoinPressed = () => {
     joinRoom();
@@ -75,18 +73,13 @@ const PreviewScreen = ({navigation}: Props) => {
     );
     return () => backHandler.remove();
   }, []);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.cameraPreview}>
         {isCameraOn ? (
-          <VideoPreviewView
-            style={styles.membraneVideoPreview}
-            mirrorVideo
-            captureDeviceId={currentCamera?.id}
-          />
+          <VideoPreview currentCamera={currentCamera} />
         ) : (
-          <NoCameraView username={'username'} />
+          <NoCameraView />
         )}
       </View>
       <View style={styles.callView}>

@@ -16,7 +16,10 @@ import {
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
 
-import {
+import {roomScreenLabels} from '../types/ComponentLabels';
+
+type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
+const {
   DISCONNECT_BUTTON,
   TOGGLE_CAMERA_BUTTON,
   SWITCH_CAMERA_BUTTON,
@@ -24,9 +27,9 @@ import {
   TOGGLE_MICROPHONE_BUTTON,
   TOGGLE_STATISTICS_BUTTON,
   NO_CAMERA_VIEW,
-} from '../types/ComponentLabels';
-
-type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
+  AUDIO_STATISTICS_RTC,
+  VIDEO_STATISTICS_RTC,
+} = roomScreenLabels;
 
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
@@ -75,7 +78,11 @@ const RoomScreen = ({navigation}: Props) => {
                 <Stats
                   stats={statistics}
                   label={name}
-                  accessibilityLabel={name.replace(/_.*$/, '')}
+                  accessibilityLabel={
+                    name.replace(/_.*$/, '') === 'RTCOutboundRTPAudioStream'
+                      ? VIDEO_STATISTICS_RTC
+                      : AUDIO_STATISTICS_RTC
+                  }
                 />
               </View>
             );

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from 'react';
 
 import {
@@ -37,7 +36,6 @@ const generateMessage = (event: WebSocketCloseEvent) => {
     [event.message, event.code, event.reason].filter((i) => !!i).join(' ')
   );
 };
-
 const JellyfishContext = React.createContext<
   | {
       isCameraOn: boolean;
@@ -49,6 +47,10 @@ const JellyfishContext = React.createContext<
       joinRoom: () => Promise<void>;
       flipCamera: () => void;
       getCaptureDevices: () => Promise<CaptureDevice[]>;
+      setCurrentCamera: React.Dispatch<
+        React.SetStateAction<CaptureDevice | null>
+      >;
+      currentCamera: CaptureDevice | null;
       /**
        * Connects to the server using the websocket connection.
        *
@@ -186,6 +188,7 @@ const JellyfishContextProvider = (props: any) => {
       microphoneEnabled: isMicrophoneOn,
     });
     setVideoroomState('InMeeting');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCameraOn, isMicrophoneOn]);
 
   useEffect(() => {
@@ -199,6 +202,7 @@ const JellyfishContextProvider = (props: any) => {
       await updateVideoTrackMetadata({ active: !isCameraOn, type: 'camera' });
     }
     setIsCameraOn(!isCameraOn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCameraOn, videoroomState]);
 
   const toggleMicrophone = useCallback(async () => {
@@ -210,6 +214,7 @@ const JellyfishContextProvider = (props: any) => {
       });
     }
     setIsMicrophoneOn(!isMicrophoneOn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMicrophoneOn, videoroomState]);
 
   const toggleScreencastAndUpdateMetadata = useCallback(() => {
@@ -221,6 +226,7 @@ const JellyfishContextProvider = (props: any) => {
       },
       quality: ScreencastQuality.HD15,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const join = async (peerMetadata: Metadata = {}) => {
@@ -249,6 +255,8 @@ const JellyfishContextProvider = (props: any) => {
     isCameraOn,
     isMicrophoneOn,
     isScreencastOn,
+    currentCamera,
+    setCurrentCamera,
     getCaptureDevices,
     connect,
     join,

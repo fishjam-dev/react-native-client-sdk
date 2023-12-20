@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {View, StyleSheet, processColor, Pressable} from 'react-native';
 import {LineChart, LineDataset} from 'react-native-charts-wrapper';
-import AccessibilityLabel from '../types/AccesabilityLabel';
+import AccessibilityLabel from '../types/AccessibilityLabel';
 import {Typo} from './Typo';
 
 type StatsProp = {

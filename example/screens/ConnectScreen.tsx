@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 
-import {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} from '../types/ComponentLabels';
+import {connectScreenLabels} from '../types/ComponentLabels';
 
 import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 
@@ -22,6 +22,7 @@ import {AppRootStackParamList} from '../navigators/AppNavigator';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 
+const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
   const {connect, error} = useJellyfishClient();
   const [peerToken, onChangePeerToken] = useState('');
@@ -54,7 +55,7 @@ const ConnectScreen = ({navigation}: Props) => {
     request();
   }, []);
 
-  const navigateToPreview = async () => {
+  const onTapConnectButton = async () => {
     try {
       await connect(jellyfishUrl, peerToken.trim());
       navigation.navigate('Preview');
@@ -88,7 +89,7 @@ const ConnectScreen = ({navigation}: Props) => {
           />
           <Button
             title="Connect"
-            onPress={navigateToPreview}
+            onPress={onTapConnectButton}
             accessibilityLabel={CONNECT_BUTTON}
           />
           <QRCodeScanner onCodeScanned={onChangePeerToken} />

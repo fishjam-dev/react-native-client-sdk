@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import AccessibilityLabel from '../types/AccesabilityLabel';
+import AccessibilityLabel from '../types/AccessibilityLabel';
 
 const IconSize = 25;
 
