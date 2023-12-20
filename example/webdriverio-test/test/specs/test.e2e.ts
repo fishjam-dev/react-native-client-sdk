@@ -124,7 +124,6 @@ describe('Walk through app', async () => {
     await getElement(driver, '~' + VIDEO_CELL + 1, true);
   });
   it('switch camera', async () => {
-    await tapButton(driver, '~b' + SWITCH_CAMERA_BUTTON);
     await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
   });
   it('screen share on', async () => {
