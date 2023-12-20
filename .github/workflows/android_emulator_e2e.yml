@@ -142,7 +142,7 @@ jobs:
       - name: Run tests
         run: |
           cd $GITHUB_WORKSPACE/example/webdriverio-test
-          npx wdio run ./wdio.conf.ts 2>&1  | tee appium.txt
+          npx wdio run ./wdio.conf.ts 2>&1 | tee appium.txt; test ${PIPESTATUS[0]} -eq 0
           sleep 10
 
       - name: Upload test output
