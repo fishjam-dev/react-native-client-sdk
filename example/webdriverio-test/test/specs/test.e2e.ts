@@ -88,10 +88,10 @@ describe('Walk through app', async () => {
   });
   it('toggle camera', async () => {
     await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
-    await tapButton(driver, '~a' + TOGGLE_CAMERA_BUTTON);
+    await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
   });
   it('switch camera', async () => {
-    await tapButton(driver, '~b' + SWITCH_CAMERA_BUTTON);
+    await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
     await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
   });
 
