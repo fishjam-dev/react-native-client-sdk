@@ -47,9 +47,4 @@ export const config: Options.Testrunner = {
     timeout: 60000,
     bail: true,
   },
-  afterTest: (_, __, {passed}) => {
-    if (!passed) {
-      process.exit(1);
-    }
-  },
 };
