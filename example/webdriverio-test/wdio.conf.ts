@@ -5,7 +5,6 @@ require('dotenv').config({
   path: '.env',
 });
 
-var hasErrors = false;
 export const config: Options.Testrunner = {
   runner: 'local',
   autoCompileOpts: {
@@ -50,11 +49,6 @@ export const config: Options.Testrunner = {
   },
   afterTest: (_, __, {passed}) => {
     if (!passed) {
-      hasErrors = true;
-    }
-  },
-  after: function (_, __) {
-    if (hasErrors) {
       process.exit(1);
     }
   },
