@@ -9,14 +9,14 @@ async function typeToInput(
   text: string,
 ) {
   const input = await driver.$(identifier);
-  assert.ok(await input.isExisting());
+  assert.strictEqual(await input.isExisting(), true);
   await input.setValue(text);
   await driver.pause(BREAK_TIME);
 }
 
 async function tapButton(driver: WebdriverIO.Browser, identifier: string) {
   const button = await driver.$(identifier);
-  assert.ok(await button.isExisting());
+  assert.strictEqual(await button.isExisting(), true);
   await button.click();
   await driver.pause(BREAK_TIME);
 }
