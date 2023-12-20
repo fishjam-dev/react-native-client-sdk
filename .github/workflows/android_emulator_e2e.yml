@@ -146,12 +146,14 @@ jobs:
           sleep 10
 
       - name: Upload test output
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: appium.txt
           path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/appium.txt
 
       - name: Upload logs from app
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: logs.txt
