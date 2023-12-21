@@ -1,4 +1,6 @@
 import {driver} from '@wdio/globals';
+import type {Suite} from 'mocha';
+
 import {
   CONNECT_BUTTON,
   DISCONNECT_BUTTON,
@@ -63,7 +65,7 @@ const addPeerToRoom = async (
 var peerDetail: PeerDetailsResponseData | undefined;
 var room: Room | undefined;
 
-describe('Walk through app', function () {
+describe('Walk through app', function (this: Suite) {
   this.retries(4);
 
   it('create room and peer to obtain credentials', async () => {

@@ -22,13 +22,14 @@ import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppRootStackParamList} from '../navigators/AppNavigator';
+import {JELLYFISH_URL} from '@env';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 
 const ConnectScreen = ({navigation}: Props) => {
   const {connect, join, error} = useJellyfishClient();
   const [peerToken, onChangePeerToken] = useState('');
-  const [jellyfishUrl, onChangeJellyfishUrl] = useState('');
+  const [jellyfishUrl, onChangeJellyfishUrl] = useState(JELLYFISH_URL ?? '');
   const {startCamera} = useCamera();
 
   useEffect(() => {
