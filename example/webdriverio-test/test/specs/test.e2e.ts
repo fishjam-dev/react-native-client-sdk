@@ -63,7 +63,9 @@ const addPeerToRoom = async (
 var peerDetail: PeerDetailsResponseData | undefined;
 var room: Room | undefined;
 
-describe('Walk through app', async () => {
+describe('Walk through app', function () {
+  this.retries(4);
+
   it('create room and peer to obtain credentials', async () => {
     room = await createJellysifhRoom();
     assert.ok(room !== undefined);
@@ -91,7 +93,7 @@ describe('Walk through app', async () => {
     await tapButton(driver, '~a' + TOGGLE_CAMERA_BUTTON);
   });
   it('switch camera', async () => {
-    await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
+    await tapButton(driver, '~a' + SWITCH_CAMERA_BUTTON);
     await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
   });
 

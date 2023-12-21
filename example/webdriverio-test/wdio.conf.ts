@@ -20,7 +20,6 @@ export const config: Options.Testrunner = {
   maxInstances: 10,
   capabilities: capabilities,
   logLevel: 'info',
-  bail: 1,
   baseUrl: '127.0.0.1',
   waitforTimeout: 10000,
   connectionRetryTimeout: 120000,
@@ -45,6 +44,5 @@ export const config: Options.Testrunner = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000,
-    bail: true,
   },
 };
