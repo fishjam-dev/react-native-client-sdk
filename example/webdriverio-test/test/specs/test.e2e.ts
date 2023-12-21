@@ -25,7 +25,7 @@ import {
 const createJellysifhRoom = async () => {
   const configParam: ConfigurationParameters = {
     accessToken: 'development',
-    basePath: `http://localhost:5002`,
+    basePath: `http://${process.env.JELLYFISH_HOST_SERVER}`,
   };
   const config = new Configuration(configParam);
   const {createRoom} = RoomApiFp(config);
@@ -44,7 +44,7 @@ const addPeerToRoom = async (
 ) => {
   const configParam: ConfigurationParameters = {
     accessToken: 'development',
-    basePath: `http://localhost:5002`,
+    basePath: `http://${process.env.JELLYFISH_HOST_SERVER}`,
   };
   const config = new Configuration(configParam);
   const {addPeer} = RoomApiFp(config);
@@ -76,7 +76,7 @@ describe('Walk through app', function (this: Suite) {
   });
   it('type jellyfish url and token', async () => {
     assert.ok(peerDetail !== undefined);
-    const webSocketUrl = 'ws://10.0.2.2:5002/socket/peer/websocket';
+    const webSocketUrl = `ws://${process.env.JELLYFISH_HOST_MOBILE}/socket/peer/websocket`;
     await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
     await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
   });
@@ -91,11 +91,11 @@ describe('Walk through app', function (this: Suite) {
     }
   });
   it('toggle camera', async () => {
-    await tapButton(driver, '~a' + TOGGLE_CAMERA_BUTTON);
-    await tapButton(driver, '~a' + TOGGLE_CAMERA_BUTTON);
+    await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
+    await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
   });
   it('switch camera', async () => {
-    await tapButton(driver, '~a' + SWITCH_CAMERA_BUTTON);
+    await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
     await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
   });
 
