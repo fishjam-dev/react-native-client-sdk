@@ -73,6 +73,7 @@ const PreviewScreen = ({navigation}: Props) => {
     );
     return () => backHandler.remove();
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.cameraPreview}>
