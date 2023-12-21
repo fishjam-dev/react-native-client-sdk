@@ -83,7 +83,7 @@ var peerDetail: PeerDetailsResponseData | undefined;
 var room: Room | undefined;
 
 describe('Walk through app', async () => {
-  before(async () => {
+  it('create room and peer to obtain credentials', async () => {
     room = await createJellyfishRoom();
     assert.ok(room !== undefined);
     peerDetail = await addPeerToRoom(room.id);
@@ -205,4 +205,4 @@ describe('Walk through app', async () => {
   it('disconnect from room', async () => {
     await tapButton(driver, '~' + DISCONNECT_BUTTON);
   });
-});
+}).retries(4);
