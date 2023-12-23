@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - main
+      - e2e-automate-before-merging-Mikolaj-test-branch
   pull_request:
     branches:
       - main
+      - e2e-automate-before-merging-Mikolaj-test-branch
 
 jobs:
   lint:
@@ -18,7 +20,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint files
-        run: yarn eslint --ext '.js,.ts,.tsx' --max-warnings=0 src/ example/src/
+        run: yarn lint
 
       - name: Typecheck files
         run: yarn typecheck
