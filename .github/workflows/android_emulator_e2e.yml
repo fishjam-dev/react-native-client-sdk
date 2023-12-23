@@ -2,13 +2,9 @@ name: e2e_android
 on:
   push:
     branches:
-      - locally-e2e-test-automation
-      - e2e-automate-before-merging-Mikolaj-test-branch
       - main
   pull_request:
     branches:
-      - locally-e2e-test-automation
-      - e2e-automate-before-merging-Mikolaj-test-branch
       - main
 
 jobs:
