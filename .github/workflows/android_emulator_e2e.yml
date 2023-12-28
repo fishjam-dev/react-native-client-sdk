@@ -2,13 +2,9 @@ name: e2e_android
 on:
   push:
     branches:
-      - locally-e2e-test-automation
-      - e2e-automate-before-merging-Mikolaj-test-branch
       - main
   pull_request:
     branches:
-      - locally-e2e-test-automation
-      - e2e-automate-before-merging-Mikolaj-test-branch
       - main
 
 jobs:
@@ -50,7 +46,8 @@ jobs:
       - name: Create .env file in webdriverio-test directory
         run: |
           echo -e "
-          JELLYFISH_URL=ws://10.0.2.2:5002/socket/peer/websocket
+          JELLYFISH_HOST_SERVER=127.0.0.1:5002
+          JELLYFISH_HOST_MOBILE=10.0.2.2:5002
           ANDROID_DEVICE_NAME=$EMULATOR_DEVICE
           ANDROID_APP_PATH=$GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
           " > $GITHUB_WORKSPACE/example/webdriverio-test/.env

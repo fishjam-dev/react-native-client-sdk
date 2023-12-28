@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.ts --bail 1"
+    "wdio": "wdio run ./wdio.conf.ts"
   },
   "keywords": [],
   "author": "",
