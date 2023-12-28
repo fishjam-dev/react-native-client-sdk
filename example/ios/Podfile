@@ -39,6 +39,31 @@ target 'JellyfishExample' do
     rescue => e
       Pod::UI.warn e
     end
+    begin
+      expo_patch_react_imports!(installer)
+    rescue => e
+      Pod::UI.warn e
+    end
+    begin
+      expo_patch_react_imports!(installer)
+    rescue => e
+      Pod::UI.warn e
+    end
+    begin
+      expo_patch_react_imports!(installer)
+    rescue => e
+      Pod::UI.warn e
+    end
+    begin
+      expo_patch_react_imports!(installer)
+    rescue => e
+      Pod::UI.warn e
+    end
+    begin
+      expo_patch_react_imports!(installer)
+    rescue => e
+      Pod::UI.warn e
+    end
   end
   config = use_native_modules!
 
@@ -60,7 +85,8 @@ target 'JellyfishExample' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-  pod 'MembraneRTC', :git => 'https://github.com/jellyfish-dev/membrane-webrtc-ios', :branch => 'master'
+  pod 'MembraneRTC'
+
   target 'JellyfishExampleTests' do
     inherit! :complete
     # Pods for testing
@@ -76,4 +102,8 @@ target 'JellyfishExample' do
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
+end
+
+target 'ScreenBroadcast' do
+  pod 'MembraneRTC/Broadcast'
 end
