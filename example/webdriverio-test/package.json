@@ -19,7 +19,6 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
-    "@wdio/cli": "8.26.1",
     "dotenv": "^16.3.1"
   }
 }
