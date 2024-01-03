@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import {Typo} from './Typo';
 import {BrandColors} from '../utils/Colors';
 
-import AccessibilityLabel from '../types/AccessibilityLabel';
+import type AccessibilityLabel from '../types/AccessibilityLabel';
 
 type NoCameraViewProps = {
   username?: string;

@@ -1,4 +1,4 @@
-import {Capabilities} from '@wdio/types';
+import type {Capabilities} from '@wdio/types';
 import * as assert from 'assert';
 
 const TIMEOUT = 3000;

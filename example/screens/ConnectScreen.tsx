@@ -57,7 +57,7 @@ const ConnectScreen = ({navigation}: Props) => {
 
   const onTapConnectButton = async () => {
     try {
-      await connect(jellyfishUrl, peerToken.trim());
+      await connect(jellyfishUrl.trim(), peerToken.trim());
       navigation.navigate('Preview');
     } catch (e) {
       console.log(e);

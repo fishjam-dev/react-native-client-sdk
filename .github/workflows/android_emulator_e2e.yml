@@ -113,11 +113,11 @@ jobs:
       - name: Run yarn install in all directories
         run: |
           cd $GITHUB_WORKSPACE
-          yarn install
+          yarn install --frozen-lockfile
           cd $GITHUB_WORKSPACE/example
-          yarn install
+          yarn install --frozen-lockfile
           cd $GITHUB_WORKSPACE/example/webdriverio-test
-          yarn install
+          yarn install --frozen-lockfile
 
       - name: Install appium
         run: npm i --location=global appium

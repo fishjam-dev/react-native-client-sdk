@@ -1,4 +1,5 @@
-import {NavigationContainer, NavigationProp} from '@react-navigation/native';
+import type {NavigationProp} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ConnectScreen from '../screens/ConnectScreen';
 import RoomScreen from '../screens/RoomScreen';

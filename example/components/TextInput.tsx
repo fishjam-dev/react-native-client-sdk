@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {StyleSheet, TextInput as RNTextInput, View} from 'react-native';
 
 import isEmpty from 'lodash/isEmpty';
-import AccessibilityLabel from '../types/AccessibilityLabel';
+import type AccessibilityLabel from '../types/AccessibilityLabel';
 
 const TextInputStyles = StyleSheet.create({
   main: {

@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  VideoPreviewView,
-  CaptureDevice,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+import type {CaptureDevice} from '@jellyfish-dev/react-native-membrane-webrtc';
+import {VideoPreviewView} from '@jellyfish-dev/react-native-membrane-webrtc';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 type Props = {currentCamera: CaptureDevice | null};
 const VideoPreview = ({currentCamera}: Props) => {

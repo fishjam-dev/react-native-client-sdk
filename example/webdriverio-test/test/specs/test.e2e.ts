@@ -1,4 +1,5 @@
 import {driver} from '@wdio/globals';
+import type {Suite} from 'mocha';
 import {
   connectScreenLabels,
   roomScreenLabels,
@@ -33,14 +34,11 @@ const {
 } = previewScreenLabels;
 const {
   SWITCH_CAMERA_BUTTON,
-  TOGGLE_STATISTICS_BUTTON,
   SHARE_SCREEN_BUTTON,
   DISCONNECT_BUTTON,
   TOGGLE_CAMERA_BUTTON,
   NO_CAMERA_VIEW,
   TOGGLE_MICROPHONE_BUTTON,
-  VIDEO_STATISTICS_RTC,
-  AUDIO_STATISTICS_RTC,
   VIDEO_CELL,
 } = roomScreenLabels;
 
@@ -82,7 +80,8 @@ const addPeerToRoom = async (
 var peerDetail: PeerDetailsResponseData | undefined;
 var room: Room | undefined;
 
-describe('Walk through app', async () => {
+describe('Walk through app', async function (this: Suite): Promise<void> {
+  this.retries(4);
   it('create room and peer to obtain credentials', async () => {
     room = await createJellyfishRoom();
     assert.ok(room !== undefined);
@@ -147,14 +146,6 @@ describe('Walk through app', async () => {
     await getElement(driver, '~' + VIDEO_CELL + 1);
     await getElement(driver, '~' + VIDEO_CELL + 3, true);
   });
-  it('toggle video statistics on ', async () => {
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
-    await tapButton(driver, '~' + VIDEO_STATISTICS_RTC);
-  });
-  it('toggle video statistics off ', async () => {
-    await tapButton(driver, '~' + VIDEO_STATISTICS_RTC);
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
-  });
   it('toggle camera off', async () => {
     await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
     await getElement(driver, '~' + NO_CAMERA_VIEW);
@@ -172,37 +163,13 @@ describe('Walk through app', async () => {
   it('check if no camera view again', async () => {
     await getElement(driver, '~' + NO_CAMERA_VIEW);
   });
-  it('toggle video statistics on again ', async () => {
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
-    await tapButton(driver, '~' + VIDEO_STATISTICS_RTC);
-  });
-  it('toggle video statistics off again ', async () => {
-    await tapButton(driver, '~' + VIDEO_STATISTICS_RTC);
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
-  });
   it('toggle microphone on', async () => {
     await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
-  });
-  it('toggle audio statistics on ', async () => {
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
-    await tapButton(driver, '~' + AUDIO_STATISTICS_RTC);
-  });
-  it('toggle audio statistics off ', async () => {
-    await tapButton(driver, '~' + AUDIO_STATISTICS_RTC);
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
   });
   it('toggle microphone off', async () => {
     await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
   });
-  it('toggle audio statistics on again', async () => {
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
-    await tapButton(driver, '~' + AUDIO_STATISTICS_RTC);
-  });
-  it('toggle audio statistics off again', async () => {
-    await tapButton(driver, '~' + AUDIO_STATISTICS_RTC);
-    await tapButton(driver, '~' + TOGGLE_STATISTICS_BUTTON);
-  });
   it('disconnect from room', async () => {
     await tapButton(driver, '~' + DISCONNECT_BUTTON);
   });
-}).retries(4);
+});

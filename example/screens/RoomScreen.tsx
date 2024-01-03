@@ -1,7 +1,6 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {BackHandler, SafeAreaView, StyleSheet, View} from 'react-native';
 import {InCallButton, VideosGrid} from '../components';
-import {Stats} from '../components/Stats';
 import {NoCameraView} from '../components/NoCameraView';
 
 import {
@@ -10,7 +9,6 @@ import {
   useJellyfishClient,
   usePeers,
   useScreencast,
-  useRTCStatistics,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -25,10 +23,7 @@ const {
   SWITCH_CAMERA_BUTTON,
   SHARE_SCREEN_BUTTON,
   TOGGLE_MICROPHONE_BUTTON,
-  TOGGLE_STATISTICS_BUTTON,
   NO_CAMERA_VIEW,
-  AUDIO_STATISTICS_RTC,
-  VIDEO_STATISTICS_RTC,
 } = roomScreenLabels;
 
 const RoomScreen = ({navigation}: Props) => {
@@ -37,9 +32,6 @@ const RoomScreen = ({navigation}: Props) => {
   const {isCameraOn, flipCamera, toggleCamera} = useCamera();
   const {isScreencastOn, toggleScreencast} = useScreencast();
   const {isMicrophoneOn, toggleMicrophone} = useMicrophone();
-  const [showStats, setShowStats] = useState(false);
-  const {statistics} = useRTCStatistics(1000);
-  const [labels, setLabels] = useState<string[]>([]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -48,21 +40,6 @@ const RoomScreen = ({navigation}: Props) => {
     );
     return () => backHandler.remove();
   }, []);
-
-  const getListOfPlotNames = useCallback(() => {
-    if (statistics.length > 0 && showStats) {
-      setLabels(Object.keys(statistics[statistics.length - 1] || []));
-    }
-  }, [statistics, showStats]);
-
-  useEffect(() => {
-    getListOfPlotNames();
-  }, [getListOfPlotNames, statistics]);
-
-  const toggleStatistics = () => {
-    setShowStats(!showStats);
-  };
-
   const onDisconnectPress = useCallback(() => {
     leave();
     navigation.navigate('Connect');
@@ -70,25 +47,6 @@ const RoomScreen = ({navigation}: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {labels.length > 0 && showStats && (
-        <>
-          {labels.sort().map((name, id) => {
-            return (
-              <View key={id}>
-                <Stats
-                  stats={statistics}
-                  label={name}
-                  accessibilityLabel={
-                    name.replace(/_.*$/, '') === 'RTCOutboundRTPAudioStream'
-                      ? VIDEO_STATISTICS_RTC
-                      : AUDIO_STATISTICS_RTC
-                  }
-                />
-              </View>
-            );
-          })}
-        </>
-      )}
       {isCameraOn ? (
         <VideosGrid
           tracks={
@@ -126,11 +84,6 @@ const RoomScreen = ({navigation}: Props) => {
           iconName="camera-switch"
           onPress={flipCamera}
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
-        />
-        <InCallButton
-          iconName="chart-bar"
-          onPress={toggleStatistics}
-          accessibilityLabel={TOGGLE_STATISTICS_BUTTON}
         />
         <InCallButton
           iconName={isScreencastOn ? 'share-off' : 'share'}

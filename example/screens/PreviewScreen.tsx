@@ -8,10 +8,8 @@ import {
 } from 'react-native';
 import {InCallButton} from '../components';
 
-import {
-  useJellyfishClient,
-  CaptureDevice,
-} from '@jellyfish-dev/react-native-client-sdk';
+import type {CaptureDevice} from '@jellyfish-dev/react-native-client-sdk';
+import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
 

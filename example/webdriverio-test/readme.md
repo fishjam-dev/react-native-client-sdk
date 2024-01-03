@@ -9,7 +9,6 @@
 5. Run yarn install
 6. Check file .env, there are some necessary env variables
 
-- JELLYFISH_URL - address of your Jellyfish server (ws://ip_adress:port_number/socket/peer/websocket)
 - ANDROID_JELLYFISH_TOKEN - peer token for your android device
 - ANDROID_DEVICE_NAME - name of your android device, if not set test would not start on android can be checked using:
   adb devices -l
