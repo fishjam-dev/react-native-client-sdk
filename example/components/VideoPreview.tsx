@@ -1,10 +1,11 @@
 import React from 'react';
 import type {CaptureDevice} from '@jellyfish-dev/react-native-membrane-webrtc';
-import {VideoPreviewView} from '@jellyfish-dev/react-native-membrane-webrtc';
+import {VideoPreviewView} from '@jellyfish-dev/react-native-client-sdk';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 type Props = {currentCamera: CaptureDevice | null};
 const VideoPreview = ({currentCamera}: Props) => {
   return currentCamera ? (
+    // @ts-ignore
     <VideoPreviewView
       style={styles.membraneVideoPreview}
       mirrorVideo

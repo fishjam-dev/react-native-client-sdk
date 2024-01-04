@@ -266,6 +266,7 @@ const JellyfishContextProvider = (props: any) => {
   };
 
   return (
+    // @ts-ignore
     <JellyfishContext.Provider value={value}>
       {props.children}
     </JellyfishContext.Provider>
