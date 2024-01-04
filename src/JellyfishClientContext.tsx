@@ -100,8 +100,11 @@ const JellyfishContextProvider = (props: any) => {
 
       websocket.current?.addEventListener('message', (event) => {
         const uint8Array = new Uint8Array(event.data);
+
         try {
           const data = PeerMessage.decode(uint8Array);
+          console.log('INCOMING MESSAGE');
+          console.log(data);
           if (data.authenticated !== undefined) {
             resolve();
           } else if (data.authRequest !== undefined) {
