@@ -18,15 +18,27 @@ import {
   SWITCH_CAMERA_BUTTON,
   SHARE_SCREEN_BUTTON,
 } from '../types/ComponentLabels';
+import LetterButton from '../components/LetterButton';
+import {TrackEncoding} from '@jellyfish-dev/react-native-membrane-webrtc/src/MembraneWebRTC.types';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
 
-  const {leave} = useJellyfishClient();
-  const {isCameraOn, flipCamera, toggleCamera} = useCamera();
+  const {cleanUp} = useJellyfishClient();
+  const {
+    isCameraOn,
+    flipCamera,
+    toggleCamera,
+    toggleVideoTrackEncoding,
+    simulcastConfig,
+  } = useCamera();
   const {isScreencastOn, toggleScreencast} = useScreencast();
+
+  useEffect(() => {
+    console.log(simulcastConfig);
+  }, [simulcastConfig]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -37,17 +49,13 @@ const RoomScreen = ({navigation}: Props) => {
   }, []);
 
   const onDisconnectTap = useCallback(() => {
-    leave();
+    cleanUp();
     navigation.goBack();
-  }, [navigation, leave]);
+  }, [navigation, cleanUp]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <VideosGrid
-        tracks={
-          peers.map(peer => peer.tracks[0]?.id).filter(t => t) as string[]
-        }
-      />
+      <VideosGrid tracks={peers} />
       <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
         <InCallButton
           type="disconnect"
@@ -74,6 +82,17 @@ const RoomScreen = ({navigation}: Props) => {
           }
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
+      </View>
+      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
+        {Array<TrackEncoding>('h', 'm', 'l').map(val => {
+          return (
+            <LetterButton
+              trackEncoding={val}
+              selected={simulcastConfig.activeEncodings.includes(val)}
+              onPress={() => toggleVideoTrackEncoding(val)}
+            />
+          );
+        })}
       </View>
     </SafeAreaView>
   );

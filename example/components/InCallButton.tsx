@@ -3,8 +3,8 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import React from 'react';
 import {
   type GestureResponderEvent,
-  Pressable,
   StyleSheet,
+  TouchableHighlight,
   View,
 } from 'react-native';
 import AccessibilityLabel from '../types/AccesabilityLabel';
@@ -63,7 +63,10 @@ const InCallButton = ({
   };
 
   return (
-    <Pressable onPress={onPress} accessibilityLabel={accessibilityLabel}>
+    <TouchableHighlight
+      onPress={onPress}
+      style={InCallButtonStyles.common}
+      accessibilityLabel={accessibilityLabel}>
       <View style={GetStylesForButtonType(type)}>
         <MaterialCommunityIcons
           name={iconName}
@@ -71,7 +74,7 @@ const InCallButton = ({
           color={GetIconColorForButtonType(type)}
         />
       </View>
-    </Pressable>
+    </TouchableHighlight>
   );
 };
 
