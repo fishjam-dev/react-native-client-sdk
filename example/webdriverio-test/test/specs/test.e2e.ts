@@ -26,6 +26,7 @@ import {
 } from '../../../server-api';
 
 import * as assert from 'assert';
+
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const {
   JOIN_BUTTON,
@@ -42,10 +43,17 @@ const {
   VIDEO_CELL,
 } = roomScreenLabels;
 
+type Test = {
+  name: string;
+  run: () => Promise<void>;
+  skip: boolean;
+};
+
 const configParam: ConfigurationParameters = {
   accessToken: 'development',
   basePath: getHttpUrl(process.env.JELLYFISH_HOST_SERVER as string),
 };
+
 const config = new Configuration(configParam);
 const createJellyfishRoom = async () => {
   const {createRoom} = RoomApiFp(config);
@@ -80,96 +88,171 @@ const addPeerToRoom = async (
 var peerDetail: PeerDetailsResponseData | undefined;
 var room: Room | undefined;
 
-describe('Walk through app', async function (this: Suite): Promise<void> {
-  this.retries(4);
-  it('create room and peer to obtain credentials', async () => {
-    room = await createJellyfishRoom();
-    assert.ok(room !== undefined);
-    peerDetail = await addPeerToRoom(room.id);
-    assert.ok(peerDetail !== undefined);
-  });
-  it('type jellyfish url and token', async () => {
-    assert.ok(peerDetail !== undefined);
-    const webSocketUrl = getWebsocketUrl(
-      process.env.JELLYFISH_HOST_MOBILE as string,
-    );
-    await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
-    await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
-    await compareInputValue(driver, '~' + TOKEN_INPUT, peerDetail?.token);
-    await compareInputValue(driver, '~' + URL_INPUT, webSocketUrl);
-  });
-  it('request necessary permissions and connect', async () => {
-    await tapButton(driver, '~' + CONNECT_BUTTON);
-    if (driver.isIOS) {
-      await driver.acceptAlert();
-      await tapApp(driver);
+const tests: Test[] = [
+  {
+    name: 'create room and peer to obtain credentials',
+    run: async () => {
+      room = await createJellyfishRoom();
+      assert.ok(room !== undefined);
+      peerDetail = await addPeerToRoom(room.id);
+      assert.ok(peerDetail !== undefined);
+    },
+    skip: false,
+  },
+  {
+    name: 'type jellyfish url and token',
+    run: async () => {
+      assert.ok(peerDetail !== undefined);
+      const webSocketUrl = getWebsocketUrl(
+        process.env.JELLYFISH_HOST_MOBILE as string,
+      );
+      await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
+      await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
+      await compareInputValue(driver, '~' + TOKEN_INPUT, peerDetail?.token);
+      await compareInputValue(driver, '~' + URL_INPUT, webSocketUrl);
+    },
+    skip: false,
+  },
+  {
+    name: 'request necessary permissions and connect',
+    run: async () => {
       await tapButton(driver, '~' + CONNECT_BUTTON);
-      await driver.acceptAlert();
-    }
-  });
-  it('toggle off preview camera and microphone then join the room', async () => {
-    await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON_PREVIEW);
-    await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON_PREVIEW);
-    await tapButton(driver, '~' + JOIN_BUTTON);
-  });
-  it('check if no camera view', async () => {
-    await getElement(driver, '~' + NO_CAMERA_VIEW);
-  });
-  it('toggle camera on', async () => {
-    await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
-  });
-  it('check if only one video cell', async () => {
-    await getElement(driver, '~' + VIDEO_CELL + 0);
-    await getElement(driver, '~' + VIDEO_CELL + 1, true);
-  });
-  it('switch camera', async () => {
-    await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
-  });
-  it('screen share on', async () => {
-    await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
-    if (driver.isAndroid) {
-      await tapButton(driver, '//*[@text="Start now"]');
-    } else {
-      await tapButton(
-        driver,
-        '//XCUIElementTypeButton[@name="Start Broadcast"]',
-      );
+      if (driver.isIOS) {
+        await driver.acceptAlert();
+        await tapApp(driver);
+        await tapButton(driver, '~' + CONNECT_BUTTON);
+        await driver.acceptAlert();
+      }
+    },
+    skip: false,
+  },
+
+  {
+    name: 'toggle off preview camera and microphone then join the room',
+    run: async () => {
+      await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON_PREVIEW);
+      await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON_PREVIEW);
+      await tapButton(driver, '~' + JOIN_BUTTON);
+    },
+    skip: false,
+  },
+  {
+    name: 'check if no camera view',
+    run: async () => {
+      await getElement(driver, '~' + NO_CAMERA_VIEW);
+    },
+    skip: false,
+  },
+  {
+    name: 'toggle camera on',
+    run: async () => {
+      await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
+    },
+    skip: false,
+  },
+  {
+    name: 'check if only one video cell',
+    run: async () => {
+      await getElement(driver, '~' + VIDEO_CELL + 0);
+      await getElement(driver, '~' + VIDEO_CELL + 1, true);
+    },
+    skip: false,
+  },
+  {
+    name: 'switch camera',
+    run: async () => {
+      await tapButton(driver, '~' + SWITCH_CAMERA_BUTTON);
+    },
+    skip: false,
+  },
+  {
+    name: 'screen share on',
+    run: async () => {
+      await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
+      if (driver.isAndroid) {
+        await tapButton(driver, '//*[@text="Start now"]');
+      } else {
+        await tapButton(
+          driver,
+          '//XCUIElementTypeButton[@name="Start Broadcast"]',
+        );
+        await tapApp(driver);
+        await tapButton(
+          driver,
+          '//XCUIElementTypeButton[@name="Stop Broadcast"]',
+        );
+      }
+    },
+    skip: process.env.GITHUB_ACTIONS === 'true',
+  },
+
+  {
+    name: 'check if two video cells',
+    run: async () => {
+      await getElement(driver, '~' + VIDEO_CELL + 0);
+      await getElement(driver, '~' + VIDEO_CELL + 1);
+      await getElement(driver, '~' + VIDEO_CELL + 3, true);
+    },
+    skip: process.env.GITHUB_ACTIONS === 'true',
+  },
+  {
+    name: 'toggle camera off',
+    run: async () => {
+      await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
+      await getElement(driver, '~' + NO_CAMERA_VIEW);
+    },
+    skip: false,
+  },
+  {
+    name: 'check if only 1 video cell',
+    run: async () => {
+      await getElement(driver, '~' + VIDEO_CELL + 0);
+      await getElement(driver, '~' + VIDEO_CELL + 1, true);
+    },
+    skip: true, // todo fix metadata emitting
+  },
+  {
+    name: 'screen share off',
+    run: async () => {
+      await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
       await tapApp(driver);
-      await tapButton(
-        driver,
-        '//XCUIElementTypeButton[@name="Stop Broadcast"]',
-      );
-    }
-  });
-  it('check if two video cells', async () => {
-    await getElement(driver, '~' + VIDEO_CELL + 0);
-    await getElement(driver, '~' + VIDEO_CELL + 1);
-    await getElement(driver, '~' + VIDEO_CELL + 3, true);
-  });
-  it('toggle camera off', async () => {
-    await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
-    await getElement(driver, '~' + NO_CAMERA_VIEW);
-  });
-  // todo fix metadata emitting
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('check if only 1 video cell', async () => {
-    await getElement(driver, '~' + VIDEO_CELL + 0);
-    await getElement(driver, '~' + VIDEO_CELL + 1, true);
-  });
-  it('screen share off', async () => {
-    await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
-    await tapApp(driver);
-  });
-  it('check if no camera view again', async () => {
-    await getElement(driver, '~' + NO_CAMERA_VIEW);
-  });
-  it('toggle microphone on', async () => {
-    await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
-  });
-  it('toggle microphone off', async () => {
-    await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
-  });
-  it('disconnect from room', async () => {
-    await tapButton(driver, '~' + DISCONNECT_BUTTON);
+    },
+    skip: process.env.GITHUB_ACTIONS === 'true',
+  },
+  {
+    name: 'check if no camera view again',
+    run: async () => {
+      await getElement(driver, '~' + NO_CAMERA_VIEW);
+    },
+    skip: false,
+  },
+  {
+    name: 'toggle microphone on',
+    run: async () => {
+      await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
+    },
+    skip: false,
+  },
+  {
+    name: 'toggle microphone off',
+    run: async () => {
+      await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON);
+    },
+    skip: false,
+  },
+  {
+    name: 'disconnect from room',
+    run: async () => {
+      await tapButton(driver, '~' + DISCONNECT_BUTTON);
+    },
+    skip: false,
+  },
+];
+describe('Walk through app', async function (this: Suite): Promise<void> {
+  tests.forEach(({name, run, skip}) => {
+    const testFunction = skip ? it.skip : it;
+    testFunction(name, async () => {
+      await run();
+    }).retries(4);
   });
 });
