@@ -24,7 +24,7 @@ type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
 
-  const {leave} = useJellyfishClient();
+  const {cleanUp} = useJellyfishClient();
   const {isCameraOn, flipCamera, toggleCamera} = useCamera();
   const {isScreencastOn, toggleScreencast} = useScreencast();
 
@@ -37,9 +37,9 @@ const RoomScreen = ({navigation}: Props) => {
   }, []);
 
   const onDisconnectTap = useCallback(() => {
-    leave();
+    cleanUp();
     navigation.goBack();
-  }, [navigation, leave]);
+  }, [navigation, cleanUp]);
 
   return (
     <SafeAreaView style={styles.container}>
