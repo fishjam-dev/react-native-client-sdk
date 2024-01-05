@@ -133,9 +133,9 @@ jobs:
         with:
           name: yarn-locks
           path: |
-            $GITHUB_WORKSPACE/yarn-root.lock
-            $GITHUB_WORKSPACE/yarn-example.lock
-            $GITHUB_WORKSPACE/yarn-webdriverio-test.lock
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn-root.lock
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn-example.lock
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn-webdriverio-test.lock
 
       - name: Install appium
         run: npm i --location=global appium
