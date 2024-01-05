@@ -110,14 +110,32 @@ jobs:
           node-version: '18.x'
           yarn-version: '1.22.x'
 
-      - name: Run yarn install in all directories
+      - name: Run yarn install in root directory
         run: |
           cd $GITHUB_WORKSPACE
           yarn install
+          cp yarn.lock $GITHUB_WORKSPACE/yarn-root.lock
+
+      - name: Run yarn install in example directory
+        run: |
           cd $GITHUB_WORKSPACE/example
           yarn install
+          cp yarn.lock $GITHUB_WORKSPACE/yarn-example.lock
+
+      - name: Run yarn install in webdriverio-test directory
+        run: |
           cd $GITHUB_WORKSPACE/example/webdriverio-test
           yarn install
+          cp yarn.lock $GITHUB_WORKSPACE/yarn-webdriverio-test.lock
+
+      - name: Upload yarn.lock artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: yarn-locks
+          path: |
+            $GITHUB_WORKSPACE/yarn-root.lock
+            $GITHUB_WORKSPACE/yarn-example.lock
+            $GITHUB_WORKSPACE/yarn-webdriverio-test.lock
 
       - name: Install appium
         run: npm i --location=global appium
