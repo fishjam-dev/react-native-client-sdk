@@ -28,7 +28,7 @@ const {
 
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
-  const {leave} = useJellyfishClient();
+  const {cleanUp} = useJellyfishClient();
   const {isCameraOn, flipCamera, toggleCamera} = useCamera();
   const {isScreencastOn, toggleScreencast} = useScreencast();
   const {isMicrophoneOn, toggleMicrophone} = useMicrophone();
@@ -41,9 +41,9 @@ const RoomScreen = ({navigation}: Props) => {
     return () => backHandler.remove();
   }, []);
   const onDisconnectPress = useCallback(() => {
-    leave();
+    cleanUp();
     navigation.navigate('Connect');
-  }, [navigation, leave]);
+  }, [navigation, cleanUp]);
 
   return (
     <SafeAreaView style={styles.container}>

@@ -9,7 +9,7 @@ import {
 import {InCallButton} from '../components';
 
 import type {CaptureDevice} from '@jellyfish-dev/react-native-client-sdk';
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
+import {useVideoRoomContext} from '../contexts/VideoRoomContext';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
 
@@ -35,7 +35,7 @@ const PreviewScreen = ({navigation}: Props) => {
     getCaptureDevices,
     setCurrentCamera,
     currentCamera,
-  } = useJellyfishClient();
+  } = useVideoRoomContext();
   const availableCameras = useRef<CaptureDevice[]>([]);
   useEffect(() => {
     getCaptureDevices().then(devices => {

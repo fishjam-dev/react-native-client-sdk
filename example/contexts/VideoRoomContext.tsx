@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react';
 import {useJellyfishClient} from '../../src/JellyfishClientContext';
-import {VideoQuality} from '@jellyfish-dev/react-native-membrane-webrtc';
 
 import {
   useCamera,
@@ -11,7 +10,11 @@ import {
   updateVideoTrackMetadata,
   updateAudioTrackMetadata,
 } from '@jellyfish-dev/react-native-client-sdk';
-import {ScreencastQuality} from '@jellyfish-dev/react-native-membrane-webrtc';
+
+import {
+  ScreencastQuality,
+  VideoQuality,
+} from '@jellyfish-dev/react-native-membrane-webrtc';
 
 import {Platform} from 'expo-modules-core';
 
