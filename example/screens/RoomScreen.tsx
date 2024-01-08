@@ -4,17 +4,15 @@ import {InCallButton, VideosGrid} from '../components';
 import {NoCameraView} from '../components/NoCameraView';
 
 import {
-  useCamera,
-  useMicrophone,
   useJellyfishClient,
   usePeers,
-  useScreencast,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
 
 import {roomScreenLabels} from '../types/ComponentLabels';
+import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {
@@ -29,10 +27,15 @@ const {
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
   const {cleanUp} = useJellyfishClient();
-  const {isCameraOn, flipCamera, toggleCamera} = useCamera();
-  const {isScreencastOn, toggleScreencast} = useScreencast();
-  const {isMicrophoneOn, toggleMicrophone} = useMicrophone();
-
+  const {
+    isCameraOn,
+    isMicrophoneOn,
+    isScreencastOn,
+    toggleScreencastAndUpdateMetadata,
+    toggleMicrophone,
+    toggleCamera,
+    flipCamera,
+  } = useJellyfishExampleContext();
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -87,11 +90,7 @@ const RoomScreen = ({navigation}: Props) => {
         />
         <InCallButton
           iconName={isScreencastOn ? 'share-off' : 'share'}
-          onPress={() =>
-            toggleScreencast({
-              screencastMetadata: {displayName: 'Mobile phone'},
-            })
-          }
+          onPress={() => toggleScreencastAndUpdateMetadata()}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
       </View>

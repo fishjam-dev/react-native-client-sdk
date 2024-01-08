@@ -26,29 +26,17 @@ const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
   const {connect, error} = useJellyfishClient();
   const [peerToken, onChangePeerToken] = useState('');
-  const [jellyfishUrl, onChangeJellyfishUrl] = useState(
-    'ws://192.168.83.178:5002/socket/peer/websocket',
-  );
+  const [jellyfishUrl, onChangeJellyfishUrl] = useState('');
   useEffect(() => {
     async function request() {
       if (Platform.OS === 'ios') {
         return;
       }
       try {
-        const granted = await PermissionsAndroid.requestMultiple([
+        await PermissionsAndroid.requestMultiple([
           PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
           PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
         ]);
-        if (
-          granted[PermissionsAndroid.PERMISSIONS.CAMERA as Permission] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission] ===
-            PermissionsAndroid.RESULTS.GRANTED
-        ) {
-          console.log('You can use the camera');
-        } else {
-          console.log('Camera permission denied');
-        }
       } catch (err) {
         console.warn(err);
       }
