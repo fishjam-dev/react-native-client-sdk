@@ -1,24 +1,22 @@
-import React, {useCallback} from 'react';
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {
   useCamera,
   useMicrophone,
+  useJellyfishClient,
   useScreencast,
   useAudioSettings,
   CaptureDevice,
   updateVideoTrackMetadata,
   updateAudioTrackMetadata,
 } from '@jellyfish-dev/react-native-client-sdk';
-
-import {
-  ScreencastQuality,
-  VideoQuality,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+//
+// import {
+//   ScreencastQuality,
+//   VideoQuality,
+// } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 import {Platform} from 'expo-modules-core';
-
-import {useEffect, useState} from 'react';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 
@@ -67,18 +65,18 @@ const JellyfishExampleContextProvider = (props: any) => {
       name: 'RN mobile',
     });
 
-    await startCamera({
-      simulcastConfig: {
-        enabled: true,
-        activeEncodings:
-          Platform.OS === 'android' ? ['l', 'm', 'h'] : ['l', 'h'],
-      },
-      quality: VideoQuality.HD_169,
-      maxBandwidth: {l: 150, m: 500, h: 1500},
-      videoTrackMetadata: {active: isCameraOn, type: 'camera'},
-      captureDeviceId: currentCamera?.id,
-      cameraEnabled: isCameraOn,
-    });
+    // await startCamera({
+    //   simulcastConfig: {
+    //     enabled: true,
+    //     activeEncodings:
+    //       Platform.OS === 'android' ? ['l', 'm', 'h'] : ['l', 'h'],
+    //   },
+    //   quality: VideoQuality.HD_169,
+    //   maxBandwidth: {l: 150, m: 500, h: 1500},
+    //   videoTrackMetadata: {active: isCameraOn, type: 'camera'},
+    //   captureDeviceId: currentCamera?.id,
+    //   cameraEnabled: isCameraOn,
+    // });
     await startMicrophone({
       audioTrackMetadata: {active: isMicrophoneOn, type: 'audio'},
       microphoneEnabled: isMicrophoneOn,
@@ -114,14 +112,14 @@ const JellyfishExampleContextProvider = (props: any) => {
   }, [isMicrophoneOn, videoRoomState]);
 
   const toggleScreencastAndUpdateMetadata = useCallback(() => {
-    membraneToggleScreencast({
-      screencastMetadata: {
-        displayName: 'presenting',
-        type: 'screensharing',
-        active: 'true',
-      },
-      quality: ScreencastQuality.HD15,
-    });
+    // membraneToggleScreencast({
+    //   screencastMetadata: {
+    //     displayName: 'presenting',
+    //     type: 'screensharing',
+    //     active: 'true',
+    //   },
+    //   quality: ScreencastQuality.HD15,
+    // });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
