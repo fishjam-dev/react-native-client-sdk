@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {useJellyfishClient} from '../../src/JellyfishClientContext';
+import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 
 import {
   useCamera,
@@ -22,7 +22,7 @@ import {useEffect, useState} from 'react';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 
-const VideoRoomContext = React.createContext<
+const JellyfishExampleContext = React.createContext<
   | {
       isCameraOn: boolean;
       toggleCamera: () => void;
@@ -41,8 +41,8 @@ const VideoRoomContext = React.createContext<
   | undefined
 >(undefined);
 
-const VideoRoomContextProvider = (props: any) => {
-  const jellyfishClient = useJellyfishClient();
+const JellyfishExampleContextProvider = (props: any) => {
+  const {join} = useJellyfishClient();
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
   const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
@@ -59,11 +59,11 @@ const VideoRoomContextProvider = (props: any) => {
   const {isScreencastOn, toggleScreencast: membraneToggleScreencast} =
     useScreencast();
   useAudioSettings();
-  const [VideoRoomState, setVideoRoomState] =
+  const [videoRoomState, setVideoRoomState] =
     useState<VideoRoomState>('BeforeMeeting');
 
   const joinRoom = useCallback(async () => {
-    await jellyfishClient.join({
+    await join({
       name: 'RN mobile',
     });
 
@@ -91,18 +91,18 @@ const VideoRoomContextProvider = (props: any) => {
     getCaptureDevices().then(devices => {
       setCurrentCamera(devices.find(device => device.isFrontFacing) || null);
     });
-  });
+  }, [getCaptureDevices]);
   const toggleCamera = useCallback(async () => {
-    if (VideoRoomState === 'InMeeting') {
+    if (videoRoomState === 'InMeeting') {
       await membraneToggleCamera();
       await updateVideoTrackMetadata({active: !isCameraOn, type: 'camera'});
     }
     setIsCameraOn(!isCameraOn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCameraOn, VideoRoomState]);
+  }, [isCameraOn, videoRoomState]);
 
   const toggleMicrophone = useCallback(async () => {
-    if (VideoRoomState === 'InMeeting') {
+    if (videoRoomState === 'InMeeting') {
       await membraneToggleMicrophone();
       await updateAudioTrackMetadata({
         active: !isMicrophoneOn,
@@ -111,7 +111,7 @@ const VideoRoomContextProvider = (props: any) => {
     }
     setIsMicrophoneOn(!isMicrophoneOn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMicrophoneOn, VideoRoomState]);
+  }, [isMicrophoneOn, videoRoomState]);
 
   const toggleScreencastAndUpdateMetadata = useCallback(() => {
     membraneToggleScreencast({
@@ -140,20 +140,20 @@ const VideoRoomContextProvider = (props: any) => {
   };
 
   return (
-    <VideoRoomContext.Provider value={value}>
+    <JellyfishExampleContext.Provider value={value}>
       {props.children}
-    </VideoRoomContext.Provider>
+    </JellyfishExampleContext.Provider>
   );
 };
 
-function useVideoRoomContext() {
-  const context = React.useContext(VideoRoomContext);
+function useJellyfishExampleContext() {
+  const context = React.useContext(JellyfishExampleContext);
   if (context === undefined) {
     throw new Error(
-      'useVideoRoomContext must be used within a VideoRoomContextProvider',
+      'useJellyfishExampleContext must be used within a JellyfishExampleContextProvider',
     );
   }
   return context;
 }
 
-export {VideoRoomContextProvider, useVideoRoomContext};
+export {JellyfishExampleContextProvider, useJellyfishExampleContext};

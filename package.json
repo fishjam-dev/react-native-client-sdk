@@ -71,17 +71,14 @@
     "jest-websocket-mock": "^2.4.0",
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-native": "0.72.3",
+    "react-native": "0.72.6",
     "react-native-builder-bob": "^0.20.0",
     "release-it": "^15.0.0",
     "ts-proto": "^1.148.0",
     "typedoc": "^0.24.7",
-    "typescript": "^4.5.2"
-  },
-  "resolutions": {
-    "@types/react": "17.0.21"
+    "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "react": "*",
@@ -171,6 +168,7 @@
   "dependencies": {
     "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc",
     "expo-modules-core": "1.5.7",
-    "protobufjs": "^7.2.4"
+    "protobufjs": "^7.2.4",
+    "react-native-safe-area-context": "^4.8.2"
   }
 }
