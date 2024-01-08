@@ -6,6 +6,8 @@ import {NoCameraView} from '../components/NoCameraView';
 import {
   useJellyfishClient,
   usePeers,
+  useScreencast,
+  ScreencastQuality,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -27,15 +29,15 @@ const {
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
   const {cleanUp} = useJellyfishClient();
+  const {toggleScreencast, isScreencastOn} = useScreencast();
   const {
     isCameraOn,
     isMicrophoneOn,
-    isScreencastOn,
-    toggleScreencastAndUpdateMetadata,
     toggleMicrophone,
     toggleCamera,
     flipCamera,
   } = useJellyfishExampleContext();
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -43,10 +45,22 @@ const RoomScreen = ({navigation}: Props) => {
     );
     return () => backHandler.remove();
   }, []);
+
   const onDisconnectPress = useCallback(() => {
     cleanUp();
     navigation.navigate('Connect');
   }, [navigation, cleanUp]);
+
+  const onToggleScreenCast = useCallback(() => {
+    toggleScreencast({
+      screencastMetadata: {
+        displayName: 'presenting',
+        type: 'screensharing',
+        active: !isScreencastOn,
+      },
+      quality: ScreencastQuality.HD15,
+    });
+  }, [isScreencastOn, toggleScreencast]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -90,7 +104,7 @@ const RoomScreen = ({navigation}: Props) => {
         />
         <InCallButton
           iconName={isScreencastOn ? 'share-off' : 'share'}
-          onPress={() => toggleScreencastAndUpdateMetadata()}
+          onPress={onToggleScreenCast}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
       </View>

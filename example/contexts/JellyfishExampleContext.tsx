@@ -4,12 +4,10 @@ import {
   useCamera,
   useMicrophone,
   useJellyfishClient,
-  useScreencast,
   useAudioSettings,
   updateVideoTrackMetadata,
   updateAudioTrackMetadata,
   CaptureDevice,
-  ScreencastQuality,
   VideoQuality,
 } from '@jellyfish-dev/react-native-client-sdk';
 
@@ -23,8 +21,6 @@ const JellyfishExampleContext = React.createContext<
       toggleCamera: () => void;
       isMicrophoneOn: boolean;
       toggleMicrophone: () => void;
-      isScreencastOn: boolean;
-      toggleScreencastAndUpdateMetadata: () => void;
       joinRoom: () => Promise<void>;
       flipCamera: () => void;
       getCaptureDevices: () => Promise<CaptureDevice[]>;
@@ -51,8 +47,6 @@ const JellyfishExampleContextProvider = (props: any) => {
   } = useCamera();
   const {toggleMicrophone: membraneToggleMicrophone, startMicrophone} =
     useMicrophone();
-  const {isScreencastOn, toggleScreencast: membraneToggleScreencast} =
-    useScreencast();
   useAudioSettings();
   const [videoRoomState, setVideoRoomState] =
     useState<VideoRoomState>('BeforeMeeting');
@@ -88,6 +82,7 @@ const JellyfishExampleContextProvider = (props: any) => {
       setCurrentCamera(devices.find(device => device.isFrontFacing) || null);
     });
   }, [getCaptureDevices]);
+
   const toggleCamera = useCallback(async () => {
     if (videoRoomState === 'InMeeting') {
       await membraneToggleCamera();
@@ -109,27 +104,13 @@ const JellyfishExampleContextProvider = (props: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMicrophoneOn, videoRoomState]);
 
-  const toggleScreencastAndUpdateMetadata = useCallback(() => {
-    membraneToggleScreencast({
-      screencastMetadata: {
-        displayName: 'presenting',
-        type: 'screensharing',
-        active: 'true',
-      },
-      quality: ScreencastQuality.HD15,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const value = {
     joinRoom,
     flipCamera,
     toggleCamera,
     toggleMicrophone,
-    toggleScreencastAndUpdateMetadata,
     isCameraOn,
     isMicrophoneOn,
-    isScreencastOn,
     currentCamera,
     setCurrentCamera,
     getCaptureDevices,

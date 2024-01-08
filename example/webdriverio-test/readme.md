@@ -40,5 +40,5 @@
    -e JF_WEBRTC_TURN_LISTEN_IP=0.0.0.0 \
    -e JF_SERVER_API_TOKEN=development \
    ghcr.io/jellyfish-dev/jellyfish:0.2.0
-4. Run test in webdriveio-test folder : npm run wdio wdio.conf.ts
+4. Run test in webdriveio-test folder : (npx) run wdio wdio.conf.ts
 

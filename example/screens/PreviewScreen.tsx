@@ -37,6 +37,7 @@ const PreviewScreen = ({navigation}: Props) => {
     currentCamera,
   } = useJellyfishExampleContext();
   const availableCameras = useRef<CaptureDevice[]>([]);
+
   useEffect(() => {
     getCaptureDevices().then(devices => {
       availableCameras.current = devices;
@@ -50,6 +51,7 @@ const PreviewScreen = ({navigation}: Props) => {
     if (currentCamera === null) {
       return;
     }
+
     //todo Switches between front-facing and back-facing cameras or displays a list of available cameras.
     setCurrentCamera(
       cameras[

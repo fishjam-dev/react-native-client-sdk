@@ -114,28 +114,37 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           yarn install
-          cp yarn.lock $GITHUB_WORKSPACE/yarn-root.lock
+
+      - name: Upload yarn.lock artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: yarn-lock
+          path: |
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock
 
       - name: Run yarn install in example directory
         run: |
           cd $GITHUB_WORKSPACE/example
           yarn install
-          cp yarn.lock $GITHUB_WORKSPACE/yarn-example.lock
+
+      - name: Upload yarn.lock artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: yarn-lock-example
+          path: |
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock
 
       - name: Run yarn install in webdriverio-test directory
         run: |
           cd $GITHUB_WORKSPACE/example/webdriverio-test
           yarn install
-          cp yarn.lock $GITHUB_WORKSPACE/yarn-webdriverio-test.lock
 
-      - name: Upload yarn.lock artifacts
+      - name: Upload yarn.lock artifact
         uses: actions/upload-artifact@v2
         with:
-          name: yarn-locks
+          name: yarn-lock-webdriverio-test
           path: |
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn-root.lock
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn-example.lock
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn-webdriverio-test.lock
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/yarn.lock
 
       - name: Install appium
         run: npm i --location=global appium
