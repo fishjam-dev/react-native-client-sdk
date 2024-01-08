@@ -19,6 +19,7 @@ export {
   setTargetTrackEncoding,
   VideoRendererView,
   VideoPreviewView,
+  VideoQuality,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 export type Peer<
