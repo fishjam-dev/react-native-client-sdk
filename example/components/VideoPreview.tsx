@@ -7,7 +7,6 @@ import {ActivityIndicator, StyleSheet} from 'react-native';
 type Props = {currentCamera: CaptureDevice | null};
 const VideoPreview = ({currentCamera}: Props) => {
   return currentCamera ? (
-    // @ts-ignore
     <VideoPreviewView
       style={styles.membraneVideoPreview}
       mirrorVideo

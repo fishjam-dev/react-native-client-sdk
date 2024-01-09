@@ -34,7 +34,6 @@ export function VideosGrid({tracks}: Props) {
             }
             key={v}>
             <AnimatedVideoRenderer
-              // @ts-ignore
               trackId={v}
               entering={FadeInDown.duration(200)}
               layout={Layout.duration(150)}

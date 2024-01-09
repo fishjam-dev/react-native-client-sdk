@@ -8,15 +8,12 @@
 4. [Don't forget about this (for ios)](https://appium.github.io/appium-xcuitest-driver/5.11/real-device-config/)
 5. Run yarn install
 6. Check file .env, there are some necessary env variables
-
-- ANDROID_JELLYFISH_TOKEN - peer token for your android device
 - ANDROID_DEVICE_NAME - name of your android device, if not set test would not start on android can be checked using:
   adb devices -l
 - ANDROID_APP_PATH - Path to .apk file on your computer, to generate it:
   - In folder example run: cd android && ./gradlew assembleRelease
   - Yor path should look like this your/path/to/repo/example/android/app/build/outputs/apk/release/app-release.apk
 
-- IOS_JELLYFISH_TOKEN - peer token for your ios device
 - IOS_DEVICE_ID - id of your ios device, can be obtained using: xcrun xctrace list devices
 - IOS_TEAM_ID - id of your team, can be obtained at apple developer page
 - IOS_APP_PATH - Path to .ipa file on your computer, to generate it:
@@ -24,6 +21,9 @@
   - choose archive and tap on distribute > custom > development > next ... > automatically manage signing > export
   - choose file to export your app, recommend to do it in ios folder
   - your path should look like path/to/your/app/JellyfishExample.ipa
+#### additional envs for github action
+- JELLYFISH_HOST_SERVER = `ip_address:port number` of the server
+- JELLYFISH_HOST_MOBILE = `ip_address:port_number` of the mobile phone
 
 7. Run yarn install in webdriveio-test folder
 2. [install wdio cli (Do not run npx wdio config, it is not necessary because it is already configured)](https://v6.webdriver.io/docs/clioptions.html)

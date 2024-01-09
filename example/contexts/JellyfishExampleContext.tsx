@@ -74,8 +74,14 @@ const JellyfishExampleContextProvider = (props: any) => {
       microphoneEnabled: isMicrophoneOn,
     });
     setVideoRoomState('InMeeting');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCameraOn, isMicrophoneOn]);
+  }, [
+    currentCamera?.id,
+    isCameraOn,
+    isMicrophoneOn,
+    join,
+    startCamera,
+    startMicrophone,
+  ]);
 
   useEffect(() => {
     getCaptureDevices().then(devices => {
@@ -89,8 +95,7 @@ const JellyfishExampleContextProvider = (props: any) => {
       await updateVideoTrackMetadata({active: !isCameraOn, type: 'camera'});
     }
     setIsCameraOn(!isCameraOn);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCameraOn, videoRoomState]);
+  }, [isCameraOn, membraneToggleCamera, videoRoomState]);
 
   const toggleMicrophone = useCallback(async () => {
     if (videoRoomState === 'InMeeting') {
@@ -101,8 +106,7 @@ const JellyfishExampleContextProvider = (props: any) => {
       });
     }
     setIsMicrophoneOn(!isMicrophoneOn);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMicrophoneOn, videoRoomState]);
+  }, [isMicrophoneOn, membraneToggleMicrophone, videoRoomState]);
 
   const value = {
     joinRoom,
