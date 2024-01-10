@@ -18,6 +18,10 @@ export {
   changeWebRTCLoggingSeverity,
   VideoRendererView,
   VideoPreviewView,
+  VideoQuality,
+  ScreencastQuality,
+  Metadata,
+  CaptureDevice,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 type Peer<

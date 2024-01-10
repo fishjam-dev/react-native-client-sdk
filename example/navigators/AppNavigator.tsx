@@ -1,11 +1,14 @@
-import {NavigationContainer, NavigationProp} from '@react-navigation/native';
+import type {NavigationProp} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ConnectScreen from '../screens/ConnectScreen';
 import RoomScreen from '../screens/RoomScreen';
 import React from 'react';
+import PreviewScreen from '../screens/PreviewScreen';
 
 export type AppRootStackParamList = {
   Connect: undefined;
+  Preview: undefined;
   Room: undefined;
 };
 
@@ -23,6 +26,7 @@ const AppNavigator = () => {
           headerBackVisible: false,
         })}>
         <Stack.Screen name="Connect" component={ConnectScreen} />
+        <Stack.Screen name="Preview" component={PreviewScreen} />
         <Stack.Screen name="Room" component={RoomScreen} />
       </Stack.Navigator>
     </NavigationContainer>

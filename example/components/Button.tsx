@@ -2,7 +2,7 @@ import {AdditionalColors, BrandColors, TextColors} from '../utils/Colors';
 import {Typo} from './Typo';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import AccessibilityLabel from '../types/AccesabilityLabel';
+import type AccessibilityLabel from '../types/AccessibilityLabel';
 
 const StandardButtonStyles = StyleSheet.create({
   common: {

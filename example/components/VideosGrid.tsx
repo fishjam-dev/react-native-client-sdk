@@ -2,13 +2,14 @@ import {VideoRendererView} from '@jellyfish-dev/react-native-client-sdk';
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Animated, {FadeInDown, Layout} from 'react-native-reanimated';
+import {roomScreenLabels} from '../types/ComponentLabels';
 
 type Props = {
   tracks: string[];
 };
 
 const {width} = Dimensions.get('window');
-
+const {VIDEO_CELL} = roomScreenLabels;
 const AnimatedVideoRenderer =
   // @ts-ignore
   Animated.createAnimatedComponent(VideoRendererView);
@@ -21,8 +22,9 @@ export function VideosGrid({tracks}: Props) {
       style={
         tracks.length > 3 ? styles.videosContainer2 : styles.videosContainer1
       }>
-      {tracks.map(v => (
+      {tracks.map((v, idx) => (
         <Animated.View
+          accessibilityLabel={VIDEO_CELL + idx}
           entering={FadeInDown.duration(200)}
           layout={Layout.duration(150)}
           style={
@@ -35,7 +37,7 @@ export function VideosGrid({tracks}: Props) {
             trackId={v}
             entering={FadeInDown.duration(200)}
             layout={Layout.duration(150)}
-            style={{flex: 1}}
+            style={styles.animatedView}
           />
         </Animated.View>
       ))}
@@ -44,6 +46,7 @@ export function VideosGrid({tracks}: Props) {
 }
 
 const styles = StyleSheet.create({
+  animatedView: {flex: 1},
   container: {
     flex: 1,
     justifyContent: 'center',
