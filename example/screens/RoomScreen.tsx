@@ -1,32 +1,42 @@
 import React, {useCallback, useEffect} from 'react';
 import {BackHandler, SafeAreaView, StyleSheet, View} from 'react-native';
-
 import {InCallButton, VideosGrid} from '../components';
+import {NoCameraView} from '../components/NoCameraView';
 
 import {
-  useCamera,
   useJellyfishClient,
   usePeers,
   useScreencast,
+  ScreencastQuality,
 } from '@jellyfish-dev/react-native-client-sdk';
+
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
 
-import {
+import {roomScreenLabels} from '../types/ComponentLabels';
+import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
+
+type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
+const {
   DISCONNECT_BUTTON,
   TOGGLE_CAMERA_BUTTON,
   SWITCH_CAMERA_BUTTON,
   SHARE_SCREEN_BUTTON,
-} from '../types/ComponentLabels';
-
-type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
+  TOGGLE_MICROPHONE_BUTTON,
+  NO_CAMERA_VIEW,
+} = roomScreenLabels;
 
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
-
-  const {leave} = useJellyfishClient();
-  const {isCameraOn, flipCamera, toggleCamera} = useCamera();
-  const {isScreencastOn, toggleScreencast} = useScreencast();
+  const {cleanUp} = useJellyfishClient();
+  const {toggleScreencast, isScreencastOn} = useScreencast();
+  const {
+    isCameraOn,
+    isMicrophoneOn,
+    toggleMicrophone,
+    toggleCamera,
+    flipCamera,
+  } = useJellyfishExampleContext();
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -36,24 +46,51 @@ const RoomScreen = ({navigation}: Props) => {
     return () => backHandler.remove();
   }, []);
 
-  const onDisconnectTap = useCallback(() => {
-    leave();
-    navigation.goBack();
-  }, [navigation, leave]);
+  const onDisconnectPress = useCallback(() => {
+    cleanUp();
+    navigation.navigate('Connect');
+  }, [navigation, cleanUp]);
+
+  const onToggleScreenCast = useCallback(() => {
+    toggleScreencast({
+      screencastMetadata: {
+        displayName: 'presenting',
+        type: 'screensharing',
+        active: !isScreencastOn,
+      },
+      quality: ScreencastQuality.HD15,
+    });
+  }, [isScreencastOn, toggleScreencast]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <VideosGrid
-        tracks={
-          peers.map(peer => peer.tracks[0]?.id).filter(t => t) as string[]
-        }
-      />
-      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
+      {isCameraOn ? (
+        <VideosGrid
+          tracks={
+            peers
+              .flatMap(peer =>
+                peer.tracks
+                  .filter(t => t.metadata.type !== 'audio')
+                  .map(t => t.id),
+              )
+              .filter(t => t) as string[]
+          }
+        />
+      ) : (
+        <NoCameraView username="username" accessibilityLabel={NO_CAMERA_VIEW} />
+      )}
+
+      <View style={styles.callView}>
         <InCallButton
           type="disconnect"
           iconName="phone-hangup"
-          onPress={onDisconnectTap}
+          onPress={onDisconnectPress}
           accessibilityLabel={DISCONNECT_BUTTON}
+        />
+        <InCallButton
+          iconName={isMicrophoneOn ? 'microphone-off' : 'microphone'}
+          onPress={toggleMicrophone}
+          accessibilityLabel={TOGGLE_MICROPHONE_BUTTON}
         />
         <InCallButton
           iconName={isCameraOn ? 'camera-off' : 'camera'}
@@ -67,11 +104,7 @@ const RoomScreen = ({navigation}: Props) => {
         />
         <InCallButton
           iconName={isScreencastOn ? 'share-off' : 'share'}
-          onPress={() =>
-            toggleScreencast({
-              screencastMetadata: {displayName: 'Mobile phone'},
-            })
-          }
+          onPress={onToggleScreenCast}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
       </View>
@@ -82,6 +115,7 @@ const RoomScreen = ({navigation}: Props) => {
 export default RoomScreen;
 
 const styles = StyleSheet.create({
+  callView: {display: 'flex', flexDirection: 'row', gap: 10},
   container: {
     flex: 1,
     alignItems: 'center',

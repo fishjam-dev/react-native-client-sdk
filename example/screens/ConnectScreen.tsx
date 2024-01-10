@@ -11,47 +11,32 @@ import {
   View,
 } from 'react-native';
 
-import {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} from '../types/ComponentLabels';
+import {connectScreenLabels} from '../types/ComponentLabels';
 
-import {
-  useCamera,
-  useJellyfishClient,
-} from '@jellyfish-dev/react-native-client-sdk';
+import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppRootStackParamList} from '../navigators/AppNavigator';
-import {JELLYFISH_URL} from '@env';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 
+const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
-  const {connect, join, error} = useJellyfishClient();
+  const {connect, error} = useJellyfishClient();
   const [peerToken, onChangePeerToken] = useState('');
-  const [jellyfishUrl, onChangeJellyfishUrl] = useState(JELLYFISH_URL ?? '');
-  const {startCamera} = useCamera();
-
+  const [jellyfishUrl, onChangeJellyfishUrl] = useState('');
   useEffect(() => {
     async function request() {
       if (Platform.OS === 'ios') {
         return;
       }
       try {
-        const granted = await PermissionsAndroid.requestMultiple([
+        await PermissionsAndroid.requestMultiple([
           PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
           PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
         ]);
-        if (
-          granted[PermissionsAndroid.PERMISSIONS.CAMERA as Permission] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission] ===
-            PermissionsAndroid.RESULTS.GRANTED
-        ) {
-          console.log('You can use the camera');
-        } else {
-          console.log('Camera permission denied');
-        }
       } catch (err) {
         console.warn(err);
       }
@@ -60,12 +45,10 @@ const ConnectScreen = ({navigation}: Props) => {
     request();
   }, []);
 
-  const connectToRoom = async () => {
+  const onTapConnectButton = async () => {
     try {
-      await connect(jellyfishUrl, peerToken);
-      await startCamera();
-      await join({name: 'RN mobile'});
-      navigation.navigate('Room');
+      await connect(jellyfishUrl.trim(), peerToken.trim());
+      navigation.navigate('Preview');
     } catch (e) {
       console.log(e);
     }
@@ -96,7 +79,7 @@ const ConnectScreen = ({navigation}: Props) => {
           />
           <Button
             title="Connect"
-            onPress={connectToRoom}
+            onPress={onTapConnectButton}
             accessibilityLabel={CONNECT_BUTTON}
           />
           <QRCodeScanner onCodeScanned={onChangePeerToken} />

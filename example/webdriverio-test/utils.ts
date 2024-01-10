@@ -1,70 +1,101 @@
-import {Capabilities} from '@wdio/types';
+import type {Capabilities} from '@wdio/types';
 import * as assert from 'assert';
 
-const BREAK_TIME = 1000;
+const TIMEOUT = 3000;
+const INTERVAL = 300;
 
-async function typeToInput(
+type TimeoutConfig = {
+  timeout: number;
+  timeoutMsg: string;
+  interval: number;
+};
+
+const findTimeoutConfig = (selector: string): TimeoutConfig => {
+  return {
+    timeout: TIMEOUT,
+    timeoutMsg: `Element with selector ${selector} not found within the specified time`,
+    interval: INTERVAL,
+  };
+};
+
+const getElement = async (
   driver: WebdriverIO.Browser,
-  identifier: string,
+  selector: string,
+  reverse: boolean = false,
+  timeout: TimeoutConfig = findTimeoutConfig(selector),
+) => {
+  const element = await driver.$(selector);
+  await element.waitForExist({...timeout, reverse: reverse});
+  return element;
+};
+
+const typeToInput = async (
+  driver: WebdriverIO.Browser,
+  selector: string,
   text: string,
-) {
-  const input = await driver.$(identifier);
-  assert.strictEqual(await input.isExisting(), true);
+) => {
+  const input = await getElement(driver, selector);
   await input.setValue(text);
-  await driver.pause(BREAK_TIME);
-}
+};
 
-async function tapButton(driver: WebdriverIO.Browser, identifier: string) {
-  const button = await driver.$(identifier);
-  assert.strictEqual(await button.isExisting(), true);
+const compareInputValue = async (
+  driver: WebdriverIO.Browser,
+  selector: string,
+  expectedValue: string | undefined,
+) => {
+  assert.equal(await getInputValue(driver, selector), expectedValue);
+};
+
+const getInputValue = async (driver: WebdriverIO.Browser, selector: string) => {
+  const element = await getElement(driver, selector);
+  return await element.getText();
+};
+
+const tapButton = async (driver: WebdriverIO.Browser, selector: string) => {
+  const button = await getElement(driver, selector);
   await button.click();
-  await driver.pause(BREAK_TIME);
-}
+};
 
-async function tapApp(driver: WebdriverIO.Browser) {
+const tapApp = async (driver: WebdriverIO.Browser) => {
   await driver.touchPerform([
     {action: 'press', options: {x: 100, y: 100}},
     {action: 'release'},
   ]);
-  await driver.pause(BREAK_TIME);
-}
+};
 
-function platformJellyfishToken(driver: WebdriverIO.Browser): string {
-  if (driver.isAndroid) {
-    assert.ok(process.env.ANDROID_JELLYFISH_TOKEN !== undefined);
-    return process.env.ANDROID_JELLYFISH_TOKEN;
-  }
-  assert.ok(process.env.IOS_JELLYFISH_TOKEN !== undefined);
-  return process.env.IOS_JELLYFISH_TOKEN ?? '';
-}
+const getWebsocketUrl = (host: string, secure: boolean = false) =>
+  `${secure ? 'wss' : 'ws'}://${host}/socket/peer/websocket`;
 
-function getAndroidDeviceCapabilities(
+const getHttpUrl = (host: string, secure: boolean = false) =>
+  `${secure ? 'https' : 'http'}://${host}`;
+
+const getAndroidDeviceCapabilities = (
   name: string,
-): Capabilities.RemoteCapability {
+): Capabilities.RemoteCapability => {
   return {
     platformName: 'Android',
     'appium:automationName': 'UiAutomator2',
     'appium:deviceName': name,
     'appium:autoGrantPermissions': true,
     'appium:app': process.env.ANDROID_APP_PATH,
-    'appium:newCommandTimeout': 2000,
+    'appium:newCommandTimeout': TIMEOUT,
   };
-}
+};
 
-function getIosDeviceCapabilities(
+const getIosDeviceCapabilities = (
   id: string,
   teamId?: string,
-): Capabilities.RemoteCapability {
+): Capabilities.RemoteCapability => {
   return {
     platformName: 'iOS',
     'appium:automationName': 'XCUITest',
     'appium:udid': id,
     'appium:app': process.env.IOS_APP_PATH,
-    'appium:newCommandTimeout': 2000,
+    'appium:newCommandTimeout': TIMEOUT,
     'appium:xcodeOrgId': teamId,
     'appium:xcodeSigningId': 'App Developer',
   };
-}
+};
 
 const getCapabilityIfDeviceAvailable = (
   deviceName: string | undefined,
@@ -87,4 +118,15 @@ const capabilities: Capabilities.RemoteCapabilities = [
   ),
 ].filter(object => object !== undefined) as Capabilities.RemoteCapabilities;
 
-export {tapApp, typeToInput, tapButton, platformJellyfishToken, capabilities};
+export {
+  tapApp,
+  typeToInput,
+  tapButton,
+  getElement,
+  getInputValue,
+  compareInputValue,
+  findTimeoutConfig,
+  getWebsocketUrl,
+  getHttpUrl,
+  capabilities,
+};
