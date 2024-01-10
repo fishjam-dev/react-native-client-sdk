@@ -15,7 +15,6 @@ Include details of your testing environment, devices (ex. Iphone XYZ ios X.X.X &
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
 ## Checklist:
-
 - [ ] My code follows the code style of this project.
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
