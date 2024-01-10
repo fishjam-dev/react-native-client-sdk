@@ -23,24 +23,23 @@ export function VideosGrid({tracks}: Props) {
         tracks.length > 3 ? styles.videosContainer2 : styles.videosContainer1
       }>
       {tracks.map((v, idx) => (
-        <View accessibilityLabel={VIDEO_CELL + idx} key={v}>
-          <Animated.View
+        <Animated.View
+          accessibilityLabel={VIDEO_CELL + idx}
+          entering={FadeInDown.duration(200)}
+          layout={Layout.duration(150)}
+          style={
+            tracks.length > 3
+              ? [styles.video2, {width: videoWidth, height: videoWidth}]
+              : [styles.video1, {maxWidth: width - 20}]
+          }
+          key={v}>
+          <AnimatedVideoRenderer
+            trackId={v}
             entering={FadeInDown.duration(200)}
             layout={Layout.duration(150)}
-            style={
-              tracks.length > 3
-                ? [styles.video2, {width: videoWidth, height: videoWidth}]
-                : [styles.video1, {maxWidth: width - 20}]
-            }
-            key={v}>
-            <AnimatedVideoRenderer
-              trackId={v}
-              entering={FadeInDown.duration(200)}
-              layout={Layout.duration(150)}
-              style={styles.animatedView}
-            />
-          </Animated.View>
-        </View>
+            style={styles.animatedView}
+          />
+        </Animated.View>
       ))}
     </View>
   );
