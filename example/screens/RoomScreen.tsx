@@ -26,6 +26,13 @@ type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
 
+  useEffect(() => {
+    console.log(
+      'Peers: ',
+      peers.map(e => e.tracks.map(e => e.simulcastConfig)),
+    );
+  }, [peers]);
+
   const {cleanUp} = useJellyfishClient();
   const {
     isCameraOn,
@@ -35,10 +42,6 @@ const RoomScreen = ({navigation}: Props) => {
     simulcastConfig,
   } = useCamera();
   const {isScreencastOn, toggleScreencast} = useScreencast();
-
-  useEffect(() => {
-    console.log(simulcastConfig);
-  }, [simulcastConfig]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(

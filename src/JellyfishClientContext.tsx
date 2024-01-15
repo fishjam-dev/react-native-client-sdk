@@ -63,6 +63,7 @@ const JellyfishContextProvider = (props: any) => {
     if (websocket.current?.readyState !== WebSocket.OPEN) {
       return;
     }
+    console.log('DDDD', event);
     const message = PeerMessage.encode({
       mediaEvent: { data: event },
     }).finish();
@@ -103,8 +104,7 @@ const JellyfishContextProvider = (props: any) => {
 
         try {
           const data = PeerMessage.decode(uint8Array);
-          console.log('INCOMING MESSAGE');
-          console.log(data);
+          console.log('INCOMING MESSAGE: ', data);
           if (data.authenticated !== undefined) {
             resolve();
           } else if (data.authRequest !== undefined) {
@@ -138,6 +138,7 @@ const JellyfishContextProvider = (props: any) => {
 
   const leave = () => {
     setError(null);
+
     membraneModule.disconnect();
   };
 

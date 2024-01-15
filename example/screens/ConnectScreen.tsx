@@ -22,34 +22,19 @@ import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppRootStackParamList} from '../navigators/AppNavigator';
-// import {JELLYFISH_URL} from '@env';
-import {VideoQuality} from '@jellyfish-dev/react-native-membrane-webrtc';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 
 const ConnectScreen = ({navigation}: Props) => {
   const {connect, join, error} = useJellyfishClient();
   const [peerToken, onChangePeerToken] = useState(
-    'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACQ4YThhZmZhMi1jNzU5LTQ3ZmMtODliYS02ZWU4ZTU1YjA2M2RkAAdyb29tX2lkbQAAACQwNzU2NzExOC1jMjhiLTRlNTEtODkzYS1kMmM1NDEzNmRlNGRuBgBp56fVjAFiAAFRgA.CWzxdTSChNf16B2-eruwrPXfHvLvTU8C3vc8ztWOe4E',
+    'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACQyMWRjOTA0YS0xYjFiLTQ4YjctYTI1YS04MGQyNmZkZmM5MmRkAAdyb29tX2lkbQAAACQ4MTc3ZjNhNi0wYzA1LTQ5ODktYjBhNS1lMzc3MDA3NGU4ZDNuBgBVjuT4jAFiAAFRgA.6T3R7J3Ubf-DG1B_Mx2utfPCN6TP6vLUH76W3dyK5hI',
   );
   const [jellyfishUrl, onChangeJellyfishUrl] = useState(
-    'ws://192.168.81.132:5002/socket/peer/websocket',
+    'ws://192.168.83.13:5002/socket/peer/websocket',
   );
   // const [jellyfishUrl, onChangeJellyfishUrl] = useState(JELLYFISH_URL ?? '');
   const {startCamera} = useCamera();
-
-  useEffect(() => {
-    console.log(VideoQuality.QVGA_169);
-    console.log(VideoQuality.VGA_169);
-    console.log(VideoQuality.QHD_169);
-    console.log(VideoQuality.HD_169);
-    console.log(VideoQuality.FHD_169);
-    console.log(VideoQuality.QVGA_43);
-    console.log(VideoQuality.VGA_43);
-    console.log(VideoQuality.QHD_43);
-    console.log(VideoQuality.HD_43);
-    console.log(VideoQuality.FHD_43);
-  }, []);
 
   useEffect(() => {
     async function request() {
@@ -82,7 +67,12 @@ const ConnectScreen = ({navigation}: Props) => {
   const connectToRoom = async () => {
     try {
       await connect(jellyfishUrl, peerToken);
-      await startCamera();
+      await startCamera({
+        simulcastConfig: {
+          enabled: true,
+          activeEncodings: ['m'],
+        },
+      });
       await join({name: 'RN mobile'});
       navigation.navigate('Room');
     } catch (e) {

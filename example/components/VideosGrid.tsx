@@ -1,11 +1,12 @@
-import {Peer, VideoRendererView} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  Peer,
+  VideoRendererView,
+  setTargetTrackEncoding,
+} from '@jellyfish-dev/react-native-client-sdk';
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Animated, {FadeInDown, Layout} from 'react-native-reanimated';
-import {
-  Metadata,
-  setTargetTrackEncoding,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+import {Metadata} from '@jellyfish-dev/react-native-membrane-webrtc';
 import LetterButton from './LetterButton';
 
 type Props = {
@@ -50,7 +51,7 @@ export function VideosGrid({tracks}: Props) {
                   {v.tracks[0]!.simulcastConfig?.activeEncodings.map(e => (
                     <LetterButton
                       trackEncoding={e}
-                      selected={false}
+                      selected={v.tracks[0]?.encoding === e}
                       onPress={() => setTargetTrackEncoding(v.tracks[0]!.id, e)}
                     />
                   ))}

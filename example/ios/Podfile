@@ -18,6 +18,7 @@ prepare_react_native_project!
 #   dependencies: {
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
+
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -85,7 +86,10 @@ target 'JellyfishExample' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-  pod 'MembraneRTC'
+#   pod 'MembraneRTC'
+  pod 'MembraneRTC', :git => 'https://github.com/jellyfish-dev/membrane-webrtc-ios.git', :branch => 'karkakol/add_simulcast_config_to_endpoints'
+
+
 
   target 'JellyfishExampleTests' do
     inherit! :complete
@@ -105,5 +109,7 @@ target 'JellyfishExample' do
 end
 
 target 'ScreenBroadcast' do
-  pod 'MembraneRTC/Broadcast'
+  pod 'MembraneRTC/Broadcast', :git => 'https://github.com/jellyfish-dev/membrane-webrtc-ios.git', :branch => 'karkakol/add_simulcast_config_to_endpoints'
+
+#   pod 'MembraneRTC/Broadcast'
 end
