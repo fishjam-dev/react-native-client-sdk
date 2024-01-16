@@ -20,6 +20,12 @@ export {
   VideoRendererView,
   VideoPreviewView,
   VideoQuality,
+  ScreencastQuality,
+  Metadata,
+  CaptureDevice,
+  TrackEncoding,
+  SimulcastConfig,
+  Track,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 export type Peer<

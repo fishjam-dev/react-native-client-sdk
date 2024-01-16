@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Metadata } from '@jellyfish-dev/react-native-membrane-webrtc';
+import { Metadata } from '@jellyfish-dev/react-native-client-sdk';
 import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
 
 import { useEffect, useRef, useState } from 'react';
@@ -20,7 +20,7 @@ const generateMessage = (event: WebSocketCloseEvent) => {
   );
 };
 
-const JellyfishContext = React.createContext<
+export const JellyfishContext = React.createContext<
   | {
       /**
        * Connects to the server using the websocket connection.

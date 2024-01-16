@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import AccessibilityLabel from '../types/AccesabilityLabel';
+import type AccessibilityLabel from '../types/AccessibilityLabel';
 
 const IconSize = 25;
 
