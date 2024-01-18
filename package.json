@@ -43,7 +43,10 @@
     "Jellyfish",
     "@jellyfish-dev/react-native-client-sdk"
   ],
-  "repository": "https://github.com/jellyfish-dev/react-native-client-sdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jellyfish-dev/react-native-client-sdk.git"
+  },
   "author": "jellyfish-dev <contact@membrane.stream> (https://github.com/jellyfish-dev)",
   "bugs": {
     "url": "https://github.com/jellyfish-dev/react-native-client-sdk/issues"
