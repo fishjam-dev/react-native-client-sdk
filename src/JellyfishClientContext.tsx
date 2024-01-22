@@ -101,7 +101,6 @@ const JellyfishContextProvider = (props: any) => {
 
       websocket.current?.addEventListener('message', (event) => {
         const uint8Array = new Uint8Array(event.data);
-
         try {
           const data = PeerMessage.decode(uint8Array);
 

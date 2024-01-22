@@ -13,7 +13,7 @@ import {
   tapApp,
   tapButton,
   typeToInput,
-  // compareInputValue,
+  compareInputValue,
 } from '../../utils';
 
 import {
@@ -108,8 +108,8 @@ const tests: Test[] = [
       );
       await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
       await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
-      // await compareInputValue(driver, '~' + TOKEN_INPUT, peerDetail?.token);
-      // await compareInputValue(driver, '~' + URL_INPUT, webSocketUrl);
+      await compareInputValue(driver, '~' + TOKEN_INPUT, peerDetail?.token);
+      await compareInputValue(driver, '~' + URL_INPUT, webSocketUrl);
     },
     skip: false,
   },
@@ -121,7 +121,6 @@ const tests: Test[] = [
         await driver.acceptAlert();
         await tapApp(driver);
         await tapButton(driver, '~' + CONNECT_BUTTON);
-        await driver.pause(200);
         await driver.acceptAlert();
       }
     },
@@ -134,10 +133,6 @@ const tests: Test[] = [
       await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON_PREVIEW);
       await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON_PREVIEW);
       await tapButton(driver, '~' + JOIN_BUTTON);
-      if (driver.isIOS) {
-        await driver.pause(200);
-        await driver.acceptAlert();
-      }
     },
     skip: false,
   },
@@ -181,8 +176,11 @@ const tests: Test[] = [
           driver,
           '//XCUIElementTypeButton[@name="Start Broadcast"]',
         );
-        await driver.pause(200);
         await tapApp(driver);
+        await tapButton(
+          driver,
+          '//XCUIElementTypeButton[@name="Stop Broadcast"]',
+        );
       }
     },
     skip: process.env.GITHUB_ACTIONS === 'true',
@@ -201,11 +199,6 @@ const tests: Test[] = [
     name: 'toggle camera off',
     run: async () => {
       await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
-      await driver.pause(200);
-      await tapButton(
-        driver,
-        '//XCUIElementTypeButton[@name="Stop Broadcast"]',
-      );
       await getElement(driver, '~' + NO_CAMERA_VIEW);
     },
     skip: false,

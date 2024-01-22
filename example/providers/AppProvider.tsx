@@ -7,7 +7,7 @@ const AppProvider: React.FC<AppParentNode> = ({children}) => {
   return (
     <JellyfishContextProvider>
       <JellyfishExampleContextProvider>
-        <>{children}</>
+        {children}
       </JellyfishExampleContextProvider>
     </JellyfishContextProvider>
   );

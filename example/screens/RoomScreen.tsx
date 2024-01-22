@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {BackHandler, SafeAreaView, StyleSheet, View} from 'react-native';
 import {InCallButton, VideosGrid} from '../components';
 import {NoCameraView} from '../components/NoCameraView';
@@ -31,6 +31,15 @@ import LetterButton from '../components/LetterButton';
 
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
+  const tracks = useMemo(
+    () =>
+      peers.flatMap(peer =>
+        peer.tracks.filter(
+          t => t.metadata.type !== 'audio' && (t.metadata.active ?? true),
+        ),
+      ),
+    [peers],
+  );
   const {cleanUp} = useJellyfishClient();
   const {toggleScreencast, isScreencastOn} = useScreencast();
   const {
@@ -69,12 +78,8 @@ const RoomScreen = ({navigation}: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {isCameraOn ? (
-        <VideosGrid
-          tracks={peers.flatMap(peer =>
-            peer.tracks.filter(t => t.metadata.type !== 'audio'),
-          )}
-        />
+      {tracks.length > 0 ? (
+        <VideosGrid tracks={tracks} />
       ) : (
         <NoCameraView username="username" accessibilityLabel={NO_CAMERA_VIEW} />
       )}

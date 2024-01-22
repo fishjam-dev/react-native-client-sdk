@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/noto-sans": "^0.2.3",
-    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc#40e839d1cd5c188a619a9cb518f5edba6b49dbd2",
+    "@jellyfish-dev/react-native-client-sdk": "../",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@types/lodash": "^4.14.201",
