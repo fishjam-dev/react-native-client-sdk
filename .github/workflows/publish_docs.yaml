@@ -9,16 +9,55 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - uses: actions/checkout@v4
 
-      - name: Install yarn Dependencies
-        run: yarn
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          yarn-version: '1.22.x'
+
+      - name: Run yarn install in root directory
+        run: |
+          cd $GITHUB_WORKSPACE
+          yarn install
+
+          - name: Upload yarn.lock artifact
+            uses: actions/upload-artifact@v2
+            with:
+              name: yarn-lock
+              path: |
+                /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock
+
+          - name: Run yarn install in example directory
+            run: |
+              cd $GITHUB_WORKSPACE/example
+              yarn install
+
+          - name: Upload yarn.lock artifact
+            uses: actions/upload-artifact@v2
+            with:
+              name: yarn-lock-example
+              path: |
+                /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock
+
+          - name: Run yarn install in webdriverio-test directory
+            run: |
+              cd $GITHUB_WORKSPACE/example/webdriverio-test
+              yarn install
+
+          - name: Upload yarn.lock artifact
+            uses: actions/upload-artifact@v2
+            with:
+              name: yarn-lock-webdriverio-test
+              path: |
+                /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/yarn.lock
 
       - name: Build Docs
-        run: yarn docs
+
+        run: |
+          cd $GITHUB_WORKSPACE
+          yarn docs
 
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
