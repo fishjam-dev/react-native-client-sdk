@@ -1,6 +1,6 @@
 {
   "name": "@jellyfish-dev/react-native-client-sdk",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React native client sdk for the Jellyfish server.",
   "main": "lib/commonjs/index",
   "license": "Apache-2.0",
@@ -43,7 +43,10 @@
     "Jellyfish",
     "@jellyfish-dev/react-native-client-sdk"
   ],
-  "repository": "https://github.com/jellyfish-dev/react-native-client-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jellyfish-dev/react-native-client-sdk.git"
+  },
   "author": "jellyfish-dev <contact@membrane.stream> (https://github.com/jellyfish-dev)",
   "bugs": {
     "url": "https://github.com/jellyfish-dev/react-native-client-sdk/issues"
