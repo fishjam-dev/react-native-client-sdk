@@ -22,36 +22,36 @@ jobs:
           cd $GITHUB_WORKSPACE
           yarn install
 
-          - name: Upload yarn.lock artifact
-            uses: actions/upload-artifact@v2
-            with:
-              name: yarn-lock
-              path: |
-                /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock
+      - name: Upload yarn.lock artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: yarn-lock
+          path: |
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock
 
-          - name: Run yarn install in example directory
-            run: |
-              cd $GITHUB_WORKSPACE/example
-              yarn install
+      - name: Run yarn install in example directory
+        run: |
+          cd $GITHUB_WORKSPACE/example
+          yarn install
 
-          - name: Upload yarn.lock artifact
-            uses: actions/upload-artifact@v2
-            with:
-              name: yarn-lock-example
-              path: |
-                /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock
+      - name: Upload yarn.lock artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: yarn-lock-example
+          path: |
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock
 
-          - name: Run yarn install in webdriverio-test directory
-            run: |
-              cd $GITHUB_WORKSPACE/example/webdriverio-test
-              yarn install
+      - name: Run yarn install in webdriverio-test directory
+        run: |
+          cd $GITHUB_WORKSPACE/example/webdriverio-test
+          yarn install
 
-          - name: Upload yarn.lock artifact
-            uses: actions/upload-artifact@v2
-            with:
-              name: yarn-lock-webdriverio-test
-              path: |
-                /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/yarn.lock
+      - name: Upload yarn.lock artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: yarn-lock-webdriverio-test
+          path: |
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/yarn.lock
 
       - name: Build Docs
 
