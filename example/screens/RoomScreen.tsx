@@ -40,6 +40,10 @@ const RoomScreen = ({navigation}: Props) => {
       ),
     [peers],
   );
+
+  useEffect(() => {
+    console.log('PEERS: ', peers);
+  }, [peers]);
   const {cleanUp} = useJellyfishClient();
   const {toggleScreencast, isScreencastOn} = useScreencast();
   const {

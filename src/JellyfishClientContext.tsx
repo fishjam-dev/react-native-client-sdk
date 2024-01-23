@@ -67,6 +67,8 @@ const JellyfishContextProvider = (props: any) => {
     const message = PeerMessage.encode({
       mediaEvent: { data: event },
     }).finish();
+    console.log('send: ', { mediaEvent: { data: event } });
+
     websocket.current?.send(message);
   };
 
@@ -103,6 +105,7 @@ const JellyfishContextProvider = (props: any) => {
         const uint8Array = new Uint8Array(event.data);
         try {
           const data = PeerMessage.decode(uint8Array);
+          console.log('Recive: ', data);
 
           if (data.authenticated !== undefined) {
             resolve();
