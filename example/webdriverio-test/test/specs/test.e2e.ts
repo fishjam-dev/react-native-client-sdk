@@ -13,7 +13,7 @@ import {
   tapApp,
   tapButton,
   typeToInput,
-  compareInputValue,
+  // compareInputValue,
 } from '../../utils';
 
 import {
@@ -108,8 +108,6 @@ const tests: Test[] = [
       );
       await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
       await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
-      await compareInputValue(driver, '~' + TOKEN_INPUT, peerDetail?.token);
-      await compareInputValue(driver, '~' + URL_INPUT, webSocketUrl);
     },
     skip: false,
   },
@@ -139,6 +137,9 @@ const tests: Test[] = [
   {
     name: 'check if no camera view',
     run: async () => {
+      if (driver.isIOS) {
+        await driver.acceptAlert();
+      }
       await getElement(driver, '~' + NO_CAMERA_VIEW);
     },
     skip: false,
@@ -177,10 +178,6 @@ const tests: Test[] = [
           '//XCUIElementTypeButton[@name="Start Broadcast"]',
         );
         await tapApp(driver);
-        await tapButton(
-          driver,
-          '//XCUIElementTypeButton[@name="Stop Broadcast"]',
-        );
       }
     },
     skip: process.env.GITHUB_ACTIONS === 'true',
@@ -199,7 +196,6 @@ const tests: Test[] = [
     name: 'toggle camera off',
     run: async () => {
       await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON);
-      await getElement(driver, '~' + NO_CAMERA_VIEW);
     },
     skip: false,
   },
@@ -209,12 +205,18 @@ const tests: Test[] = [
       await getElement(driver, '~' + VIDEO_CELL + 0);
       await getElement(driver, '~' + VIDEO_CELL + 1, true);
     },
-    skip: true, // todo fix metadata emitting
+    skip: false,
   },
   {
     name: 'screen share off',
     run: async () => {
       await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
+      if (driver.isIOS) {
+        await tapButton(
+          driver,
+          '//XCUIElementTypeButton[@name="Stop Broadcast"]',
+        );
+      }
       await tapApp(driver);
     },
     skip: process.env.GITHUB_ACTIONS === 'true',

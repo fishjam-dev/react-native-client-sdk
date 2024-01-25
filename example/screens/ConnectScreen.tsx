@@ -26,9 +26,7 @@ const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
   const {connect, error} = useJellyfishClient();
   const [peerToken, onChangePeerToken] = useState('');
-  const [jellyfishUrl, onChangeJellyfishUrl] = useState(
-    'ws://192.168.83.48:5002/socket/peer/websocket',
-  );
+  const [jellyfishUrl, onChangeJellyfishUrl] = useState('');
   useEffect(() => {
     async function request() {
       if (Platform.OS === 'ios') {

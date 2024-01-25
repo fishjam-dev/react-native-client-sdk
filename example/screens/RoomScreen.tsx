@@ -8,7 +8,6 @@ import {
   usePeers,
   useScreencast,
   ScreencastQuality,
-  TrackEncoding,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -27,8 +26,6 @@ const {
   NO_CAMERA_VIEW,
 } = roomScreenLabels;
 
-import LetterButton from '../components/LetterButton';
-
 const RoomScreen = ({navigation}: Props) => {
   const peers = usePeers();
   const tracks = useMemo(
@@ -41,9 +38,6 @@ const RoomScreen = ({navigation}: Props) => {
     [peers],
   );
 
-  useEffect(() => {
-    console.log('PEERS: ', peers);
-  }, [peers]);
   const {cleanUp} = useJellyfishClient();
   const {toggleScreencast, isScreencastOn} = useScreencast();
   const {
@@ -52,8 +46,6 @@ const RoomScreen = ({navigation}: Props) => {
     toggleMicrophone,
     toggleCamera,
     flipCamera,
-    localCameraSimulcastConfig,
-    toggleLocalCameraTrackEncoding,
   } = useJellyfishExampleContext();
 
   useEffect(() => {
@@ -115,19 +107,6 @@ const RoomScreen = ({navigation}: Props) => {
           onPress={onToggleScreenCast}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
-      </View>
-      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
-        {Array<TrackEncoding>('h', 'm', 'l').map(val => {
-          return (
-            <LetterButton
-              trackEncoding={val}
-              selected={localCameraSimulcastConfig.activeEncodings.includes(
-                val,
-              )}
-              onPress={() => toggleLocalCameraTrackEncoding(val)}
-            />
-          );
-        })}
       </View>
     </SafeAreaView>
   );

@@ -14,6 +14,10 @@ import {
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import {Platform} from 'expo-modules-core';
+import {
+  CameraConfig,
+  Metadata,
+} from '@jellyfish-dev/react-native-membrane-webrtc/build/MembraneWebRTC.types';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 
@@ -24,6 +28,9 @@ const JellyfishExampleContext = React.createContext<
       isMicrophoneOn: boolean;
       toggleMicrophone: () => void;
       joinRoom: () => Promise<void>;
+      startCamera: <CameraConfigMetadataType extends Metadata>(
+        config?: Partial<CameraConfig<CameraConfigMetadataType>>,
+      ) => Promise<void>;
       flipCamera: () => void;
       getCaptureDevices: () => Promise<CaptureDevice[]>;
       setCurrentCamera: React.Dispatch<
@@ -121,6 +128,7 @@ const JellyfishExampleContextProvider = (props: any) => {
     flipCamera,
     toggleCamera,
     toggleMicrophone,
+    startCamera,
     isCameraOn,
     isMicrophoneOn,
     currentCamera,
