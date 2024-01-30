@@ -11,13 +11,11 @@ import {
   VideoQuality,
   SimulcastConfig,
   TrackEncoding,
+  CameraConfig,
+  Metadata,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import {Platform} from 'expo-modules-core';
-import {
-  CameraConfig,
-  Metadata,
-} from '@jellyfish-dev/react-native-membrane-webrtc/build/MembraneWebRTC.types';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 

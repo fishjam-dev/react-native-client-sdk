@@ -26,6 +26,7 @@ export {
   TrackEncoding,
   SimulcastConfig,
   Track,
+  CameraConfig,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 export type Peer<
