@@ -18,6 +18,7 @@ prepare_react_native_project!
 #   dependencies: {
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
+
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -86,6 +87,8 @@ target 'JellyfishExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
   pod 'MembraneRTC'
+
+
 
   target 'JellyfishExampleTests' do
     inherit! :complete

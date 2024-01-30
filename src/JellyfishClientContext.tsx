@@ -63,9 +63,11 @@ const JellyfishContextProvider = (props: any) => {
     if (websocket.current?.readyState !== WebSocket.OPEN) {
       return;
     }
+
     const message = PeerMessage.encode({
       mediaEvent: { data: event },
     }).finish();
+
     websocket.current?.send(message);
   };
 
@@ -102,6 +104,7 @@ const JellyfishContextProvider = (props: any) => {
         const uint8Array = new Uint8Array(event.data);
         try {
           const data = PeerMessage.decode(uint8Array);
+
           if (data.authenticated !== undefined) {
             resolve();
           } else if (data.authRequest !== undefined) {
@@ -135,6 +138,7 @@ const JellyfishContextProvider = (props: any) => {
 
   const leave = () => {
     setError(null);
+
     membraneModule.disconnect();
   };
 

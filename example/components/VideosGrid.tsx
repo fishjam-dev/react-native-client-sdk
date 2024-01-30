@@ -1,11 +1,17 @@
-import {VideoRendererView} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  Track,
+  VideoRendererView,
+  setTargetTrackEncoding,
+  Metadata,
+} from '@jellyfish-dev/react-native-client-sdk';
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Animated, {FadeInDown, Layout} from 'react-native-reanimated';
 import {roomScreenLabels} from '../types/ComponentLabels';
+import LetterButton from './LetterButton';
 
 type Props = {
-  tracks: string[];
+  tracks: Track<Metadata>[];
 };
 
 const {width} = Dimensions.get('window');
@@ -32,13 +38,24 @@ export function VideosGrid({tracks}: Props) {
               ? [styles.video2, {width: videoWidth, height: videoWidth}]
               : [styles.video1, {maxWidth: width - 20}]
           }
-          key={v}>
+          key={v.id}>
           <AnimatedVideoRenderer
-            trackId={v}
+            trackId={v.id}
             entering={FadeInDown.duration(200)}
             layout={Layout.duration(150)}
             style={styles.animatedView}
           />
+          {(v.simulcastConfig?.enabled ?? false) && (
+            <View style={styles.buttons}>
+              {v.simulcastConfig?.activeEncodings.map(e => (
+                <LetterButton
+                  trackEncoding={e}
+                  selected={v.encoding === e}
+                  onPress={() => setTargetTrackEncoding(v.id, e)}
+                />
+              ))}
+            </View>
+          )}
         </Animated.View>
       ))}
     </View>
@@ -84,6 +101,16 @@ const styles = StyleSheet.create({
   },
   video: {
     flex: 1,
+  },
+  buttons: {
+    flexDirection: 'row',
+    gap: 8,
+    padding: 4,
+    borderRadius: 8,
+    position: 'absolute',
+    opacity: 0.5,
+    backgroundColor: 'white',
+    right: 0,
   },
 });
 

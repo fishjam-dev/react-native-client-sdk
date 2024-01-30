@@ -9,6 +9,10 @@ import {
   updateAudioTrackMetadata,
   CaptureDevice,
   VideoQuality,
+  SimulcastConfig,
+  TrackEncoding,
+  CameraConfig,
+  Metadata,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import {Platform} from 'expo-modules-core';
@@ -22,12 +26,19 @@ const JellyfishExampleContext = React.createContext<
       isMicrophoneOn: boolean;
       toggleMicrophone: () => void;
       joinRoom: () => Promise<void>;
+      startCamera: <CameraConfigMetadataType extends Metadata>(
+        config?: Partial<CameraConfig<CameraConfigMetadataType>>,
+      ) => Promise<void>;
       flipCamera: () => void;
       getCaptureDevices: () => Promise<CaptureDevice[]>;
       setCurrentCamera: React.Dispatch<
         React.SetStateAction<CaptureDevice | null>
       >;
       currentCamera: CaptureDevice | null;
+      localCameraSimulcastConfig: SimulcastConfig;
+      toggleLocalCameraTrackEncoding: (
+        encoding: TrackEncoding,
+      ) => Promise<void>;
     }
   | undefined
 >(undefined);
@@ -44,6 +55,8 @@ const JellyfishExampleContextProvider = (props: any) => {
     startCamera,
     flipCamera,
     getCaptureDevices,
+    simulcastConfig: localCameraSimulcastConfig,
+    toggleVideoTrackEncoding: toggleLocalCameraTrackEncoding,
   } = useCamera();
   const {toggleMicrophone: membraneToggleMicrophone, startMicrophone} =
     useMicrophone();
@@ -113,11 +126,14 @@ const JellyfishExampleContextProvider = (props: any) => {
     flipCamera,
     toggleCamera,
     toggleMicrophone,
+    startCamera,
     isCameraOn,
     isMicrophoneOn,
     currentCamera,
     setCurrentCamera,
     getCaptureDevices,
+    localCameraSimulcastConfig,
+    toggleLocalCameraTrackEncoding,
   };
 
   return (

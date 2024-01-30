@@ -8,7 +8,10 @@ import {
 } from 'react-native';
 import {InCallButton} from '../components';
 
-import type {CaptureDevice} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  CaptureDevice,
+  TrackEncoding,
+} from '@jellyfish-dev/react-native-client-sdk';
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
@@ -17,6 +20,7 @@ import {previewScreenLabels} from '../types/ComponentLabels';
 import {BrandColors} from '../utils/Colors';
 import {NoCameraView} from '../components/NoCameraView';
 import VideoPreview from '../components/VideoPreview';
+import LetterButton from '../components/LetterButton';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
 const {
@@ -35,7 +39,10 @@ const PreviewScreen = ({navigation}: Props) => {
     getCaptureDevices,
     setCurrentCamera,
     currentCamera,
+    localCameraSimulcastConfig,
+    toggleLocalCameraTrackEncoding,
   } = useJellyfishExampleContext();
+
   const availableCameras = useRef<CaptureDevice[]>([]);
 
   useEffect(() => {
@@ -99,6 +106,19 @@ const PreviewScreen = ({navigation}: Props) => {
           onPress={switchCamera}
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
         />
+      </View>
+      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
+        {Array<TrackEncoding>('h', 'm', 'l').map(val => {
+          return (
+            <LetterButton
+              trackEncoding={val}
+              selected={localCameraSimulcastConfig.activeEncodings.includes(
+                val,
+              )}
+              onPress={() => toggleLocalCameraTrackEncoding(val)}
+            />
+          );
+        })}
       </View>
       <Button
         title="Join Room"

@@ -16,15 +16,20 @@ export {
   useBandwidthEstimation,
   useRTCStatistics,
   changeWebRTCLoggingSeverity,
+  setTargetTrackEncoding,
   VideoRendererView,
   VideoPreviewView,
   VideoQuality,
   ScreencastQuality,
   Metadata,
   CaptureDevice,
+  TrackEncoding,
+  SimulcastConfig,
+  Track,
+  CameraConfig,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
-type Peer<
+export type Peer<
   MetadataType extends Metadata,
   VideoTrackMetadataType extends Metadata,
   AudioTrackMetadataType extends Metadata

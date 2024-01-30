@@ -63,7 +63,6 @@ const ConnectScreen = ({navigation}: Props) => {
             style={styles.logo}
             source={require('../assets/jellyfish-logo.png')}
             resizeMode="contain"
-            resizeMethod="scale"
           />
           <TextInput
             onChangeText={onChangeJellyfishUrl}
