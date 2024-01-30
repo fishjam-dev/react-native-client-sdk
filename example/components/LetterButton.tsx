@@ -7,8 +7,8 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {TrackEncoding} from '@jellyfish-dev/react-native-membrane-webrtc/src/MembraneWebRTC.types';
 import AccessibilityLabel from '../types/AccessibilityLabel';
+import {TrackEncoding} from '@jellyfish-dev/react-native-client-sdk';
 
 const LetterButtonStyles = StyleSheet.create({
   common: {

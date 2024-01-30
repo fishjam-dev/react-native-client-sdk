@@ -13,7 +13,6 @@ import {
   tapApp,
   tapButton,
   typeToInput,
-  // compareInputValue,
 } from '../../utils';
 
 import {
