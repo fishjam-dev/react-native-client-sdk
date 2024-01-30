@@ -201,7 +201,11 @@ const tests: Test[] = [
   {
     name: 'check if only 1 video cell',
     run: async () => {
-      await getElement(driver, '~' + VIDEO_CELL + 0);
+      await getElement(
+        driver,
+        '~' + VIDEO_CELL + 0,
+        process.env.GITHUB_ACTIONS === 'true',
+      );
       await getElement(driver, '~' + VIDEO_CELL + 1, true);
     },
     skip: false,
