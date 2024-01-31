@@ -24,7 +24,8 @@ export const JellyfishContext = React.createContext<
   | {
       /**
        * Connects to the server using the websocket connection.
-       *
+       * If jellyfish server is in local network, on iOS devices make sure to grant local network permission before
+       * calling this function. Otherwise, the function will fail unless the user grants that permission.
        * @param url - websocket url
        * @param peerToken - token used to authenticate when joining the room
        */
