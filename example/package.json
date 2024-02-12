@@ -4,12 +4,11 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android": "npx expo run:android -d",
+    "ios": "npx expo run:ios -d",
     "lint": "eslint .",
-    "start": "react-native start",
-    "test": "jest",
-    "wdio": "wdio run ./wdio.conf.ts"
+    "start": "npx react-native start",
+    "test": "jest"
   },
   "dependencies": {
     "@expo-google-fonts/noto-sans": "^0.2.3",
