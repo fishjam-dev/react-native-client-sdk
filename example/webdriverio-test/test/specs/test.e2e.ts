@@ -22,7 +22,7 @@ import {
   PeerDetailsResponseData,
   Room,
   RoomApiFp,
-} from '../../../server-api';
+} from '../../server-api';
 
 import * as assert from 'assert';
 
