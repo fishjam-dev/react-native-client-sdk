@@ -169,7 +169,7 @@
     ]
   },
   "dependencies": {
-    "@jellyfish-dev/react-native-membrane-webrtc": "7.2.0",
+    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc.git#2116b6207c246f72b6d5a4b1d67a6254b8fd0224",
     "expo-modules-core": "1.5.7",
     "protobufjs": "^7.2.4",
     "react-native-safe-area-context": "^4.8.2"
