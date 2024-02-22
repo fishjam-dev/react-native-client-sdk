@@ -2,7 +2,6 @@
   "name": "webdriverio-test",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "wdio": "wdio run ./wdio.conf.ts"
@@ -13,20 +12,17 @@
   "devDependencies": {
     "@wdio/appium-service": "^8.30.0",
     "@wdio/cli": "^8.30.0",
-    "@wdio/globals": "^8.32.3",
     "@wdio/local-runner": "^8.30.0",
     "@wdio/mocha-framework": "^8.30.0",
     "@wdio/spec-reporter": "^8.30.0",
-    "@wdio/types": "^8.32.2",
-    "appium-xcuitest-driver": "^7.1.0",
+    "appium-xcuitest-driver": "^6.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2",
     "wd": "^1.14.0",
     "webdriverio": "^8.30.0"
   },
   "dependencies": {
-    "axios": "^1.6.7",
-    "dotenv": "^16.3.1",
-    "mocha": "^10.3.0"
+    "@wdio/types": "^8.32.2",
+    "dotenv": "^16.3.1"
   }
 }
