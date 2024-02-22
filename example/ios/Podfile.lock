@@ -4,9 +4,9 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXConstants (15.4.5):
     - ExpoModulesCore
-  - EXFont (11.10.2):
+  - EXFont (11.10.3):
     - ExpoModulesCore
-  - Expo (50.0.6):
+  - Expo (50.0.7):
     - ExpoModulesCore
   - ExpoCamera (14.0.4):
     - ExpoModulesCore
@@ -1153,7 +1153,7 @@ PODS:
     - React-jsi (= 0.73.4)
     - React-logger (= 0.73.4)
     - React-perflogger (= 0.73.4)
-  - RNReanimated (3.7.0):
+  - RNReanimated (3.7.1):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1414,8 +1414,8 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
   EXConstants: 988aa430ca0f76b43cd46b66e7fae3287f9cc2fc
-  EXFont: 21b9c760abd593ce8f0d5386b558ced76018506f
-  Expo: fb745b3074989670b6641f9f20463e8ee56a69ca
+  EXFont: f20669cb266ef48b004f1eb1f2b20db96cd1df9f
+  Expo: 1cf3922a9b26262b2556544d4defcecccd37d033
   ExpoCamera: 64e9bb61e639dfaec9d12872c5b6bad0c4167b67
   ExpoFileSystem: a9273932e69a9a1e1a8d01b6ba895bb8294bbea2
   ExpoKeepAwake: 0f5cad99603a3268e50af9a6eb8b76d0d9ac956c
@@ -1481,7 +1481,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: ed48e5faac6751e66ee1261c4bd01643b436f112
   React-utils: 6e5ad394416482ae21831050928ae27348f83487
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
-  RNReanimated: 7d6d32f238f914f13d9d6fb45c0aef557f7f901e
+  RNReanimated: beb07f7f900543928467da8107c175d1e57a1049
   RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   SwiftLogJellyfish: 6207ec91ef3913d303ac797b73298248ee360eb0
@@ -1491,6 +1491,6 @@ SPEC CHECKSUMS:
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 3ae549c59d88f2225586ed7c040aaf1a7f96e07f
+PODFILE CHECKSUM: cc08c15a30ce962f18304f3c60b4fb3517f3345a
 
 COCOAPODS: 1.13.0
