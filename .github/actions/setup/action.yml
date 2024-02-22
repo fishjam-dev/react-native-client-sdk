@@ -23,5 +23,6 @@ runs:
       if: steps.yarn-cache.outputs.cache-hit != 'true'
       run: |
         yarn install --cwd example
+        yarn install --cwd webdriverio-test
         yarn install
       shell: bash
