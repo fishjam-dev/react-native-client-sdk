@@ -9,6 +9,10 @@ runs:
       with:
         node-version-file: .nvmrc
 
+    - name: Print tsc version
+      run: tsc -v
+      shell: bash
+
 #    - name: Cache dependencies
 #      id: yarn-cache
 #      uses: actions/cache@v3
