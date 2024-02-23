@@ -1667,14 +1667,15 @@
 "@jellyfish-dev/react-native-client-sdk@file:..":
   version "0.1.5"
   dependencies:
-    "@jellyfish-dev/react-native-membrane-webrtc" "https://github.com/jellyfish-dev/react-native-membrane-webrtc#f34340ba7615726f1672e82f561ec9b08b2cb49e"
+    "@jellyfish-dev/react-native-membrane-webrtc" "7.3.0"
     expo-modules-core "1.11.8"
     protobufjs "^7.2.4"
     react-native-safe-area-context "^4.9.0"
 
-"@jellyfish-dev/react-native-membrane-webrtc@https://github.com/jellyfish-dev/react-native-membrane-webrtc#f34340ba7615726f1672e82f561ec9b08b2cb49e":
-  version "7.1.1"
-  resolved "https://github.com/jellyfish-dev/react-native-membrane-webrtc#f34340ba7615726f1672e82f561ec9b08b2cb49e"
+"@jellyfish-dev/react-native-membrane-webrtc@7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@jellyfish-dev/react-native-membrane-webrtc/-/react-native-membrane-webrtc-7.3.0.tgz#1b9379d9dc7adeafcab590f15b91c9b25c896830"
+  integrity sha512-rdEWHcPprVUk0JAHKLL7rIH+ieGNxTXn9yRzY4To4qWs+tGIXneArQsjiTx035fdwz8LDb6x+hxYz8414q11TQ==
   dependencies:
     expo "^50.0.7"
     phoenix "^1.7.6"
@@ -8391,9 +8392,9 @@ terminal-link@^2.1.1:
     supports-hyperlinks "^2.0.0"
 
 terser@^5.15.0:
-  version "5.28.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.28.0.tgz#5b335fdb45f2ebf4061bf55df9e6600eb4d2b48e"
-  integrity sha512-UK1n2JZN6gqfwmjzcikRp+uF/7jdwPXO7M0k/Hnqxzj3T5POL4YBVrv5Y4MKixTzBq4OmH7FfEYRxcy/Eh7YhA==
+  version "5.28.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.28.1.tgz#bf00f7537fd3a798c352c2d67d67d65c915d1b28"
+  integrity sha512-wM+bZp54v/E9eRRGXb5ZFDvinrJIOaTapx3WUokyVGZu5ucVCK55zEgGd5Dl2fSr3jUo5sDiERErUWLY6QPFyA==
   dependencies:
     "@jridgewell/source-map" "^0.3.3"
     acorn "^8.8.2"
