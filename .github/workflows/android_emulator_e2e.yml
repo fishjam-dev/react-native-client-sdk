@@ -143,6 +143,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: yarn-lock-webdriverio-test
+          path: |
+            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/yarn.lock
 
       - name: Install appium
         run: npm i --location=global appium
