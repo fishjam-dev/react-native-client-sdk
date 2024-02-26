@@ -107,8 +107,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.12.x'
-          yarn-version: '1.22.x'
+          node-version: '=>18.12.0'
 
       - name: Run yarn install in root directory
         run: |
@@ -116,7 +115,7 @@ jobs:
           yarn install
 
       - name: Upload yarn.lock artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: yarn-lock
           path: |
@@ -128,7 +127,7 @@ jobs:
           yarn install
 
       - name: Upload yarn.lock artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: yarn-lock-example
           path: |
@@ -140,7 +139,7 @@ jobs:
           yarn install
 
       - name: Upload yarn.lock artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: yarn-lock-webdriverio-test
           path: |
@@ -171,14 +170,14 @@ jobs:
 
       - name: Upload test output
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: appium.txt
           path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/appium.txt
 
       - name: Upload logs from app
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: logs.txt
           path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/logs.txt
