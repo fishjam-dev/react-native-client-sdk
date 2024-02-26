@@ -1042,10 +1042,10 @@ appium-ios-simulator@^5.0.1, appium-ios-simulator@^5.5.1:
     source-map-support "^0.x"
     teen_process "^2.0.0"
 
-appium-remote-debugger@^10.0.0:
-  version "10.2.2"
-  resolved "https://registry.yarnpkg.com/appium-remote-debugger/-/appium-remote-debugger-10.2.2.tgz#685e3436d905f082a73480c767857063a0a1d8a0"
-  integrity sha512-+Lvjp2NkI1m7I987Q/f/zpkY0ocStm3j80Z0q4vLd8zYjVZriuwdfMbKvSWSFYNTMxeBaH2uDGm79Z/1TNcFng==
+appium-remote-debugger@^11.0.0:
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/appium-remote-debugger/-/appium-remote-debugger-11.0.3.tgz#3db7b4d64894318435d26708b2cbf1f129940721"
+  integrity sha512-Mul8EBDHldRTgbB2QHuZBibWORmHyFGaLLqTExBMPUYuJ4Vd0MpmmUtyKaX7s8amEGJuzucTMssbszRVO5EYOg==
   dependencies:
     "@appium/base-driver" "^9.0.0"
     "@appium/support" "^4.0.0"
@@ -1059,10 +1059,10 @@ appium-remote-debugger@^10.0.0:
     source-map-support "^0.x"
     teen_process "^2.0.0"
 
-appium-webdriveragent@^6.1.0:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/appium-webdriveragent/-/appium-webdriveragent-6.1.1.tgz#2dc3aea778dbadd3d2ab0dc5f19269d25b5b110b"
-  integrity sha512-mFhtd2PDbtZPCUwVTNVu7/rnsU6JZW06pYYoFuV8C2CWhXWLMkM5MOj1wPqabq0nsiJCxhx0qWh/EP7R98AbrA==
+appium-webdriveragent@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/appium-webdriveragent/-/appium-webdriveragent-7.0.1.tgz#58985d68eaadde81f1fc6e4cbc51bd7235b51d3f"
+  integrity sha512-WOKIPRsjsEUzbC1rQQBLY7PFQF6RVBk3bmfO930BFUSh75VgzPEgx4hQgIfFi816tvP7Y8d4iA8KWNe04Apy2A==
   dependencies:
     "@appium/base-driver" "^9.0.0"
     "@appium/strongbox" "^0.x"
@@ -1093,17 +1093,17 @@ appium-xcode@^5.0.0, appium-xcode@^5.1.4:
     source-map-support "^0.x"
     teen_process "^2.0.0"
 
-appium-xcuitest-driver@^6.0.1:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/appium-xcuitest-driver/-/appium-xcuitest-driver-6.2.0.tgz#0e171626b8f0211cf4c9b4ae06686d359cac54ef"
-  integrity sha512-3H3l+OmV7e9tYiIv9nTnGTlDRin7rSdXY8vTxhcgJEW1lqmCPzMeiX9pG5soNCluL26AZz7iG9srd8L/U266rw==
+appium-xcuitest-driver@^7.1.2:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/appium-xcuitest-driver/-/appium-xcuitest-driver-7.1.2.tgz#5bccd777f21416e881df9451c2c912446b6ff317"
+  integrity sha512-egzZNt+dfk9b8fj+53JVrsrsdShbQqrjoyTvCLQgMSnsmtt9Zm5BZLHe/JDi9qecflNA3zBhshyC2ELBd0D/lQ==
   dependencies:
     "@colors/colors" "^1.6.0"
     appium-idb "^1.6.13"
     appium-ios-device "^2.5.4"
     appium-ios-simulator "^5.5.1"
-    appium-remote-debugger "^10.0.0"
-    appium-webdriveragent "^6.1.0"
+    appium-remote-debugger "^11.0.0"
+    appium-webdriveragent "^7.0.1"
     appium-xcode "^5.1.4"
     async-lock "^1.4.0"
     asyncbox "^3.0.0"
@@ -4721,6 +4721,7 @@ string_decoder@~1.1.1:
     safe-buffer "~5.1.0"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -5199,6 +5200,7 @@ workerpool@6.2.1:
   integrity sha512-ILEIE97kDZvF9Wb9f6h5aXK4swSlKGUcOEGiIYb2OOu/IrDU9iwj0fD//SsA6E5ibwJxpEvhullJY4Sl4GcpAw==
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
