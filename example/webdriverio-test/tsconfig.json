@@ -12,8 +12,7 @@
             "@wdio/globals/types",
             "expect-webdriverio",
             "@wdio/mocha-framework",
-            "@wdio/appium-service",
-            "@wdio/types"
+            "@wdio/appium-service"
         ],
         "skipLibCheck": true,
         "noEmit": true,
