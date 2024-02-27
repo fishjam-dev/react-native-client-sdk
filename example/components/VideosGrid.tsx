@@ -6,7 +6,7 @@ import {
 } from '@jellyfish-dev/react-native-client-sdk';
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
-import Animated, {FadeInDown, Layout} from 'react-native-reanimated';
+import Animated, {FadeInDown, LinearTransition} from 'react-native-reanimated';
 import {roomScreenLabels} from '../types/ComponentLabels';
 import LetterButton from './LetterButton';
 
@@ -17,7 +17,6 @@ type Props = {
 const {width} = Dimensions.get('window');
 const {VIDEO_CELL} = roomScreenLabels;
 const AnimatedVideoRenderer =
-  // @ts-ignore
   Animated.createAnimatedComponent(VideoRendererView);
 
 export function VideosGrid({tracks}: Props) {
@@ -32,7 +31,7 @@ export function VideosGrid({tracks}: Props) {
         <Animated.View
           accessibilityLabel={VIDEO_CELL + idx}
           entering={FadeInDown.duration(200)}
-          layout={Layout.duration(150)}
+          layout={LinearTransition.duration(150)}
           style={
             tracks.length > 3
               ? [styles.video2, {width: videoWidth, height: videoWidth}]
@@ -42,7 +41,7 @@ export function VideosGrid({tracks}: Props) {
           <AnimatedVideoRenderer
             trackId={v.id}
             entering={FadeInDown.duration(200)}
-            layout={Layout.duration(150)}
+            layout={LinearTransition.duration(150)}
             style={styles.animatedView}
           />
           {(v.simulcastConfig?.enabled ?? false) && (

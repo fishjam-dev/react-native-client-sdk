@@ -32,7 +32,7 @@ export {
 export type Peer<
   MetadataType extends Metadata,
   VideoTrackMetadataType extends Metadata,
-  AudioTrackMetadataType extends Metadata
+  AudioTrackMetadataType extends Metadata,
 > = Endpoint<MetadataType, VideoTrackMetadataType, AudioTrackMetadataType>;
 
 /**
@@ -42,7 +42,7 @@ export type Peer<
 export const usePeers: <
   MetadataType extends Metadata,
   VideoTrackMetadataType extends Metadata,
-  AudioTrackMetadataType extends Metadata
+  AudioTrackMetadataType extends Metadata,
 >() => Peer<MetadataType, VideoTrackMetadataType, AudioTrackMetadataType>[] =
   useEndpoints;
 

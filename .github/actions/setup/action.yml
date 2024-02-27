@@ -5,9 +5,13 @@ runs:
   using: composite
   steps:
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version-file: .nvmrc
+
+    - name: Print tsc version
+      run: tsc -v
+      shell: bash
 
     - name: Cache dependencies
       id: yarn-cache
@@ -23,5 +27,6 @@ runs:
       if: steps.yarn-cache.outputs.cache-hit != 'true'
       run: |
         yarn install --cwd example
+        yarn install --cwd example/webdriverio-test
         yarn install
       shell: bash

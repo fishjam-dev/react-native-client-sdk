@@ -2,7 +2,7 @@ import type {Capabilities} from '@wdio/types';
 import * as assert from 'assert';
 
 const TIMEOUT = 3000;
-const INTERVAL = 300;
+const INTERVAL = 1000;
 
 type TimeoutConfig = {
   timeout: number;

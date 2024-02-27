@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Modal, StyleSheet, View} from 'react-native';
 import Button from './Button';
-import {BarCodeScanner} from 'expo-barcode-scanner';
+import {CameraView} from 'expo-camera/next';
+import {Camera} from 'expo-camera';
 
 type Props = {
   onCodeScanned: (code: string) => void;
@@ -15,7 +16,7 @@ export function QRCodeScanner({onCodeScanned}: Props) {
       setIsBarcodeScannerVisible(false);
       return;
     }
-    const {status} = await BarCodeScanner.requestPermissionsAsync();
+    const {status} = await Camera.requestCameraPermissionsAsync();
     if (status === 'granted') {
       setIsBarcodeScannerVisible(true);
     }
@@ -34,9 +35,12 @@ export function QRCodeScanner({onCodeScanned}: Props) {
         animationType="slide"
         presentationStyle="pageSheet">
         <View style={styles.barcodeWrapper}>
-          <BarCodeScanner
-            onBarCodeScanned={onBarCodeScanned}
-            style={styles.barcode}
+          <CameraView
+            onBarcodeScanned={onBarCodeScanned}
+            barcodeScannerSettings={{
+              barCodeTypes: ['qr', 'pdf417'],
+            }}
+            style={StyleSheet.absoluteFillObject}
           />
         </View>
       </Modal>

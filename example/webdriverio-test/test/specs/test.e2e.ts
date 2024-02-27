@@ -22,7 +22,7 @@ import {
   PeerDetailsResponseData,
   Room,
   RoomApiFp,
-} from '../../../server-api';
+} from '../../server-api';
 
 import * as assert from 'assert';
 
@@ -170,12 +170,11 @@ const tests: Test[] = [
     run: async () => {
       await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
       if (driver.isAndroid) {
-        await tapButton(driver, '//*[@text="Start now"]');
+        await driver.acceptAlert();
       } else {
-        await tapButton(
-          driver,
-          '//XCUIElementTypeButton[@name="Start Broadcast"]',
-        );
+        const buttons = await driver.$$('//XCUIElementTypeButton');
+        const button = buttons[0];
+        await button?.click();
         await tapApp(driver);
       }
     },
@@ -215,10 +214,8 @@ const tests: Test[] = [
     run: async () => {
       await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
       if (driver.isIOS) {
-        await tapButton(
-          driver,
-          '//XCUIElementTypeButton[@name="Stop Broadcast"]',
-        );
+        const buttons = await driver.$$('//XCUIElementTypeButton');
+        await buttons[1]?.click();
       }
       await tapApp(driver);
     },
@@ -254,10 +251,10 @@ const tests: Test[] = [
   },
 ];
 describe('Walk through app', async function (this: Suite): Promise<void> {
-  tests.forEach(({name, run, skip}) => {
-    const testFunction = skip ? it.skip : it;
+  for (const {name, run, skip} of tests) {
+    const testFunction = skip ? it.skip : it.only;
     testFunction(name, async () => {
       await run();
     }).retries(4);
-  });
+  }
 });

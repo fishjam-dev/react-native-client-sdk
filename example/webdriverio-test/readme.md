@@ -36,9 +36,12 @@
    -e JF_PORT="5002" \
    -e JF_WEBRTC_USED=true \
    -e JF_WEBRTC_TURN_PORT_RANGE=50000-50050 \
-   -e JF_WEBRTC_TURN_IP=<ip address> \
+   -e JF_WEBRTC_TURN_IP=[ip address] \
    -e JF_WEBRTC_TURN_LISTEN_IP=0.0.0.0 \
    -e JF_SERVER_API_TOKEN=development \
-   ghcr.io/jellyfish-dev/jellyfish:0.2.0
-4. Run test in webdriveio-test folder : (npx) run wdio wdio.conf.ts
+   ghcr.io/jellyfish-dev/jellyfish:0.3.0
+4. Run test in webdriveio-test folder : npx wdio wdio.conf.ts
 
+
+Content of folder `server-api` was generated and it used to communicate with jellyfish server for testing purposes ( e.g. creating a room, creating peer ). <br>
+If you would like to generate code to connect with api download file [openapi.yaml](https://jellyfish-dev.github.io/jellyfish-docs/for_developers/api_reference/rest_api), place it in `server-api` folder and run command `npx @openapitools/openapi-generator-cli generate -i ./openapi.yaml -g typescript-axios -o ./`. For more details about code generation checkout this [link](https://www.npmjs.com/package/@openapitools/openapi-generator-cli).

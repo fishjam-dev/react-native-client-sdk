@@ -2,6 +2,8 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
 
     <application
             android:usesCleartextTraffic="true"
@@ -23,5 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service
+          android:name=".JellyfishScreenSharingService"
+          android:foregroundServiceType="mediaProjection"
+          android:exported="false">
+        </service>
     </application>
 </manifest>
