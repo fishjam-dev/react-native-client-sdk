@@ -726,7 +726,7 @@
     pathe "^1.1.1"
     pretty-format "^29.7.0"
 
-"@wdio/appium-service@^8.30.0":
+"@wdio/appium-service@^8.24.2":
   version "8.32.3"
   resolved "https://registry.yarnpkg.com/@wdio/appium-service/-/appium-service-8.32.3.tgz#c9c964ea242a6aca4c5e576406c110ca2d98fbb8"
   integrity sha512-8SL38YcNPjB8gWWOinjDD/dvwIrrEDr9sq2ZVqX+QKOZTEVkGG3OcjtuPONJoZ0V2D/arwP41vk6nlAS7GFzjw==
@@ -740,7 +740,7 @@
     param-case "^4.0.0"
     webdriverio "8.32.3"
 
-"@wdio/cli@^8.30.0":
+"@wdio/cli@^8.24.2":
   version "8.32.3"
   resolved "https://registry.yarnpkg.com/@wdio/cli/-/cli-8.32.3.tgz#181ee78ce3fb40e789b75de23d48922787030caf"
   integrity sha512-qjR1MFKQM547iCooceBHyggJRNguD7fhgF4Q7L2r7psG3AQFWzdCN/8rulRGIxTz4PJlIqks9AH9kUJlVAf44A==
@@ -791,7 +791,7 @@
     expect-webdriverio "^4.11.2"
     webdriverio "8.32.3"
 
-"@wdio/local-runner@^8.30.0":
+"@wdio/local-runner@^8.24.2":
   version "8.32.3"
   resolved "https://registry.yarnpkg.com/@wdio/local-runner/-/local-runner-8.32.3.tgz#31cffe682748a8dd7f08779c85ba9ee5f3a24c45"
   integrity sha512-YgqYkKarx2m9OjA8WO4NqQPCfFNLmZHnuEWQ6P2LqUeYFsdXRd3wR3UTo9XrI23VSQo+kcpqInsR5vLOYDd1zg==
@@ -815,7 +815,7 @@
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^7.1.0"
 
-"@wdio/mocha-framework@^8.30.0":
+"@wdio/mocha-framework@^8.24.2":
   version "8.32.3"
   resolved "https://registry.yarnpkg.com/@wdio/mocha-framework/-/mocha-framework-8.32.3.tgz#e25710d5042872bb1ab798c0feda13721ba48d46"
   integrity sha512-wwQ6rDd6TMPqwGfkwvtcBmcirYZUi9GUiwH2OsHvMJ4i+YY7H2dLyZon1ghcIan7r4ufr8KlljbwyerCpUzvcw==
@@ -867,7 +867,7 @@
     webdriver "8.32.3"
     webdriverio "8.32.3"
 
-"@wdio/spec-reporter@^8.30.0":
+"@wdio/spec-reporter@^8.24.2":
   version "8.32.2"
   resolved "https://registry.yarnpkg.com/@wdio/spec-reporter/-/spec-reporter-8.32.2.tgz#b3be8296fd8968be1314318a59ef10f300abfb32"
   integrity sha512-3hUXpE+idC4KOXofJnpubdDDCE8X0OTd6ykypiaXMI2hJTA2nIZcHtpRQnAE0E4JT9OzLnPWODcMq54GGBDRkg==
@@ -946,15 +946,10 @@ ansi-escapes@^4.3.2:
   dependencies:
     type-fest "^0.21.3"
 
-ansi-regex@^5.0.1:
+ansi-regex@^5.0.0, ansi-regex@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"
   integrity sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==
-
-ansi-regex@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-6.0.1.tgz#3183e38fae9a65d7cb5e53945cd5897d0260a06a"
-  integrity sha512-n5M855fKb2SsfMIiFFoVrABHJC8QtHwVx+mHWP3QcEqBHYienj5dHSgjbxtC0WEZXYt4wcD6zrQElDPhFuZgfA==
 
 ansi-styles@^3.2.1:
   version "3.2.1"
@@ -1032,10 +1027,10 @@ appium-ios-simulator@^5.0.1, appium-ios-simulator@^5.5.1:
     source-map-support "^0.x"
     teen_process "^2.0.0"
 
-appium-remote-debugger@^11.0.0:
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/appium-remote-debugger/-/appium-remote-debugger-11.0.3.tgz#3db7b4d64894318435d26708b2cbf1f129940721"
-  integrity sha512-Mul8EBDHldRTgbB2QHuZBibWORmHyFGaLLqTExBMPUYuJ4Vd0MpmmUtyKaX7s8amEGJuzucTMssbszRVO5EYOg==
+appium-remote-debugger@^10.0.0:
+  version "10.2.2"
+  resolved "https://registry.yarnpkg.com/appium-remote-debugger/-/appium-remote-debugger-10.2.2.tgz#685e3436d905f082a73480c767857063a0a1d8a0"
+  integrity sha512-+Lvjp2NkI1m7I987Q/f/zpkY0ocStm3j80Z0q4vLd8zYjVZriuwdfMbKvSWSFYNTMxeBaH2uDGm79Z/1TNcFng==
   dependencies:
     "@appium/base-driver" "^9.0.0"
     "@appium/support" "^4.0.0"
@@ -1049,10 +1044,10 @@ appium-remote-debugger@^11.0.0:
     source-map-support "^0.x"
     teen_process "^2.0.0"
 
-appium-webdriveragent@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/appium-webdriveragent/-/appium-webdriveragent-7.0.1.tgz#58985d68eaadde81f1fc6e4cbc51bd7235b51d3f"
-  integrity sha512-WOKIPRsjsEUzbC1rQQBLY7PFQF6RVBk3bmfO930BFUSh75VgzPEgx4hQgIfFi816tvP7Y8d4iA8KWNe04Apy2A==
+appium-webdriveragent@~5.15.9:
+  version "5.15.9"
+  resolved "https://registry.yarnpkg.com/appium-webdriveragent/-/appium-webdriveragent-5.15.9.tgz#13087ce473c7564ed3a43421845180db8b3014a4"
+  integrity sha512-03brYer2B68V+Jqjy8VVYNEeDftSzizZaXGazZsAq1ENDhvXgzIErKWjFAswTQWu/ciDmXASt8I96K6ks+Gy0A==
   dependencies:
     "@appium/base-driver" "^9.0.0"
     "@appium/strongbox" "^0.x"
@@ -1083,17 +1078,17 @@ appium-xcode@^5.0.0, appium-xcode@^5.1.4:
     source-map-support "^0.x"
     teen_process "^2.0.0"
 
-appium-xcuitest-driver@^7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/appium-xcuitest-driver/-/appium-xcuitest-driver-7.1.2.tgz#5bccd777f21416e881df9451c2c912446b6ff317"
-  integrity sha512-egzZNt+dfk9b8fj+53JVrsrsdShbQqrjoyTvCLQgMSnsmtt9Zm5BZLHe/JDi9qecflNA3zBhshyC2ELBd0D/lQ==
+appium-xcuitest-driver@^5.11.0:
+  version "5.16.1"
+  resolved "https://registry.yarnpkg.com/appium-xcuitest-driver/-/appium-xcuitest-driver-5.16.1.tgz#9f353491e7d4e28c3c783937bb13c4ad1f194800"
+  integrity sha512-QtXZzm8y2Y/cNgK/3ya+j/zriKMHnQHu2ZioIrdy33nDhKcjcna+OBF7MoRNVyNsqFjHhM3l8symkRkpSuqtSQ==
   dependencies:
     "@colors/colors" "^1.6.0"
     appium-idb "^1.6.13"
     appium-ios-device "^2.5.4"
     appium-ios-simulator "^5.5.1"
-    appium-remote-debugger "^11.0.0"
-    appium-webdriveragent "^7.0.1"
+    appium-remote-debugger "^10.0.0"
+    appium-webdriveragent "~5.15.9"
     appium-xcode "^5.1.4"
     async-lock "^1.4.0"
     asyncbox "^3.0.0"
@@ -1635,9 +1630,9 @@ commander@^9.3.0:
   integrity sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==
 
 compress-commons@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/compress-commons/-/compress-commons-5.0.1.tgz#e46723ebbab41b50309b27a0e0f6f3baed2d6590"
-  integrity sha512-MPh//1cERdLtqwO3pOFLeXtpuai0Y2WCd5AhtKxznqM7WtaMYaOEMSgn45d9D10sIHSfIKE603HlOp8OPGrvag==
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/compress-commons/-/compress-commons-5.0.3.tgz#36b6572fdfc220c88c9c939b48667818806667e9"
+  integrity sha512-/UIcLWvwAQyVibgpQDPtfNM3SvqN7G9elAPAV7GM0L53EbNWwWiCsWtK8Fwed/APEbptPHXs5PuW+y8Bq8lFTA==
   dependencies:
     crc-32 "^1.2.0"
     crc32-stream "^5.0.0"
@@ -4398,19 +4393,19 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
   dependencies:
     ansi-regex "^5.0.1"
 
-strip-ansi@^7.0.1, strip-ansi@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-7.1.0.tgz#d5b6568ca689d8561370b0707685d22434faff45"
-  integrity sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==
+strip-ansi@6.0.0, strip-ansi@^6.0.0, strip-ansi@^6.0.1, strip-ansi@^7.0.1, strip-ansi@^7.1.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.0.tgz#0b1571dd7669ccd4f3e06e14ef1eed26225ae532"
+  integrity sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
   dependencies:
-    ansi-regex "^6.0.1"
+    ansi-regex "^5.0.0"
 
 strip-final-newline@^3.0.0:
   version "3.0.0"
@@ -4737,7 +4732,7 @@ webdriver@8.32.3:
     ky "^0.33.0"
     ws "^8.8.0"
 
-webdriverio@8.32.3, webdriverio@^8.29.3, webdriverio@^8.30.0:
+webdriverio@8.32.3, webdriverio@^8.24.2, webdriverio@^8.29.3:
   version "8.32.3"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-8.32.3.tgz#c3b8545ed1dd37f2559c60854b5e71d0864cd024"
   integrity sha512-SupbQKMtUZHSH7lmF5xaJPgxsn8sIBNAjs1CyPI33u30eY9VcVQ4CJQ818ZS3FLxR0q2XdWk9lsQNyhZwlN3RA==
@@ -4951,9 +4946,9 @@ yocto-queue@^1.0.0:
   integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
 
 zip-stream@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/zip-stream/-/zip-stream-5.0.1.tgz#cf3293bba121cad98be2ec7f05991d81d9f18134"
-  integrity sha512-UfZ0oa0C8LI58wJ+moL46BDIMgCQbnsb+2PoiJYtonhBsMh2bq1eRBVkvjfVsqbEHd9/EgKPUuL9saSSsec8OA==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/zip-stream/-/zip-stream-5.0.2.tgz#77b1dce7af291482d368a9203c9029f4eb52e12e"
+  integrity sha512-LfOdrUvPB8ZoXtvOBz6DlNClfvi//b5d56mSWyJi7XbH/HfhOHfUhOqxhT/rUiR7yiktlunqRo+jY6y/cWC/5g==
   dependencies:
     archiver-utils "^4.0.1"
     compress-commons "^5.0.1"
