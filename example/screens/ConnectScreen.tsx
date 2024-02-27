@@ -25,7 +25,7 @@ type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
   const {connect, error} = useJellyfishClient();
-  const [peerToken, onChangePeerToken] = useState('');
+  const [peerToken, onChangePeerToken] = useState(process.env.PEER_TOKEN ?? '');
   const [jellyfishUrl, onChangeJellyfishUrl] = useState(
     process.env.JELLYFISH_URL ?? '',
   );

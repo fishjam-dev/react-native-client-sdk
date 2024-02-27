@@ -43,6 +43,7 @@ const LetterButtonStyles = StyleSheet.create({
 type LetterButtonProps = {
   onPress: (event: GestureResponderEvent) => void;
   trackEncoding: TrackEncoding;
+  text?: String;
   selected: boolean;
 } & AccessibilityLabel;
 
@@ -50,6 +51,7 @@ const LetterButton = ({
   onPress,
   trackEncoding,
   selected,
+  text,
 }: LetterButtonProps) => {
   const stylesForText = () => {
     return selected
@@ -74,7 +76,7 @@ const LetterButton = ({
           stylesForButton(),
         ]}>
         <Text style={[LetterButtonStyles.text, stylesForText()]}>
-          {trackEncoding.toUpperCase()}
+          {text ?? trackEncoding.toUpperCase()}
         </Text>
       </View>
     </TouchableHighlight>
