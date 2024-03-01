@@ -27,6 +27,7 @@ export {
   SimulcastConfig,
   Track,
   CameraConfig,
+  AudioOutputDeviceType,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 export type Peer<

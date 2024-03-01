@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -13,7 +13,11 @@ import {
 
 import {connectScreenLabels} from '../types/ComponentLabels';
 
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
+import {
+  AudioOutputDeviceType,
+  useAudioSettings,
+  useJellyfishClient,
+} from '@jellyfish-dev/react-native-client-sdk';
 
 import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 
@@ -46,6 +50,23 @@ const ConnectScreen = ({navigation}: Props) => {
 
     request();
   }, []);
+
+  const {availableDevices, selectOutputAudioDevice, selectedAudioOutputDevice} =
+    useAudioSettings();
+
+  const onChangeOutputAudio = useCallback(() => {
+    console.log('availableDevices', selectedAudioOutputDevice?.type);
+    console.log(availableDevices);
+    console.log(
+      selectedAudioOutputDevice?.type === AudioOutputDeviceType.Speaker,
+    );
+    if (availableDevices.length < 2) return;
+    if (selectedAudioOutputDevice?.type === AudioOutputDeviceType.Speaker) {
+      selectOutputAudioDevice(availableDevices![1]!.type!);
+    } else {
+      selectOutputAudioDevice(availableDevices![0]!.type!);
+    }
+  }, [selectedAudioOutputDevice, availableDevices, selectOutputAudioDevice]);
 
   const onTapConnectButton = async () => {
     try {
@@ -84,6 +105,10 @@ const ConnectScreen = ({navigation}: Props) => {
             accessibilityLabel={CONNECT_BUTTON}
           />
           <QRCodeScanner onCodeScanned={onChangePeerToken} />
+          <Button
+            title={selectedAudioOutputDevice?.type ?? ''}
+            onPress={onChangeOutputAudio}
+          />
         </View>
       </SafeAreaView>
     </DismissKeyboard>

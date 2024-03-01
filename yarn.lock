@@ -1813,10 +1813,9 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@jellyfish-dev/react-native-membrane-webrtc@7.3.0":
+"@jellyfish-dev/react-native-membrane-webrtc@https://github.com/jellyfish-dev/react-native-membrane-webrtc.git#cfb4dae88855af46bc48360f4173fde10dfb4baa":
   version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@jellyfish-dev/react-native-membrane-webrtc/-/react-native-membrane-webrtc-7.3.0.tgz#1b9379d9dc7adeafcab590f15b91c9b25c896830"
-  integrity sha512-rdEWHcPprVUk0JAHKLL7rIH+ieGNxTXn9yRzY4To4qWs+tGIXneArQsjiTx035fdwz8LDb6x+hxYz8414q11TQ==
+  resolved "https://github.com/jellyfish-dev/react-native-membrane-webrtc.git#cfb4dae88855af46bc48360f4173fde10dfb4baa"
   dependencies:
     expo "^50.0.7"
     phoenix "^1.7.6"

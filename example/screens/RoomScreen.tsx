@@ -5,7 +5,6 @@ import {NoCameraView} from '../components/NoCameraView';
 
 import {
   ScreencastQuality,
-  useAudioSettings,
   useJellyfishClient,
   usePeers,
   useScreencast,
@@ -16,7 +15,6 @@ import type {AppRootStackParamList} from '../navigators/AppNavigator';
 
 import {roomScreenLabels} from '../types/ComponentLabels';
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
-import LetterButton from '../components/LetterButton';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {
@@ -39,8 +37,6 @@ const RoomScreen = ({navigation}: Props) => {
       ),
     [peers],
   );
-
-  const audioSettings = useAudioSettings();
 
   const {cleanUp} = useJellyfishClient();
   const {toggleScreencast, isScreencastOn} = useScreencast();
@@ -111,16 +107,6 @@ const RoomScreen = ({navigation}: Props) => {
           onPress={onToggleScreenCast}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
-      </View>
-      <View style={styles.callView}>
-        {audioSettings.availableDevices.map(e => (
-          <LetterButton
-            onPress={() => audioSettings.selectOutputAudioDevice(e.type)}
-            trackEncoding={'l'}
-            text={e.type[0]}
-            selected
-          />
-        ))}
       </View>
     </SafeAreaView>
   );
