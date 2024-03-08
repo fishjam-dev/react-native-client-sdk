@@ -87,10 +87,7 @@ target 'JellyfishExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-
   pod 'MembraneRTC', :git => 'https://github.com/jellyfish-dev/membrane-webrtc-ios.git', :branch => 'change_webrtc_specs'
-
-
 
   target 'JellyfishExampleTests' do
     inherit! :complete
