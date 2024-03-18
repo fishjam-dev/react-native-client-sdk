@@ -2,7 +2,7 @@ import Foundation
 import MembraneRTC
 import os.log
 import ReplayKit
-import WebRTC
+import WebRTCMembrane
 
 
 /// App Group used by the extension to exchange buffers with the target application
