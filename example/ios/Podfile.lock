@@ -42,13 +42,13 @@ PODS:
     - SwiftLogJellyfish (= 1.5.2)
     - SwiftPhoenixClient (~> 4.0.0)
     - SwiftProtobuf
-    - WebRTCMembrane (= 104.5112.17)
+    - WebRTCMembrane (= 114.5735.02)
   - MembraneRTC/Broadcast (5.1.2):
     - PromisesSwift
     - SwiftLogJellyfish (= 1.5.2)
     - SwiftPhoenixClient (~> 4.0.0)
     - SwiftProtobuf
-    - WebRTCMembrane (= 104.5112.17)
+    - WebRTCMembrane (= 114.5735.02)
   - MembraneWebRTC (7.3.0):
     - ExpoModulesCore
     - MembraneRTC
@@ -1110,7 +1110,7 @@ PODS:
     - SwiftPhoenixClient/Core (= 4.0.0)
   - SwiftPhoenixClient/Core (4.0.0)
   - SwiftProtobuf (1.25.2)
-  - WebRTCMembrane (104.5112.17)
+  - WebRTCMembrane (114.5735.02)
   - Yoga (1.14.0)
   - ZXingObjC/Core (3.6.9)
   - ZXingObjC/OneD (3.6.9):
@@ -1133,8 +1133,8 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
-  - MembraneRTC (from `https://github.com/jellyfish-dev/membrane-webrtc-ios`, commit `23550632033ac49505dfe9e0808ba620a5360aa2`)
-  - MembraneRTC/Broadcast (from `https://github.com/jellyfish-dev/membrane-webrtc-ios`, commit `23550632033ac49505dfe9e0808ba620a5360aa2`)
+  - MembraneRTC (from `https://github.com/jellyfish-dev/membrane-webrtc-ios`, commit `f0a7c81d2af051503bdba3c873ac89cb80b7e28f`)
+  - MembraneRTC/Broadcast (from `https://github.com/jellyfish-dev/membrane-webrtc-ios`, commit `f0a7c81d2af051503bdba3c873ac89cb80b7e28f`)
   - "MembraneWebRTC (from `../node_modules/@jellyfish-dev/react-native-membrane-webrtc/ios`)"
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -1226,7 +1226,7 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2023-11-17-RNv0.73.0-21043a3fc062be445e56a2c10ecd8be028dd9cc5
   MembraneRTC:
-    :commit: 23550632033ac49505dfe9e0808ba620a5360aa2
+    :commit: f0a7c81d2af051503bdba3c873ac89cb80b7e28f
     :git: https://github.com/jellyfish-dev/membrane-webrtc-ios
   MembraneWebRTC:
     :path: "../node_modules/@jellyfish-dev/react-native-membrane-webrtc/ios"
@@ -1323,7 +1323,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MembraneRTC:
-    :commit: 23550632033ac49505dfe9e0808ba620a5360aa2
+    :commit: f0a7c81d2af051503bdba3c873ac89cb80b7e28f
     :git: https://github.com/jellyfish-dev/membrane-webrtc-ios
 
 SPEC CHECKSUMS:
@@ -1342,7 +1342,7 @@ SPEC CHECKSUMS:
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  MembraneRTC: 27dafba1f0dac7f69c0cf6abc3137d105d8f6253
+  MembraneRTC: a4d54e67e3395d9ad55c02be927716403c3f1986
   MembraneWebRTC: 919d6df09895f07b83720c90f3a1c7c6465b8a8d
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
@@ -1394,10 +1394,10 @@ SPEC CHECKSUMS:
   SwiftLogJellyfish: 6207ec91ef3913d303ac797b73298248ee360eb0
   SwiftPhoenixClient: 4e36f35d00e43d11881c255bd60c20efc0f39c91
   SwiftProtobuf: 407a385e97fd206c4fbe880cc84123989167e0d1
-  WebRTCMembrane: 9340c88104a125c89a6e642663e2894eb501fc4c
+  WebRTCMembrane: 80861ca67a6e03a589174bbd55c45ea255921cdf
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 6329f60515ee14ebd9cd9e9f26709d50b5c057fe
+PODFILE CHECKSUM: b5f66df7cd41a1b8098f441903a28a409bd53100
 
 COCOAPODS: 1.13.0
