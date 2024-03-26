@@ -36,7 +36,9 @@
     "example": "yarn --cwd example",
     "docs": "sed 's/\\.github\\/images/media/g' README.md > README_docs.md && typedoc src/index.tsx --media ./.github/images --readme README_docs.md && rm README_docs.md",
     "bootstrap": "yarn example && yarn install",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "installAll": "./scripts/install.sh",
+    "clean": "./scripts/clean.sh"
   },
   "keywords": [
     "react-native",
