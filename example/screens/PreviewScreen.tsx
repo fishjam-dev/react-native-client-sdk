@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useCallback} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {
   BackHandler,
+  Button,
   SafeAreaView,
   StyleSheet,
   View,
-  Button,
 } from 'react-native';
 import {InCallButton} from '../components';
 
@@ -90,7 +90,7 @@ const PreviewScreen = ({navigation}: Props) => {
           <NoCameraView />
         )}
       </View>
-      <View style={styles.callView}>
+      <View style={styles.mediaButtonsWrapper}>
         <InCallButton
           iconName={isMicrophoneOn ? 'microphone' : 'microphone-off'}
           onPress={toggleMicrophone}
@@ -107,7 +107,7 @@ const PreviewScreen = ({navigation}: Props) => {
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
         />
       </View>
-      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
+      <View style={styles.simulcastButtonsWrapper}>
         {Array<TrackEncoding>('h', 'm', 'l').map(val => {
           return (
             <LetterButton
@@ -120,11 +120,13 @@ const PreviewScreen = ({navigation}: Props) => {
           );
         })}
       </View>
-      <Button
-        title="Join Room"
-        onPress={onJoinPressed}
-        accessibilityLabel={JOIN_BUTTON}
-      />
+      <View style={styles.joinButton}>
+        <Button
+          title="Join Room"
+          onPress={onJoinPressed}
+          accessibilityLabel={JOIN_BUTTON}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -132,27 +134,35 @@ const PreviewScreen = ({navigation}: Props) => {
 export default PreviewScreen;
 
 const styles = StyleSheet.create({
-  callView: {display: 'flex', flexDirection: 'row', gap: 20},
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#F1FAFE',
+    padding: 24,
+  },
   cameraPreview: {
-    width: 236,
-    height: 320,
-    alignSelf: 'center',
-    marginTop: 24,
+    flex: 6,
+    margin: 24,
+    alignSelf: 'stretch',
     alignItems: 'center',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: BrandColors.darkBlue80,
     overflow: 'hidden',
   },
-  membraneVideoPreview: {
-    width: 236,
-    height: 320,
-  },
-  container: {
+  mediaButtonsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 20,
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#F1FAFE',
-    padding: 24,
+  },
+  simulcastButtonsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 20,
+    flex: 1,
+  },
+  joinButton: {
+    flex: 1,
   },
 });
