@@ -4,7 +4,5 @@
 yarn
 cd example
 yarn
-cd ios
-pod install
 
 echo "All commands executed successfully!"

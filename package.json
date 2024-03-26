@@ -25,7 +25,8 @@
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    "!scripts/**.sh"
   ],
   "scripts": {
     "test": "jest",
@@ -36,7 +37,9 @@
     "example": "yarn --cwd example",
     "docs": "sed 's/\\.github\\/images/media/g' README.md > README_docs.md && typedoc src/index.tsx --media ./.github/images --readme README_docs.md && rm README_docs.md",
     "bootstrap": "yarn example && yarn install",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "installAll": "./scripts/install.sh",
+    "clean": "./scripts/clean.sh"
   },
   "keywords": [
     "react-native",
@@ -174,7 +177,7 @@
     ]
   },
   "dependencies": {
-    "@jellyfish-dev/react-native-membrane-webrtc": "7.3.0",
+    "@jellyfish-dev/react-native-membrane-webrtc": "https://github.com/jellyfish-dev/react-native-membrane-webrtc#063a2729a3a492060130e96ac1ebad9d3df8f0e8",
     "expo-modules-core": "1.11.8",
     "protobufjs": "^7.2.4",
     "react-native-safe-area-context": "^4.9.0"
