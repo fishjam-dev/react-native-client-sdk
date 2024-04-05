@@ -13,11 +13,22 @@ import {
   TrackEncoding,
   CameraConfig,
   Metadata,
+  AudioOutputDevice,
+  AudioOutputDeviceType,
+  AudioSessionMode,
 } from '@jellyfish-dev/react-native-client-sdk';
 
 import {Platform} from 'expo-modules-core';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
+
+type AudioSettings = {
+  selectedAudioOutputDevice: AudioOutputDevice | null;
+  availableDevices: AudioOutputDevice[];
+  selectOutputAudioDevice: (device: AudioOutputDeviceType) => Promise<void>;
+  selectAudioSessionMode: (audioSessionMode: AudioSessionMode) => Promise<void>;
+  showAudioRoutePicker: () => Promise<void>;
+};
 
 const JellyfishExampleContext = React.createContext<
   | {
@@ -39,6 +50,7 @@ const JellyfishExampleContext = React.createContext<
       toggleLocalCameraTrackEncoding: (
         encoding: TrackEncoding,
       ) => Promise<void>;
+      audioSettings: AudioSettings;
     }
   | undefined
 >(undefined);
@@ -60,7 +72,7 @@ const JellyfishExampleContextProvider = (props: any) => {
   } = useCamera();
   const {toggleMicrophone: membraneToggleMicrophone, startMicrophone} =
     useMicrophone();
-  useAudioSettings();
+  const audioSettings = useAudioSettings();
   const [videoRoomState, setVideoRoomState] =
     useState<VideoRoomState>('BeforeMeeting');
 
@@ -134,6 +146,7 @@ const JellyfishExampleContextProvider = (props: any) => {
     getCaptureDevices,
     localCameraSimulcastConfig,
     toggleLocalCameraTrackEncoding,
+    audioSettings,
   };
 
   return (

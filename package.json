@@ -174,7 +174,7 @@
     ]
   },
   "dependencies": {
-    "@jellyfish-dev/react-native-membrane-webrtc": "7.3.0",
+    "@jellyfish-dev/react-native-membrane-webrtc": "7.4.1",
     "expo-modules-core": "1.11.8",
     "protobufjs": "^7.2.4",
     "react-native-safe-area-context": "^4.9.0"

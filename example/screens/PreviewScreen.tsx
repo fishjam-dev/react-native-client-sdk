@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useCallback} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {
   BackHandler,
+  Button,
+  Platform,
   SafeAreaView,
   StyleSheet,
   View,
-  Button,
 } from 'react-native';
 import {InCallButton} from '../components';
 
@@ -12,6 +13,7 @@ import {
   CaptureDevice,
   TrackEncoding,
 } from '@jellyfish-dev/react-native-client-sdk';
+
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
@@ -21,6 +23,9 @@ import {BrandColors} from '../utils/Colors';
 import {NoCameraView} from '../components/NoCameraView';
 import VideoPreview from '../components/VideoPreview';
 import LetterButton from '../components/LetterButton';
+
+import BottomSheet from '@gorhom/bottom-sheet';
+import {SoundOutputDevicesBottomSheet} from '../components/SoundOutputDevicesBottomSheet';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
 const {
@@ -41,6 +46,7 @@ const PreviewScreen = ({navigation}: Props) => {
     currentCamera,
     localCameraSimulcastConfig,
     toggleLocalCameraTrackEncoding,
+    audioSettings,
   } = useJellyfishExampleContext();
 
   const availableCameras = useRef<CaptureDevice[]>([]);
@@ -58,7 +64,6 @@ const PreviewScreen = ({navigation}: Props) => {
     if (currentCamera === null) {
       return;
     }
-
     //todo Switches between front-facing and back-facing cameras or displays a list of available cameras.
     setCurrentCamera(
       cameras[
@@ -80,6 +85,16 @@ const PreviewScreen = ({navigation}: Props) => {
     );
     return () => backHandler.remove();
   }, []);
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const toggleOutputSoundDevice = useCallback(async () => {
+    if (Platform.OS === 'ios') {
+      await audioSettings.showAudioRoutePicker();
+    } else if (Platform.OS === 'android') {
+      bottomSheetRef.current?.expand();
+    }
+  }, [audioSettings]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -106,6 +121,10 @@ const PreviewScreen = ({navigation}: Props) => {
           onPress={switchCamera}
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
         />
+        <InCallButton
+          iconName="volume-high"
+          onPress={toggleOutputSoundDevice}
+        />
       </View>
       <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
         {Array<TrackEncoding>('h', 'm', 'l').map(val => {
@@ -125,6 +144,9 @@ const PreviewScreen = ({navigation}: Props) => {
         onPress={onJoinPressed}
         accessibilityLabel={JOIN_BUTTON}
       />
+      {Platform.OS === 'android' ? (
+        <SoundOutputDevicesBottomSheet bottomSheetRef={bottomSheetRef} />
+      ) : null}
     </SafeAreaView>
   );
 };
@@ -154,5 +176,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#F1FAFE',
     padding: 24,
+  },
+  text: {
+    color: 'black',
   },
 });
