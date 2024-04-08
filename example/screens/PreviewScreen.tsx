@@ -148,10 +148,8 @@ const PreviewScreen = ({navigation}: Props) => {
         onPress={onJoinPressed}
         accessibilityLabel={JOIN_BUTTON}
       />
-      {Platform.OS === 'android' ? (
+      {Platform.OS === 'android' && (
         <SoundOutputDevicesBottomSheet bottomSheetRef={bottomSheetRef} />
-      ) : (
-        <></>
       )}
     </SafeAreaView>
   );
