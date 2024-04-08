@@ -6,7 +6,32 @@ import {
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 export * from './JellyfishClientContext';
-export * from '@jellyfish-dev/react-native-membrane-webrtc';
+export {
+  useAudioSettings,
+  updateAudioTrackMetadata,
+  useCamera,
+  useMicrophone,
+  useScreencast,
+  updateVideoTrackMetadata,
+  useBandwidthEstimation,
+  useRTCStatistics,
+  changeWebRTCLoggingSeverity,
+  setTargetTrackEncoding,
+  VideoRendererView,
+  VideoPreviewView,
+  VideoQuality,
+  ScreencastQuality,
+  Metadata,
+  CaptureDevice,
+  TrackEncoding,
+  SimulcastConfig,
+  Track,
+  CameraConfig,
+  AudioOutputDevice,
+  AudioOutputDeviceType,
+  AudioSessionMode,
+  initializeWebRTC,
+} from '@jellyfish-dev/react-native-membrane-webrtc';
 
 export type Peer<
   MetadataType extends Metadata,

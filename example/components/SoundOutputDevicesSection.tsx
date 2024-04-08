@@ -7,13 +7,18 @@ import {
 import {TextColors} from '../utils/Colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
+import {soundOutputDevicesLabels} from '../types/ComponentLabels';
+
+const {TITLE_TEXT, OUTPUT_DEVICE_BUTTON} = soundOutputDevicesLabels;
 
 export const SoundOutputDevicesSection = () => {
   const {audioSettings} = useJellyfishExampleContext();
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.title}>Select output audio device</Text>
+      <Text style={styles.title} accessibilityLabel={TITLE_TEXT}>
+        Select output audio device
+      </Text>
       <FlatList
         data={audioSettings.availableDevices}
         renderItem={item => (
@@ -21,6 +26,7 @@ export const SoundOutputDevicesSection = () => {
             item={item.item}
             selected={audioSettings.selectedAudioOutputDevice!}
             selectOutputAudioDevice={audioSettings.selectOutputAudioDevice}
+            accessibilityLabel={OUTPUT_DEVICE_BUTTON + item.index}
           />
         )}
         keyExtractor={(item: AudioOutputDevice) => item.name + item.type}
@@ -33,16 +39,19 @@ const SoundOutputDeviceTile = ({
   item,
   selected,
   selectOutputAudioDevice,
+  accessibilityLabel,
 }: {
   item: AudioOutputDevice;
   selected: AudioOutputDevice;
   selectOutputAudioDevice: (device: AudioOutputDeviceType) => Promise<void>;
+  accessibilityLabel?: string | undefined;
 }) => {
   const isSelected =
     item.type === selected?.type && item.name === selected.name;
 
   return (
     <TouchableOpacity
+      accessibilityLabel={accessibilityLabel}
       onPress={async () => {
         await selectOutputAudioDevice(item.type);
       }}>

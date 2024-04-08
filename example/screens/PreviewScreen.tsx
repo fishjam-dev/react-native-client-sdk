@@ -5,6 +5,7 @@ import {
   Platform,
   SafeAreaView,
   StyleSheet,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {InCallButton} from '../components';
@@ -33,7 +34,9 @@ const {
   TOGGLE_CAMERA_BUTTON,
   SWITCH_CAMERA_BUTTON,
   TOGGLE_MICROPHONE_BUTTON,
+  SELECT_AUDIO_OUTPUT,
 } = previewScreenLabels;
+
 const PreviewScreen = ({navigation}: Props) => {
   const {
     toggleCamera,
@@ -96,7 +99,7 @@ const PreviewScreen = ({navigation}: Props) => {
     }
   }, [audioSettings]);
 
-  return (
+  const body = (
     <SafeAreaView style={styles.container}>
       <View style={styles.cameraPreview}>
         {isCameraOn ? (
@@ -124,6 +127,7 @@ const PreviewScreen = ({navigation}: Props) => {
         <InCallButton
           iconName="volume-high"
           onPress={toggleOutputSoundDevice}
+          accessibilityLabel={SELECT_AUDIO_OUTPUT}
         />
       </View>
       <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
@@ -146,9 +150,19 @@ const PreviewScreen = ({navigation}: Props) => {
       />
       {Platform.OS === 'android' ? (
         <SoundOutputDevicesBottomSheet bottomSheetRef={bottomSheetRef} />
-      ) : null}
+      ) : (
+        <></>
+      )}
     </SafeAreaView>
   );
+
+  if (Platform.OS === 'android')
+    return (
+      <TouchableWithoutFeedback onPress={() => bottomSheetRef.current?.close()}>
+        {body}
+      </TouchableWithoutFeedback>
+    );
+  return body;
 };
 
 export default PreviewScreen;
