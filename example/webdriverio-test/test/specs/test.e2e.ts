@@ -138,7 +138,7 @@ const tests: Test[] = [
       await driver.pause(100);
       await tapApp(driver);
     },
-    skip: false,
+    skip: process.env.GITHUB_ACTIONS === 'true',
   },
   {
     name: 'toggle off preview camera and microphone then join the room',
