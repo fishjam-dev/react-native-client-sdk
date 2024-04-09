@@ -162,16 +162,16 @@ jobs:
             $ANDROID_APP_PATH
           key: |
             APK-${{ hashFiles(
-              github.workspace + '/android/**/*',
-              github.workspace + '/assets/**/*',
-              github.workspace + '/components/**/*',
-              github.workspace + '/contexts/**/*',
-              github.workspace + '/navigators/**/*',
-              github.workspace + '/providers/**/*',
-              github.workspace + '/screens/**/*',
-              github.workspace + '/types/**/*',
-              github.workspace + '/utils/**/*',
-              github.workspace + '/App.tsx',
+              format('{0}/assets/**/*',github.workspace),
+              format('{0}/android/**/*',github.workspace),
+              format('{0}/components/**/*',github.workspace),
+              format('{0}/contexts/**/*',github.workspace),
+              format('{0}/navigators/**/*',github.workspace),
+              format('{0}/providers/**/*',github.workspace),
+              format('{0}/screens/**/*',github.workspace),
+              format('{0}/types/**/*',github.workspace),
+              format('{0}/utils/**/*',github.workspace),
+              format('{0}/App.tsx',github.workspace),
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock',
             ) }}
