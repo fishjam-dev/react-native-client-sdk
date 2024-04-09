@@ -117,12 +117,6 @@ jobs:
             /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/*.gradle*
             /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle-wrapper.properties
 
-      - name: Build dependencies
-        timeout-minutes: 20
-        run: |
-          cd $GITHUB_WORKSPACE/example/android
-          ./gradlew build --no-daemon
-
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
