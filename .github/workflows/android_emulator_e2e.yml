@@ -155,7 +155,7 @@ jobs:
           adb devices
           sleep 10
 
-      - uses: actions/cache@v3
+      - uses: actions/cache/restore@v3
         name: cache-apk
         with:
           path: |
@@ -180,6 +180,25 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/example/android
           ./gradlew assembleRelease
+
+      - if: ${{ steps.cache-apk.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            $ANDROID_APP_PATH
+          key: |
+            APK-${{ hashFiles('/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*', '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/contexts/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/navigators/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/providers/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/screens/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/types/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/utils/**/*',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/App.tsx',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock',
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock'
+            ) }}
 
       - name: Logs from app to file
         run: |
