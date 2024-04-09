@@ -106,6 +106,7 @@ jobs:
         with:
             node-version: '18.12.x'
             yarn-version: '1.22.x'
+            cache: 'yarn'
 
       - name: Run yarn install in root directory
         run: |
