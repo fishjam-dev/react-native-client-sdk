@@ -39,6 +39,8 @@ jobs:
       PLATFORM_VERSION: platforms;android-33
       BUILD_TOOL: "build-tools;33.0.0"
       ANDROID_CMD: "commandlinetools-linux-10406996_latest.zip"
+      ANDROID_APP_PATH: ${{ env.GITHUB_WORKSPACE }}/example/android/app/build/outputs/apk/release/app-release.apk
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,7 +51,7 @@ jobs:
           JELLYFISH_HOST_SERVER=127.0.0.1:5002
           JELLYFISH_HOST_MOBILE=10.0.2.2:5002
           ANDROID_DEVICE_NAME=$EMULATOR_DEVICE
-          ANDROID_APP_PATH=$GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
+          ANDROID_APP_PATH=$ANDROID_APP_PATH
           " > $GITHUB_WORKSPACE/example/webdriverio-test/.env
 
       - name: Enable KVM group perms
@@ -158,8 +160,7 @@ jobs:
       - uses: actions/cache/restore@v3
         name: cache-apk
         with:
-          path: |
-            $GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
+          path: ${{ env.ANDROID_APP_PATH }}
           key: |
             APK-${{ hashFiles('/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*', '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
@@ -184,8 +185,7 @@ jobs:
       - if: ${{ steps.cache-apk.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@v3
         with:
-          path: |
-            $GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
+          path: ${{ env.ANDROID_APP_PATH }}
           key: |
             APK-${{ hashFiles('/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*', '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
