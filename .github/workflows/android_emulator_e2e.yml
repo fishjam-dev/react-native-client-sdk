@@ -39,7 +39,7 @@ jobs:
       PLATFORM_VERSION: platforms;android-33
       BUILD_TOOL: "build-tools;33.0.0"
       ANDROID_CMD: "commandlinetools-linux-10406996_latest.zip"
-      ANDROID_APP_PATH: ${{ github.workspaceE }}/example/android/app/build/outputs/apk/release/app-release.apk
+      ANDROID_APP_PATH: ${{ github.workspace }}/example/android/app/build/outputs/apk/release/app-release.apk
 
     steps:
       - name: Checkout
