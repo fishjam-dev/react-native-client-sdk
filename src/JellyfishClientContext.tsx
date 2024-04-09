@@ -56,7 +56,7 @@ export const JellyfishContext = React.createContext<
   | undefined
 >(undefined);
 
-const JellyfishContextProvider = (props: any) => {
+const JellyfishContextProvider = (props: React.PropsWithChildren) => {
   const [error, setError] = useState<string | null>(null);
   const websocket = useRef<WebSocket | null>(null);
 

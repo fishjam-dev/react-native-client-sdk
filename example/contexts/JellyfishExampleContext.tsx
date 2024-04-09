@@ -55,7 +55,7 @@ const JellyfishExampleContext = React.createContext<
   | undefined
 >(undefined);
 
-const JellyfishExampleContextProvider = (props: any) => {
+const JellyfishExampleContextProvider = (props: React.PropsWithChildren) => {
   const {join} = useJellyfishClient();
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
