@@ -38,6 +38,9 @@ On development build `eas build` should take care of it.
 ### Android
 
 1. Add camera and microphone permissions to your `AndroidManifest.xml`.
+```xml
+<uses-permission android:name="android.permission.CAMERA" />
+```
 2. For android 14+ add following code in your `AndroidManifest.xml` in application section :
 ```xml
 <service
@@ -52,35 +55,35 @@ On development build `eas build` should take care of it.
 On iOS installation is a bit more complicated, because you need to setup a screen broadcast app extension for screensharing.
 
 1. Add camera and microphone permissions to your main `Info.plist`.
-   ```xml
+```xml
    <key>NSCameraUsageDescription</key>
    <string>Allow $(PRODUCT_NAME) to use the camera</string>
    <key>NSMicrophoneUsageDescription</key>
    <string>Allow $(PRODUCT_NAME) to use the microphone</string>
-   ```
+```
 2. We recommend adding `audio` background mode in `Info.plist` so that the app doesn't disconnect when it's in background:
 
 ```xml
-	<key>UIBackgroundModes</key>
+  <key>UIBackgroundModes</key>
   <array>
     <string>audio</string>
   </array>
 ```
 
-2. Open your `<your-project>.xcworkspace` in Xcode
-3. Create new Broadcast Upload Extension. Select File → New → Target... → Broadcast Upload Extension → Next. Choose the name for the new target, select Swift language and deselect "Include UI Extension".
+3. Open your `<your-project>.xcworkspace` in Xcode
+4. Create new Broadcast Upload Extension. Select File → New → Target... → Broadcast Upload Extension → Next. Choose the name for the new target, select Swift language and deselect "Include UI Extension".
 
    ![New target config](./.github/images/xcode1.png)
 
    Press Finish. In the next alert xcode will ask you if you want to activate the new scheme - press Cancel.
 
-4. Configure app group. Go to "Signing & Capabilities" tab, click "+ Capability" button in upper left corner and select "App Groups".
+5. Configure app group. Go to "Signing & Capabilities" tab, click "+ Capability" button in upper left corner and select "App Groups".
 
    ![App groups config](./.github/images/xcode2.png)
 
    Then in the "App Groups" add a new group or select existing. Usually group name has format `group.<your-bundle-identifier>`. Verify that both app and extension targets have app group and dev team set correctly.
 
-5. A new folder with app extension should appear on the left with contents like this:
+6. A new folder with app extension should appear on the left with contents like this:
 
    ![App extension files](./.github/images/xcode3.png)
 
@@ -143,13 +146,16 @@ On iOS installation is a bit more complicated, because you need to setup a scree
 
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 
-6. In project's Podfile add the following code:
+7. In project's Podfile add the following code:
    ```rb
    target 'MembraneScreenBroadcastExtension' do
      pod 'MembraneRTC/Broadcast'
    end
    ```
-   > This new dependency should be added outside of your application target. Example
+   > [!NOTE]
+   > This new dependency should be added outside of your application target. 
+   >
+   > Example:
    >
    > ```rb
    > target 'ReactNativeMembraneExample' do
@@ -160,8 +166,8 @@ On iOS installation is a bit more complicated, because you need to setup a scree
    >  pod 'MembraneRTC/Broadcast'
    > end
    > ```
-7. Run `pod install` in your `ios/` directory
-8. Add the following constants in your Info.plist:
+8. Run `pod install` in your `ios/` directory
+9. Add the following constants in your Info.plist:
    ```xml
    <key>AppGroupName</key>
    <string>{{GROUP_IDENTIFIER}}</string>
@@ -169,7 +175,7 @@ On iOS installation is a bit more complicated, because you need to setup a scree
    <string>{{BUNDLE_IDENTIFIER}}.MembraneBroadcastSampleHandler</string>
    ```
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
-9. Rebuild the app and enjoy!
+10. Rebuild the app and enjoy!
 
 ## Docs
 
