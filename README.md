@@ -177,6 +177,8 @@ API documentation is available [here](https://jellyfish-dev.github.io/react-nati
 
 ## Usage
 
+Since version 0.2.0 call function initializeWebRTC() once in your app before using any other functionality.
+
 Make sure you have:
 
 - Running [Jellyfish](https://github.com/jellyfish-dev/jellyfish) server.

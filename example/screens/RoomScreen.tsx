@@ -1,5 +1,11 @@
-import React, {useCallback, useEffect, useMemo} from 'react';
-import {BackHandler, SafeAreaView, StyleSheet, View} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import {
+  BackHandler,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {InCallButton, VideosGrid} from '../components';
 import {NoCameraView} from '../components/NoCameraView';
 
@@ -15,6 +21,8 @@ import type {AppRootStackParamList} from '../navigators/AppNavigator';
 
 import {roomScreenLabels} from '../types/ComponentLabels';
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {SoundOutputDevicesBottomSheet} from '../components/SoundOutputDevicesBottomSheet';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {
@@ -46,6 +54,7 @@ const RoomScreen = ({navigation}: Props) => {
     toggleMicrophone,
     toggleCamera,
     flipCamera,
+    audioSettings,
   } = useJellyfishExampleContext();
 
   useEffect(() => {
@@ -71,6 +80,16 @@ const RoomScreen = ({navigation}: Props) => {
       quality: ScreencastQuality.HD15,
     });
   }, [isScreencastOn, toggleScreencast]);
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const toggleOutputSoundDevice = useCallback(async () => {
+    if (Platform.OS === 'ios') {
+      await audioSettings.showAudioRoutePicker();
+    } else if (Platform.OS === 'android') {
+      bottomSheetRef.current?.expand();
+    }
+  }, [audioSettings]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -107,7 +126,14 @@ const RoomScreen = ({navigation}: Props) => {
           onPress={onToggleScreenCast}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />
+        <InCallButton
+          iconName="volume-high"
+          onPress={toggleOutputSoundDevice}
+        />
       </View>
+      {Platform.OS === 'android' ? (
+        <SoundOutputDevicesBottomSheet bottomSheetRef={bottomSheetRef} />
+      ) : null}
     </SafeAreaView>
   );
 };

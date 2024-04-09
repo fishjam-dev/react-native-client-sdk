@@ -122,7 +122,6 @@ const JellyfishContextProvider = (props: any) => {
     });
 
     await processIncomingMessages;
-    await membraneModule.create();
   };
 
   const join = async (peerMetadata: Metadata = {}) => {
