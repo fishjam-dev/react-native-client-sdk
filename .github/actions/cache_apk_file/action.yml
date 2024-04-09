@@ -5,7 +5,6 @@ runs:
   using: composite
   steps:
     - name: Cache new APK
-      if: steps.restore-apk.outputs.cache-hit != 'true'
       uses: actions/cache/save@v3
       with:
         path: ${{ env.ANDROID_APP_PATH }}

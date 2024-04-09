@@ -169,6 +169,7 @@ jobs:
           ./gradlew assembleRelease
 
       - name: Cache new apk if necessary
+        if: steps.restore-apk.outputs.cache-hit != 'true'
         uses: ./.github/actions/cache_apk_file
 
       - name: Logs from app to file
