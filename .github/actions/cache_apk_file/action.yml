@@ -1,0 +1,25 @@
+name: Cache APK file
+description: Caches apk files to avoid build
+
+runs:
+  using: composite
+  steps:
+    - name: Cache new APK
+      if: steps.cache-apk.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v3
+      with:
+        path: ${{ env.ANDROID_APP_PATH }}
+        key: |
+          APK-${{ hashFiles(
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/contexts/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/navigators/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/providers/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/screens/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/types/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/utils/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/App.tsx',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock'
+          ) }}

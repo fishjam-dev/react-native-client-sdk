@@ -1,0 +1,25 @@
+name: Restore APK file
+description: If possible restores apk files to avoid build
+
+runs:
+  using: composite
+  steps:
+    - name: Try to restore last apk
+      uses: actions/cache/restore@v3
+      id: cache-apk
+      with:
+        path: ${{ env.ANDROID_APP_PATH }}
+        key: |
+          APK-${{ hashFiles(
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/contexts/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/navigators/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/providers/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/screens/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/types/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/utils/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/App.tsx',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock'
+          ) }}
