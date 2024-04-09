@@ -45,6 +45,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: A
+        run: |
+          echo -e "
+          $ANDROID_APP_PATH
+          "
+
       - name: Create .env file in webdriverio-test directory
         run: |
           echo -e "
