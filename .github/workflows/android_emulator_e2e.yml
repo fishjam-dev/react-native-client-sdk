@@ -158,7 +158,7 @@ jobs:
           sleep 10
 
       - uses: actions/cache/restore@v3
-        name: cache-apk
+        id: cache-apk
         with:
           path: ${{ env.ANDROID_APP_PATH }}
           key: |
@@ -176,8 +176,8 @@ jobs:
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock'
             ) }}
 
-      - if: ${{ steps.cache-apk.outputs.cache-hit != 'true' }}
-        name: Build release app
+      - name: Build release app
+        if: steps.cache-apk.outputs.cache-hit != 'true'
         timeout-minutes: 20
         run: |
           cd $GITHUB_WORKSPACE/example/android
