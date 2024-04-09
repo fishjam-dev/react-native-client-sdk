@@ -146,6 +146,7 @@ const tests: Test[] = [
       await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON_PREVIEW);
       await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON_PREVIEW);
       await tapButton(driver, '~' + JOIN_BUTTON);
+      await driver.pause(100);
     },
     skip: false,
   },
