@@ -158,16 +158,17 @@ jobs:
           sleep 10
 
       - name: Try to restore last apk
+        id: restore-apk
         uses: ./.github/actions/restore_apk_file
 
       - name: Build release app
-        if: steps.cache-apk.outputs.cache-hit != 'true'
+        if: steps.restore-apk.outputs.cache-hit != 'true'
         timeout-minutes: 20
         run: |
           cd $GITHUB_WORKSPACE/example/android
           ./gradlew assembleRelease
 
-      - name: Try to restore last apk
+      - name: Cache new apk if necessary
         uses: ./.github/actions/cache_apk_file
 
       - name: Logs from app to file

@@ -1,6 +1,13 @@
 name: Restore APK file
 description: If possible restores apk files to avoid build
 
+inputs: {}
+
+outputs:
+  cache-hit:
+    value: ${{ steps.cache-apk.outputs.cache-hit }}
+    description: "Cache hit status"
+
 runs:
   using: composite
   steps:
@@ -21,5 +28,15 @@ runs:
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/utils/**/*',
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/App.tsx',
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock',
-            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock'
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/src/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/build.gradle',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/debug.keystore',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/proguard-rules.pro',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/build.gradle',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle.properties',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradlew',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle.bat',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/settings.gradle'
           ) }}
