@@ -163,7 +163,8 @@ jobs:
         with:
           path: ${{ env.ANDROID_APP_PATH }}
           key: |
-            APK-${{ hashFiles('/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*', '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/**/*',
+            APK-${{ hashFiles(
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/contexts/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/navigators/**/*',
@@ -188,7 +189,8 @@ jobs:
         with:
           path: ${{ env.ANDROID_APP_PATH }}
           key: |
-            APK-${{ hashFiles('/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*', '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/**/*',
+            APK-${{ hashFiles(
+              '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/contexts/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/navigators/**/*',
