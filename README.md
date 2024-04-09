@@ -143,6 +143,14 @@ On iOS installation is a bit more complicated, because you need to setup a scree
 
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 
+   In the extension's `Info.plist`, apply the following change:
+
+   ```diff
+   <key>NSExtensionPrincipalClass</key>
+   -<string>$(PRODUCT_MODULE_NAME).SampleHandler</string>
+   +<string>$(PRODUCT_MODULE_NAME).MembraneBroadcastSampleHandler</string>
+   ```
+
 6. In project's Podfile add the following code:
    ```rb
    target 'MembraneScreenBroadcastExtension' do
