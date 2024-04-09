@@ -159,7 +159,7 @@ jobs:
         name: cache-apk
         with:
           path: |
-            $ANDROID_APP_PATH
+            $GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
           key: |
             APK-${{ hashFiles('/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*', '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
@@ -185,7 +185,7 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: |
-            $ANDROID_APP_PATH
+            $GITHUB_WORKSPACE/example/android/app/build/outputs/apk/release/app-release.apk
           key: |
             APK-${{ hashFiles('/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*', '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/**/*',
               '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
