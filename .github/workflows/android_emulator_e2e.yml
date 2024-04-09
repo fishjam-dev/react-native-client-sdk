@@ -157,7 +157,8 @@ jobs:
           adb devices
           sleep 10
 
-      - uses: actions/cache/restore@v3
+      - name: Try to restore last apk
+        uses: actions/cache/restore@v3
         id: cache-apk
         with:
           path: ${{ env.ANDROID_APP_PATH }}
@@ -183,7 +184,8 @@ jobs:
           cd $GITHUB_WORKSPACE/example/android
           ./gradlew assembleRelease
 
-      - if: ${{ steps.cache-apk.outputs.cache-hit != 'true' }}
+      - name: Save new apk
+        if: steps.cache-apk.outputs.cache-hit != 'true'
         uses: actions/cache/save@v3
         with:
           path: ${{ env.ANDROID_APP_PATH }}
