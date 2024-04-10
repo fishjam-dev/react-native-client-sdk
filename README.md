@@ -38,12 +38,13 @@ On development build `eas build` should take care of it.
 ### Android
 
 1. Add camera and microphone permissions to your `AndroidManifest.xml`.
-2. For android 14+ add following code in your `AndroidManifest.xml` in application section :
+2. For android 14+ add following code in your `AndroidManifest.xml` in application section:
 ```xml
 <service
   android:name=".YourServiceName"
   android:foregroundServiceType="mediaProjection"
   android:exported="false">
+</service>
 ```
 3. Rebuild the app. That's it!
 
@@ -143,6 +144,14 @@ On iOS installation is a bit more complicated, because you need to setup a scree
 
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 
+   In the extension's `Info.plist`, apply the following change:
+
+   ```diff
+   <key>NSExtensionPrincipalClass</key>
+   -<string>$(PRODUCT_MODULE_NAME).SampleHandler</string>
+   +<string>$(PRODUCT_MODULE_NAME).MembraneBroadcastSampleHandler</string>
+   ```
+
 6. In project's Podfile add the following code:
    ```rb
    target 'MembraneScreenBroadcastExtension' do
@@ -170,6 +179,10 @@ On iOS installation is a bit more complicated, because you need to setup a scree
    ```
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 9. Rebuild the app and enjoy!
+
+> **Note:** If the build fails due to sandbox issues (like `realpath`'s illegal option), you can disable sandboxing for
+> the extension target. To do this, open Xcode, go to the `MembraneScreenBroadcastExtension` target settings, select
+> `Build Settings` tab and disable `User Script Sandboxing`.
 
 ## Docs
 
