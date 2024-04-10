@@ -1,0 +1,34 @@
+name: Cache APK file
+description: Caches apk files to avoid build
+
+runs:
+  using: composite
+  steps:
+    - name: Cache new APK
+      uses: actions/cache/save@v3
+      with:
+        path: ${{ env.ANDROID_APP_PATH }}
+        key: |
+          APK-${{ hashFiles(
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/contexts/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/navigators/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/providers/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/screens/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/types/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/utils/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/App.tsx',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/src/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/build.gradle',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/debug.keystore',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/app/proguard-rules.pro',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/build.gradle',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle.properties',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradlew',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle.bat',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/settings.gradle'
+          ) }}
