@@ -1,9 +1,11 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useCallback} from 'react';
 import {
   BackHandler,
   Button,
+  Platform,
   SafeAreaView,
   StyleSheet,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {InCallButton} from '../components';
@@ -12,6 +14,7 @@ import {
   CaptureDevice,
   TrackEncoding,
 } from '@jellyfish-dev/react-native-client-sdk';
+
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';
@@ -22,13 +25,18 @@ import {NoCameraView} from '../components/NoCameraView';
 import VideoPreview from '../components/VideoPreview';
 import LetterButton from '../components/LetterButton';
 
+import BottomSheet from '@gorhom/bottom-sheet';
+import {SoundOutputDevicesBottomSheet} from '../components/SoundOutputDevicesBottomSheet';
+
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
 const {
   JOIN_BUTTON,
   TOGGLE_CAMERA_BUTTON,
   SWITCH_CAMERA_BUTTON,
   TOGGLE_MICROPHONE_BUTTON,
+  SELECT_AUDIO_OUTPUT,
 } = previewScreenLabels;
+
 const PreviewScreen = ({navigation}: Props) => {
   const {
     toggleCamera,
@@ -41,6 +49,7 @@ const PreviewScreen = ({navigation}: Props) => {
     currentCamera,
     localCameraSimulcastConfig,
     toggleLocalCameraTrackEncoding,
+    audioSettings,
   } = useJellyfishExampleContext();
 
   const availableCameras = useRef<CaptureDevice[]>([]);
@@ -81,7 +90,17 @@ const PreviewScreen = ({navigation}: Props) => {
     return () => backHandler.remove();
   }, []);
 
-  return (
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const toggleOutputSoundDevice = useCallback(async () => {
+    if (Platform.OS === 'ios') {
+      await audioSettings.showAudioRoutePicker();
+    } else if (Platform.OS === 'android') {
+      bottomSheetRef.current?.expand();
+    }
+  }, [audioSettings]);
+
+  const body = (
     <SafeAreaView style={styles.container}>
       <View style={styles.cameraPreview}>
         {isCameraOn ? (
@@ -106,9 +125,14 @@ const PreviewScreen = ({navigation}: Props) => {
           onPress={switchCamera}
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
         />
+        <InCallButton
+          iconName="volume-high"
+          onPress={toggleOutputSoundDevice}
+          accessibilityLabel={SELECT_AUDIO_OUTPUT}
+        />
       </View>
       <View style={styles.simulcastButtonsWrapper}>
-        {Array<TrackEncoding>('h', 'm', 'l').map(val => {
+        {(['h', 'm', 'l'] as TrackEncoding[]).map(val => {
           return (
             <LetterButton
               trackEncoding={val}
@@ -127,13 +151,27 @@ const PreviewScreen = ({navigation}: Props) => {
           accessibilityLabel={JOIN_BUTTON}
         />
       </View>
+
+      {Platform.OS === 'android' && (
+        <SoundOutputDevicesBottomSheet bottomSheetRef={bottomSheetRef} />
+      )}
     </SafeAreaView>
   );
+
+  if (Platform.OS === 'android') {
+    return (
+      <TouchableWithoutFeedback onPress={() => bottomSheetRef.current?.close()}>
+        {body}
+      </TouchableWithoutFeedback>
+    );
+  }
+  return body;
 };
 
 export default PreviewScreen;
 
 const styles = StyleSheet.create({
+  callView: {display: 'flex', flexDirection: 'row', gap: 20},
   container: {
     flex: 1,
     alignItems: 'center',

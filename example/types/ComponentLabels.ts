@@ -9,6 +9,7 @@ const previewScreenLabels = {
   TOGGLE_CAMERA_BUTTON: 'toggle_camera_button',
   TOGGLE_MICROPHONE_BUTTON: 'toggle_microphone_button',
   SWITCH_CAMERA_BUTTON: 'switch_camera_button',
+  SELECT_AUDIO_OUTPUT: 'select_audio_output_button',
 };
 
 const roomScreenLabels = {
@@ -24,4 +25,14 @@ const roomScreenLabels = {
   VIDEO_CELL: 'video_cell',
 };
 
-export {connectScreenLabels, previewScreenLabels, roomScreenLabels};
+const soundOutputDevicesLabels = {
+  TITLE_TEXT: 'title_text',
+  OUTPUT_DEVICE_BUTTON: 'output_device_button',
+};
+
+export {
+  connectScreenLabels,
+  previewScreenLabels,
+  roomScreenLabels,
+  soundOutputDevicesLabels,
+};

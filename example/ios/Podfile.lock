@@ -5,17 +5,17 @@ PODS:
     - ExpoModulesCore
   - EXFont (11.10.3):
     - ExpoModulesCore
-  - Expo (50.0.14):
+  - Expo (50.0.7):
     - ExpoModulesCore
   - ExpoCamera (14.0.4):
     - ExpoModulesCore
     - ZXingObjC/OneD
     - ZXingObjC/PDF417
-  - ExpoFileSystem (16.0.8):
+  - ExpoFileSystem (16.0.6):
     - ExpoModulesCore
   - ExpoKeepAwake (12.8.2):
     - ExpoModulesCore
-  - ExpoModulesCore (1.11.12):
+  - ExpoModulesCore (1.11.8):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -36,22 +36,22 @@ PODS:
     - hermes-engine/Pre-built (= 0.73.4)
   - hermes-engine/Pre-built (0.73.4)
   - libevent (2.1.12)
-  - MembraneRTC (5.1.2):
-    - MembraneRTC/Broadcast (= 5.1.2)
+  - MembraneRTC (5.3.0):
+    - MembraneRTC/Broadcast (= 5.3.0)
     - PromisesSwift
     - SwiftLogJellyfish (= 1.5.2)
     - SwiftPhoenixClient (~> 4.0.0)
     - SwiftProtobuf
     - WebRTC-SDK (= 114.5735.08)
-  - MembraneRTC/Broadcast (5.1.2):
+  - MembraneRTC/Broadcast (5.3.0):
     - PromisesSwift
     - SwiftLogJellyfish (= 1.5.2)
     - SwiftPhoenixClient (~> 4.0.0)
     - SwiftProtobuf
     - WebRTC-SDK (= 114.5735.08)
-  - MembraneWebRTC (7.3.0):
+  - MembraneWebRTC (7.4.1):
     - ExpoModulesCore
-    - MembraneRTC
+    - MembraneRTC (= 5.3.0)
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
@@ -1095,12 +1095,16 @@ PODS:
     - React-jsi (= 0.73.4)
     - React-logger (= 0.73.4)
     - React-perflogger (= 0.73.4)
-  - RNReanimated (3.8.1):
+  - RNGestureHandler (2.16.0):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
+  - RNReanimated (3.7.1):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - ReactCommon/turbomodule/core
-  - RNScreens (3.30.1):
+  - RNScreens (3.29.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1109,7 +1113,7 @@ PODS:
   - SwiftPhoenixClient (4.0.0):
     - SwiftPhoenixClient/Core (= 4.0.0)
   - SwiftPhoenixClient/Core (4.0.0)
-  - SwiftProtobuf (1.25.2)
+  - SwiftProtobuf (1.26.0)
   - WebRTC-SDK (114.5735.08)
   - Yoga (1.14.0)
   - ZXingObjC/Core (3.6.9)
@@ -1133,8 +1137,8 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
-  - MembraneRTC (from `https://github.com/jellyfish-dev/membrane-webrtc-ios`, commit `6be2e5a26a50cfb779aeb2d58636224958472911`)
-  - MembraneRTC/Broadcast (from `https://github.com/jellyfish-dev/membrane-webrtc-ios`, commit `6be2e5a26a50cfb779aeb2d58636224958472911`)
+  - MembraneRTC
+  - MembraneRTC/Broadcast
   - "MembraneWebRTC (from `../node_modules/@jellyfish-dev/react-native-membrane-webrtc/ios`)"
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -1180,6 +1184,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1188,6 +1193,7 @@ SPEC REPOS:
   trunk:
     - fmt
     - libevent
+    - MembraneRTC
     - PromisesObjC
     - PromisesSwift
     - SocketRocket
@@ -1225,9 +1231,6 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2023-11-17-RNv0.73.0-21043a3fc062be445e56a2c10ecd8be028dd9cc5
-  MembraneRTC:
-    :commit: 6be2e5a26a50cfb779aeb2d58636224958472911
-    :git: https://github.com/jellyfish-dev/membrane-webrtc-ios
   MembraneWebRTC:
     :path: "../node_modules/@jellyfish-dev/react-native-membrane-webrtc/ios"
   RCT-Folly:
@@ -1314,6 +1317,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -1321,29 +1326,24 @@ EXTERNAL SOURCES:
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
-CHECKOUT OPTIONS:
-  MembraneRTC:
-    :commit: 6be2e5a26a50cfb779aeb2d58636224958472911
-    :git: https://github.com/jellyfish-dev/membrane-webrtc-ios
-
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
   EXConstants: 988aa430ca0f76b43cd46b66e7fae3287f9cc2fc
   EXFont: f20669cb266ef48b004f1eb1f2b20db96cd1df9f
-  Expo: e01a77c6fa4bc80a6d1bb949cda1d12d21044abd
+  Expo: 1cf3922a9b26262b2556544d4defcecccd37d033
   ExpoCamera: 64e9bb61e639dfaec9d12872c5b6bad0c4167b67
-  ExpoFileSystem: eecaf6796aed0f4dd20042dc2ca2cac6c4bc1185
+  ExpoFileSystem: a9273932e69a9a1e1a8d01b6ba895bb8294bbea2
   ExpoKeepAwake: 0f5cad99603a3268e50af9a6eb8b76d0d9ac956c
-  ExpoModulesCore: 61dc57c6e2a35f2f84baf488146db624e03af4cd
+  ExpoModulesCore: 96d1751929ad10622773bb729ab28a8423f0dd0c
   FBLazyVector: 84f6edbe225f38aebd9deaf1540a4160b1f087d7
   FBReactNativeSpec: d0086a479be91c44ce4687a962956a352d2dc697
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  MembraneRTC: f53c2e2baadb4b4c3a5f11a70500656fb659cc72
-  MembraneWebRTC: 919d6df09895f07b83720c90f3a1c7c6465b8a8d
+  MembraneRTC: b62d9f01edbee0c251d6671e868ac3b25e68e66a
+  MembraneWebRTC: 72023d2a5f393cf8fe22143e7aeabc5106c4081c
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
@@ -1388,16 +1388,17 @@ SPEC CHECKSUMS:
   React-runtimescheduler: ed48e5faac6751e66ee1261c4bd01643b436f112
   React-utils: 6e5ad394416482ae21831050928ae27348f83487
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
-  RNReanimated: 3e23d4be380e295e504b7b3b3a357df60e1168a2
-  RNScreens: 77fc79e66b726ee45b091486b348418ee1d792ab
+  RNGestureHandler: 727b656d5a3fa247aac2c8cc70b8757356066451
+  RNReanimated: beb07f7f900543928467da8107c175d1e57a1049
+  RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   SwiftLogJellyfish: 6207ec91ef3913d303ac797b73298248ee360eb0
   SwiftPhoenixClient: 4e36f35d00e43d11881c255bd60c20efc0f39c91
-  SwiftProtobuf: 407a385e97fd206c4fbe880cc84123989167e0d1
+  SwiftProtobuf: 5e8349171e7c2f88f5b9e683cb3cb79d1dc780b3
   WebRTC-SDK: c24d2a6c9f571f2ed42297cb8ffba9557093142b
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 8d894915249ed694882669e40a5dafe7212229df
+PODFILE CHECKSUM: cc08c15a30ce962f18304f3c60b4fb3517f3345a
 
 COCOAPODS: 1.13.0

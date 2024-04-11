@@ -2,9 +2,7 @@
 
 # Start the tasks in the background
 (rm -rf node_modules) &
-(rm yarn.lock) &
 (cd example && rm -rf node_modules) &
-(cd example && rm yarn.lock) &
 (cd example/ios && rm -rf Pods && pod deintegrate) &
 (cd example/ios && rm -rf build) &
 (cd example/ios && rm Podfile.lock) &

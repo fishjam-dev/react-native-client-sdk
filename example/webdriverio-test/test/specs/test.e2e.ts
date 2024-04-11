@@ -4,6 +4,7 @@ import {
   connectScreenLabels,
   roomScreenLabels,
   previewScreenLabels,
+  soundOutputDevicesLabels,
 } from '../../../types/ComponentLabels';
 
 import {
@@ -31,6 +32,7 @@ const {
   JOIN_BUTTON,
   TOGGLE_CAMERA_BUTTON: TOGGLE_CAMERA_BUTTON_PREVIEW,
   TOGGLE_MICROPHONE_BUTTON: TOGGLE_MICROPHONE_BUTTON_PREVIEW,
+  SELECT_AUDIO_OUTPUT,
 } = previewScreenLabels;
 const {
   SWITCH_CAMERA_BUTTON,
@@ -41,6 +43,8 @@ const {
   TOGGLE_MICROPHONE_BUTTON,
   VIDEO_CELL,
 } = roomScreenLabels;
+
+const {TITLE_TEXT, OUTPUT_DEVICE_BUTTON} = soundOutputDevicesLabels;
 
 type Test = {
   name: string;
@@ -123,22 +127,32 @@ const tests: Test[] = [
     },
     skip: false,
   },
-
+  {
+    name: 'change sound output device',
+    run: async () => {
+      await tapButton(driver, '~' + SELECT_AUDIO_OUTPUT);
+      if (driver.isAndroid) {
+        await getElement(driver, '~' + TITLE_TEXT);
+        await tapButton(driver, '~' + OUTPUT_DEVICE_BUTTON + 0);
+      }
+      await driver.pause(100);
+      await tapApp(driver);
+    },
+    skip: process.env.GITHUB_ACTIONS === 'true',
+  },
   {
     name: 'toggle off preview camera and microphone then join the room',
     run: async () => {
       await tapButton(driver, '~' + TOGGLE_MICROPHONE_BUTTON_PREVIEW);
       await tapButton(driver, '~' + TOGGLE_CAMERA_BUTTON_PREVIEW);
       await tapButton(driver, '~' + JOIN_BUTTON);
+      await driver.pause(100);
     },
     skip: false,
   },
   {
     name: 'check if no camera view',
     run: async () => {
-      if (driver.isIOS) {
-        await driver.acceptAlert();
-      }
       await getElement(driver, '~' + NO_CAMERA_VIEW);
     },
     skip: false,
@@ -180,7 +194,6 @@ const tests: Test[] = [
     },
     skip: process.env.GITHUB_ACTIONS === 'true',
   },
-
   {
     name: 'check if two video cells',
     run: async () => {

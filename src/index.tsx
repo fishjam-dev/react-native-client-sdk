@@ -27,6 +27,10 @@ export {
   SimulcastConfig,
   Track,
   CameraConfig,
+  AudioOutputDevice,
+  AudioOutputDeviceType,
+  AudioSessionMode,
+  initializeWebRTC,
   VideoLayout,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
