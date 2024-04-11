@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 import AppProvider from './providers/AppProvider';
 import AppNavigator from './navigators/AppNavigator';
 import {initializeWebRTC} from '@jellyfish-dev/react-native-client-sdk';
@@ -17,13 +18,16 @@ function App(): React.JSX.Element {
   }, []);
 
   return (
-    <GestureHandlerRootView>
-      {initialized ? (
-        <AppProvider>
-          <AppNavigator />
-        </AppProvider>
-      ) : null}
-    </GestureHandlerRootView>
+    <>
+      <GestureHandlerRootView>
+        {initialized ? (
+          <AppProvider>
+            <AppNavigator />
+          </AppProvider>
+        ) : null}
+      </GestureHandlerRootView>
+      <Toast />
+    </>
   );
 }
 

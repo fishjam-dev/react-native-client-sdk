@@ -18,7 +18,10 @@ import {
   AudioSessionMode,
 } from '@jellyfish-dev/react-native-client-sdk';
 
+import Toast from 'react-native-toast-message';
+
 import {Platform} from 'expo-modules-core';
+import * as Device from 'expo-device';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 
@@ -57,7 +60,8 @@ const JellyfishExampleContext = React.createContext<
 
 const JellyfishExampleContextProvider = (props: any) => {
   const {join} = useJellyfishClient();
-  const [isCameraOn, setIsCameraOn] = useState(true);
+  const isIosEmulator = Platform.OS === 'ios' && !Device.isDevice;
+  const [isCameraOn, setIsCameraOn] = useState(!isIosEmulator);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
   const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
     null,
@@ -115,12 +119,23 @@ const JellyfishExampleContextProvider = (props: any) => {
   }, [getCaptureDevices]);
 
   const toggleCamera = useCallback(async () => {
+    if (isIosEmulator) {
+      Toast.show({
+        type: 'error',
+        text1: 'Camera is not supported on the iOS emulator',
+        text2: 'Please run the app on a real device to use the camera',
+      });
+
+      return;
+    }
+
     if (videoRoomState === 'InMeeting') {
       await membraneToggleCamera();
       await updateVideoTrackMetadata({active: !isCameraOn, type: 'camera'});
     }
+
     setIsCameraOn(!isCameraOn);
-  }, [isCameraOn, membraneToggleCamera, videoRoomState]);
+  }, [isCameraOn, membraneToggleCamera, videoRoomState, isIosEmulator]);
 
   const toggleMicrophone = useCallback(async () => {
     if (videoRoomState === 'InMeeting') {
