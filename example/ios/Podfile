@@ -77,7 +77,7 @@ target 'JellyfishExample' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-  pod 'MembraneRTC', :git => 'https://github.com/jellyfish-dev/membrane-webrtc-ios', :commit => '6be2e5a26a50cfb779aeb2d58636224958472911'
+  pod 'MembraneRTC'
 
   target 'JellyfishExampleTests' do
     inherit! :complete
@@ -93,5 +93,5 @@ target 'JellyfishExample' do
 end
 
 target 'ScreenBroadcast' do
-  pod 'MembraneRTC/Broadcast', :git => 'https://github.com/jellyfish-dev/membrane-webrtc-ios', :commit => '6be2e5a26a50cfb779aeb2d58636224958472911'
+  pod 'MembraneRTC/Broadcast'
 end
