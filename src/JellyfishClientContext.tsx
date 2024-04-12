@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { Metadata } from '@jellyfish-dev/react-native-client-sdk';
 import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { NativeEventEmitter } from 'react-native';
 import { PeerMessage } from './protos/jellyfish/peer_notifications';
 
@@ -51,13 +51,11 @@ export const JellyfishContext = React.createContext<
        * to the RTC Engine. Thanks to it each other peer will be notified that peer left in MessageEvents.onPeerLeft.
        */
       leave: () => void;
-      error: string | null;
     }
   | undefined
 >(undefined);
 
 const JellyfishContextProvider = (props: any) => {
-  const [error, setError] = useState<string | null>(null);
   const websocket = useRef<WebSocket | null>(null);
 
   const sendMediaEvent = ({ event }: { event: string }) => {
@@ -81,13 +79,12 @@ const JellyfishContextProvider = (props: any) => {
   }, []);
 
   const connect = useCallback(async (url: string, peerToken: string) => {
-    setError(null);
     websocket.current = new WebSocket(url);
 
     const processIncomingMessages = new Promise<void>((resolve, reject) => {
       websocket.current?.addEventListener('close', (event) => {
         if (event.code !== 1000 || event.isTrusted === false) {
-          setError(generateMessage(event));
+          // todo: improve error handling
           reject(new Error(generateMessage(event)));
         }
       });
@@ -116,7 +113,7 @@ const JellyfishContextProvider = (props: any) => {
             membraneModule.receiveMediaEvent(data.mediaEvent.data);
           }
         } catch (e) {
-          setError(String(e));
+          reject(e);
         }
       });
     });
@@ -125,20 +122,16 @@ const JellyfishContextProvider = (props: any) => {
   }, []);
 
   const join = useCallback(async (peerMetadata: Metadata = {}) => {
-    setError(null);
     await membraneModule.connect(peerMetadata);
   }, []);
 
   const cleanUp = useCallback(() => {
-    setError(null);
     membraneModule.disconnect();
     websocket.current?.close();
     websocket.current = null;
   }, []);
 
   const leave = useCallback(() => {
-    setError(null);
-
     membraneModule.disconnect();
   }, []);
 
@@ -147,7 +140,6 @@ const JellyfishContextProvider = (props: any) => {
     join,
     cleanUp,
     leave,
-    error,
   };
 
   return (
