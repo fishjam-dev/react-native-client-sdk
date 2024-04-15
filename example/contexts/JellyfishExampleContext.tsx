@@ -58,9 +58,10 @@ const JellyfishExampleContext = React.createContext<
   | undefined
 >(undefined);
 
+const isIosEmulator = Platform.OS === 'ios' && !Device.isDevice;
+
 const JellyfishExampleContextProvider = (props: any) => {
   const {join} = useJellyfishClient();
-  const isIosEmulator = Platform.OS === 'ios' && !Device.isDevice;
   const [isCameraOn, setIsCameraOn] = useState(!isIosEmulator);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
   const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
@@ -121,7 +122,7 @@ const JellyfishExampleContextProvider = (props: any) => {
   const toggleCamera = useCallback(async () => {
     if (isIosEmulator) {
       Toast.show({
-        type: 'error',
+        type: 'info',
         text1: 'Camera is not supported on the iOS emulator',
         text2: 'Please run the app on a real device to use the camera',
       });
@@ -135,7 +136,7 @@ const JellyfishExampleContextProvider = (props: any) => {
     }
 
     setIsCameraOn(!isCameraOn);
-  }, [isCameraOn, membraneToggleCamera, videoRoomState, isIosEmulator]);
+  }, [isCameraOn, membraneToggleCamera, videoRoomState]);
 
   const toggleMicrophone = useCallback(async () => {
     if (videoRoomState === 'InMeeting') {
