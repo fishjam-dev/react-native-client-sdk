@@ -11,6 +11,8 @@ PODS:
     - ExpoModulesCore
     - ZXingObjC/OneD
     - ZXingObjC/PDF417
+  - ExpoDevice (5.9.3):
+    - ExpoModulesCore
   - ExpoFileSystem (16.0.6):
     - ExpoModulesCore
   - ExpoKeepAwake (12.8.2):
@@ -1129,6 +1131,7 @@ DEPENDENCIES:
   - EXFont (from `../node_modules/expo-font/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoCamera (from `../node_modules/expo-camera/ios`)
+  - ExpoDevice (from `../node_modules/expo-device/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -1216,6 +1219,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo"
   ExpoCamera:
     :path: "../node_modules/expo-camera/ios"
+  ExpoDevice:
+    :path: "../node_modules/expo-device/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoKeepAwake:
@@ -1333,6 +1338,7 @@ SPEC CHECKSUMS:
   EXFont: f20669cb266ef48b004f1eb1f2b20db96cd1df9f
   Expo: 1cf3922a9b26262b2556544d4defcecccd37d033
   ExpoCamera: 64e9bb61e639dfaec9d12872c5b6bad0c4167b67
+  ExpoDevice: d204395e17fffdcefa7470bdef33b07719ac41b1
   ExpoFileSystem: a9273932e69a9a1e1a8d01b6ba895bb8294bbea2
   ExpoKeepAwake: 0f5cad99603a3268e50af9a6eb8b76d0d9ac956c
   ExpoModulesCore: 96d1751929ad10622773bb729ab28a8423f0dd0c
@@ -1396,9 +1402,9 @@ SPEC CHECKSUMS:
   SwiftPhoenixClient: 4e36f35d00e43d11881c255bd60c20efc0f39c91
   SwiftProtobuf: 5e8349171e7c2f88f5b9e683cb3cb79d1dc780b3
   WebRTC-SDK: c24d2a6c9f571f2ed42297cb8ffba9557093142b
-  Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
+  Yoga: 1b901a6d6eeba4e8a2e8f308f708691cdb5db312
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
 PODFILE CHECKSUM: c1e970a43ef1c2d288db0ea731bf7166fbc61b54
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.15.2

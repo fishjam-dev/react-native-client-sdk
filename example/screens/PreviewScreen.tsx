@@ -136,6 +136,7 @@ const PreviewScreen = ({navigation}: Props) => {
           return (
             <LetterButton
               trackEncoding={val}
+              key={`encoding-${val}`}
               selected={localCameraSimulcastConfig.activeEncodings.includes(
                 val,
               )}
