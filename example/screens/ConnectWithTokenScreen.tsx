@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {connectScreenLabels} from '../types/ComponentLabels';
 import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
-import {Button, TextInput, DismissKeyboard} from '../components';
+import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppRootStackParamList} from '../navigators/AppNavigator';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
@@ -18,64 +18,32 @@ import {CompositeScreenProps} from '@react-navigation/native';
 import {usePermissionCheck} from '../hooks/usePermissionCheck';
 
 type Props = CompositeScreenProps<
-  BottomTabScreenProps<TabParamList, 'ConnectWithRoomManager'>,
+  BottomTabScreenProps<TabParamList, 'ConnectWithToken'>,
   NativeStackScreenProps<AppRootStackParamList>
 >;
 
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
-
-async function getJellyFishServer(
-  roomManagerUrl: string,
-  roomName: string,
-  userName: string,
-) {
-  const url = roomManagerUrl.endsWith('/')
-    ? roomManagerUrl
-    : roomManagerUrl + '/';
-  const result = await fetch(`${url}${roomName.trim()}/${userName.trim()}`);
-
-  const tokenData = (await result.json()) as {
-    jellyfishHost: string;
-    jellyfishPath: string;
-    token: string;
-  };
-
-  return {
-    jellyfishUrl: `wss://${tokenData.jellyfishHost}${tokenData.jellyfishPath}/socket/peer/websocket`,
-    token: tokenData.token,
-  };
-}
-
 const ConnectScreen = ({navigation}: Props) => {
   const {connect} = useJellyfishClient();
   const [connectionError, setConnectionError] = useState<string | undefined>(
     undefined,
   );
 
-  const [roomManagerUrl, setRoomManagerUrl] = useState(
-    process.env.ROOM_MANAGER_URL ?? '',
+  const [peerToken, onChangePeerToken] = useState('');
+  const [jellyfishUrl, onChangeJellyfishUrl] = useState(
+    process.env.JELLYFISH_URL ?? '',
   );
-  const [roomName, setRoomName] = useState('');
-  const [userName, setUserName] = useState('');
 
   usePermissionCheck();
 
   const onTapConnectButton = async () => {
     try {
-      const {jellyfishUrl, token} = await getJellyFishServer(
-        roomManagerUrl,
-        roomName,
-        userName,
-      );
-
-      await connect(jellyfishUrl, token);
-
+      await connect(jellyfishUrl.trim(), peerToken.trim());
       navigation.navigate('Preview');
     } catch (e) {
       const message =
         'message' in (e as Error) ? (e as Error).message : 'Unknown error';
       setConnectionError(message);
-      console.log(e);
     }
   };
 
@@ -92,26 +60,23 @@ const ConnectScreen = ({navigation}: Props) => {
             resizeMode="contain"
           />
           <TextInput
-            onChangeText={setRoomManagerUrl}
-            value={roomManagerUrl}
+            onChangeText={onChangeJellyfishUrl}
+            value={jellyfishUrl}
             accessibilityLabel={URL_INPUT}
-            placeholder="Room Manager URL"
+            placeholder="Jellyfish url"
           />
           <TextInput
-            onChangeText={setRoomName}
-            accessibilityLabel={URL_INPUT}
-            placeholder="Room Name"
-          />
-          <TextInput
-            onChangeText={setUserName}
+            onChangeText={onChangePeerToken}
+            value={peerToken}
             accessibilityLabel={TOKEN_INPUT}
-            placeholder="User Name"
+            placeholder="Peer token"
           />
           <Button
             title="Connect"
             onPress={onTapConnectButton}
             accessibilityLabel={CONNECT_BUTTON}
           />
+          <QRCodeScanner onCodeScanned={onChangePeerToken} />
         </View>
       </SafeAreaView>
     </DismissKeyboard>

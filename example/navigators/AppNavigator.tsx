@@ -1,8 +1,8 @@
 import type {NavigationProp} from '@react-navigation/native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ConnectScreen from '../screens/ConnectScreen';
-import ConnectWithRoomManagerScreen from '../screens/ConnectWithRoomManager';
+import ConnectWithTokenScreen from '../screens/ConnectWithTokenScreen';
+import ConnectWithRoomManagerScreen from '../screens/ConnectWithRoomManagerScreen';
 import RoomScreen from '../screens/RoomScreen';
 import React from 'react';
 import PreviewScreen from '../screens/PreviewScreen';
@@ -34,7 +34,7 @@ const TabNavigator = () => {
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="ConnectWithToken"
-        component={ConnectScreen}
+        component={ConnectWithTokenScreen}
         options={{
           tabBarLabel: 'Use Token',
           tabBarIcon: tabBarIcon('🎟️'),
