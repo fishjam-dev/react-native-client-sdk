@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   Image,
-  Permission,
-  PermissionsAndroid,
-  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -18,6 +15,7 @@ import {AppRootStackParamList} from '../navigators/AppNavigator';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {TabParamList} from '../navigators/AppNavigator';
 import {CompositeScreenProps} from '@react-navigation/native';
+import {usePermissionCheck} from '../hooks/usePermissionCheck';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'ConnectWithRoomManager'>,
@@ -31,15 +29,20 @@ async function getJellyFishServer(
   roomName: string,
   userName: string,
 ) {
-  const result = await fetch(`${roomManagerUrl}/${roomName}/${userName}`);
+  const url = roomManagerUrl.endsWith('/')
+    ? roomManagerUrl
+    : roomManagerUrl + '/';
+  const result = await fetch(`${url}${roomName}/${userName}`);
   const tokenData = (await result.json()) as {
     jellyfishHost: string;
     jellyfishPath: string;
     token: string;
   };
-  const jellyfishUrl = `wss://${tokenData.jellyfishHost}${tokenData.jellyfishPath}/socket/peer/websocket`;
-  const token = tokenData.token;
-  return {jellyfishUrl, token};
+
+  return {
+    jellyfishUrl: `wss://${tokenData.jellyfishHost}${tokenData.jellyfishPath}/socket/peer/websocket`,
+    token: tokenData.token,
+  };
 }
 
 const ConnectScreen = ({navigation}: Props) => {
@@ -54,23 +57,7 @@ const ConnectScreen = ({navigation}: Props) => {
   const [roomName, setRoomName] = useState('');
   const [userName, setUserName] = useState('');
 
-  useEffect(() => {
-    async function request() {
-      if (Platform.OS === 'ios') {
-        return;
-      }
-      try {
-        await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
-        ]);
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-
-    request();
-  }, []);
+  usePermissionCheck();
 
   const onTapConnectButton = async () => {
     try {
@@ -79,7 +66,9 @@ const ConnectScreen = ({navigation}: Props) => {
         roomName,
         userName,
       );
+
       await connect(jellyfishUrl, token);
+
       navigation.navigate('Preview');
     } catch (e) {
       const message =
@@ -103,6 +92,7 @@ const ConnectScreen = ({navigation}: Props) => {
           />
           <TextInput
             onChangeText={setRoomManagerUrl}
+            value={roomManagerUrl}
             accessibilityLabel={URL_INPUT}
             placeholder="Room Manager URL"
           />

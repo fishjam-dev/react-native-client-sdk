@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   Image,
-  Permission,
-  PermissionsAndroid,
-  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -18,6 +15,7 @@ import {AppRootStackParamList} from '../navigators/AppNavigator';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {TabParamList} from '../navigators/AppNavigator';
 import {CompositeScreenProps} from '@react-navigation/native';
+import {usePermissionCheck} from '../hooks/usePermissionCheck';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'ConnectWithToken'>,
@@ -34,23 +32,8 @@ const ConnectScreen = ({navigation}: Props) => {
   const [jellyfishUrl, onChangeJellyfishUrl] = useState(
     process.env.JELLYFISH_URL ?? '',
   );
-  useEffect(() => {
-    async function request() {
-      if (Platform.OS === 'ios') {
-        return;
-      }
-      try {
-        await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
-        ]);
-      } catch (err) {
-        console.warn(err);
-      }
-    }
 
-    request();
-  }, []);
+  usePermissionCheck();
 
   const onTapConnectButton = async () => {
     try {
