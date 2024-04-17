@@ -97,8 +97,7 @@ export const TextInput = ({
         onBlur={offFocus}
         editable={editable}
         onChangeText={onChangeText}
-        // @ts-ignore
-        colorCursor={TextColors.darkText}
+        autoCapitalize="none"
         selectionColor={TextColors.additionalLightText}
       />
       {!isEmpty(sublabel) ? (
