@@ -20,7 +20,7 @@ import {TabParamList} from '../navigators/AppNavigator';
 import {CompositeScreenProps} from '@react-navigation/native';
 
 type Props = CompositeScreenProps<
-  BottomTabScreenProps<TabParamList, 'ConnectWithToken'>,
+  BottomTabScreenProps<TabParamList, 'ConnectWithRoomManager'>,
   NativeStackScreenProps<AppRootStackParamList>
 >;
 

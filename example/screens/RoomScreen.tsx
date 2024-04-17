@@ -67,7 +67,7 @@ const RoomScreen = ({navigation}: Props) => {
 
   const onDisconnectPress = useCallback(() => {
     cleanUp();
-    navigation.navigate('Connect');
+    navigation.navigate('Home');
   }, [navigation, cleanUp]);
 
   const onToggleScreenCast = useCallback(() => {
