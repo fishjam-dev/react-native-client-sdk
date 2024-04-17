@@ -2,9 +2,9 @@ import React from 'react';
 import {
   VideoPreviewView,
   CaptureDevice,
+  VideoLayout,
 } from '@jellyfish-dev/react-native-client-sdk';
 import {ActivityIndicator, StyleSheet} from 'react-native';
-import {VideoLayout} from '@jellyfish-dev/react-native-membrane-webrtc';
 type Props = {
   currentCamera: CaptureDevice | null;
   videoLayout?: VideoLayout | undefined;
