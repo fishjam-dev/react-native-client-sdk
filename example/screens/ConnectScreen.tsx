@@ -24,7 +24,10 @@ type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
 
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
-  const {connect, error} = useJellyfishClient();
+  const {connect} = useJellyfishClient();
+  const [connectionError, setConnectionError] = useState<string | undefined>(
+    undefined,
+  );
   const [peerToken, onChangePeerToken] = useState('');
   const [jellyfishUrl, onChangeJellyfishUrl] = useState(
     process.env.JELLYFISH_URL ?? '',
@@ -52,6 +55,9 @@ const ConnectScreen = ({navigation}: Props) => {
       await connect(jellyfishUrl.trim(), peerToken.trim());
       navigation.navigate('Preview');
     } catch (e) {
+      const message =
+        'message' in (e as Error) ? (e as Error).message : 'Unknown error';
+      setConnectionError(message);
       console.log(e);
     }
   };
@@ -60,7 +66,9 @@ const ConnectScreen = ({navigation}: Props) => {
     <DismissKeyboard>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          {error && <Text style={styles.errorMessage}>{error}</Text>}
+          {connectionError && (
+            <Text style={styles.errorMessage}>{connectionError}</Text>
+          )}
           <Image
             style={styles.logo}
             source={require('../assets/jellyfish-logo.png')}
