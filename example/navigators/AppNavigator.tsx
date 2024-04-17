@@ -7,6 +7,7 @@ import RoomScreen from '../screens/RoomScreen';
 import React from 'react';
 import PreviewScreen from '../screens/PreviewScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Typo} from '../components';
 
 export type AppRootStackParamList = {
   Home: undefined;
@@ -18,6 +19,9 @@ export type TabParamList = {
   ConnectWithToken: undefined;
   ConnectWithRoomManager: undefined;
 };
+
+const tabBarIcon = (icon: string) => () =>
+  <Typo variant="body-big">{icon}</Typo>;
 
 export type AppStackNavigation = NavigationProp<AppRootStackParamList>;
 
@@ -31,13 +35,17 @@ const TabNavigator = () => {
       <Tab.Screen
         name="ConnectWithToken"
         component={ConnectScreen}
-        options={{tabBarLabel: 'Connect with Token'}}
+        options={{
+          tabBarLabel: 'Use Token',
+          tabBarIcon: tabBarIcon('🎟️'),
+        }}
       />
       <Tab.Screen
         name="ConnectWithRoomManager"
         component={ConnectWithRoomManagerScreen}
         options={{
-          tabBarLabel: 'Connect with Room Manager',
+          tabBarLabel: 'Use Room Manager',
+          tabBarIcon: tabBarIcon('🏢'),
         }}
       />
     </Tab.Navigator>
