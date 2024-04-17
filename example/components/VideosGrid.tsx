@@ -48,6 +48,7 @@ export function VideosGrid({tracks}: Props) {
             <View style={styles.buttons}>
               {v.simulcastConfig?.activeEncodings.map(e => (
                 <LetterButton
+                  key={e}
                   trackEncoding={e}
                   selected={v.encoding === e}
                   onPress={() => setTargetTrackEncoding(v.id, e)}

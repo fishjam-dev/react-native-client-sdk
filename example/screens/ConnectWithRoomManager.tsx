@@ -32,7 +32,8 @@ async function getJellyFishServer(
   const url = roomManagerUrl.endsWith('/')
     ? roomManagerUrl
     : roomManagerUrl + '/';
-  const result = await fetch(`${url}${roomName}/${userName}`);
+  const result = await fetch(`${url}${roomName.trim()}/${userName.trim()}`);
+
   const tokenData = (await result.json()) as {
     jellyfishHost: string;
     jellyfishPath: string;
