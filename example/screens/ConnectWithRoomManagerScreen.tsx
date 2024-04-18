@@ -32,16 +32,17 @@ async function getJellyFishServer(
   const url = roomManagerUrl.endsWith('/')
     ? roomManagerUrl
     : roomManagerUrl + '/';
-  const result = await fetch(`${url}${roomName.trim()}/${userName.trim()}`);
+  const result = await fetch(
+    `${url}rooms/${roomName.trim()}/users/${userName.trim()}`,
+  );
 
   const tokenData = (await result.json()) as {
-    jellyfishHost: string;
-    jellyfishPath: string;
+    url: string;
     token: string;
   };
 
   return {
-    jellyfishUrl: `wss://${tokenData.jellyfishHost}${tokenData.jellyfishPath}/socket/peer/websocket`,
+    jellyfishUrl: tokenData.url,
     token: tokenData.token,
   };
 }
