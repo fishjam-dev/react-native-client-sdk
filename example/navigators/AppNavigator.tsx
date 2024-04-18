@@ -31,7 +31,8 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator
+      screenOptions={{headerShown: false, tabBarHideOnKeyboard: true}}>
       <Tab.Screen
         name="ConnectWithToken"
         component={ConnectWithTokenScreen}
@@ -61,7 +62,11 @@ const AppNavigator = () => {
           headerBackTitleVisible: false,
           headerBackVisible: false,
         })}>
-        <Stack.Screen name="Home" component={TabNavigator} />
+        <Stack.Screen
+          name="Home"
+          options={{headerShown: false}}
+          component={TabNavigator}
+        />
         <Stack.Screen name="Preview" component={PreviewScreen} />
         <Stack.Screen name="Room" component={RoomScreen} />
       </Stack.Navigator>

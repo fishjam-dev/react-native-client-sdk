@@ -51,6 +51,7 @@ const ConnectScreen = ({navigation}: Props) => {
   const [connectionError, setConnectionError] = useState<string | undefined>(
     undefined,
   );
+  const [loading, setLoading] = useState(false);
 
   const [roomManagerUrl, setRoomManagerUrl] = useState(
     process.env.ROOM_MANAGER_URL ?? '',
@@ -62,6 +63,8 @@ const ConnectScreen = ({navigation}: Props) => {
 
   const onTapConnectButton = async () => {
     try {
+      setConnectionError(undefined);
+      setLoading(true);
       const {jellyfishUrl, token} = await getJellyFishServer(
         roomManagerUrl,
         roomName,
@@ -75,6 +78,8 @@ const ConnectScreen = ({navigation}: Props) => {
       const message =
         'message' in (e as Error) ? (e as Error).message : 'Unknown error';
       setConnectionError(message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -110,6 +115,7 @@ const ConnectScreen = ({navigation}: Props) => {
             title="Connect"
             onPress={onTapConnectButton}
             accessibilityLabel={CONNECT_BUTTON}
+            disabled={loading}
           />
         </View>
       </SafeAreaView>
