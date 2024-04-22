@@ -7,7 +7,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import {connectScreenLabels} from '../types/ComponentLabels';
 import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
 import {Button, TextInput, DismissKeyboard} from '../components';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -21,8 +20,6 @@ type Props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'ConnectWithRoomManager'>,
   NativeStackScreenProps<AppRootStackParamList>
 >;
-
-const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 
 async function getJellyfishServer(
   roomManagerUrl: string,
@@ -99,23 +96,13 @@ const ConnectScreen = ({navigation}: Props) => {
           <TextInput
             onChangeText={setRoomManagerUrl}
             value={roomManagerUrl}
-            accessibilityLabel={URL_INPUT}
             placeholder="Room Manager URL"
           />
-          <TextInput
-            onChangeText={setRoomName}
-            accessibilityLabel={URL_INPUT}
-            placeholder="Room Name"
-          />
-          <TextInput
-            onChangeText={setUserName}
-            accessibilityLabel={TOKEN_INPUT}
-            placeholder="User Name"
-          />
+          <TextInput onChangeText={setRoomName} placeholder="Room Name" />
+          <TextInput onChangeText={setUserName} placeholder="User Name" />
           <Button
             title="Connect"
             onPress={onTapConnectButton}
-            accessibilityLabel={CONNECT_BUTTON}
             disabled={loading}
           />
         </View>
