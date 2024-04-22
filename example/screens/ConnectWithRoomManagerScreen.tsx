@@ -24,7 +24,7 @@ type Props = CompositeScreenProps<
 
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 
-async function getJellyFishServer(
+async function getJellyfishServer(
   roomManagerUrl: string,
   roomName: string,
   userName: string,
@@ -32,11 +32,13 @@ async function getJellyFishServer(
   const url = roomManagerUrl.endsWith('/')
     ? roomManagerUrl
     : roomManagerUrl + '/';
-  const result = await fetch(
-    `${url}rooms/${roomName.trim()}/users/${userName.trim()}`,
+  const response = await fetch(
+    `${url}api/rooms/${roomName.trim()}/users/${userName.trim()}`,
   );
-
-  const tokenData = (await result.json()) as {
+  if (!response.ok) {
+    throw new Error(JSON.stringify(await response.json()));
+  }
+  const tokenData = (await response.json()) as {
     url: string;
     token: string;
   };
@@ -49,9 +51,7 @@ async function getJellyFishServer(
 
 const ConnectScreen = ({navigation}: Props) => {
   const {connect} = useJellyfishClient();
-  const [connectionError, setConnectionError] = useState<string | undefined>(
-    undefined,
-  );
+  const [connectionError, setConnectionError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const [roomManagerUrl, setRoomManagerUrl] = useState(
@@ -64,9 +64,9 @@ const ConnectScreen = ({navigation}: Props) => {
 
   const onTapConnectButton = async () => {
     try {
-      setConnectionError(undefined);
+      setConnectionError(null);
       setLoading(true);
-      const {jellyfishUrl, token} = await getJellyFishServer(
+      const {jellyfishUrl, token} = await getJellyfishServer(
         roomManagerUrl,
         roomName,
         userName,

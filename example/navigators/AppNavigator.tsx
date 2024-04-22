@@ -7,7 +7,8 @@ import RoomScreen from '../screens/RoomScreen';
 import React from 'react';
 import PreviewScreen from '../screens/PreviewScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Typo} from '../components';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {AdditionalColors, BrandColors} from '../utils/Colors';
 
 export type AppRootStackParamList = {
   Home: undefined;
@@ -20,8 +21,10 @@ export type TabParamList = {
   ConnectWithRoomManager: undefined;
 };
 
-const tabBarIcon = (icon: string) => () =>
-  <Typo variant="body-big">{icon}</Typo>;
+const tabBarIcon =
+  (icon: keyof typeof MaterialCommunityIcons.glyphMap) =>
+  ({color}: {color: string}) =>
+    <MaterialCommunityIcons name={icon} size={24} color={color} />;
 
 export type AppStackNavigation = NavigationProp<AppRootStackParamList>;
 
@@ -38,7 +41,9 @@ const TabNavigator = () => {
         component={ConnectWithTokenScreen}
         options={{
           tabBarLabel: 'Use Token',
-          tabBarIcon: tabBarIcon('🎟️'),
+          tabBarActiveTintColor: BrandColors.darkBlue100,
+          tabBarInactiveTintColor: AdditionalColors.grey60,
+          tabBarIcon: tabBarIcon('ticket'),
         }}
       />
       <Tab.Screen
@@ -46,7 +51,9 @@ const TabNavigator = () => {
         component={ConnectWithRoomManagerScreen}
         options={{
           tabBarLabel: 'Use Room Manager',
-          tabBarIcon: tabBarIcon('🏢'),
+          tabBarActiveTintColor: BrandColors.darkBlue100,
+          tabBarInactiveTintColor: AdditionalColors.grey60,
+          tabBarIcon: tabBarIcon('room-service'),
         }}
       />
     </Tab.Navigator>

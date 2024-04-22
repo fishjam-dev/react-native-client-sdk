@@ -25,9 +25,7 @@ type Props = CompositeScreenProps<
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
   const {connect} = useJellyfishClient();
-  const [connectionError, setConnectionError] = useState<string | undefined>(
-    undefined,
-  );
+  const [connectionError, setConnectionError] = useState<string | null>(null);
 
   const [peerToken, onChangePeerToken] = useState('');
   const [jellyfishUrl, onChangeJellyfishUrl] = useState(
@@ -38,7 +36,7 @@ const ConnectScreen = ({navigation}: Props) => {
 
   const onTapConnectButton = async () => {
     try {
-      setConnectionError(undefined);
+      setConnectionError(null);
       await connect(jellyfishUrl.trim(), peerToken.trim());
       navigation.navigate('Preview');
     } catch (e) {
