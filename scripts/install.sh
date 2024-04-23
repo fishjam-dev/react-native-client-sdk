@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Run the commands in sequence
-export NO_FLIPPER="1"
 yarn
 cd example
 yarn

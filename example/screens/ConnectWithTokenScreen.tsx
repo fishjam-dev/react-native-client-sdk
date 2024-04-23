@@ -1,64 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   Image,
-  Permission,
-  PermissionsAndroid,
-  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-
 import {connectScreenLabels} from '../types/ComponentLabels';
-
 import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
-
 import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
-
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppRootStackParamList} from '../navigators/AppNavigator';
+import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {TabParamList} from '../navigators/AppNavigator';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {usePermissionCheck} from '../hooks/usePermissionCheck';
 
-type Props = NativeStackScreenProps<AppRootStackParamList, 'Connect'>;
+type Props = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, 'ConnectWithToken'>,
+  NativeStackScreenProps<AppRootStackParamList>
+>;
 
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const ConnectScreen = ({navigation}: Props) => {
   const {connect} = useJellyfishClient();
-  const [connectionError, setConnectionError] = useState<string | undefined>(
-    undefined,
-  );
+  const [connectionError, setConnectionError] = useState<string | null>(null);
+
   const [peerToken, onChangePeerToken] = useState('');
   const [jellyfishUrl, onChangeJellyfishUrl] = useState(
     process.env.JELLYFISH_URL ?? '',
   );
-  useEffect(() => {
-    async function request() {
-      if (Platform.OS === 'ios') {
-        return;
-      }
-      try {
-        await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
-        ]);
-      } catch (err) {
-        console.warn(err);
-      }
-    }
 
-    request();
-  }, []);
+  usePermissionCheck();
 
   const onTapConnectButton = async () => {
     try {
+      setConnectionError(null);
       await connect(jellyfishUrl.trim(), peerToken.trim());
       navigation.navigate('Preview');
     } catch (e) {
       const message =
         'message' in (e as Error) ? (e as Error).message : 'Unknown error';
       setConnectionError(message);
-      console.log(e);
     }
   };
 

@@ -43,14 +43,14 @@ const Button = ({
   onPress,
   title,
 }: StandardButtonProps) => {
-  const GetBackgroundColorStyle = (
-    type: StandardButtonTypeName,
-    disabled: boolean,
+  const getBackgroundColorStyle = (
+    buttonType: StandardButtonTypeName,
+    isDisabled: boolean,
   ) => {
-    if (disabled) {
+    if (isDisabled) {
       return StandardButtonStyles.disabled;
     }
-    switch (type) {
+    switch (buttonType) {
       case 'primary':
         return StandardButtonStyles.primary;
       case 'danger':
@@ -60,21 +60,19 @@ const Button = ({
     }
   };
 
-  const GetStylesForButtonType = (type: StandardButtonTypeName) => {
-    return [
-      StandardButtonStyles.common,
-      GetBackgroundColorStyle(type, disabled),
-    ];
-  };
+  const stylesForButtonType = [
+    StandardButtonStyles.common,
+    getBackgroundColorStyle(type, disabled),
+  ];
 
-  const GetTextColorForButtonType = (
-    type: StandardButtonTypeName,
-    disabled: boolean,
+  const getTextColorForButtonType = (
+    buttonType: StandardButtonTypeName,
+    isDisabled: boolean,
   ) => {
-    if (disabled) {
+    if (isDisabled) {
       return TextColors.white;
     }
-    switch (type) {
+    switch (buttonType) {
       case 'primary':
         return TextColors.white;
       case 'danger':
@@ -89,10 +87,10 @@ const Button = ({
       onPress={onPress}
       disabled={disabled}
       accessibilityLabel={accessibilityLabel}>
-      <View style={GetStylesForButtonType(type)}>
+      <View style={stylesForButtonType}>
         <Typo
           variant="button"
-          color={GetTextColorForButtonType(type, disabled)}>
+          color={getTextColorForButtonType(type, disabled)}>
           {title}
         </Typo>
       </View>

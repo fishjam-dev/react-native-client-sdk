@@ -13,6 +13,7 @@ runs:
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/assets/**/*',
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/components/**/*',
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/contexts/**/*',
+            '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/hooks/**/*',
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/navigators/**/*',
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/providers/**/*',
             '/home/runner/work/react-native-client-sdk/react-native-client-sdk/example/screens/**/*',

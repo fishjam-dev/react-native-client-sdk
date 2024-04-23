@@ -44,17 +44,15 @@ const InCallButton = ({
   iconName,
   accessibilityLabel,
 }: InCallButtonProps) => {
-  const GetStylesForButtonType = (type: ButtonTypeName) => {
-    return [
-      InCallButtonStyles.common,
-      type === 'primary'
-        ? InCallButtonStyles.primary
-        : InCallButtonStyles.disconnect,
-    ];
-  };
+  const stylesForButtonType = [
+    InCallButtonStyles.common,
+    type === 'primary'
+      ? InCallButtonStyles.primary
+      : InCallButtonStyles.disconnect,
+  ];
 
-  const GetIconColorForButtonType = (type: ButtonTypeName) => {
-    switch (type) {
+  const GetIconColorForButtonType = (buttonType: ButtonTypeName) => {
+    switch (buttonType) {
       case 'primary':
         return BrandColors.darkBlue100;
       case 'disconnect':
@@ -67,7 +65,7 @@ const InCallButton = ({
       onPress={onPress}
       style={InCallButtonStyles.common}
       accessibilityLabel={accessibilityLabel}>
-      <View style={GetStylesForButtonType(type)}>
+      <View style={stylesForButtonType}>
         <MaterialCommunityIcons
           name={iconName}
           size={IconSize}
