@@ -8,18 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* JellyfishExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* JellyfishExampleTests.m */; };
-		0A1DB8DDFDF6A8C10C3735FA /* libPods-JellyfishExample-JellyfishExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26AC4E70494349ECE92B3CEB /* libPods-JellyfishExample-JellyfishExampleTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		51955CA75D94C6AC9FA656A2 /* libPods-JellyfishExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C92651F3DCEE9852417F45B0 /* libPods-JellyfishExample.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		842610E52AF570706B47D754 /* libPods-ScreenBroadcast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1CD34FCC798EA1F56AF203 /* libPods-ScreenBroadcast.a */; };
 		A4AE54082454256BB1348002 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6486D552DE55BE12979D457F /* ExpoModulesProvider.swift */; };
-		B9CB8746D5DD3B62981F4234 /* libPods-ScreenBroadcast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A9728E80A237A210564820 /* libPods-ScreenBroadcast.a */; };
 		C36C387544222DE51F95C8C8 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96822F1E4B772E6913DCDDDB /* ExpoModulesProvider.swift */; };
-		CFD54B0B9B93F809073246F5 /* libPods-JellyfishExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0E9F4AFB784A63E5F991C14 /* libPods-JellyfishExample.a */; };
 		D2D7AC482B0BA9380029C1D6 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D249AAD22B06724C0053962E /* ReplayKit.framework */; };
 		D2D7AC4B2B0BA9390029C1D6 /* ScreenBroadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D7AC4A2B0BA9390029C1D6 /* ScreenBroadcast.swift */; };
 		D2D7AC4F2B0BA9390029C1D6 /* ScreenBroadcast.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D2D7AC472B0BA9380029C1D6 /* ScreenBroadcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E8A5BC0C564083C148A6E0BD /* libPods-JellyfishExample-JellyfishExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E37DFA54B312B90B12E3736F /* libPods-JellyfishExample-JellyfishExampleTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,25 +63,25 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = JellyfishExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = JellyfishExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JellyfishExample/main.m; sourceTree = "<group>"; };
-		172C651F29D49A6E48198F7B /* Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		26AC4E70494349ECE92B3CEB /* libPods-JellyfishExample-JellyfishExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JellyfishExample-JellyfishExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		384D27CDFDCF09715D5AD760 /* Pods-JellyfishExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample.debug.xcconfig"; path = "Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample.debug.xcconfig"; sourceTree = "<group>"; };
-		4CD1D8E05E550ADBD421CF63 /* Pods-JellyfishExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample.release.xcconfig"; path = "Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample.release.xcconfig"; sourceTree = "<group>"; };
 		6486D552DE55BE12979D457F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-JellyfishExample/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		74A9728E80A237A210564820 /* libPods-ScreenBroadcast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScreenBroadcast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = JellyfishExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		832FD0D47E70DD5BA6D1812C /* Pods-JellyfishExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample.debug.xcconfig"; path = "Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample.debug.xcconfig"; sourceTree = "<group>"; };
+		88C324D876F2A72B34B26D01 /* Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig"; path = "Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		91E41072EA36ABDE32AF7F33 /* Pods-ScreenBroadcast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.release.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.release.xcconfig"; sourceTree = "<group>"; };
 		96822F1E4B772E6913DCDDDB /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		986FB6F5FEBCB62343B77C79 /* Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig"; path = "Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		A0E9F4AFB784A63E5F991C14 /* libPods-JellyfishExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JellyfishExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A71A5ED3B0AEA7ED0EFD07CD /* Pods-ScreenBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.debug.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
+		9F725A01F527F60EA3A4D71D /* Pods-JellyfishExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample.release.xcconfig"; path = "Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample.release.xcconfig"; sourceTree = "<group>"; };
+		A9779E6FB8856FA3858B23DF /* Pods-ScreenBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.debug.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
+		C92651F3DCEE9852417F45B0 /* libPods-JellyfishExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JellyfishExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D249AAD22B06724C0053962E /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		D249AADF2B0672950053962E /* JellyfishExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = JellyfishExample.entitlements; path = JellyfishExample/JellyfishExample.entitlements; sourceTree = "<group>"; };
 		D2D7AC472B0BA9380029C1D6 /* ScreenBroadcast.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenBroadcast.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D7AC4A2B0BA9390029C1D6 /* ScreenBroadcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenBroadcast.swift; sourceTree = "<group>"; };
 		D2D7AC4C2B0BA9390029C1D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2D7AC532B0BA98B0029C1D6 /* ScreenBroadcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenBroadcast.entitlements; sourceTree = "<group>"; };
-		E34E8DE127B2D6781A1DA851 /* Pods-ScreenBroadcast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.release.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.release.xcconfig"; sourceTree = "<group>"; };
+		DF9AE0D7E2616477A55A0F18 /* Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E37DFA54B312B90B12E3736F /* libPods-JellyfishExample-JellyfishExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JellyfishExample-JellyfishExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FE1CD34FCC798EA1F56AF203 /* libPods-ScreenBroadcast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScreenBroadcast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A1DB8DDFDF6A8C10C3735FA /* libPods-JellyfishExample-JellyfishExampleTests.a in Frameworks */,
+				E8A5BC0C564083C148A6E0BD /* libPods-JellyfishExample-JellyfishExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFD54B0B9B93F809073246F5 /* libPods-JellyfishExample.a in Frameworks */,
+				51955CA75D94C6AC9FA656A2 /* libPods-JellyfishExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D7AC482B0BA9380029C1D6 /* ReplayKit.framework in Frameworks */,
-				B9CB8746D5DD3B62981F4234 /* libPods-ScreenBroadcast.a in Frameworks */,
+				842610E52AF570706B47D754 /* libPods-ScreenBroadcast.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,9 +149,9 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				D249AAD22B06724C0053962E /* ReplayKit.framework */,
-				A0E9F4AFB784A63E5F991C14 /* libPods-JellyfishExample.a */,
-				26AC4E70494349ECE92B3CEB /* libPods-JellyfishExample-JellyfishExampleTests.a */,
-				74A9728E80A237A210564820 /* libPods-ScreenBroadcast.a */,
+				C92651F3DCEE9852417F45B0 /* libPods-JellyfishExample.a */,
+				E37DFA54B312B90B12E3736F /* libPods-JellyfishExample-JellyfishExampleTests.a */,
+				FE1CD34FCC798EA1F56AF203 /* libPods-ScreenBroadcast.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,12 +210,12 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				384D27CDFDCF09715D5AD760 /* Pods-JellyfishExample.debug.xcconfig */,
-				4CD1D8E05E550ADBD421CF63 /* Pods-JellyfishExample.release.xcconfig */,
-				172C651F29D49A6E48198F7B /* Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig */,
-				986FB6F5FEBCB62343B77C79 /* Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig */,
-				A71A5ED3B0AEA7ED0EFD07CD /* Pods-ScreenBroadcast.debug.xcconfig */,
-				E34E8DE127B2D6781A1DA851 /* Pods-ScreenBroadcast.release.xcconfig */,
+				832FD0D47E70DD5BA6D1812C /* Pods-JellyfishExample.debug.xcconfig */,
+				9F725A01F527F60EA3A4D71D /* Pods-JellyfishExample.release.xcconfig */,
+				DF9AE0D7E2616477A55A0F18 /* Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig */,
+				88C324D876F2A72B34B26D01 /* Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig */,
+				A9779E6FB8856FA3858B23DF /* Pods-ScreenBroadcast.debug.xcconfig */,
+				91E41072EA36ABDE32AF7F33 /* Pods-ScreenBroadcast.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -245,13 +245,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "JellyfishExampleTests" */;
 			buildPhases = (
-				593A8F02A1CF99FD66EA710C /* [CP] Check Pods Manifest.lock */,
+				5ACA49CAD5460AC7D8AFFD3D /* [CP] Check Pods Manifest.lock */,
 				EC302C2D573892907E91A28D /* [Expo] Configure project */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				02432620130019F66DFCCEDF /* [CP] Embed Pods Frameworks */,
-				6729686B9DDFA27622A59950 /* [CP] Copy Pods Resources */,
+				937884FB4191F563D9D21E87 /* [CP] Embed Pods Frameworks */,
+				4AE4E02C35E80D177BBC3ABB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,7 +267,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "JellyfishExample" */;
 			buildPhases = (
-				29227BC426ADB416E2BC2C44 /* [CP] Check Pods Manifest.lock */,
+				C0E4538623992DC46D55F052 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				2C2C21F5B052BD7681B67CFD /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -275,8 +275,8 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D249AADB2B06724D0053962E /* Embed Foundation Extensions */,
-				AA9AAAAD8F1264E363AAEB4D /* [CP] Embed Pods Frameworks */,
-				2ADFE8816E4D27241B33604A /* [CP] Copy Pods Resources */,
+				17E143F0C289485640851569 /* [CP] Embed Pods Frameworks */,
+				B513C03D597D578BFF5FF00F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -292,11 +292,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2D7AC502B0BA9390029C1D6 /* Build configuration list for PBXNativeTarget "ScreenBroadcast" */;
 			buildPhases = (
-				FB2C8EDD06E112B420D49275 /* [CP] Check Pods Manifest.lock */,
+				03D8C6610DA9AFAD23AC09F7 /* [CP] Check Pods Manifest.lock */,
 				D2D7AC432B0BA9380029C1D6 /* Sources */,
 				D2D7AC442B0BA9380029C1D6 /* Frameworks */,
 				D2D7AC452B0BA9380029C1D6 /* Resources */,
-				69309DD75A698736D6D1C69A /* [CP] Copy Pods Resources */,
+				60245505716D530B830E60CB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -391,24 +391,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		02432620130019F66DFCCEDF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		29227BC426ADB416E2BC2C44 /* [CP] Check Pods Manifest.lock */ = {
+		03D8C6610DA9AFAD23AC09F7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -423,28 +406,28 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-JellyfishExample-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ScreenBroadcast-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2ADFE8816E4D27241B33604A /* [CP] Copy Pods Resources */ = {
+		17E143F0C289485640851569 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2C2C21F5B052BD7681B67CFD /* [Expo] Configure project */ = {
@@ -466,7 +449,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-JellyfishExample/expo-configure-project.sh\"\n";
 		};
-		593A8F02A1CF99FD66EA710C /* [CP] Check Pods Manifest.lock */ = {
+		4AE4E02C35E80D177BBC3ABB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5ACA49CAD5460AC7D8AFFD3D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -488,24 +488,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6729686B9DDFA27622A59950 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		69309DD75A698736D6D1C69A /* [CP] Copy Pods Resources */ = {
+		60245505716D530B830E60CB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -522,21 +505,60 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AA9AAAAD8F1264E363AAEB4D /* [CP] Embed Pods Frameworks */ = {
+		937884FB4191F563D9D21E87 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample-JellyfishExampleTests/Pods-JellyfishExample-JellyfishExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B513C03D597D578BFF5FF00F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JellyfishExample/Pods-JellyfishExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0E4538623992DC46D55F052 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JellyfishExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EC302C2D573892907E91A28D /* [Expo] Configure project */ = {
@@ -557,28 +579,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-JellyfishExample-JellyfishExampleTests/expo-configure-project.sh\"\n";
-		};
-		FB2C8EDD06E112B420D49275 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ScreenBroadcast-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -647,7 +647,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 172C651F29D49A6E48198F7B /* Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig */;
+			baseConfigurationReference = DF9AE0D7E2616477A55A0F18 /* Pods-JellyfishExample-JellyfishExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -675,7 +675,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 986FB6F5FEBCB62343B77C79 /* Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig */;
+			baseConfigurationReference = 88C324D876F2A72B34B26D01 /* Pods-JellyfishExample-JellyfishExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -700,7 +700,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 384D27CDFDCF09715D5AD760 /* Pods-JellyfishExample.debug.xcconfig */;
+			baseConfigurationReference = 832FD0D47E70DD5BA6D1812C /* Pods-JellyfishExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -736,7 +736,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CD1D8E05E550ADBD421CF63 /* Pods-JellyfishExample.release.xcconfig */;
+			baseConfigurationReference = 9F725A01F527F60EA3A4D71D /* Pods-JellyfishExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -918,7 +918,7 @@
 		};
 		D2D7AC512B0BA9390029C1D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A71A5ED3B0AEA7ED0EFD07CD /* Pods-ScreenBroadcast.debug.xcconfig */;
+			baseConfigurationReference = A9779E6FB8856FA3858B23DF /* Pods-ScreenBroadcast.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -962,7 +962,7 @@
 		};
 		D2D7AC522B0BA9390029C1D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E34E8DE127B2D6781A1DA851 /* Pods-ScreenBroadcast.release.xcconfig */;
+			baseConfigurationReference = 91E41072EA36ABDE32AF7F33 /* Pods-ScreenBroadcast.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
