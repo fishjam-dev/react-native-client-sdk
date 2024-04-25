@@ -38,15 +38,7 @@ On development build `eas build` should take care of it.
 ### Android
 
 1. Add camera and microphone permissions to your `AndroidManifest.xml`.
-2. For android 14+ add following code in your `AndroidManifest.xml` in application section:
-```xml
-<service
-  android:name=".YourServiceName"
-  android:foregroundServiceType="mediaProjection"
-  android:exported="false">
-</service>
-```
-3. Rebuild the app. That's it!
+2. Rebuild the app. That's it!
 
 ### iOS
 
