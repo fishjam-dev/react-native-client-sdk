@@ -11,6 +11,7 @@ export function usePermissionCheck() {
         await PermissionsAndroid.requestMultiple([
           PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
           PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS as Permission,
         ]);
       } catch (err) {
         console.warn(err);
