@@ -1,7 +1,8 @@
 {
-  "name": "@jellyfish-dev/react-native-membrane-webrtc",
-  "version": "7.4.1",
-  "description": "A React Native client for Membrane WebRTC server.",
+  "name": "@jellyfish-dev/react-native-client-sdk",
+  "version": "0.1.6",
+  "description": "React native client sdk for the Jellyfish server.",
+  "license": "Apache-2.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -23,16 +24,14 @@
   "keywords": [
     "react-native",
     "expo",
-    "@jellyfish-dev/react-native-membrane-webrtc",
+    "@jellyfish-dev/react-native-client-sdk",
     "MembraneWebRTC"
   ],
-  "repository": "https://github.com/membraneframework/react-native-membrane-webrtc",
-  "author": "Angelika Serwa <angelika.serwa@swmansion.com> (https://github.com/graszka22)",
-  "license": "MIT",
+  "repository": "https://github.com/jellyfish-dev/react-native-client-sdk",
   "bugs": {
-    "url": "https://github.com/membraneframework/react-native-membrane-webrtc/issues"
+    "url": "https://github.com/jellyfish-dev/react-native-client-sdk/issues"
   },
-  "homepage": "https://github.com/membraneframework/react-native-membrane-webrtc#readme",
+  "homepage": "https://github.com/jellyfish-dev/react-native-client-sdk#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
