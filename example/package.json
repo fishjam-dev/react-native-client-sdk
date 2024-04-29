@@ -40,6 +40,7 @@
     "@tsconfig/react-native": "^3.0.0",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.201",
+    "@types/node": "^20.12.7",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
@@ -55,8 +56,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "engines": {
-    "yarn": "1.22.21"
   }
 }

@@ -1803,19 +1803,11 @@
 "@jellyfish-dev/react-native-client-sdk@file:..":
   version "0.1.6"
   dependencies:
-    "@jellyfish-dev/react-native-membrane-webrtc" "7.4.1"
-    expo-modules-core "1.11.8"
-    protobufjs "^7.2.4"
-    react-native-safe-area-context "^4.9.0"
-
-"@jellyfish-dev/react-native-membrane-webrtc@7.4.1":
-  version "7.4.1"
-  resolved "https://registry.yarnpkg.com/@jellyfish-dev/react-native-membrane-webrtc/-/react-native-membrane-webrtc-7.4.1.tgz#fe3b25216b27e87fbbaf87ae16ebd15e1d7db28c"
-  integrity sha512-ocGeblpEzr8H7XOwKB3ZmgZBBYagdgLiFsJaC1QGrdn8CyIrAgGMFp9e4BhSXE8nB7r7Mi5kFh3gY0wCqcSxbQ==
-  dependencies:
     expo "^50.0.7"
     phoenix "^1.7.6"
     promise-fs "^2.1.1"
+    protobufjs "^7.2.4"
+    react-native-safe-area-context "^4.9.0"
 
 "@jest/console@^29.7.0":
   version "29.7.0"
@@ -2754,7 +2746,7 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@>=13.7.0":
+"@types/node@>=13.7.0", "@types/node@^20.12.7":
   version "20.12.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.7.tgz#04080362fa3dd6c5822061aa3124f5c152cff384"
   integrity sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==
@@ -4713,13 +4705,6 @@ expo-modules-core@1.11.13:
   version "1.11.13"
   resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-1.11.13.tgz#a8e63ad844e966dce78dea40b50839af6c3bc518"
   integrity sha512-2H5qrGUvmLzmJNPDOnovH1Pfk5H/S/V0BifBmOQyDc9aUh9LaDwkqnChZGIXv8ZHDW8JRlUW0QqyWxTggkbw1A==
-  dependencies:
-    invariant "^2.2.4"
-
-expo-modules-core@1.11.8:
-  version "1.11.8"
-  resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-1.11.8.tgz#b0bdb31e70e1e570b70a9613f4b6392306c99a80"
-  integrity sha512-rlctE3nCNLCGv3LosGQNaTuwGrr2SyQA+hOgci/0l+VRc0gFNtvl0gskph9C0tnN1jzBeb8rRZQYVj5ih1yxcA==
   dependencies:
     invariant "^2.2.4"
 
