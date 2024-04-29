@@ -1,8 +1,12 @@
-import WS from 'jest-websocket-mock';
 import { renderHook, act } from '@testing-library/react';
-import { JellyfishContextProvider, useJellyfishClient } from '..';
-import { PeerMessage } from '../protos/jellyfish/peer_notifications';
 import { requireNativeModule } from 'expo-modules-core';
+import WS from 'jest-websocket-mock';
+
+import { PeerMessage } from '../../client-sdk/src/protos/jellyfish/peer_notifications';
+import {
+  JellyfishContextProvider,
+  useJellyfishClient,
+} from '../JellyfishClientContext';
 
 let sendEvent: null | (({ event }: { event: string }) => void) = null;
 
