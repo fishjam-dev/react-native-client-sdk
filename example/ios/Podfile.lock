@@ -17,7 +17,7 @@ PODS:
     - ExpoModulesCore
   - ExpoKeepAwake (12.8.2):
     - ExpoModulesCore
-  - ExpoModulesCore (1.11.8):
+  - ExpoModulesCore (1.11.9):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -51,7 +51,7 @@ PODS:
     - SwiftPhoenixClient (~> 4.0.0)
     - SwiftProtobuf
     - WebRTC-SDK (= 114.5735.08)
-  - MembraneWebRTC (7.4.1):
+  - MembraneWebRTC (0.1.6):
     - ExpoModulesCore
     - MembraneRTC (= 5.3.0)
   - PromisesObjC (2.4.0)
@@ -1140,9 +1140,8 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
-  - MembraneRTC
   - MembraneRTC/Broadcast
-  - "MembraneWebRTC (from `../node_modules/@jellyfish-dev/react-native-membrane-webrtc/ios`)"
+  - "MembraneWebRTC (from `../node_modules/@jellyfish-dev/react-native-client-sdk/ios`)"
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -1237,7 +1236,7 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2023-11-17-RNv0.73.0-21043a3fc062be445e56a2c10ecd8be028dd9cc5
   MembraneWebRTC:
-    :path: "../node_modules/@jellyfish-dev/react-native-membrane-webrtc/ios"
+    :path: "../node_modules/@jellyfish-dev/react-native-client-sdk/ios"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -1341,7 +1340,7 @@ SPEC CHECKSUMS:
   ExpoDevice: d204395e17fffdcefa7470bdef33b07719ac41b1
   ExpoFileSystem: a9273932e69a9a1e1a8d01b6ba895bb8294bbea2
   ExpoKeepAwake: 0f5cad99603a3268e50af9a6eb8b76d0d9ac956c
-  ExpoModulesCore: 96d1751929ad10622773bb729ab28a8423f0dd0c
+  ExpoModulesCore: 1391529545de72f7f64ecabc7adb912306ab4d34
   FBLazyVector: 84f6edbe225f38aebd9deaf1540a4160b1f087d7
   FBReactNativeSpec: d0086a479be91c44ce4687a962956a352d2dc697
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
@@ -1349,7 +1348,7 @@ SPEC CHECKSUMS:
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MembraneRTC: b62d9f01edbee0c251d6671e868ac3b25e68e66a
-  MembraneWebRTC: 72023d2a5f393cf8fe22143e7aeabc5106c4081c
+  MembraneWebRTC: 75f4302a3dcb7fd660c82e832a3b7c80049ba905
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
@@ -1405,6 +1404,6 @@ SPEC CHECKSUMS:
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 0e158558e5592173f3e8c383cbb6b32134d0132a
+PODFILE CHECKSUM: 2be8f3c61f62000b9b64e108546b1220adfa9b87
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.2
