@@ -1803,15 +1803,14 @@
 "@jellyfish-dev/react-native-client-sdk@file:..":
   version "0.1.6"
   dependencies:
-    "@jellyfish-dev/react-native-membrane-webrtc" "7.4.1"
+    "@jellyfish-dev/react-native-membrane-webrtc" "https://github.com/jellyfish-dev/react-native-membrane-webrtc#61e9ff09588f1e9025c598e1eb183fec2caec4ca"
     expo-modules-core "1.11.8"
     protobufjs "^7.2.4"
     react-native-safe-area-context "^4.9.0"
 
-"@jellyfish-dev/react-native-membrane-webrtc@7.4.1":
+"@jellyfish-dev/react-native-membrane-webrtc@https://github.com/jellyfish-dev/react-native-membrane-webrtc#61e9ff09588f1e9025c598e1eb183fec2caec4ca":
   version "7.4.1"
-  resolved "https://registry.yarnpkg.com/@jellyfish-dev/react-native-membrane-webrtc/-/react-native-membrane-webrtc-7.4.1.tgz#fe3b25216b27e87fbbaf87ae16ebd15e1d7db28c"
-  integrity sha512-ocGeblpEzr8H7XOwKB3ZmgZBBYagdgLiFsJaC1QGrdn8CyIrAgGMFp9e4BhSXE8nB7r7Mi5kFh3gY0wCqcSxbQ==
+  resolved "https://github.com/jellyfish-dev/react-native-membrane-webrtc#61e9ff09588f1e9025c598e1eb183fec2caec4ca"
   dependencies:
     expo "^50.0.7"
     phoenix "^1.7.6"

@@ -117,7 +117,7 @@ const JellyfishContextProvider = (props: any) => {
         }
       });
     });
-
+    await membraneModule.create();
     await processIncomingMessages;
   }, []);
 
