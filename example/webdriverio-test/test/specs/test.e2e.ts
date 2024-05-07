@@ -184,7 +184,24 @@ const tests: Test[] = [
     run: async () => {
       await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
       if (driver.isAndroid) {
-        await driver.acceptAlert();
+        try {
+          await driver.acceptAlert();
+        } catch {
+          await driver.pause(100);
+          let selector = 'new UiSelector().text("A single app")';
+          let button = await driver.$(`android=${selector}`);
+          button?.click();
+          await driver.pause(100);
+
+          selector = 'new UiSelector().text("Entire screen")';
+          button = await driver.$(`android=${selector}`);
+          button?.click();
+          await driver.pause(100);
+
+          selector = 'new UiSelector().text("Start")';
+          button = await driver.$(`android=${selector}`);
+          button?.click();
+        }
       } else {
         const buttons = await driver.$$('//XCUIElementTypeButton');
         const button = buttons[0];
