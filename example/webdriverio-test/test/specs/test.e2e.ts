@@ -279,6 +279,17 @@ const tests: Test[] = [
     },
     skip: false,
   },
+  {
+    name: 'connect one more time',
+    run: async () => {
+      await tapButton(driver, '~' + CONNECT_BUTTON);
+      await driver.pause(200);
+      await tapButton(driver, '~' + JOIN_BUTTON);
+      await driver.pause(200);
+      await tapButton(driver, '~' + DISCONNECT_BUTTON);
+    },
+    skip: false,
+  },
 ];
 describe('Walk through app', async function (this: Suite): Promise<void> {
   for (const {name, run, skip} of tests) {
