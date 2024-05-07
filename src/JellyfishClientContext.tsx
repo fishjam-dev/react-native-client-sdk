@@ -79,6 +79,7 @@ const JellyfishContextProvider = (props: any) => {
   }, []);
 
   const connect = useCallback(async (url: string, peerToken: string) => {
+    websocket.current?.close();
     websocket.current = new WebSocket(url);
 
     const processIncomingMessages = new Promise<void>((resolve, reject) => {
@@ -126,10 +127,14 @@ const JellyfishContextProvider = (props: any) => {
   }, []);
 
   const cleanUp = useCallback(() => {
-    membraneModule.disconnect();
+    membraneModule?.disconnect();
     websocket.current?.close();
     websocket.current = null;
   }, []);
+
+  useEffect(() => {
+    return cleanUp;
+  }, [cleanUp]);
 
   const leave = useCallback(() => {
     membraneModule.disconnect();
