@@ -16,6 +16,7 @@ jest.mock('expo-modules-core', () => ({
   requireNativeModule: jest.fn().mockReturnValue({
     receiveMediaEvent: jest.fn(),
     create: jest.fn(),
+    disconnect: jest.fn(),
   }),
   NativeModulesProxy: jest.fn().mockImplementation(() => {
     return jest.fn();
