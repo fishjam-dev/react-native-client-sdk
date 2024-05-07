@@ -26,6 +26,7 @@ import {
 } from '../../server-api';
 
 import * as assert from 'assert';
+import {MultiRemoteCapabilities} from '@wdio/types/build/Capabilities';
 
 const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
 const {
@@ -95,6 +96,8 @@ const tests: Test[] = [
   {
     name: 'create room and peer to obtain credentials',
     run: async () => {
+      let d = driver.capabilities as MultiRemoteCapabilities;
+      console.log('Capabilities', d.deviceApiLevel);
       room = await createJellyfishRoom();
       assert.ok(room !== undefined);
       peerDetail = await addPeerToRoom(room.id);
@@ -184,7 +187,24 @@ const tests: Test[] = [
     run: async () => {
       await tapButton(driver, '~' + SHARE_SCREEN_BUTTON);
       if (driver.isAndroid) {
-        await driver.acceptAlert();
+        try {
+          await driver.acceptAlert();
+        } catch {
+          await driver.pause(100);
+          let selector = 'new UiSelector().text("A single app")';
+          let button = await driver.$(`android=${selector}`);
+          button?.click();
+          await driver.pause(100);
+
+          selector = 'new UiSelector().text("Entire screen")';
+          button = await driver.$(`android=${selector}`);
+          button?.click();
+          await driver.pause(100);
+
+          selector = 'new UiSelector().text("Start")';
+          button = await driver.$(`android=${selector}`);
+          button?.click();
+        }
       } else {
         const buttons = await driver.$$('//XCUIElementTypeButton');
         const button = buttons[0];
