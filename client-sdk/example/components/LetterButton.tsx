@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import AccessibilityLabel from '../types/AccessibilityLabel';
-import {TrackEncoding} from '@jellyfish-dev/react-native-client-sdk';
+import {TrackEncoding} from 'client-sdk/src';
 
 const LetterButtonStyles = StyleSheet.create({
   common: {

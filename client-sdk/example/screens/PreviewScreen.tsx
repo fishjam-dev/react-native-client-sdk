@@ -13,7 +13,7 @@ import {InCallButton} from '../components';
 import {
   CaptureDevice,
   TrackEncoding,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from 'client-sdk/src';
 
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';

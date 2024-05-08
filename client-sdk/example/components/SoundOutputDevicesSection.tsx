@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, FlatList, StyleSheet, View} from 'react-native';
 import {
   AudioOutputDevice,
   AudioOutputDeviceType,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from 'client-sdk/src';
 import {TextColors} from '../utils/Colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';

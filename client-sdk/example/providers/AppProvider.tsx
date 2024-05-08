@@ -1,4 +1,4 @@
-import {JellyfishContextProvider} from '@jellyfish-dev/react-native-client-sdk';
+import {JellyfishContextProvider} from 'client-sdk/src';
 import {JellyfishExampleContextProvider} from '../contexts/JellyfishExampleContext';
 import type {AppParentNode} from '../types/AppParentNode';
 import React from 'react';

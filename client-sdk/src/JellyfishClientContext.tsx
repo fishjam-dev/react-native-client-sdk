@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Metadata } from '@jellyfish-dev/react-native-client-sdk';
+import { Metadata } from 'client-sdk/src';
 import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
 
 import { useEffect, useRef } from 'react';

@@ -16,7 +16,7 @@ import {
   AudioOutputDevice,
   AudioOutputDeviceType,
   AudioSessionMode,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from 'client-sdk/src';
 
 import Toast from 'react-native-toast-message';
 

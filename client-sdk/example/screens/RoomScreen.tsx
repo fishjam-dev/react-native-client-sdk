@@ -14,7 +14,7 @@ import {
   usePeers,
   useScreencast,
   ScreencastQuality,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from 'client-sdk/src';
 
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {AppRootStackParamList} from '../navigators/AppNavigator';

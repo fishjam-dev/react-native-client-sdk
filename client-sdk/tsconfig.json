@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "paths": {
       "@jellyfish-dev/react-native-client-sdk": [
-        "./src/index"
+        "client-sdk/src/index"
       ]
     },
     "allowUnreachableCode": false,
