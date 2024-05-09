@@ -1,8 +1,12 @@
-import WS from 'jest-websocket-mock';
 import { renderHook, act } from '@testing-library/react';
-import { JellyfishContextProvider, useJellyfishClient } from '..';
-import { PeerMessage } from '../protos/jellyfish/peer_notifications';
 import { requireNativeModule } from 'expo-modules-core';
+import WS from 'jest-websocket-mock';
+
+import {
+  JellyfishContextProvider,
+  useJellyfishClient,
+} from '../JellyfishClientContext';
+import { PeerMessage } from '../protos/jellyfish/peer_notifications';
 
 let sendEvent: null | (({ event }: { event: string }) => void) = null;
 
@@ -23,7 +27,6 @@ jest.mock('expo-modules-core', () => ({
   }),
 }));
 
-jest.mock('@jellyfish-dev/react-native-membrane-webrtc');
 jest.mock('react-native', () => ({
   NativeEventEmitter: jest.fn().mockImplementation(() => ({
     addListener: jest.fn((_, _sendEvent) => {
