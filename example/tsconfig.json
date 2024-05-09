@@ -1,19 +1,10 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "strict": true,
     "paths": {
-      "@jellyfish-dev/react-native-membrane-webrtc": ["../src/index"],
-      "@jellyfish-dev/react-native-membrane-webrtc/*": ["../src/*"],
-      "@components/*": ["./src/components/*"],
-      "@colors": ["./src/shared/colors.ts"],
-      "@screens/*": ["./src/screens/*"],
-      "@model/*": ["./src/model/*"],
-      "@utils": ["./src/shared/utils.ts"],
-      "@assets/*": ["./assets/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@jellyfish-dev/react-native-client-sdk": [
+        "../src/index.tsx"
+      ]
     }
-  },
-  "include": ["./src"],
-  "exclude": ["**/__mocks__/*", "**/__tests__/*", "../src/*"]
+  }
 }

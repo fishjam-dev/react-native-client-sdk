@@ -1,30 +1,44 @@
-// Learn more https://docs.expo.io/guides/customizing-metro
-const { getDefaultConfig } = require('expo/metro-config');
+/**
+ * Metro configuration for React Native
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+
+const exclusionList = require('metro-config/src/defaults/exclusionList');
+const pak = require('../package.json');
 const path = require('path');
 
-const config = getDefaultConfig(__dirname);
+const root = path.resolve(__dirname, '..');
 
-// npm v7+ will install ../node_modules/react-native because of peerDependencies.
-// To prevent the incompatible react-native bewtween ./node_modules/react-native and ../node_modules/react-native,
-// excludes the one from the parent folder when bundling.
-config.resolver.blockList = [
-  ...Array.from(config.resolver.blockList ?? []),
-  new RegExp(path.resolve('..', 'node_modules', 'react-native')),
-  new RegExp(path.resolve('..', 'node_modules', 'react')),
-];
-
-config.resolver.nodeModulesPaths = [
-  path.resolve(__dirname, './node_modules'),
-  path.resolve(__dirname, '../node_modules'),
-];
-
-config.watchFolders = [path.resolve(__dirname, '..')];
-
-config.transformer.getTransformOptions = async () => ({
-  transform: {
-    experimentalImportSupport: false,
-    inlineRequires: true,
-  },
+const modules = Object.keys({
+  ...pak.peerDependencies,
 });
 
-module.exports = config;
+const config = {
+  projectRoot: __dirname,
+  watchFolders: [path.resolve(__dirname, root)],
+  resolver: {
+    blacklistRE: exclusionList(
+      modules.map(
+        m => new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`),
+      ),
+    ),
+
+    extraNodeModules: modules.reduce((acc, name) => {
+      acc[name] = path.join(__dirname, 'node_modules', name);
+      return acc;
+    }, {}),
+  },
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
+  },
+};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
