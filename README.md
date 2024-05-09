@@ -1,22 +1,22 @@
-# react-native-membrane-webrtc
+# react-native-client-sdk
 
-react-native-membrane-webrtc is a React Native wrapper for [membrane-webrtc-android](https://github.com/jellyfish-dev/membrane-webrtc-android) and [membrane-webrtc-ios](https://github.com/jellyfish-dev/membrane-webrtc-ios). It allows you to quickly and easily create a mobile client app in React Native for Membrane server.
+react-native-client-sdk is a React Native wrapper for [membrane-webrtc-android](https://github.com/jellyfish-dev/membrane-webrtc-android) and [membrane-webrtc-ios](https://github.com/jellyfish-dev/membrane-webrtc-ios). It allows you to quickly and easily create a mobile client app in React Native for Membrane server.
 
 # Documentation
-API documentation is available [here](https://jellyfish-dev.github.io/react-native-membrane-webrtc/)
+API documentation is available [here](https://jellyfish-dev.github.io/react-native-client-sdk/)
 
 # Installation
 
 Firstly install react-native-membrane with `yarn` or `npm`
 
 ```
-yarn add @jellyfish-dev/react-native-membrane-webrtc
+yarn add @jellyfish-dev/react-native-client-sdk
 ```
 
 or
 
 ```
-npm install --save @jellyfish-dev/react-native-membrane-webrtc
+npm install --save @jellyfish-dev/react-native-client-sdk
 ```
 
 ### Expo plugin
@@ -25,7 +25,7 @@ If you're using development builds with `eas build` or bare workflow you can try
 Simply run:
 
 ```
-expo install @jellyfish-dev/react-native-membrane-webrtc
+expo install @jellyfish-dev/react-native-client-sdk
 ```
 
 Add plugin to your `app.json` if it's not already added:
@@ -36,7 +36,7 @@ Add plugin to your `app.json` if it's not already added:
     "name": "example",
     ...
     "plugins": [
-      "@jellyfish-dev/react-native-membrane-webrtc"
+      "@jellyfish-dev/react-native-client-sdk"
     ]
   }
 }
@@ -51,7 +51,7 @@ If you want to use screensharing feature, enable it like this:
     ...
     "plugins": [
       [
-        "@jellyfish-dev/react-native-membrane-webrtc",
+        "@jellyfish-dev/react-native-client-sdk",
         {
           "setUpScreensharing": true,
         }

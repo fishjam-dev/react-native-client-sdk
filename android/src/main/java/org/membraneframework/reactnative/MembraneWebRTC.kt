@@ -98,7 +98,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     }
   }
 
-  private fun getSimulcastConfigFromOptions(simulcastConfigMap: com.reactnativemembrane.SimulcastConfig): SimulcastConfig {
+  private fun getSimulcastConfigFromOptions(simulcastConfigMap: org.membraneframework.reactnative.SimulcastConfig): SimulcastConfig {
     val simulcastEnabled = simulcastConfigMap.enabled
     val activeEncodings = simulcastConfigMap.activeEncodings.map { e -> e.toTrackEncoding() }
     return SimulcastConfig(

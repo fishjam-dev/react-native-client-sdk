@@ -129,7 +129,7 @@ const withMembraneSBE: ConfigPlugin<MembranePluginOptions> = (
     const iosPath = props.modRequest.platformProjectRoot;
     const bundleIdentifier = props.ios?.bundleIdentifier;
     const extensionSourceDir =
-      'node_modules/@jellyfish-dev/react-native-membrane-webrtc/plugin/broadcastExtensionFiles/';
+      'node_modules/@jellyfish-dev/react-native-client-sdk/plugin/broadcastExtensionFiles/';
     const xcodeProject = props.modResults;
 
     await updatePodfile(iosPath);
