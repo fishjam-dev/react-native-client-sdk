@@ -1,8 +1,0 @@
-{
-  "hooks": {
-    "after:bump": "yarn build && yarn build plugin"
-  },
-  "github": {
-    "release": true
-  }
-}
