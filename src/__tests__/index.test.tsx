@@ -2,6 +2,17 @@ import { renderHook, act } from '@testing-library/react';
 
 const membraneWebRTC = require('../index');
 
+jest.mock('expo-modules-core', () => ({
+  EventEmitter: jest.fn(),
+  requireNativeModule: jest.fn().mockReturnValue({}),
+}));
+
+jest.mock('react-native', () => ({
+  NativeEventEmitter: jest.fn().mockImplementation(() => ({
+    addListener: jest.fn(),
+  })),
+}));
+
 test('processing statistics', async () => {
   jest.useFakeTimers();
 
