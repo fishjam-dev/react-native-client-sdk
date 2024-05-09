@@ -1,26 +1,18 @@
+[![CI](https://github.com/jellyfish-dev/react-native-client-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/jellyfish-dev/react-native-client-sdk/actions/workflows/ci.yml)
+
 # react-native-client-sdk
 
-react-native-client-sdk is a React Native wrapper for [membrane-webrtc-android](https://github.com/jellyfish-dev/membrane-webrtc-android) and [membrane-webrtc-ios](https://github.com/jellyfish-dev/membrane-webrtc-ios). It allows you to quickly and easily create a mobile client app in React Native for Membrane server.
+Jellyfish client SDK in React Native
 
-# Documentation
-API documentation is available [here](https://jellyfish-dev.github.io/react-native-client-sdk/)
+## Installation
 
-# Installation
-
-Firstly install react-native-membrane with `yarn` or `npm`
-
-```
-yarn add @jellyfish-dev/react-native-client-sdk
-```
-
-or
-
-```
-npm install --save @jellyfish-dev/react-native-client-sdk
+```sh
+npm install @jellyfish-dev/react-native-client-sdk
 ```
 
 ### Expo plugin
 
+Even though this is not a native library, it has a dependency on `@jellyfish-dev/react-native-membrane-webrtc` which requires native configuration.
 If you're using development builds with `eas build` or bare workflow you can try using expo plugin to do the configuration below for you.
 Simply run:
 
@@ -28,7 +20,7 @@ Simply run:
 expo install @jellyfish-dev/react-native-client-sdk
 ```
 
-Add plugin to your `app.json` if it's not already added:
+Add plugin to your `app.json`:
 
 ```json
 {
@@ -36,26 +28,7 @@ Add plugin to your `app.json` if it's not already added:
     "name": "example",
     ...
     "plugins": [
-      "@jellyfish-dev/react-native-client-sdk"
-    ]
-  }
-}
-```
-
-If you want to use screensharing feature, enable it like this:
-
-```json
-{
-  "expo": {
-    "name": "example",
-    ...
-    "plugins": [
-      [
-        "@jellyfish-dev/react-native-client-sdk",
-        {
-          "setUpScreensharing": true,
-        }
-      ]
+      "@jellyfish-dev/react-native-membrane-webrtc"
     ]
   }
 }
@@ -81,12 +54,14 @@ On iOS installation is a bit more complicated, because you need to setup a scree
    <string>Allow $(PRODUCT_NAME) to use the microphone</string>
    ```
 2. We recommend adding `audio` background mode in `Info.plist` so that the app doesn't disconnect when it's in background:
-  ```xml
-  	<key>UIBackgroundModes</key>
-    <array>
-      <string>audio</string>
-    </array>
-  ```
+
+```xml
+	<key>UIBackgroundModes</key>
+  <array>
+    <string>audio</string>
+  </array>
+```
+
 2. Open your `<your-project>.xcworkspace` in Xcode
 3. Create new Broadcast Upload Extension. Select File → New → Target... → Broadcast Upload Extension → Next. Choose the name for the new target, select Swift language and deselect "Include UI Extension".
 
@@ -163,6 +138,14 @@ On iOS installation is a bit more complicated, because you need to setup a scree
 
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 
+   In the extension's `Info.plist`, apply the following change:
+
+   ```diff
+   <key>NSExtensionPrincipalClass</key>
+   -<string>$(PRODUCT_MODULE_NAME).SampleHandler</string>
+   +<string>$(PRODUCT_MODULE_NAME).MembraneBroadcastSampleHandler</string>
+   ```
+
 6. In project's Podfile add the following code:
    ```rb
    target 'MembraneScreenBroadcastExtension' do
@@ -191,135 +174,34 @@ On iOS installation is a bit more complicated, because you need to setup a scree
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 9. Rebuild the app and enjoy!
 
-# Example
+> **Note:** If the build fails due to sandbox issues (like `realpath`'s illegal option), you can disable sandboxing for
+> the extension target. To do this, open Xcode, go to the `MembraneScreenBroadcastExtension` target settings, select
+> `Build Settings` tab and disable `User Script Sandboxing`.
 
-We strongly recommend checking out our example app that implements a basic video room client. To run the app:
+## Docs
 
-1. Go to Membrane's server demo repo: https://github.com/membraneframework/membrane_videoroom. Follow instructions there to setup and run demo server.
-2. Clone the repo
-3. ```
-   $ cd example
-   $ yarn
-   ```
-4. In App.ts replace server url with your server's url.
-5. `yarn run android` or `yarn run ios` or run project from Android Studio / Xcode just like every RN project. Note that simulators won't work, you have to test on real device for camera and screensharing to run.
+API documentation is available [here](https://jellyfish-dev.github.io/react-native-client-sdk/)
 
-# Usage
+## Usage
 
-Important note!! Since version 7.4.0 call function `initializeWebRTC()` once in your app before using any other functionality.
+Since version 0.2.0 call function initializeWebRTC() once in your app before using any other functionality.
 
+Make sure you have:
 
-Start with connecting to the membrane webrtc server. Use `useWebRTC()` hook to manage connection:
+- Running [Jellyfish](https://github.com/jellyfish-dev/jellyfish) server.
+- Created room and token of peer in that room.
+  You can use [dashboard](https://github.com/jellyfish-dev/jellyfish-react-client/tree/main/examples/dashboard) example to create room and peer token.
 
-```ts
-const { connect, disconnect, error } = useWebRTC();
-```
+You can refer to our minimal example on how to use this library.
 
-Connect to the server and join the room using the `connect` function. Use user metadata to pass things like usernames etc. to the server. You can also pass connection params that will be sent to the socket when establishing the connection tries.
+## Contributing
 
-```ts
-const startServerConnection = () => {
-  try {
-    await connect('https://example.com', "Annie's room", {
-      endpointMetadata: {
-        displayName: 'Annie',
-      },
-      connectionParams: {
-        token: 'TOKEN',
-      },
-    });
-  } catch (e) {
-    console.log('error!');
-  }
-};
-```
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 
-Remember to gracefully disconnect from the server using the `disconnect()` function:
+## Copyright and License
 
-```ts
-const stopServerConnection = () => {
-  await disconnect();
-};
-```
+Copyright 2023, [Software Mansion](https://swmansion.com/?utm_source=git&utm_medium=readme&utm_campaign=jellyfish)
 
-Also handle errors properly, for example when internet connection fails or server is down:
+[![Software Mansion](https://logo.swmansion.com/logo?color=white&variant=desktop&width=200&tag=membrane-github)](https://swmansion.com/?utm_source=git&utm_medium=readme&utm_campaign=jellyfish)
 
-```ts
-useEffect(() => {
-  if (error) console.log('error: ', e);
-}, [error]);
-```
-
-Start the device's camera and microphone using `useCamera()` and `useMicrophone()` hooks. Use `videoTrackMetadata` and `audioTrackMetadata` options to send metadata about the tracks (for example whether it's a camera or screencast track).
-
-```ts
-const { startCamera } = useCamera();
-const { startMicrophone } = useMicrophone();
-
-await startCamera({
-  quality: VideoQuality.HD_169,
-  videoTrackMetadata: { active: true, type: 'camera' },
-});
-await startMicrophone({ audioTrackMetadata: { active: true, type: 'audio' } });
-```
-
-For more options and functions to control the camera and microphone see the API documentation.
-
-If you have the connection set up, then use `useEndpoints()` hook to track the other endpoints in the room. One of the endpoints will be a local participant (the one who's using the device). When endpoints is added or removed because an user joins or leaves the room, the endpoints will be updated automatically. Simply call the hook like this:
-
-```ts
-const endpoints = useEndpoints();
-```
-
-When you have the endpoints all that's left is to render their video tracks. Use `<VideoRendererView />` component like this:
-
-```ts
-{
-  endpoint.videoTracks.map((track) => (
-    <VideoRendererView trackId={track.id} />
-  ));
-}
-```
-
-You can style the views to lay out them however you'd like, basic animations should work too.
-
-There are also some simple hooks for toggling camera, microphone and screensharing. Use them like this:
-
-```ts
-const { isCameraOn, toggleCamera } = useCameraState();
-const { isMicrophoneOn, toggleMicrophone } = useMicrophoneState();
-```
-
-For screencasting use `useScreencast()` hook. The local endpoint will have a new video track which you can render just like an ordinary video track with <VideoRendererView />:
-
-```ts
-const { isScreencastOn, toggleScreencast } = useScreencast();
-...
-toggleScreencast({screencastMetadata: { displayName: "Annie's desktop" }});
-```
-Use track metadata to differentiate between video and screencast tracks.
-
-### Developing
-
-Run `./scripts/init.sh` in the main directory to install swift-format and set up git hooks.
-
-To release a new version of the lib just run `yarn release`, follow the prompts to bump version, make tags, commits and upload to npm
-To release a new version of the example app on Android install fastlane, get upload key password and firebase auth json from the devs, update `~/.gradle/gradle.properties` like this:
-```
-MEMBRANE_UPLOAD_STORE_FILE=my-upload-key.keystore
-MEMBRANE_UPLOAD_KEY_ALIAS=my-key-alias
-MEMBRANE_UPLOAD_STORE_PASSWORD=********
-MEMBRANE_UPLOAD_KEY_PASSWORD=********
-```
-and run `yarn releaseAppAndroid` from the main directory.
-
-To release a new version of the example app on iOS install fastlane, get added to swmansion app store account and run `yarn releaseAppIos` from the main directory.
-
-Pro tip: when developing set backend url in `.env.development`.
-
-## Credits
-
-This project has been built and is maintained thanks to the support from [dscout](https://dscout.com/) and [Software Mansion](https://swmansion.com).
-
-<img alt="dscout" height="100" src="./.github/images/dscout_logo.png"/>
-<img alt="Software Mansion" src="https://logo.swmansion.com/logo?color=white&variant=desktop&width=150&tag=react-native-reanimated-github"/>
+Licensed under the [Apache License, Version 2.0](LICENSE)
