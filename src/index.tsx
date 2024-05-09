@@ -30,7 +30,7 @@ export {
   AudioOutputDevice,
   AudioOutputDeviceType,
   AudioSessionMode,
-  initializeWebRTC,
+  VideoLayout,
 } from '@jellyfish-dev/react-native-membrane-webrtc';
 
 export type Peer<

@@ -25,7 +25,8 @@
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    "!scripts/**.sh"
   ],
   "scripts": {
     "test": "jest",
@@ -176,7 +177,7 @@
     ]
   },
   "dependencies": {
-    "@jellyfish-dev/react-native-membrane-webrtc": "7.4.1",
+    "@jellyfish-dev/react-native-membrane-webrtc": "7.5.0",
     "expo-modules-core": "1.11.8",
     "protobufjs": "^7.2.4",
     "react-native-safe-area-context": "^4.9.0"

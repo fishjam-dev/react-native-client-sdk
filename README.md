@@ -146,6 +146,14 @@ On iOS installation is a bit more complicated, because you need to setup a scree
 
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 
+   In the extension's `Info.plist`, apply the following change:
+
+   ```diff
+   <key>NSExtensionPrincipalClass</key>
+   -<string>$(PRODUCT_MODULE_NAME).SampleHandler</string>
+   +<string>$(PRODUCT_MODULE_NAME).MembraneBroadcastSampleHandler</string>
+   ```
+
 7. In project's Podfile add the following code:
    ```rb
    target 'MembraneScreenBroadcastExtension' do
@@ -176,6 +184,10 @@ On iOS installation is a bit more complicated, because you need to setup a scree
    ```
    Replace `{{GROUP_IDENTIFIER}}` and `{{BUNDLE_IDENTIFIER}}` with your group identifier and bundle identifier respectively.
 10. Rebuild the app and enjoy!
+
+> **Note:** If the build fails due to sandbox issues (like `realpath`'s illegal option), you can disable sandboxing for
+> the extension target. To do this, open Xcode, go to the `MembraneScreenBroadcastExtension` target settings, select
+> `Build Settings` tab and disable `User Script Sandboxing`.
 
 ## Docs
 

@@ -57,11 +57,10 @@ const tapButton = async (driver: WebdriverIO.Browser, selector: string) => {
 };
 
 const tapApp = async (driver: WebdriverIO.Browser) => {
-  const {height} = await driver.getWindowSize();
   const x = 100;
-  const y = driver.isIOS ? 100 : height - 100;
+  const y = driver.isIOS ? 100 : 300;
   await driver.actions([
-    driver.action('pointer').move(x, y).down().pause(100).up(),
+    driver.action('pointer').move(x, y).down().pause(200).up(),
   ]);
 };
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useCallback} from 'react';
 import {
   BackHandler,
   Button,
@@ -67,6 +67,7 @@ const PreviewScreen = ({navigation}: Props) => {
     if (currentCamera === null) {
       return;
     }
+
     //todo Switches between front-facing and back-facing cameras or displays a list of available cameras.
     setCurrentCamera(
       cameras[
@@ -108,7 +109,7 @@ const PreviewScreen = ({navigation}: Props) => {
           <NoCameraView />
         )}
       </View>
-      <View style={styles.callView}>
+      <View style={styles.mediaButtonsWrapper}>
         <InCallButton
           iconName={isMicrophoneOn ? 'microphone' : 'microphone-off'}
           onPress={toggleMicrophone}
@@ -130,11 +131,12 @@ const PreviewScreen = ({navigation}: Props) => {
           accessibilityLabel={SELECT_AUDIO_OUTPUT}
         />
       </View>
-      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
-        {Array<TrackEncoding>('h', 'm', 'l').map(val => {
+      <View style={styles.simulcastButtonsWrapper}>
+        {(['h', 'm', 'l'] as TrackEncoding[]).map(val => {
           return (
             <LetterButton
               trackEncoding={val}
+              key={`encoding-${val}`}
               selected={localCameraSimulcastConfig.activeEncodings.includes(
                 val,
               )}
@@ -143,23 +145,27 @@ const PreviewScreen = ({navigation}: Props) => {
           );
         })}
       </View>
-      <Button
-        title="Join Room"
-        onPress={onJoinPressed}
-        accessibilityLabel={JOIN_BUTTON}
-      />
+      <View style={styles.joinButton}>
+        <Button
+          title="Join Room"
+          onPress={onJoinPressed}
+          accessibilityLabel={JOIN_BUTTON}
+        />
+      </View>
+
       {Platform.OS === 'android' && (
         <SoundOutputDevicesBottomSheet bottomSheetRef={bottomSheetRef} />
       )}
     </SafeAreaView>
   );
 
-  if (Platform.OS === 'android')
+  if (Platform.OS === 'android') {
     return (
       <TouchableWithoutFeedback onPress={() => bottomSheetRef.current?.close()}>
         {body}
       </TouchableWithoutFeedback>
     );
+  }
   return body;
 };
 
@@ -167,29 +173,35 @@ export default PreviewScreen;
 
 const styles = StyleSheet.create({
   callView: {display: 'flex', flexDirection: 'row', gap: 20},
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#F1FAFE',
+    padding: 24,
+  },
   cameraPreview: {
-    width: 236,
-    height: 320,
-    alignSelf: 'center',
-    marginTop: 24,
+    flex: 6,
+    margin: 24,
+    alignSelf: 'stretch',
     alignItems: 'center',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: BrandColors.darkBlue80,
     overflow: 'hidden',
   },
-  membraneVideoPreview: {
-    width: 236,
-    height: 320,
-  },
-  container: {
+  mediaButtonsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 20,
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#F1FAFE',
-    padding: 24,
   },
-  text: {
-    color: 'black',
+  simulcastButtonsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 20,
+    flex: 1,
+  },
+  joinButton: {
+    flex: 1,
   },
 });
