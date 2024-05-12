@@ -17,11 +17,9 @@ import {
   AudioOutputDeviceType,
   AudioSessionMode,
 } from '@jellyfish-dev/react-native-client-sdk';
-
-import Toast from 'react-native-toast-message';
-
 import {Platform} from 'expo-modules-core';
 import * as Device from 'expo-device';
+import {Alert} from 'react-native';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 
@@ -121,11 +119,10 @@ const JellyfishExampleContextProvider = (props: any) => {
 
   const toggleCamera = useCallback(async () => {
     if (isIosEmulator) {
-      Toast.show({
-        type: 'info',
-        text1: 'Camera is not supported on the iOS emulator',
-        text2: 'Please run the app on a real device to use the camera',
-      });
+      Alert.alert(
+        'Camera not supported on iOS simulator',
+        'Please run the app on a real device to use the camera',
+      );
 
       return;
     }
