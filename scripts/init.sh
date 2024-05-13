@@ -1,5 +1,5 @@
 #!/bin/bash
 brew install swift-format 
-npm install
+yarn
 chmod +x .githooks/*
 cp .githooks/* .git/hooks
