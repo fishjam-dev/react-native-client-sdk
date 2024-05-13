@@ -79,7 +79,12 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     var onTracksUpdateListeners: MutableList<OnTrackUpdateListener> = mutableListOf()
   }
 
-  fun onDestroy() {
+  fun onModuleCreate(appContext: AppContext){
+    this.appContext = appContext
+    this.audioSwitchManager = AudioSwitchManager(appContext.reactContext!!)
+  }
+
+  fun onModuleDestroy() {
     audioSwitchManager?.stop()
   }
 

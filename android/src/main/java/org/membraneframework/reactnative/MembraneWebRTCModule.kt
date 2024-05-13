@@ -91,7 +91,19 @@ class MembraneWebRTCModule : Module() {
     }
 
     OnCreate {
-      membraneWebRTC.appContext = appContext
+      membraneWebRTC.onModuleCreate(appContext)
+    }
+
+    OnDestroy {
+      membraneWebRTC.onModuleDestroy()
+    }
+
+    OnActivityDestroys {
+      membraneWebRTC.disconnect()
+    }
+
+    OnActivityResult { _, result ->
+      membraneWebRTC.onActivityResult(result.requestCode, result.resultCode, result.data)
     }
 
     AsyncFunction("create") Coroutine ({ ->
