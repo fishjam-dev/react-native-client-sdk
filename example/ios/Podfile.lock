@@ -51,7 +51,7 @@ PODS:
     - SwiftPhoenixClient (~> 4.0.0)
     - SwiftProtobuf
     - WebRTC-SDK (= 114.5735.08)
-  - MembraneWebRTC (7.4.1):
+  - MembraneWebRTC (0.3.0):
     - ExpoModulesCore
     - MembraneRTC (= 5.3.0)
   - PromisesObjC (2.4.0)
@@ -1349,7 +1349,7 @@ SPEC CHECKSUMS:
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MembraneRTC: b62d9f01edbee0c251d6671e868ac3b25e68e66a
-  MembraneWebRTC: 16b46791cbc53da37f2ef49bc0501ef17e906b53
+  MembraneWebRTC: 6d0a6d878da650cf047737e1a5008b85b475b8c0
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
