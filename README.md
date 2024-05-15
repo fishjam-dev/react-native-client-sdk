@@ -1,6 +1,6 @@
 # react-native-client-sdk
 
-react-native-client-sdk is a React Native wrapper for [membrane-webrtc-android](https://github.com/jellyfish-dev/membrane-webrtc-android) and [membrane-webrtc-ios](https://github.com/jellyfish-dev/membrane-webrtc-ios). It allows you to quickly and easily create a mobile client app in React Native for Membrane server.
+react-native-client-sdk is a React Native wrapper for [membrane-webrtc-android](https://github.com/jellyfish-dev/membrane-webrtc-android) and [membrane-webrtc-ios](https://github.com/jellyfish-dev/membrane-webrtc-ios). It allows you to quickly and easily create a mobile client app in React Native for a [Jellyfish](https://github.com/jellyfish-dev/jellyfish) server.
 
 # Documentation
 
@@ -8,7 +8,7 @@ API documentation is available [here](https://jellyfish-dev.github.io/react-nati
 
 # Installation
 
-Firstly install react-native-membrane with `yarn` or `npm`
+Firstly install `react-native-client-sdk` with `yarn` or `npm`
 
 ```
 yarn add @jellyfish-dev/react-native-client-sdk
@@ -17,7 +17,7 @@ yarn add @jellyfish-dev/react-native-client-sdk
 or
 
 ```
-npm install --save @jellyfish-dev/react-native-client-sdk
+npm install @jellyfish-dev/react-native-client-sdk
 ```
 
 ### Expo plugin
@@ -43,7 +43,7 @@ Add plugin to your `app.json` if it's not already added:
 }
 ```
 
-If you want to use screensharing feature, enable it like this:
+If you want to use screensharing feature, enable the following flag:
 
 ```json
 {
@@ -201,15 +201,16 @@ We strongly recommend checking out our example app that implements a basic video
 1. Go to Membrane's server demo repo: https://github.com/membraneframework/membrane_videoroom. Follow instructions there to setup and run demo server.
 2. Clone the repo
 3. ```
-   $ cd example
-   $ yarn
+   cd example
+   yarn
    ```
 4. In App.ts replace server url with your server's url.
 5. `yarn run android` or `yarn run ios` or run project from Android Studio / Xcode just like every RN project. Note that simulators won't work, you have to test on real device for camera and screensharing to run.
 
 # Usage
 
-Important note!! Since version 7.4.0 call function `initializeWebRTC()` once in your app before using any other functionality.
+> [!IMPORTANT]  
+> Since version 7.4.0, you need to call function `initializeWebRTC()` once in your app before using any other functionality.
 
 Start with connecting to the membrane webrtc server. Use `useWebRTC()` hook to manage connection:
 
@@ -306,7 +307,7 @@ Use track metadata to differentiate between video and screencast tracks.
 
 Run `./scripts/init.sh` in the main directory to install swift-format and set up git hooks.
 
-To release a new version of the lib just run `yarn release`, follow the prompts to bump version, make tags, commits and upload to npm
+To release a new version of the lib just run `yarn release`, follow the prompts to bump version, make tags, commits and upload to npm.
 To release a new version of the example app on Android install fastlane, get upload key password and firebase auth json from the devs, update `~/.gradle/gradle.properties` like this:
 
 ```
@@ -320,7 +321,7 @@ and run `yarn releaseAppAndroid` from the main directory.
 
 To release a new version of the example app on iOS install fastlane, get added to swmansion app store account and run `yarn releaseAppIos` from the main directory.
 
-Pro tip: when developing set backend url in `.env.development`.
+Pro tip: when developing, set the backend url in `.env.development`.
 
 ## Credits
 
