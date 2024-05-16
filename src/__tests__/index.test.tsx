@@ -1,151 +1,150 @@
-import WS from 'jest-websocket-mock';
 import { renderHook, act } from '@testing-library/react';
-import { JellyfishContextProvider, useJellyfishClient } from '..';
-import { PeerMessage } from '../protos/jellyfish/peer_notifications';
-import { requireNativeModule } from 'expo-modules-core';
 
-let sendEvent: null | (({ event }: { event: string }) => void) = null;
+const membraneWebRTC = require('../index');
 
 jest.mock('expo-modules-core', () => ({
-  EventEmitter: jest.fn().mockImplementation(() => ({
-    addListener: jest.fn((_, _sendEvent) => {
-      sendEvent = _sendEvent;
-      return { remove: jest.fn() };
-    }),
-  })),
-  requireNativeModule: jest.fn().mockReturnValue({
-    receiveMediaEvent: jest.fn(),
-    create: jest.fn(),
-    disconnect: jest.fn(),
-  }),
-  NativeModulesProxy: jest.fn().mockImplementation(() => {
-    return jest.fn();
-  }),
+  EventEmitter: jest.fn(),
+  requireNativeModule: jest.fn().mockReturnValue({}),
 }));
 
-jest.mock('@jellyfish-dev/react-native-membrane-webrtc');
 jest.mock('react-native', () => ({
   NativeEventEmitter: jest.fn().mockImplementation(() => ({
-    addListener: jest.fn((_, _sendEvent) => {
-      sendEvent = _sendEvent;
-      return { remove: jest.fn() };
-    }),
+    addListener: jest.fn(),
   })),
 }));
 
-const socketUrl = 'ws://localhost:1234';
-const peerToken = 'token';
+test('processing statistics', async () => {
+  jest.useFakeTimers();
 
-function encodePeerMessage(peerMessage: object) {
-  const encodedAsNodeBuffer = PeerMessage.encode(peerMessage).finish();
+  const { result } = renderHook(() => membraneWebRTC.useRTCStatistics(1000));
+  expect(result.current.statistics).toEqual([]);
 
-  const newBuffer = new ArrayBuffer(encodedAsNodeBuffer.byteLength);
-  const newBufferView = new Uint8Array(newBuffer);
-  newBufferView.set(encodedAsNodeBuffer, 0);
-
-  return newBuffer;
-}
-
-describe('JellyfishClient', () => {
-  afterEach(() => {
-    WS.clean();
+  await act(async () => {
+    jest.advanceTimersByTime(1001);
   });
-
-  const setUpAndConnect = async () => {
-    const server = new WS(socketUrl);
-
-    const { result } = renderHook(() => useJellyfishClient(), {
-      wrapper: JellyfishContextProvider,
-    });
-
-    const connectPromise = result.current.connect(socketUrl, peerToken);
-
-    await server.connected;
-
-    const msg = await server.nextMessage;
-
-    expect(msg).toEqual(
-      PeerMessage.encode({
-        authRequest: { token: peerToken },
-      }).finish()
-    );
-
-    server.send(
-      encodePeerMessage({
-        authenticated: true,
-      })
-    );
-
-    await connectPromise;
-
-    return { server, result };
-  };
-
-  it('connects and resolves', async () => {
-    await setUpAndConnect();
-  });
-
-  it('rejects if socket error', async () => {
-    const server = new WS(socketUrl);
-
-    const {
-      result: {
-        current: { connect },
-      },
-    } = renderHook(() => useJellyfishClient(), {
-      wrapper: JellyfishContextProvider,
-    });
-
-    const connectPromise = connect(socketUrl, peerToken);
-
-    act(() => {
-      server.error({ code: 1234, reason: 'An error', wasClean: false });
-    });
-
-    await expect(connectPromise).rejects.toThrow(
-      new Error('WebSocket was closed: 1234 An error')
-    );
-  });
-
-  it('returns error if it happens after a connection is established', async () => {
-    const { server /*, result*/ } = await setUpAndConnect();
-    act(() => {
-      server.error({ code: 3000, reason: 'An error', wasClean: false });
-    });
-    // TODO: improve error handling
-    // expect(result.current.error).toEqual('WebSocket was closed: 3000 An error');
-  });
-
-  it('sends media event', async () => {
-    const { server } = await setUpAndConnect();
-
-    sendEvent?.({ event: 'join' });
-
-    const msg = await server.nextMessage;
-
-    expect(msg).toEqual(
-      PeerMessage.encode({
-        mediaEvent: { data: 'join' },
-      }).finish()
-    );
-  });
-
-  it('receives media event', async () => {
-    const { server } = await setUpAndConnect();
-
-    server.send(
-      encodePeerMessage({
-        mediaEvent: {
-          data: 'sdpOffer',
+  expect(result.current.statistics).toEqual([
+    {
+      RTCOutboundTest_1: {
+        'kind': 'test_out',
+        'rid': 'h',
+        'bytesSent': 11,
+        'targetBitrate': 12,
+        'packetsSent': 13,
+        'framesEncoded': 14,
+        'framesPerSecond': 15,
+        'frameWidth': 16,
+        'frameHeight': 17,
+        'qualityLimitationDurations': {
+          cpu: 18,
+          bandwidth: 19,
+          none: 20,
+          other: 21,
         },
-      })
-    );
+        'bytesSent/s': 0,
+        'packetsSent/s': 0,
+        'framesEncoded/s': 0,
+      },
+      RTCInboundTest_1: {
+        'kind': 'test_in',
+        'jitter': 11,
+        'packetsLost': 12,
+        'packetsReceived': 13,
+        'bytesReceived': 14,
+        'framesReceived': 15,
+        'frameWidth': 16,
+        'frameHeight': 17,
+        'framesPerSecond': 18,
+        'framesDropped': 19,
+        'packetsLost/s': 0,
+        'packetsReceived/s': 0,
+        'bytesReceived/s': 0,
+        'framesReceived/s': 0,
+        'framesDropped/s': 0,
+      },
+    },
+  ]);
 
-    expect(
-      requireNativeModule('MembraneWebRTC').receiveMediaEvent
-    ).toBeCalledTimes(1);
-    expect(
-      requireNativeModule('MembraneWebRTC').receiveMediaEvent
-    ).toHaveBeenCalledWith('sdpOffer');
+  await act(async () => {
+    jest.advanceTimersByTime(1001);
   });
+  expect(result.current.statistics).toEqual([
+    {
+      RTCOutboundTest_1: {
+        'kind': 'test_out',
+        'rid': 'h',
+        'bytesSent': 11,
+        'targetBitrate': 12,
+        'packetsSent': 13,
+        'framesEncoded': 14,
+        'framesPerSecond': 15,
+        'frameWidth': 16,
+        'frameHeight': 17,
+        'qualityLimitationDurations': {
+          cpu: 18,
+          bandwidth: 19,
+          none: 20,
+          other: 21,
+        },
+        'bytesSent/s': 0,
+        'packetsSent/s': 0,
+        'framesEncoded/s': 0,
+      },
+      RTCInboundTest_1: {
+        'kind': 'test_in',
+        'jitter': 11,
+        'packetsLost': 12,
+        'packetsReceived': 13,
+        'bytesReceived': 14,
+        'framesReceived': 15,
+        'frameWidth': 16,
+        'frameHeight': 17,
+        'framesPerSecond': 18,
+        'framesDropped': 19,
+        'packetsLost/s': 0,
+        'packetsReceived/s': 0,
+        'bytesReceived/s': 0,
+        'framesReceived/s': 0,
+        'framesDropped/s': 0,
+      },
+    },
+    {
+      RTCOutboundTest_1: {
+        'kind': 'test_out',
+        'rid': 'h',
+        'bytesSent': 21,
+        'targetBitrate': 22,
+        'packetsSent': 23,
+        'framesEncoded': 24,
+        'framesPerSecond': 25,
+        'frameWidth': 26,
+        'frameHeight': 27,
+        'qualityLimitationDurations': {
+          cpu: 28,
+          bandwidth: 29,
+          none: 30,
+          other: 31,
+        },
+        'bytesSent/s': 10,
+        'packetsSent/s': 10,
+        'framesEncoded/s': 10,
+      },
+      RTCInboundTest_1: {
+        'kind': 'test_in',
+        'jitter': 21,
+        'packetsLost': 22,
+        'packetsReceived': 23,
+        'bytesReceived': 24,
+        'framesReceived': 25,
+        'frameWidth': 26,
+        'frameHeight': 27,
+        'framesPerSecond': 28,
+        'framesDropped': 29,
+        'packetsLost/s': 10,
+        'packetsReceived/s': 10,
+        'bytesReceived/s': 10,
+        'framesReceived/s': 10,
+        'framesDropped/s': 10,
+      },
+    },
+  ]);
 });

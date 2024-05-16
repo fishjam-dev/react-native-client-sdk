@@ -2,4 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 yarn typecheck
-yarn lint
+yarn lint-staged
+EXPO_NONINTERACTIVE=true yarn build
+EXPO_NONINTERACTIVE=true yarn build plugin

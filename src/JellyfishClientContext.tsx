@@ -1,10 +1,8 @@
-import React, { useCallback } from 'react';
-
-import { Metadata } from '@jellyfish-dev/react-native-client-sdk';
 import { requireNativeModule, NativeModulesProxy } from 'expo-modules-core';
-
-import { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { NativeEventEmitter } from 'react-native';
+
+import { Metadata } from './MembraneWebRTC.types';
 import { PeerMessage } from './protos/jellyfish/peer_notifications';
 
 const membraneModule = requireNativeModule('MembraneWebRTC');

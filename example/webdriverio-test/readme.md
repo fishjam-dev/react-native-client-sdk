@@ -8,9 +8,11 @@
 4. [Don't forget about this (for ios)](https://appium.github.io/appium-xcuitest-driver/5.11/real-device-config/)
 5. Run yarn install
 6. Check file .env, there are some necessary env variables
+
 - ANDROID_DEVICE_NAME - name of your android device, if not set test would not start on android can be checked using:
   adb devices -l
 - ANDROID_APP_PATH - Path to .apk file on your computer, to generate it:
+
   - In folder example run: cd android && ./gradlew assembleRelease
   - Yor path should look like this your/path/to/repo/example/android/app/build/outputs/apk/release/app-release.apk
 
@@ -21,13 +23,15 @@
   - choose archive and tap on distribute > custom > development > next ... > automatically manage signing > export
   - choose file to export your app, recommend to do it in ios folder
   - your path should look like path/to/your/app/JellyfishExample.ipa
+
 #### additional envs for github action
+
 - JELLYFISH_HOST_SERVER = `ip_address:port number` of the server
 - JELLYFISH_HOST_MOBILE = `ip_address:port_number` of the mobile phone
 
 7. Run yarn install in webdriveio-test folder
-2. [install wdio cli (Do not run npx wdio config, it is not necessary because it is already configured)](https://v6.webdriver.io/docs/clioptions.html)
-3. Run jellyfish ( if locally this command can be handy:
+8. [install wdio cli (Do not run npx wdio config, it is not necessary because it is already configured)](https://v6.webdriver.io/docs/clioptions.html)
+9. Run jellyfish ( if locally this command can be handy:
 
    docker run -p 50000-50050:50000-50050/udp \
    -p 5002:5002/tcp \
@@ -39,9 +43,9 @@
    -e JF_WEBRTC_TURN_IP=[ip address] \
    -e JF_WEBRTC_TURN_LISTEN_IP=0.0.0.0 \
    -e JF_SERVER_API_TOKEN=development \
-   ghcr.io/jellyfish-dev/jellyfish:0.3.0
-4. Run test in webdriveio-test folder : npx wdio wdio.conf.ts
+   ghcr.io/jellyfish-dev/fishjam:0.3.0
 
+10. Run test in webdriveio-test folder : npx wdio wdio.conf.ts
 
 Content of folder `server-api` was generated and it used to communicate with jellyfish server for testing purposes ( e.g. creating a room, creating peer ). <br>
 If you would like to generate code to connect with api download file [openapi.yaml](https://jellyfish-dev.github.io/jellyfish-docs/for_developers/api_reference/rest_api), place it in `server-api` folder and run command `npx @openapitools/openapi-generator-cli generate -i ./openapi.yaml -g typescript-axios -o ./`. For more details about code generation checkout this [link](https://www.npmjs.com/package/@openapitools/openapi-generator-cli).

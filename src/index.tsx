@@ -1,38 +1,32 @@
-import {
-  Endpoint,
-  Metadata,
-  updateEndpointMetadata,
-  useEndpoints,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+import { Endpoint, Metadata } from './MembraneWebRTC.types';
+import { updateEndpointMetadata } from './common/metadata';
+import { useEndpoints } from './hooks/useEndpoints';
 
-export * from './JellyfishClientContext';
+export { useAudioSettings } from './hooks/useAudioSettings';
+export { useBandwidthEstimation } from './hooks/useBandwidthEstimation';
+export { useCamera } from './hooks/useCamera';
+export { useEndpoints } from './hooks/useEndpoints';
+export { useMicrophone } from './hooks/useMicrophone';
+export { useRTCStatistics } from './hooks/useRTCStatistics';
+export { useScreencast } from './hooks/useScreencast';
+export { useWebRTC } from './hooks/useWebRTC';
+
 export {
-  useAudioSettings,
   updateAudioTrackMetadata,
-  useCamera,
-  useMicrophone,
-  useScreencast,
+  updateEndpointMetadata,
   updateVideoTrackMetadata,
-  useBandwidthEstimation,
-  useRTCStatistics,
+} from './common/metadata';
+export {
   changeWebRTCLoggingSeverity,
   setTargetTrackEncoding,
-  VideoRendererView,
-  VideoPreviewView,
-  VideoQuality,
-  ScreencastQuality,
-  Metadata,
-  CaptureDevice,
-  TrackEncoding,
-  SimulcastConfig,
-  Track,
-  CameraConfig,
-  AudioOutputDevice,
-  AudioOutputDeviceType,
-  AudioSessionMode,
-  VideoLayout,
-} from '@jellyfish-dev/react-native-membrane-webrtc';
+} from './common/webRTC';
 
+export { default as VideoPreviewView } from './VideoPreviewView';
+export { default as VideoRendererView } from './VideoRendererView';
+export * from './MembraneWebRTC.types';
+export * from './JellyfishClientContext';
+
+// below are aliases used by 'old' rn-client-sdk. They should be removed
 export type Peer<
   MetadataType extends Metadata,
   VideoTrackMetadataType extends Metadata,
