@@ -8,13 +8,14 @@ import {ActivityIndicator, StyleSheet} from 'react-native';
 type Props = {
   currentCamera: CaptureDevice | null;
   videoLayout?: VideoLayout | undefined;
+  mirrorVideo?: boolean;
 };
-const VideoPreview = ({currentCamera, videoLayout}: Props) => {
+const VideoPreview = ({currentCamera, videoLayout, mirrorVideo}: Props) => {
   return currentCamera ? (
     <VideoPreviewView
       style={styles.membraneVideoPreview}
-      mirrorVideo
       captureDeviceId={currentCamera?.id}
+      mirrorVideo={mirrorVideo}
       videoLayout={videoLayout}
     />
   ) : (
