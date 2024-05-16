@@ -284,17 +284,5 @@ class MembraneWebRTCModule : Module() {
     AsyncFunction("getStatistics") { ->
       membraneWebRTC.getStatistics()
     }
-
-    OnActivityResult { _, result ->
-      membraneWebRTC.onActivityResult(result.requestCode, result.resultCode, result.data)
-    }
-
-    OnDestroy {
-      membraneWebRTC.onDestroy()
-    }
-
-    OnActivityDestroys {
-      membraneWebRTC.disconnect()
-    }
   }
 }

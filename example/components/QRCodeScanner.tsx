@@ -38,7 +38,7 @@ export function QRCodeScanner({onCodeScanned}: Props) {
           <CameraView
             onBarcodeScanned={onBarCodeScanned}
             barcodeScannerSettings={{
-              barCodeTypes: ['qr', 'pdf417'],
+              barcodeTypes: ['qr', 'pdf417'],
             }}
             style={StyleSheet.absoluteFillObject}
           />
