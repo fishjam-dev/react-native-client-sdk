@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 40
     services:
       jellyfish:
-        image: ghcr.io/jellyfish-dev/jellyfish:0.3.0
+        image: ghcr.io/fishjam-dev/jellyfish:0.3.0
         env:
           JF_CHECK_ORIGIN: false
           JF_HOST: localhost:5002
