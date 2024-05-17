@@ -1,10 +1,10 @@
 # react-native-client-sdk
 
-react-native-client-sdk is a React Native wrapper for [membrane-webrtc-android](https://github.com/jellyfish-dev/membrane-webrtc-android) and [membrane-webrtc-ios](https://github.com/jellyfish-dev/membrane-webrtc-ios). It allows you to quickly and easily create a mobile client app in React Native for a [Jellyfish](https://github.com/jellyfish-dev/jellyfish) server.
+react-native-client-sdk is a React Native wrapper for [android-client-sdk](https://github.com/fishjam-dev/android-client-sdk) and [ios-client-sdk](https://github.com/fishjam-dev/ios-client-sdk). It allows you to quickly and easily create a mobile client app in React Native for a [Fishjam](https://github.com/fishjam-dev/fishjam) server.
 
 # Documentation
 
-API documentation is available [here](https://jellyfish-dev.github.io/react-native-client-sdk/)
+API documentation is available [here](https://fishjam-dev.github.io/react-native-client-sdk/)
 
 # Installation
 
@@ -209,7 +209,7 @@ We strongly recommend checking out our example app that implements a basic video
 
 # Usage
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > Since version 7.4.0, you need to call function `initializeWebRTC()` once in your app before using any other functionality.
 
 Start with connecting to the membrane webrtc server. Use `useWebRTC()` hook to manage connection:

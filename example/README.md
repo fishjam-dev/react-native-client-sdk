@@ -1,4 +1,4 @@
-# React native jellyfish example
+# React native fishjam example
 
 ## Usage
 ### To run app please follow those steps:

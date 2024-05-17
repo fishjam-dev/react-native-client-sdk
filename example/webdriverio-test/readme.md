@@ -1,4 +1,4 @@
-## E2E tests of Jellyfish app
+## E2E tests of Fishjam app
 
 ### How to run tests
 
@@ -31,7 +31,7 @@
 
 7. Run yarn install in webdriveio-test folder
 8. [install wdio cli (Do not run npx wdio config, it is not necessary because it is already configured)](https://v6.webdriver.io/docs/clioptions.html)
-9. Run jellyfish ( if locally this command can be handy:
+9. Run fishjam ( if locally this command can be handy:
 
    docker run -p 50000-50050:50000-50050/udp \
    -p 5002:5002/tcp \
@@ -47,5 +47,5 @@
 
 10. Run test in webdriveio-test folder : npx wdio wdio.conf.ts
 
-Content of folder `server-api` was generated and it used to communicate with jellyfish server for testing purposes ( e.g. creating a room, creating peer ). <br>
-If you would like to generate code to connect with api download file [openapi.yaml](https://jellyfish-dev.github.io/jellyfish-docs/for_developers/api_reference/rest_api), place it in `server-api` folder and run command `npx @openapitools/openapi-generator-cli generate -i ./openapi.yaml -g typescript-axios -o ./`. For more details about code generation checkout this [link](https://www.npmjs.com/package/@openapitools/openapi-generator-cli).
+Content of folder `server-api` was generated and it used to communicate with fishjam server for testing purposes ( e.g. creating a room, creating peer ). <br>
+If you would like to generate code to connect with api download file [openapi.yaml](https://fishjam-dev.github.io/fishjam-docs/for_developers/api_reference/rest_api), place it in `server-api` folder and run command `npx @openapitools/openapi-generator-cli generate -i ./openapi.yaml -g typescript-axios -o ./`. For more details about code generation checkout this [link](https://www.npmjs.com/package/@openapitools/openapi-generator-cli).
