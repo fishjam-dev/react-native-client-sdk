@@ -2,3 +2,4 @@ android/*
 ios/*
 build/*
 example/*
+plugin/build/*
