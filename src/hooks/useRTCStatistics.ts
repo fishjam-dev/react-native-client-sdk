@@ -94,7 +94,7 @@ export function useRTCStatistics(refreshInterval: number) {
       });
       return stats;
     },
-    []
+    [],
   );
 
   return { statistics };

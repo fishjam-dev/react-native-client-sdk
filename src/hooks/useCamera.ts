@@ -26,7 +26,7 @@ let videoSimulcastConfig: SimulcastConfig = defaultSimulcastConfig();
  */
 export function useCamera() {
   const [isCameraOn, setIsCameraOn] = useState<boolean>(
-    MembraneWebRTCModule.isCameraOn
+    MembraneWebRTCModule.isCameraOn,
   );
 
   const [simulcastConfig, setSimulcastConfig] =
@@ -35,7 +35,7 @@ export function useCamera() {
   useEffect(() => {
     const eventListener = eventEmitter.addListener<SimulcastConfigUpdateEvent>(
       ReceivableEvents.SimulcastConfigUpdate,
-      (event) => setSimulcastConfig(event)
+      (event) => setSimulcastConfig(event),
     );
     return () => eventListener.remove();
   }, []);
@@ -43,7 +43,7 @@ export function useCamera() {
   useEffect(() => {
     const eventListener = eventEmitter.addListener<IsCameraOnEvent>(
       ReceivableEvents.IsCameraOn,
-      (event) => setIsCameraOn(event.IsCameraOn)
+      (event) => setIsCameraOn(event.IsCameraOn),
     );
     setIsCameraOn(MembraneWebRTCModule.isCameraOn);
     return () => eventListener.remove();
@@ -59,7 +59,7 @@ export function useCamera() {
         await MembraneWebRTCModule.toggleVideoTrackEncoding(encoding);
       setSimulcastConfig(videoSimulcastConfig);
     },
-    []
+    [],
   );
 
   /**
@@ -71,10 +71,10 @@ export function useCamera() {
     async (encoding: TrackEncoding, bandwidth: BandwidthLimit) => {
       await MembraneWebRTCModule.setVideoTrackEncodingBandwidth(
         encoding,
-        bandwidth
+        bandwidth,
       );
     },
-    []
+    [],
   );
 
   /**
@@ -92,7 +92,7 @@ export function useCamera() {
    */
   const startCamera = useCallback(
     async <CameraConfigMetadataType extends Metadata>(
-      config: Partial<CameraConfig<CameraConfigMetadataType>> = {}
+      config: Partial<CameraConfig<CameraConfigMetadataType>> = {},
     ) => {
       videoSimulcastConfig = config.simulcastConfig || defaultSimulcastConfig();
       // expo-modules on Android don't support Either type, so we workaround it
@@ -108,7 +108,7 @@ export function useCamera() {
       }
       await MembraneWebRTCModule.startCamera(config);
     },
-    []
+    [],
   );
 
   /**

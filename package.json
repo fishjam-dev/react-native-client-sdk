@@ -8,6 +8,10 @@
     "build": "expo-module build",
     "clean": "expo-module clean",
     "lint": "expo-module lint",
+    "format:fix": "prettier --write . --ignore-path ./.eslintignore",
+    "format:check": "prettier --check . --ignore-path ./.eslintignore",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "lint:check": "eslint . --ext .ts,.tsx",
     "test": "expo-module test",
     "prepare": "expo-module prepare",
     "prepublishOnly": "expo-module prepublishOnly",
@@ -106,16 +110,6 @@
         }
       ]
     }
-  },
-  "eslintIgnore": [
-    "node_modules/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
   },
   "lint-staged": {
     "*.(js|ts|tsx)": [

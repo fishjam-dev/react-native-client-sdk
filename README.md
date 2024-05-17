@@ -215,7 +215,7 @@ We strongly recommend checking out our example app that implements a basic video
 Start with connecting to the membrane webrtc server. Use `useWebRTC()` hook to manage connection:
 
 ```ts
-const {connect, disconnect, error} = useWebRTC();
+const { connect, disconnect, error } = useWebRTC();
 ```
 
 Connect to the server and join the room using the `connect` function. Use user metadata to pass things like usernames etc. to the server. You can also pass connection params that will be sent to the socket when establishing the connection tries.
@@ -256,14 +256,14 @@ useEffect(() => {
 Start the device's camera and microphone using `useCamera()` and `useMicrophone()` hooks. Use `videoTrackMetadata` and `audioTrackMetadata` options to send metadata about the tracks (for example whether it's a camera or screencast track).
 
 ```ts
-const {startCamera} = useCamera();
-const {startMicrophone} = useMicrophone();
+const { startCamera } = useCamera();
+const { startMicrophone } = useMicrophone();
 
 await startCamera({
   quality: VideoQuality.HD_169,
-  videoTrackMetadata: {active: true, type: 'camera'},
+  videoTrackMetadata: { active: true, type: 'camera' },
 });
-await startMicrophone({audioTrackMetadata: {active: true, type: 'audio'}});
+await startMicrophone({ audioTrackMetadata: { active: true, type: 'audio' } });
 ```
 
 For more options and functions to control the camera and microphone see the API documentation.
@@ -289,8 +289,8 @@ You can style the views to lay out them however you'd like, basic animations sho
 There are also some simple hooks for toggling camera, microphone and screensharing. Use them like this:
 
 ```ts
-const {isCameraOn, toggleCamera} = useCameraState();
-const {isMicrophoneOn, toggleMicrophone} = useMicrophoneState();
+const { isCameraOn, toggleCamera } = useCameraState();
+const { isMicrophoneOn, toggleMicrophone } = useMicrophoneState();
 ```
 
 For screencasting use `useScreencast()` hook. The local endpoint will have a new video track which you can render just like an ordinary video track with <VideoRendererView />:

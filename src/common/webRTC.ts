@@ -12,7 +12,7 @@ import MembraneWebRTCModule from '../MembraneWebRTCModule';
  */
 export async function setTargetTrackEncoding(
   trackId: string,
-  encoding: TrackEncoding
+  encoding: TrackEncoding,
 ) {
   await MembraneWebRTCModule.setTargetTrackEncoding(trackId, encoding);
 }
@@ -23,7 +23,7 @@ export async function setTargetTrackEncoding(
  * @returns a promise that is resolved when debug severity is changed
  */
 export function changeWebRTCLoggingSeverity(
-  severity: LoggingSeverity
+  severity: LoggingSeverity,
 ): Promise<void> {
   return MembraneWebRTCModule.changeWebRTCLoggingSeverity(severity);
 }

@@ -13,13 +13,13 @@ import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
  */
 export function useMicrophone() {
   const [isMicrophoneOn, setIsMicrophoneOn] = useState<boolean>(
-    MembraneWebRTCModule.isMicrophoneOn
+    MembraneWebRTCModule.isMicrophoneOn,
   );
 
   useEffect(() => {
     const eventListener = eventEmitter.addListener<IsMicrophoneOnEvent>(
       ReceivableEvents.IsMicrophoneOn,
-      (event) => setIsMicrophoneOn(event.IsMicrophoneOn)
+      (event) => setIsMicrophoneOn(event.IsMicrophoneOn),
     );
     setIsMicrophoneOn(MembraneWebRTCModule.isMicrophoneOn);
     return () => eventListener.remove();
@@ -40,11 +40,11 @@ export function useMicrophone() {
    */
   const startMicrophone = useCallback(
     async <MicrophoneConfigMetadataType extends Metadata>(
-      config: Partial<MicrophoneConfig<MicrophoneConfigMetadataType>> = {}
+      config: Partial<MicrophoneConfig<MicrophoneConfigMetadataType>> = {},
     ) => {
       await MembraneWebRTCModule.startMicrophone(config);
     },
-    []
+    [],
   );
 
   return { isMicrophoneOn, toggleMicrophone, startMicrophone };
