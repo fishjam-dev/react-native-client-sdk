@@ -1,3 +1,9 @@
+import BottomSheet from '@gorhom/bottom-sheet';
+import {
+  CaptureDevice,
+  TrackEncoding,
+} from '@jellyfish-dev/react-native-client-sdk';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useRef, useCallback } from 'react';
 import {
   BackHandler,
@@ -8,25 +14,16 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+
 import { InCallButton } from '../components';
-
-import {
-  CaptureDevice,
-  TrackEncoding,
-} from '@jellyfish-dev/react-native-client-sdk';
-
+import LetterButton from '../components/LetterButton';
+import { NoCameraView } from '../components/NoCameraView';
+import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
+import VideoPreview from '../components/VideoPreview';
 import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AppRootStackParamList } from '../navigators/AppNavigator';
-
 import { previewScreenLabels } from '../types/ComponentLabels';
 import { BrandColors } from '../utils/Colors';
-import { NoCameraView } from '../components/NoCameraView';
-import VideoPreview from '../components/VideoPreview';
-import LetterButton from '../components/LetterButton';
-
-import BottomSheet from '@gorhom/bottom-sheet';
-import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
 const {

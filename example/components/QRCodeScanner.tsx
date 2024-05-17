@@ -1,8 +1,9 @@
+import { Camera } from 'expo-camera';
+import { CameraView } from 'expo-camera/next';
 import React, { useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
+
 import Button from './Button';
-import { CameraView } from 'expo-camera/next';
-import { Camera } from 'expo-camera';
 
 type Props = {
   onCodeScanned: (code: string) => void;

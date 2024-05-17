@@ -1,3 +1,8 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {
+  AudioOutputDevice,
+  AudioOutputDeviceType,
+} from '@jellyfish-dev/react-native-client-sdk';
 import React from 'react';
 import {
   Text,
@@ -6,14 +11,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {
-  AudioOutputDevice,
-  AudioOutputDeviceType,
-} from '@jellyfish-dev/react-native-client-sdk';
-import { TextColors } from '../utils/Colors';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
 import { soundOutputDevicesLabels } from '../types/ComponentLabels';
+import { TextColors } from '../utils/Colors';
 
 const { TITLE_TEXT, OUTPUT_DEVICE_BUTTON } = soundOutputDevicesLabels;
 
@@ -68,7 +69,7 @@ const SoundOutputDeviceTile = ({
         </Text>
         {isSelected ? (
           <MaterialCommunityIcons
-            name={'checkbox-marked-circle'}
+            name="checkbox-marked-circle"
             size={32}
             color={TextColors.description}
             style={styles.selectedIconStyle}

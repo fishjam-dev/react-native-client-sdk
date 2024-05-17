@@ -1,21 +1,13 @@
 import { driver } from '@wdio/globals';
+import * as assert from 'assert';
 import type { Suite } from 'mocha';
+
 import {
   connectScreenLabels,
   roomScreenLabels,
   previewScreenLabels,
   soundOutputDevicesLabels,
 } from '../../../types/ComponentLabels';
-
-import {
-  getElement,
-  getWebsocketUrl,
-  getHttpUrl,
-  tapApp,
-  tapButton,
-  typeToInput,
-} from '../../utils';
-
 import {
   AddPeerRequest,
   Configuration,
@@ -24,8 +16,14 @@ import {
   Room,
   RoomApiFp,
 } from '../../server-api';
-
-import * as assert from 'assert';
+import {
+  getElement,
+  getWebsocketUrl,
+  getHttpUrl,
+  tapApp,
+  tapButton,
+  typeToInput,
+} from '../../utils';
 
 const { URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON } = connectScreenLabels;
 const {
@@ -66,7 +64,6 @@ const createJellyfishRoom = async () => {
     return response.data.data.room;
   } catch (e) {
     console.log(e);
-    return;
   }
 };
 const addPeerToRoom = async (
@@ -76,7 +73,7 @@ const addPeerToRoom = async (
   const { addPeer } = RoomApiFp(config);
   const addPeerRequest: AddPeerRequest = {
     type: 'webrtc',
-    options: { enableSimulcast: enableSimulcast },
+    options: { enableSimulcast },
   };
   const addPeerFunction = await addPeer(roomId, addPeerRequest);
   try {
@@ -84,12 +81,11 @@ const addPeerToRoom = async (
     return response.data.data;
   } catch (e) {
     console.log(e);
-    return;
   }
 };
 
-var peerDetail: PeerDetailsResponseData | undefined;
-var room: Room | undefined;
+let peerDetail: PeerDetailsResponseData | undefined;
+let room: Room | undefined;
 
 const tests: Test[] = [
   {

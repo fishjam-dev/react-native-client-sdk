@@ -10,8 +10,9 @@ import Animated, {
   FadeInDown,
   LinearTransition,
 } from 'react-native-reanimated';
-import { roomScreenLabels } from '../types/ComponentLabels';
+
 import LetterButton from './LetterButton';
+import { roomScreenLabels } from '../types/ComponentLabels';
 
 type Props = {
   tracks: Track<Metadata>[];

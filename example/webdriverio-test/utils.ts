@@ -25,7 +25,7 @@ const getElement = async (
   timeout: TimeoutConfig = findTimeoutConfig(selector),
 ) => {
   const element = await driver.$(selector);
-  await element.waitForExist({ ...timeout, reverse: reverse });
+  await element.waitForExist({ ...timeout, reverse });
   return element;
 };
 

@@ -1,13 +1,14 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { NavigationProp } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ConnectWithTokenScreen from '../screens/ConnectWithTokenScreen';
-import ConnectWithRoomManagerScreen from '../screens/ConnectWithRoomManagerScreen';
-import RoomScreen from '../screens/RoomScreen';
 import React from 'react';
+
+import ConnectWithRoomManagerScreen from '../screens/ConnectWithRoomManagerScreen';
+import ConnectWithTokenScreen from '../screens/ConnectWithTokenScreen';
 import PreviewScreen from '../screens/PreviewScreen';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import RoomScreen from '../screens/RoomScreen';
 import { AdditionalColors, BrandColors } from '../utils/Colors';
 
 export type AppRootStackParamList = {
@@ -23,8 +24,9 @@ export type TabParamList = {
 
 const tabBarIcon =
   (icon: keyof typeof MaterialCommunityIcons.glyphMap) =>
-  ({ color }: { color: string }) =>
-    <MaterialCommunityIcons name={icon} size={24} color={color} />;
+  ({ color }: { color: string }) => (
+    <MaterialCommunityIcons name={icon} size={24} color={color} />
+  );
 
 export type AppStackNavigation = NavigationProp<AppRootStackParamList>;
 

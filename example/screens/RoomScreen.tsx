@@ -1,3 +1,11 @@
+import BottomSheet from '@gorhom/bottom-sheet';
+import {
+  useJellyfishClient,
+  usePeers,
+  useScreencast,
+  ScreencastQuality,
+} from '@jellyfish-dev/react-native-client-sdk';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   BackHandler,
@@ -6,23 +14,13 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';
-
-import {
-  useJellyfishClient,
-  usePeers,
-  useScreencast,
-  ScreencastQuality,
-} from '@jellyfish-dev/react-native-client-sdk';
-
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { AppRootStackParamList } from '../navigators/AppNavigator';
-
-import { roomScreenLabels } from '../types/ComponentLabels';
-import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
+import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
+import type { AppRootStackParamList } from '../navigators/AppNavigator';
+import { roomScreenLabels } from '../types/ComponentLabels';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {

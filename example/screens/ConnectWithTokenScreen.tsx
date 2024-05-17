@@ -1,3 +1,7 @@
+import { useJellyfishClient } from '@jellyfish-dev/react-native-client-sdk';
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import {
   Dimensions,
@@ -7,20 +11,19 @@ import {
   Text,
   View,
 } from 'react-native';
-import { connectScreenLabels } from '../types/ComponentLabels';
-import { useJellyfishClient } from '@jellyfish-dev/react-native-client-sdk';
+
 import {
   Button,
   TextInput,
   QRCodeScanner,
   DismissKeyboard,
 } from '../components';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppRootStackParamList } from '../navigators/AppNavigator';
-import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { TabParamList } from '../navigators/AppNavigator';
-import { CompositeScreenProps } from '@react-navigation/native';
 import { usePermissionCheck } from '../hooks/usePermissionCheck';
+import {
+  TabParamList,
+  AppRootStackParamList,
+} from '../navigators/AppNavigator';
+import { connectScreenLabels } from '../types/ComponentLabels';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'ConnectWithToken'>,

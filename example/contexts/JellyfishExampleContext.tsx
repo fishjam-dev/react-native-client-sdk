@@ -1,5 +1,3 @@
-import React, { useCallback, useEffect, useState } from 'react';
-
 import {
   useCamera,
   useMicrophone,
@@ -17,11 +15,10 @@ import {
   AudioOutputDeviceType,
   AudioSessionMode,
 } from '@jellyfish-dev/react-native-client-sdk';
-
-import Toast from 'react-native-toast-message';
-
-import { Platform } from 'expo-modules-core';
 import * as Device from 'expo-device';
+import { Platform } from 'expo-modules-core';
+import React, { useCallback, useEffect, useState } from 'react';
+import Toast from 'react-native-toast-message';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 

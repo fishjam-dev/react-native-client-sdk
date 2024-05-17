@@ -1,4 +1,9 @@
-import { TextColors } from '../utils/Colors';
+import {
+  NotoSans_400Regular,
+  NotoSans_500Medium,
+  NotoSans_600SemiBold,
+  useFonts,
+} from '@expo-google-fonts/noto-sans';
 import React, { type ReactNode } from 'react';
 import {
   Dimensions,
@@ -7,12 +12,8 @@ import {
   type TextProps,
   type TextStyle,
 } from 'react-native';
-import {
-  NotoSans_400Regular,
-  NotoSans_500Medium,
-  NotoSans_600SemiBold,
-  useFonts,
-} from '@expo-google-fonts/noto-sans';
+
+import { TextColors } from '../utils/Colors';
 
 const SMALL_WINDOW_BREAKPOINT = 640;
 

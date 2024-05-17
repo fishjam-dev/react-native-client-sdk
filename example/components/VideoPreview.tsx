@@ -1,9 +1,9 @@
-import React from 'react';
 import {
   VideoPreviewView,
   CaptureDevice,
   VideoLayout,
 } from '@jellyfish-dev/react-native-client-sdk';
+import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 type Props = {
   currentCamera: CaptureDevice | null;
