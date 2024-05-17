@@ -1,0 +1,6 @@
+example/android/**
+example/ios/**
+android/*
+ios/*
+build/*
+example/.expo/*
