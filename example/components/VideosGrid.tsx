@@ -5,21 +5,24 @@ import {
   Metadata,
 } from '@jellyfish-dev/react-native-client-sdk';
 import React from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
-import Animated, {FadeInDown, LinearTransition} from 'react-native-reanimated';
-import {roomScreenLabels} from '../types/ComponentLabels';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import Animated, {
+  FadeInDown,
+  LinearTransition,
+} from 'react-native-reanimated';
+import { roomScreenLabels } from '../types/ComponentLabels';
 import LetterButton from './LetterButton';
 
 type Props = {
   tracks: Track<Metadata>[];
 };
 
-const {width} = Dimensions.get('window');
-const {VIDEO_CELL} = roomScreenLabels;
+const { width } = Dimensions.get('window');
+const { VIDEO_CELL } = roomScreenLabels;
 const AnimatedVideoRenderer =
   Animated.createAnimatedComponent(VideoRendererView);
 
-export function VideosGrid({tracks}: Props) {
+export function VideosGrid({ tracks }: Props) {
   const videoWidth = (width - 40) / 2;
 
   return (
@@ -34,8 +37,8 @@ export function VideosGrid({tracks}: Props) {
           layout={LinearTransition.duration(150)}
           style={
             tracks.length > 3
-              ? [styles.video2, {width: videoWidth, height: videoWidth}]
-              : [styles.video1, {maxWidth: width - 20}]
+              ? [styles.video2, { width: videoWidth, height: videoWidth }]
+              : [styles.video1, { maxWidth: width - 20 }]
           }
           key={v.id}>
           <AnimatedVideoRenderer
@@ -46,7 +49,7 @@ export function VideosGrid({tracks}: Props) {
           />
           {(v.simulcastConfig?.enabled ?? false) && (
             <View style={styles.buttons}>
-              {v.simulcastConfig?.activeEncodings.map(e => (
+              {v.simulcastConfig?.activeEncodings.map((e) => (
                 <LetterButton
                   key={e}
                   trackEncoding={e}
@@ -63,7 +66,7 @@ export function VideosGrid({tracks}: Props) {
 }
 
 const styles = StyleSheet.create({
-  animatedView: {flex: 1},
+  animatedView: { flex: 1 },
   container: {
     flex: 1,
     justifyContent: 'center',

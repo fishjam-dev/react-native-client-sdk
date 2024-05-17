@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
@@ -7,24 +7,29 @@ import {
   Text,
   View,
 } from 'react-native';
-import {connectScreenLabels} from '../types/ComponentLabels';
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
-import {Button, TextInput, QRCodeScanner, DismissKeyboard} from '../components';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppRootStackParamList} from '../navigators/AppNavigator';
-import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {TabParamList} from '../navigators/AppNavigator';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {usePermissionCheck} from '../hooks/usePermissionCheck';
+import { connectScreenLabels } from '../types/ComponentLabels';
+import { useJellyfishClient } from '@jellyfish-dev/react-native-client-sdk';
+import {
+  Button,
+  TextInput,
+  QRCodeScanner,
+  DismissKeyboard,
+} from '../components';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AppRootStackParamList } from '../navigators/AppNavigator';
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { TabParamList } from '../navigators/AppNavigator';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { usePermissionCheck } from '../hooks/usePermissionCheck';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'ConnectWithToken'>,
   NativeStackScreenProps<AppRootStackParamList>
 >;
 
-const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
-const ConnectScreen = ({navigation}: Props) => {
-  const {connect} = useJellyfishClient();
+const { URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON } = connectScreenLabels;
+const ConnectScreen = ({ navigation }: Props) => {
+  const { connect } = useJellyfishClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
 
   const [peerToken, onChangePeerToken] = useState('');

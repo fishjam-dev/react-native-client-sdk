@@ -1,5 +1,5 @@
-import {useEffect} from 'react';
-import {Platform, PermissionsAndroid, Permission} from 'react-native';
+import { useEffect } from 'react';
+import { Platform, PermissionsAndroid, Permission } from 'react-native';
 
 export function usePermissionCheck() {
   useEffect(() => {

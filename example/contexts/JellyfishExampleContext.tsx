@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   useCamera,
@@ -20,7 +20,7 @@ import {
 
 import Toast from 'react-native-toast-message';
 
-import {Platform} from 'expo-modules-core';
+import { Platform } from 'expo-modules-core';
 import * as Device from 'expo-device';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
@@ -61,7 +61,7 @@ const JellyfishExampleContext = React.createContext<
 const isIosEmulator = Platform.OS === 'ios' && !Device.isDevice;
 
 const JellyfishExampleContextProvider = (props: any) => {
-  const {join} = useJellyfishClient();
+  const { join } = useJellyfishClient();
   const [isCameraOn, setIsCameraOn] = useState(!isIosEmulator);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
   const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
@@ -75,7 +75,7 @@ const JellyfishExampleContextProvider = (props: any) => {
     simulcastConfig: localCameraSimulcastConfig,
     toggleVideoTrackEncoding: toggleLocalCameraTrackEncoding,
   } = useCamera();
-  const {toggleMicrophone: membraneToggleMicrophone, startMicrophone} =
+  const { toggleMicrophone: membraneToggleMicrophone, startMicrophone } =
     useMicrophone();
   const audioSettings = useAudioSettings();
   const [videoRoomState, setVideoRoomState] =
@@ -89,8 +89,8 @@ const JellyfishExampleContextProvider = (props: any) => {
           Platform.OS === 'android' ? ['l', 'm', 'h'] : ['l', 'h'],
       },
       quality: VideoQuality.HD_169,
-      maxBandwidth: {l: 150, m: 500, h: 1500},
-      videoTrackMetadata: {active: isCameraOn, type: 'camera'},
+      maxBandwidth: { l: 150, m: 500, h: 1500 },
+      videoTrackMetadata: { active: isCameraOn, type: 'camera' },
       captureDeviceId: currentCamera?.id,
       cameraEnabled: isCameraOn,
     });
@@ -100,7 +100,7 @@ const JellyfishExampleContextProvider = (props: any) => {
     });
 
     await startMicrophone({
-      audioTrackMetadata: {active: isMicrophoneOn, type: 'audio'},
+      audioTrackMetadata: { active: isMicrophoneOn, type: 'audio' },
       microphoneEnabled: isMicrophoneOn,
     });
     setVideoRoomState('InMeeting');
@@ -114,8 +114,8 @@ const JellyfishExampleContextProvider = (props: any) => {
   ]);
 
   useEffect(() => {
-    getCaptureDevices().then(devices => {
-      setCurrentCamera(devices.find(device => device.isFrontFacing) || null);
+    getCaptureDevices().then((devices) => {
+      setCurrentCamera(devices.find((device) => device.isFrontFacing) || null);
     });
   }, [getCaptureDevices]);
 
@@ -132,7 +132,7 @@ const JellyfishExampleContextProvider = (props: any) => {
 
     if (videoRoomState === 'InMeeting') {
       await membraneToggleCamera();
-      await updateVideoTrackMetadata({active: !isCameraOn, type: 'camera'});
+      await updateVideoTrackMetadata({ active: !isCameraOn, type: 'camera' });
     }
 
     setIsCameraOn(!isCameraOn);
@@ -182,4 +182,4 @@ function useJellyfishExampleContext() {
   return context;
 }
 
-export {JellyfishExampleContextProvider, useJellyfishExampleContext};
+export { JellyfishExampleContextProvider, useJellyfishExampleContext };

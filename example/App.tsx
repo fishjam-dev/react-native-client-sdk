@@ -1,5 +1,5 @@
 import React from 'react';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
 import AppProvider from './providers/AppProvider';
 import AppNavigator from './navigators/AppNavigator';

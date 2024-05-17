@@ -1,4 +1,4 @@
-import type {Capabilities} from '@wdio/types';
+import type { Capabilities } from '@wdio/types';
 import * as assert from 'assert';
 
 const TIMEOUT = 3000;
@@ -25,7 +25,7 @@ const getElement = async (
   timeout: TimeoutConfig = findTimeoutConfig(selector),
 ) => {
   const element = await driver.$(selector);
-  await element.waitForExist({...timeout, reverse: reverse});
+  await element.waitForExist({ ...timeout, reverse: reverse });
   return element;
 };
 
@@ -74,7 +74,7 @@ const getAndroidDeviceCapabilities = (
   name: string,
 ): Capabilities.RemoteCapability => {
   return {
-    platformName: 'Android',
+    'platformName': 'Android',
     'appium:automationName': 'UiAutomator2',
     'appium:deviceName': name,
     'appium:autoGrantPermissions': true,
@@ -89,7 +89,7 @@ const getIosDeviceCapabilities = (
   teamId?: string,
 ): Capabilities.RemoteCapability => {
   return {
-    platformName: 'iOS',
+    'platformName': 'iOS',
     'appium:automationName': 'XCUITest',
     'appium:udid': id,
     'appium:app': process.env.IOS_APP_PATH,
@@ -116,10 +116,10 @@ const capabilities: Capabilities.RemoteCapabilities = [
     androidDeviceName,
     getAndroidDeviceCapabilities,
   ),
-  getCapabilityIfDeviceAvailable(iosDeviceId, id =>
+  getCapabilityIfDeviceAvailable(iosDeviceId, (id) =>
     getIosDeviceCapabilities(id, teamId),
   ),
-].filter(object => object !== undefined) as Capabilities.RemoteCapabilities;
+].filter((object) => object !== undefined) as Capabilities.RemoteCapabilities;
 
 export {
   tapApp,

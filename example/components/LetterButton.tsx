@@ -1,4 +1,4 @@
-import {BrandColors} from '../utils/Colors';
+import { BrandColors } from '../utils/Colors';
 import React from 'react';
 import {
   type GestureResponderEvent,
@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import AccessibilityLabel from '../types/AccessibilityLabel';
-import {TrackEncoding} from '@jellyfish-dev/react-native-client-sdk';
+import { TrackEncoding } from '@jellyfish-dev/react-native-client-sdk';
 
 const LetterButtonStyles = StyleSheet.create({
   common: {

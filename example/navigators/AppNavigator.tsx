@@ -1,14 +1,14 @@
-import type {NavigationProp} from '@react-navigation/native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import type { NavigationProp } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ConnectWithTokenScreen from '../screens/ConnectWithTokenScreen';
 import ConnectWithRoomManagerScreen from '../screens/ConnectWithRoomManagerScreen';
 import RoomScreen from '../screens/RoomScreen';
 import React from 'react';
 import PreviewScreen from '../screens/PreviewScreen';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
-import {AdditionalColors, BrandColors} from '../utils/Colors';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AdditionalColors, BrandColors } from '../utils/Colors';
 
 export type AppRootStackParamList = {
   Home: undefined;
@@ -23,7 +23,7 @@ export type TabParamList = {
 
 const tabBarIcon =
   (icon: keyof typeof MaterialCommunityIcons.glyphMap) =>
-  ({color}: {color: string}) =>
+  ({ color }: { color: string }) =>
     <MaterialCommunityIcons name={icon} size={24} color={color} />;
 
 export type AppStackNavigation = NavigationProp<AppRootStackParamList>;
@@ -35,7 +35,7 @@ const Tab = createBottomTabNavigator<TabParamList>();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={{headerShown: false, tabBarHideOnKeyboard: true}}>
+      screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}>
       <Tab.Screen
         name="ConnectWithToken"
         component={ConnectWithTokenScreen}
@@ -71,7 +71,7 @@ const AppNavigator = () => {
         })}>
         <Stack.Screen
           name="Home"
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           component={TabNavigator}
         />
         <Stack.Screen name="Preview" component={PreviewScreen} />

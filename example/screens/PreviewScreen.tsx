@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useCallback} from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import {
   BackHandler,
   Button,
@@ -8,25 +8,25 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {InCallButton} from '../components';
+import { InCallButton } from '../components';
 
 import {
   CaptureDevice,
   TrackEncoding,
 } from '@jellyfish-dev/react-native-client-sdk';
 
-import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {AppRootStackParamList} from '../navigators/AppNavigator';
+import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { AppRootStackParamList } from '../navigators/AppNavigator';
 
-import {previewScreenLabels} from '../types/ComponentLabels';
-import {BrandColors} from '../utils/Colors';
-import {NoCameraView} from '../components/NoCameraView';
+import { previewScreenLabels } from '../types/ComponentLabels';
+import { BrandColors } from '../utils/Colors';
+import { NoCameraView } from '../components/NoCameraView';
 import VideoPreview from '../components/VideoPreview';
 import LetterButton from '../components/LetterButton';
 
 import BottomSheet from '@gorhom/bottom-sheet';
-import {SoundOutputDevicesBottomSheet} from '../components/SoundOutputDevicesBottomSheet';
+import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
 const {
@@ -37,7 +37,7 @@ const {
   SELECT_AUDIO_OUTPUT,
 } = previewScreenLabels;
 
-const PreviewScreen = ({navigation}: Props) => {
+const PreviewScreen = ({ navigation }: Props) => {
   const {
     toggleCamera,
     toggleMicrophone,
@@ -55,9 +55,9 @@ const PreviewScreen = ({navigation}: Props) => {
   const availableCameras = useRef<CaptureDevice[]>([]);
 
   useEffect(() => {
-    getCaptureDevices().then(devices => {
+    getCaptureDevices().then((devices) => {
       availableCameras.current = devices;
-      setCurrentCamera(devices.find(device => device.isFrontFacing) || null);
+      setCurrentCamera(devices.find((device) => device.isFrontFacing) || null);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -71,7 +71,7 @@ const PreviewScreen = ({navigation}: Props) => {
     //todo Switches between front-facing and back-facing cameras or displays a list of available cameras.
     setCurrentCamera(
       cameras[
-        (cameras.findIndex(device => device === currentCamera) + 1) %
+        (cameras.findIndex((device) => device === currentCamera) + 1) %
           cameras.length
       ] || null,
     );
@@ -132,7 +132,7 @@ const PreviewScreen = ({navigation}: Props) => {
         />
       </View>
       <View style={styles.simulcastButtonsWrapper}>
-        {(['h', 'm', 'l'] as TrackEncoding[]).map(val => {
+        {(['h', 'm', 'l'] as TrackEncoding[]).map((val) => {
           return (
             <LetterButton
               trackEncoding={val}
@@ -172,7 +172,7 @@ const PreviewScreen = ({navigation}: Props) => {
 export default PreviewScreen;
 
 const styles = StyleSheet.create({
-  callView: {display: 'flex', flexDirection: 'row', gap: 20},
+  callView: { display: 'flex', flexDirection: 'row', gap: 20 },
   container: {
     flex: 1,
     alignItems: 'center',

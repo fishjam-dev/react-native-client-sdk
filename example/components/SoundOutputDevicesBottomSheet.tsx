@@ -1,7 +1,7 @@
-import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
-import {SoundOutputDevicesSection} from './SoundOutputDevicesSection';
-import React, {useCallback, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import { SoundOutputDevicesSection } from './SoundOutputDevicesSection';
+import React, { useCallback, useState } from 'react';
+import { StyleSheet } from 'react-native';
 
 export const SoundOutputDevicesBottomSheet = ({
   bottomSheetRef,

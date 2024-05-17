@@ -1,5 +1,5 @@
-import type {Options} from '@wdio/types';
-import {capabilities} from './utils';
+import type { Options } from '@wdio/types';
+import { capabilities } from './utils';
 
 require('dotenv').config({
   path: '.env',

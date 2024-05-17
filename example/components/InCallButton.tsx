@@ -1,5 +1,5 @@
-import {AdditionalColors, BrandColors} from '../utils/Colors';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
+import { AdditionalColors, BrandColors } from '../utils/Colors';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import {
   type GestureResponderEvent,
