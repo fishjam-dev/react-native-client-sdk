@@ -112,8 +112,8 @@
   },
   "lint-staged": {
     "*.(js|ts|tsx)": [
-      "prettier --write",
-      "eslint --ext '.js,.ts,.tsx' --max-warnings=0 src/"
+      "yarn format:check",
+      "yarn lint:check"
     ]
   }
 }
