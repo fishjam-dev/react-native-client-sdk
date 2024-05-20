@@ -1,4 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {
+  useJellyfishClient,
+  usePeers,
+  useScreencast,
+  ScreencastQuality,
+} from '@jellyfish-dev/react-native-client-sdk';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   BackHandler,
   Platform,
@@ -6,23 +14,13 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {InCallButton, VideosGrid} from '../components';
-import {NoCameraView} from '../components/NoCameraView';
 
-import {
-  useJellyfishClient,
-  usePeers,
-  useScreencast,
-  ScreencastQuality,
-} from '@jellyfish-dev/react-native-client-sdk';
-
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {AppRootStackParamList} from '../navigators/AppNavigator';
-
-import {roomScreenLabels} from '../types/ComponentLabels';
-import {useJellyfishExampleContext} from '../contexts/JellyfishExampleContext';
-import BottomSheet from '@gorhom/bottom-sheet';
-import {SoundOutputDevicesBottomSheet} from '../components/SoundOutputDevicesBottomSheet';
+import { InCallButton, VideosGrid } from '../components';
+import { NoCameraView } from '../components/NoCameraView';
+import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
+import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
+import type { AppRootStackParamList } from '../navigators/AppNavigator';
+import { roomScreenLabels } from '../types/ComponentLabels';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {
@@ -34,20 +32,20 @@ const {
   NO_CAMERA_VIEW,
 } = roomScreenLabels;
 
-const RoomScreen = ({navigation}: Props) => {
+const RoomScreen = ({ navigation }: Props) => {
   const peers = usePeers();
   const tracks = useMemo(
     () =>
-      peers.flatMap(peer =>
+      peers.flatMap((peer) =>
         peer.tracks.filter(
-          t => t.metadata.type !== 'audio' && (t.metadata.active ?? true),
+          (t) => t.metadata.type !== 'audio' && (t.metadata.active ?? true),
         ),
       ),
     [peers],
   );
 
-  const {cleanUp} = useJellyfishClient();
-  const {toggleScreencast, isScreencastOn} = useScreencast();
+  const { cleanUp } = useJellyfishClient();
+  const { toggleScreencast, isScreencastOn } = useScreencast();
   const {
     isCameraOn,
     isMicrophoneOn,
@@ -141,7 +139,7 @@ const RoomScreen = ({navigation}: Props) => {
 export default RoomScreen;
 
 const styles = StyleSheet.create({
-  callView: {display: 'flex', flexDirection: 'row', gap: 10},
+  callView: { display: 'flex', flexDirection: 'row', gap: 10 },
   container: {
     flex: 1,
     alignItems: 'center',

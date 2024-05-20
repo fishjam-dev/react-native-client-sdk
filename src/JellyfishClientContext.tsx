@@ -8,7 +8,7 @@ import { PeerMessage } from './protos/jellyfish/peer_notifications';
 const membraneModule = requireNativeModule('MembraneWebRTC');
 
 const eventEmitter = new NativeEventEmitter(
-  membraneModule ?? NativeModulesProxy.MembraneWebRTC
+  membraneModule ?? NativeModulesProxy.MembraneWebRTC,
 );
 
 const generateMessage = (event: WebSocketCloseEvent) => {
@@ -71,7 +71,7 @@ const JellyfishContextProvider = (props: any) => {
   useEffect(() => {
     const eventListener = eventEmitter.addListener(
       'SendMediaEvent',
-      sendMediaEvent
+      sendMediaEvent,
     );
     return () => eventListener.remove();
   }, []);
@@ -106,7 +106,7 @@ const JellyfishContextProvider = (props: any) => {
             resolve();
           } else if (data.authRequest !== undefined) {
             reject(
-              new Error('Received unexpected control message: authRequest')
+              new Error('Received unexpected control message: authRequest'),
             );
           } else if (data.mediaEvent !== undefined) {
             membraneModule.receiveMediaEvent(data.mediaEvent.data);
@@ -156,7 +156,7 @@ function useJellyfishClient() {
   const context = React.useContext(JellyfishContext);
   if (context === undefined) {
     throw new Error(
-      'useJellyfishClient must be used within a JellyfishContextProvider'
+      'useJellyfishClient must be used within a JellyfishContextProvider',
     );
   }
   return context;

@@ -1,12 +1,21 @@
-import {driver} from '@wdio/globals';
-import type {Suite} from 'mocha';
+import { driver } from '@wdio/globals';
+import * as assert from 'assert';
+import type { Suite } from 'mocha';
+
 import {
   connectScreenLabels,
   roomScreenLabels,
   previewScreenLabels,
   soundOutputDevicesLabels,
 } from '../../../types/ComponentLabels';
-
+import {
+  AddPeerRequest,
+  Configuration,
+  ConfigurationParameters,
+  PeerDetailsResponseData,
+  Room,
+  RoomApiFp,
+} from '../../server-api';
 import {
   getElement,
   getWebsocketUrl,
@@ -16,18 +25,7 @@ import {
   typeToInput,
 } from '../../utils';
 
-import {
-  AddPeerRequest,
-  Configuration,
-  ConfigurationParameters,
-  PeerDetailsResponseData,
-  Room,
-  RoomApiFp,
-} from '../../server-api';
-
-import * as assert from 'assert';
-
-const {URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON} = connectScreenLabels;
+const { URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON } = connectScreenLabels;
 const {
   JOIN_BUTTON,
   TOGGLE_CAMERA_BUTTON: TOGGLE_CAMERA_BUTTON_PREVIEW,
@@ -44,7 +42,7 @@ const {
   VIDEO_CELL,
 } = roomScreenLabels;
 
-const {TITLE_TEXT, OUTPUT_DEVICE_BUTTON} = soundOutputDevicesLabels;
+const { TITLE_TEXT, OUTPUT_DEVICE_BUTTON } = soundOutputDevicesLabels;
 
 type Test = {
   name: string;
@@ -59,24 +57,23 @@ const configParam: ConfigurationParameters = {
 
 const config = new Configuration(configParam);
 const createJellyfishRoom = async () => {
-  const {createRoom} = RoomApiFp(config);
+  const { createRoom } = RoomApiFp(config);
   const createRoomFunction = await createRoom();
   try {
     const response = await createRoomFunction();
     return response.data.data.room;
   } catch (e) {
     console.log(e);
-    return;
   }
 };
 const addPeerToRoom = async (
   roomId: string,
   enableSimulcast: boolean = true,
 ) => {
-  const {addPeer} = RoomApiFp(config);
+  const { addPeer } = RoomApiFp(config);
   const addPeerRequest: AddPeerRequest = {
     type: 'webrtc',
-    options: {enableSimulcast: enableSimulcast},
+    options: { enableSimulcast },
   };
   const addPeerFunction = await addPeer(roomId, addPeerRequest);
   try {
@@ -84,12 +81,11 @@ const addPeerToRoom = async (
     return response.data.data;
   } catch (e) {
     console.log(e);
-    return;
   }
 };
 
-var peerDetail: PeerDetailsResponseData | undefined;
-var room: Room | undefined;
+let peerDetail: PeerDetailsResponseData | undefined;
+let room: Room | undefined;
 
 const tests: Test[] = [
   {
@@ -292,7 +288,7 @@ const tests: Test[] = [
   },
 ];
 describe('Walk through app', async function (this: Suite): Promise<void> {
-  for (const {name, run, skip} of tests) {
+  for (const { name, run, skip } of tests) {
     const testFunction = skip ? it.skip : it.only;
     testFunction(name, async () => {
       await run();

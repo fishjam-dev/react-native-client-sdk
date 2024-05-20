@@ -17,7 +17,7 @@ jobs:
         env:
           JF_CHECK_ORIGIN: false
           JF_HOST: localhost:5002
-          JF_PORT: "5002"
+          JF_PORT: '5002'
           JF_WEBRTC_USED: true
           JF_WEBRTC_TURN_PORT_RANGE: 50000-50050
           JF_WEBRTC_TURN_IP: 127.0.0.1
@@ -27,19 +27,21 @@ jobs:
           - 5002:5002
           - 50000-50050:50000-50050/udp
     env:
-      ARCH: "x86_64"
-      TARGET: "default"
-      API_LEVEL: "33"
-      BUILD_TOOLS: "33.0.0"
+      ARCH: 'x86_64'
+      TARGET: 'default'
+      API_LEVEL: '33'
+      BUILD_TOOLS: '33.0.0'
       ANDROID_API_LEVEL: android;33
       ANDROID_APIS: google_apis;x86_64
       EMULATOR_PACKAGE: system-images;android-33;default;x86_64
-      EMULATOR_NAME: "nexus"
-      EMULATOR_DEVICE: "Nexus 6"
+      EMULATOR_NAME: 'nexus'
+      EMULATOR_DEVICE: 'Nexus 6'
       PLATFORM_VERSION: platforms;android-33
-      BUILD_TOOL: "build-tools;33.0.0"
-      ANDROID_CMD: "commandlinetools-linux-10406996_latest.zip"
-      ANDROID_APP_PATH: ${{ github.workspace }}/example/android/app/build/outputs/apk/release/app-release.apk
+      BUILD_TOOL: 'build-tools;33.0.0'
+      ANDROID_CMD: 'commandlinetools-linux-10406996_latest.zip'
+      ANDROID_APP_PATH:
+        ${{ github.workspace
+        }}/example/android/app/build/outputs/apk/release/app-release.apk
 
     steps:
       - name: Checkout
@@ -67,7 +69,11 @@ jobs:
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3 libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox wmctrl libdbus-glib-1-2 xvfb
+        run:
+          sudo apt-get update && sudo apt install -y curl sudo wget unzip bzip2
+          libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libnss3
+          libxcursor1 libpulse-dev libxshmfence-dev xauth xvfb x11vnc fluxbox
+          wmctrl libdbus-glib-1-2 xvfb
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -137,13 +143,15 @@ jobs:
         run: echo "y" | sdkmanager --verbose --no_https $EMULATOR_PACKAGE
 
       - name: Install platform version
-        run:  echo "y" | sdkmanager --verbose --no_https $PLATFORM_VERSION
+        run: echo "y" | sdkmanager --verbose --no_https $PLATFORM_VERSION
 
       - name: Install  build tool
-        run:  echo "y" | sdkmanager --verbose --no_https $BUILD_TOOL
+        run: echo "y" | sdkmanager --verbose --no_https $BUILD_TOOL
 
       - name: Setup environment and create AVD
-        run: echo "y" | avdmanager --verbose create avd --force --name "nexus" --device "Nexus 6" --package "$EMULATOR_PACKAGE"
+        run:
+          echo "y" | avdmanager --verbose create avd --force --name "nexus"
+          --device "Nexus 6" --package "$EMULATOR_PACKAGE"
 
       - name: Start emulator
         timeout-minutes: 10

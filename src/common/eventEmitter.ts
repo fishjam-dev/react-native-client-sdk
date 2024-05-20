@@ -14,5 +14,5 @@ export const ReceivableEvents = {
 } as const;
 
 export const eventEmitter = new EventEmitter(
-  MembraneWebRTCModule ?? NativeModulesProxy.MembraneWebRTC
+  MembraneWebRTCModule ?? NativeModulesProxy.MembraneWebRTC,
 );

@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
-import {Modal, StyleSheet, View} from 'react-native';
+import { Camera } from 'expo-camera';
+import { CameraView } from 'expo-camera/next';
+import React, { useState } from 'react';
+import { Modal, StyleSheet, View } from 'react-native';
+
 import Button from './Button';
-import {CameraView} from 'expo-camera/next';
-import {Camera} from 'expo-camera';
 
 type Props = {
   onCodeScanned: (code: string) => void;
 };
 
-export function QRCodeScanner({onCodeScanned}: Props) {
+export function QRCodeScanner({ onCodeScanned }: Props) {
   const [isBarcodeScannerVisible, setIsBarcodeScannerVisible] = useState(false);
 
   const onPress = async () => {
@@ -16,13 +17,13 @@ export function QRCodeScanner({onCodeScanned}: Props) {
       setIsBarcodeScannerVisible(false);
       return;
     }
-    const {status} = await Camera.requestCameraPermissionsAsync();
+    const { status } = await Camera.requestCameraPermissionsAsync();
     if (status === 'granted') {
       setIsBarcodeScannerVisible(true);
     }
   };
 
-  const onBarCodeScanned = ({data}: {data: string}) => {
+  const onBarCodeScanned = ({ data }: { data: string }) => {
     onCodeScanned(data);
     setIsBarcodeScannerVisible(false);
   };

@@ -24,15 +24,15 @@ let screencastSimulcastConfig: SimulcastConfig = defaultSimulcastConfig();
  */
 export function useScreencast() {
   const [isScreencastOn, setIsScreencastOn] = useState<boolean>(
-    MembraneWebRTCModule.isScreencastOn
+    MembraneWebRTCModule.isScreencastOn,
   );
   const [simulcastConfig, setSimulcastConfig] = useState<SimulcastConfig>(
-    screencastSimulcastConfig
+    screencastSimulcastConfig,
   );
   useEffect(() => {
     const eventListener = eventEmitter.addListener<IsScreencastOnEvent>(
       ReceivableEvents.IsScreencastOn,
-      (event) => setIsScreencastOn(event.IsScreencastOn)
+      (event) => setIsScreencastOn(event.IsScreencastOn),
     );
     setIsScreencastOn(MembraneWebRTCModule.isScreencastOn);
     return () => eventListener.remove();
@@ -45,14 +45,14 @@ export function useScreencast() {
     async <ScreencastOptionsMetadataType extends Metadata>(
       screencastOptions: Partial<
         ScreencastOptions<ScreencastOptionsMetadataType>
-      > = {}
+      > = {},
     ) => {
       await MembraneWebRTCModule.toggleScreencast(screencastOptions);
       screencastSimulcastConfig =
         screencastOptions.simulcastConfig || defaultSimulcastConfig();
       setSimulcastConfig(screencastSimulcastConfig);
     },
-    []
+    [],
   );
 
   /**
@@ -61,11 +61,11 @@ export function useScreencast() {
    */
   const updateScreencastTrackMetadata = useCallback(
     async <ScreencastMetadataType extends Metadata>(
-      metadata: ScreencastMetadataType
+      metadata: ScreencastMetadataType,
     ) => {
       await MembraneWebRTCModule.updateScreencastTrackMetadata(metadata);
     },
-    []
+    [],
   );
 
   /**
@@ -78,7 +78,7 @@ export function useScreencast() {
         await MembraneWebRTCModule.toggleScreencastTrackEncoding(encoding);
       setSimulcastConfig(screencastSimulcastConfig);
     },
-    []
+    [],
   );
 
   /**
@@ -90,10 +90,10 @@ export function useScreencast() {
     async (encoding: TrackEncoding, bandwidth: BandwidthLimit) => {
       await MembraneWebRTCModule.setScreencastTrackEncodingBandwidth(
         encoding,
-        bandwidth
+        bandwidth,
       );
     },
-    []
+    [],
   );
 
   /**
@@ -107,7 +107,7 @@ export function useScreencast() {
     async (bandwidth: BandwidthLimit) => {
       await MembraneWebRTCModule.setScreencastTrackBandwidth(bandwidth);
     },
-    []
+    [],
   );
 
   return {

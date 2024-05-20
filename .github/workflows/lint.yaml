@@ -23,9 +23,14 @@ jobs:
       - name: Check types
         run: yarn typecheck
       - name: Lint
-        run: yarn lint
+        run: yarn lint:check
       - name: Lint Example
-        run: yarn lint
+        run: yarn lint:check
+        working-directory: ./example
+      - name: Prettier
+        run: yarn format:check
+      - name: Prettier Example
+        run: yarn format:check
         working-directory: ./example
       - name: Build
         run: EXPO_NONINTERACTIVE=true yarn build

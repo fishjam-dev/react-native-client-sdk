@@ -70,13 +70,13 @@ describe('JellyfishClient', () => {
     expect(msg).toEqual(
       PeerMessage.encode({
         authRequest: { token: peerToken },
-      }).finish()
+      }).finish(),
     );
 
     server.send(
       encodePeerMessage({
         authenticated: true,
-      })
+      }),
     );
 
     await connectPromise;
@@ -106,7 +106,7 @@ describe('JellyfishClient', () => {
     });
 
     await expect(connectPromise).rejects.toThrow(
-      new Error('WebSocket was closed: 1234 An error')
+      new Error('WebSocket was closed: 1234 An error'),
     );
   });
 
@@ -129,7 +129,7 @@ describe('JellyfishClient', () => {
     expect(msg).toEqual(
       PeerMessage.encode({
         mediaEvent: { data: 'join' },
-      }).finish()
+      }).finish(),
     );
   });
 
@@ -141,14 +141,14 @@ describe('JellyfishClient', () => {
         mediaEvent: {
           data: 'sdpOffer',
         },
-      })
+      }),
     );
 
     expect(
-      requireNativeModule('MembraneWebRTC').receiveMediaEvent
+      requireNativeModule('MembraneWebRTC').receiveMediaEvent,
     ).toBeCalledTimes(1);
     expect(
-      requireNativeModule('MembraneWebRTC').receiveMediaEvent
+      requireNativeModule('MembraneWebRTC').receiveMediaEvent,
     ).toHaveBeenCalledWith('sdpOffer');
   });
 });

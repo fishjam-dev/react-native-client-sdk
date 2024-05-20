@@ -30,24 +30,24 @@ function createBasePeerMessage(): PeerMessage {
 export const PeerMessage = {
   encode(
     message: PeerMessage,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.authenticated !== undefined) {
       PeerMessage_Authenticated.encode(
         message.authenticated,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
     if (message.authRequest !== undefined) {
       PeerMessage_AuthRequest.encode(
         message.authRequest,
-        writer.uint32(18).fork()
+        writer.uint32(18).fork(),
       ).ldelim();
     }
     if (message.mediaEvent !== undefined) {
       PeerMessage_MediaEvent.encode(
         message.mediaEvent,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
     return writer;
@@ -68,7 +68,7 @@ export const PeerMessage = {
 
           message.authenticated = PeerMessage_Authenticated.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           continue;
         case 2:
@@ -78,7 +78,7 @@ export const PeerMessage = {
 
           message.authRequest = PeerMessage_AuthRequest.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           continue;
         case 3:
@@ -88,7 +88,7 @@ export const PeerMessage = {
 
           message.mediaEvent = PeerMessage_MediaEvent.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           continue;
       }
@@ -136,7 +136,7 @@ export const PeerMessage = {
   },
 
   fromPartial<I extends Exact<DeepPartial<PeerMessage>, I>>(
-    object: I
+    object: I,
   ): PeerMessage {
     const message = createBasePeerMessage();
     message.authenticated =
@@ -162,14 +162,14 @@ function createBasePeerMessage_Authenticated(): PeerMessage_Authenticated {
 export const PeerMessage_Authenticated = {
   encode(
     _: PeerMessage_Authenticated,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PeerMessage_Authenticated {
     const reader =
       input instanceof _m0.Reader ? input : _m0.Reader.create(input);
@@ -197,13 +197,13 @@ export const PeerMessage_Authenticated = {
   },
 
   create<I extends Exact<DeepPartial<PeerMessage_Authenticated>, I>>(
-    base?: I
+    base?: I,
   ): PeerMessage_Authenticated {
     return PeerMessage_Authenticated.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PeerMessage_Authenticated>, I>>(
-    _: I
+    _: I,
   ): PeerMessage_Authenticated {
     const message = createBasePeerMessage_Authenticated();
     return message;
@@ -217,7 +217,7 @@ function createBasePeerMessage_AuthRequest(): PeerMessage_AuthRequest {
 export const PeerMessage_AuthRequest = {
   encode(
     message: PeerMessage_AuthRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.token !== '') {
       writer.uint32(10).string(message.token);
@@ -227,7 +227,7 @@ export const PeerMessage_AuthRequest = {
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PeerMessage_AuthRequest {
     const reader =
       input instanceof _m0.Reader ? input : _m0.Reader.create(input);
@@ -263,13 +263,13 @@ export const PeerMessage_AuthRequest = {
   },
 
   create<I extends Exact<DeepPartial<PeerMessage_AuthRequest>, I>>(
-    base?: I
+    base?: I,
   ): PeerMessage_AuthRequest {
     return PeerMessage_AuthRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PeerMessage_AuthRequest>, I>>(
-    object: I
+    object: I,
   ): PeerMessage_AuthRequest {
     const message = createBasePeerMessage_AuthRequest();
     message.token = object.token ?? '';
@@ -284,7 +284,7 @@ function createBasePeerMessage_MediaEvent(): PeerMessage_MediaEvent {
 export const PeerMessage_MediaEvent = {
   encode(
     message: PeerMessage_MediaEvent,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.data !== '') {
       writer.uint32(10).string(message.data);
@@ -294,7 +294,7 @@ export const PeerMessage_MediaEvent = {
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PeerMessage_MediaEvent {
     const reader =
       input instanceof _m0.Reader ? input : _m0.Reader.create(input);
@@ -330,13 +330,13 @@ export const PeerMessage_MediaEvent = {
   },
 
   create<I extends Exact<DeepPartial<PeerMessage_MediaEvent>, I>>(
-    base?: I
+    base?: I,
   ): PeerMessage_MediaEvent {
     return PeerMessage_MediaEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PeerMessage_MediaEvent>, I>>(
-    object: I
+    object: I,
   ): PeerMessage_MediaEvent {
     const message = createBasePeerMessage_MediaEvent();
     message.data = object.data ?? '';

@@ -16,7 +16,7 @@ export function useAudioSettings() {
   const [selectedAudioOutputDevice, setSelectedAudioOutputDevice] =
     useState<AudioOutputDevice | null>(null);
   const [availableDevices, setAvailableDevices] = useState<AudioOutputDevice[]>(
-    []
+    [],
   );
 
   type onAudioDeviceEvent = {
@@ -34,7 +34,7 @@ export function useAudioSettings() {
   useEffect(() => {
     const eventListener = eventEmitter.addListener(
       ReceivableEvents.AudioDeviceUpdate,
-      onAudioDevice
+      onAudioDevice,
     );
     MembraneWebRTCModule.startAudioSwitcher();
     return () => {
@@ -54,12 +54,12 @@ export function useAudioSettings() {
       if (Platform.OS === 'ios') {
         throw Error(
           'selectOutputAudioDevice function is supported only on Android. ' +
-            'To select an output audio device on iOS use selectAudioSessionMode or showAudioRoutePicker functions'
+            'To select an output audio device on iOS use selectAudioSessionMode or showAudioRoutePicker functions',
         );
       }
       await MembraneWebRTCModule.setOutputAudioDevice(device);
     },
-    []
+    [],
   );
 
   /**
@@ -74,7 +74,7 @@ export function useAudioSettings() {
       }
       await MembraneWebRTCModule.selectAudioSessionMode(audioSessionMode);
     },
-    []
+    [],
   );
 
   /**
@@ -85,7 +85,7 @@ export function useAudioSettings() {
     if (Platform.OS === 'android') {
       throw Error(
         'showAudioRoutePicker function is supported only on iOS. ' +
-          'To select an output audio device on Android use selectOutputAudioDevice function'
+          'To select an output audio device on Android use selectOutputAudioDevice function',
       );
     }
     await MembraneWebRTCModule.showAudioRoutePicker();

@@ -6,7 +6,7 @@ inputs: {}
 outputs:
   cache-hit:
     value: ${{ steps.cache-apk.outputs.cache-hit }}
-    description: "Cache hit status"
+    description: 'Cache hit status'
 
 runs:
   using: composite

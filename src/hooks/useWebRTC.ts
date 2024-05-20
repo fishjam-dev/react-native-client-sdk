@@ -21,7 +21,7 @@ export function useWebRTC() {
   useEffect(() => {
     const eventListener = eventEmitter.addListener(
       ReceivableEvents.SendMediaEvent,
-      sendMediaEvent
+      sendMediaEvent,
     );
     return () => eventListener.remove();
   }, []);
@@ -58,7 +58,7 @@ export function useWebRTC() {
     roomName: string,
     connectionOptions?: Partial<
       ConnectionOptions<ConnectionOptionsMetadataType>
-    >
+    >,
   ) => Promise<void> = useCallback(
     withLock(
       async <ConnectionOptionsMetadataType extends Metadata>(
@@ -66,7 +66,7 @@ export function useWebRTC() {
         roomName: string,
         connectionOptions: Partial<
           ConnectionOptions<ConnectionOptionsMetadataType>
-        > = {}
+        > = {},
       ) => {
         setError(null);
         const _socket = new Socket(url, {
@@ -82,7 +82,7 @@ export function useWebRTC() {
 
         const _webrtcChannel = _socket.channel(
           `room:${roomName}`,
-          connectionOptions.socketChannelParams
+          connectionOptions.socketChannelParams,
         );
 
         _webrtcChannel.on('mediaEvent', (event) => {
@@ -92,7 +92,7 @@ export function useWebRTC() {
         _webrtcChannel.on('error', (error) => {
           console.error(error);
           setError(
-            `Received error report from the server: ${error.message ?? ''}`
+            `Received error report from the server: ${error.message ?? ''}`,
           );
           cleanUp();
         });
@@ -121,11 +121,11 @@ export function useWebRTC() {
         });
 
         await MembraneWebRTCModule.connect(
-          connectionOptions.endpointMetadata || {}
+          connectionOptions.endpointMetadata || {},
         );
-      }
+      },
     ),
-    []
+    [],
   );
 
   /**
@@ -137,7 +137,7 @@ export function useWebRTC() {
       setError(null);
       return cleanUp();
     }),
-    []
+    [],
   );
 
   const cleanUp = (): Promise<void> => {

@@ -1,4 +1,8 @@
-import React, {useState} from 'react';
+import { useJellyfishClient } from '@jellyfish-dev/react-native-client-sdk';
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
@@ -7,14 +11,13 @@ import {
   Text,
   View,
 } from 'react-native';
-import {useJellyfishClient} from '@jellyfish-dev/react-native-client-sdk';
-import {Button, TextInput, DismissKeyboard} from '../components';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppRootStackParamList} from '../navigators/AppNavigator';
-import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {TabParamList} from '../navigators/AppNavigator';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {usePermissionCheck} from '../hooks/usePermissionCheck';
+
+import { Button, TextInput, DismissKeyboard } from '../components';
+import { usePermissionCheck } from '../hooks/usePermissionCheck';
+import {
+  AppRootStackParamList,
+  TabParamList,
+} from '../navigators/AppNavigator';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'ConnectWithRoomManager'>,
@@ -46,8 +49,8 @@ async function getJellyfishServer(
   };
 }
 
-const ConnectScreen = ({navigation}: Props) => {
-  const {connect} = useJellyfishClient();
+const ConnectScreen = ({ navigation }: Props) => {
+  const { connect } = useJellyfishClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -63,7 +66,7 @@ const ConnectScreen = ({navigation}: Props) => {
     try {
       setConnectionError(null);
       setLoading(true);
-      const {jellyfishUrl, token} = await getJellyfishServer(
+      const { jellyfishUrl, token } = await getJellyfishServer(
         roomManagerUrl,
         roomName,
         userName,

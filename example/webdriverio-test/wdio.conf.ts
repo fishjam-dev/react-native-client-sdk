@@ -1,5 +1,6 @@
-import type {Options} from '@wdio/types';
-import {capabilities} from './utils';
+import type { Options } from '@wdio/types';
+
+import { capabilities } from './utils';
 
 require('dotenv').config({
   path: '.env',
@@ -18,7 +19,7 @@ export const config: Options.Testrunner = {
   specs: ['./test/specs/**/*.ts'],
   exclude: [],
   maxInstances: 10,
-  capabilities: capabilities,
+  capabilities,
   logLevel: 'info',
   bail: 1,
   baseUrl: '127.0.0.1',

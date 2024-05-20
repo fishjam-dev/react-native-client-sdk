@@ -47,7 +47,7 @@ const withAppGroupPermissions: ConfigPlugin = (config) => {
 
 const withMediaPermissions: ConfigPlugin<MembranePluginOptions> = (
   config,
-  { cameraPermission, microphonePermission } = {}
+  { cameraPermission, microphonePermission } = {},
 ) => {
   return withInfoPlist(config, (config) => {
     config.modResults.NSCameraUsageDescription =
@@ -77,9 +77,8 @@ const withInfoPlistConstants: ConfigPlugin = (config) => {
   return withInfoPlist(config, (config) => {
     const bundleIdentifier = config.ios?.bundleIdentifier || '';
     config.modResults['AppGroupName'] = `group.${bundleIdentifier}`;
-    config.modResults[
-      'ScreencastExtensionBundleId'
-    ] = `${bundleIdentifier}.${SBE_TARGET_NAME}`;
+    config.modResults['ScreencastExtensionBundleId'] =
+      `${bundleIdentifier}.${SBE_TARGET_NAME}`;
     return config;
   });
 };
@@ -88,7 +87,7 @@ async function updateFileWithRegex(
   iosPath: string,
   fileName: string,
   regex: RegExp,
-  value: string
+  value: string,
 ) {
   const filePath = `${iosPath}/${SBE_TARGET_NAME}/${fileName}`;
   let file = await fs.readFile(filePath, { encoding: 'utf-8' });
@@ -109,7 +108,7 @@ async function updatePodfile(iosPath: string) {
 
   if (matches) {
     console.log(
-      `${SBE_TARGET_NAME} target already added to Podfile. Skipping...`
+      `${SBE_TARGET_NAME} target already added to Podfile. Skipping...`,
     );
     return;
   }
@@ -122,7 +121,7 @@ async function updatePodfile(iosPath: string) {
 
 const withMembraneSBE: ConfigPlugin<MembranePluginOptions> = (
   config,
-  membraneProps
+  membraneProps,
 ) => {
   return withXcodeProject(config, async (props) => {
     const appName = props.modRequest.projectName || '';
@@ -149,7 +148,7 @@ const withMembraneSBE: ConfigPlugin<MembranePluginOptions> = (
 
       if (xcodeProject.pbxTargetByName(`"${SBE_TARGET_NAME}"`)) {
         console.log(
-          `${SBE_TARGET_NAME} already exists in project. Skipping...`
+          `${SBE_TARGET_NAME} already exists in project. Skipping...`,
         );
         return;
       }
@@ -170,26 +169,26 @@ const withMembraneSBE: ConfigPlugin<MembranePluginOptions> = (
         iosPath,
         `${SBE_TARGET_NAME}.entitlements`,
         GROUP_IDENTIFIER_TEMPLATE_REGEX,
-        `group.${bundleIdentifier}`
+        `group.${bundleIdentifier}`,
       );
       await updateFileWithRegex(
         iosPath,
         'MembraneBroadcastSampleHandler.swift',
         GROUP_IDENTIFIER_TEMPLATE_REGEX,
-        `group.${bundleIdentifier}`
+        `group.${bundleIdentifier}`,
       );
       await updateFileWithRegex(
         iosPath,
         'MembraneBroadcastSampleHandler.swift',
         BUNDLE_IDENTIFIER_TEMPLATE_REGEX,
-        bundleIdentifier || ''
+        bundleIdentifier || '',
       );
 
       // Create new PBXGroup for the extension
       const extGroup = xcodeProject.addPbxGroup(
         extFiles,
         SBE_TARGET_NAME,
-        SBE_TARGET_NAME
+        SBE_TARGET_NAME,
       );
 
       // Add the new PBXGroup to the top level group. This makes the
@@ -217,7 +216,7 @@ const withMembraneSBE: ConfigPlugin<MembranePluginOptions> = (
         SBE_TARGET_NAME,
         'app_extension',
         SBE_TARGET_NAME,
-        `${bundleIdentifier}.${SBE_TARGET_NAME}`
+        `${bundleIdentifier}.${SBE_TARGET_NAME}`,
       );
 
       // Add build phases to the new target
@@ -225,20 +224,20 @@ const withMembraneSBE: ConfigPlugin<MembranePluginOptions> = (
         ['MembraneBroadcastSampleHandler.swift'],
         'PBXSourcesBuildPhase',
         'Sources',
-        sbeTarget.uuid
+        sbeTarget.uuid,
       );
       xcodeProject.addBuildPhase(
         [],
         'PBXResourcesBuildPhase',
         'Resources',
-        sbeTarget.uuid
+        sbeTarget.uuid,
       );
 
       xcodeProject.addBuildPhase(
         [],
         'PBXFrameworksBuildPhase',
         'Frameworks',
-        sbeTarget.uuid
+        sbeTarget.uuid,
       );
 
       xcodeProject.addFramework('ReplayKit.framework', {
@@ -277,7 +276,7 @@ const withMembraneSBE: ConfigPlugin<MembranePluginOptions> = (
 
 const withMembraneIOS: ConfigPlugin<MembranePluginOptions> = (
   config,
-  props
+  props,
 ) => {
   withMediaPermissions(config, props);
   if (props?.setUpScreensharing) {

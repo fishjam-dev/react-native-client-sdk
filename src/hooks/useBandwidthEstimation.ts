@@ -14,7 +14,7 @@ export function useBandwidthEstimation() {
   useEffect(() => {
     const eventListener = eventEmitter.addListener<BandwidthEstimationEvent>(
       ReceivableEvents.BandwidthEstimation,
-      (event) => setEstimation(event.BandwidthEstimation)
+      (event) => setEstimation(event.BandwidthEstimation),
     );
     return () => eventListener.remove();
   }, []);

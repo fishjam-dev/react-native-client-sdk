@@ -1,5 +1,10 @@
-import {TextColors} from '../utils/Colors';
-import React, {type ReactNode} from 'react';
+import {
+  NotoSans_400Regular,
+  NotoSans_500Medium,
+  NotoSans_600SemiBold,
+  useFonts,
+} from '@expo-google-fonts/noto-sans';
+import React, { type ReactNode } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -7,12 +12,8 @@ import {
   type TextProps,
   type TextStyle,
 } from 'react-native';
-import {
-  NotoSans_400Regular,
-  NotoSans_500Medium,
-  NotoSans_600SemiBold,
-  useFonts,
-} from '@expo-google-fonts/noto-sans';
+
+import { TextColors } from '../utils/Colors';
 
 const SMALL_WINDOW_BREAKPOINT = 640;
 
@@ -206,24 +207,24 @@ export const Typo = ({
   const TextStylesDynamic =
     windowWidth > SMALL_WINDOW_BREAKPOINT ? TextStyles : TextStylesSmall;
 
-  const variantMap: {[key: string]: TextStyle} = {
-    h1: HeadlineStylesDynamic.h1,
-    h2: HeadlineStylesDynamic.h2,
-    h3: HeadlineStylesDynamic.h3,
-    h4: HeadlineStylesDynamic.h4,
-    h5: HeadlineStylesDynamic.h5,
+  const variantMap: { [key: string]: TextStyle } = {
+    'h1': HeadlineStylesDynamic.h1,
+    'h2': HeadlineStylesDynamic.h2,
+    'h3': HeadlineStylesDynamic.h3,
+    'h4': HeadlineStylesDynamic.h4,
+    'h5': HeadlineStylesDynamic.h5,
     'body-big': TextStylesDynamic.bodyBig,
     'body-small': TextStylesDynamic.bodySmall,
-    label: TextStylesDynamic.label,
-    caption: TextStylesDynamic.caption,
-    button: TextStylesDynamic.button,
+    'label': TextStylesDynamic.label,
+    'caption': TextStylesDynamic.caption,
+    'button': TextStylesDynamic.button,
     'video-label': TextStylesCustom.videoLabel,
     'chat-regular': TextStylesCustom.chatRegular,
     'chat-semibold': TextStylesCustom.chatSemibold,
     'chat-title': TextStylesCustom.chatTitle,
   };
 
-  const getStyleForVariant = [{color}, variantMap[variant]];
+  const getStyleForVariant = [{ color }, variantMap[variant]];
 
   return (
     <Text style={[...getStyleForVariant, style]} {...textProps}>

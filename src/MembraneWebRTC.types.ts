@@ -379,14 +379,14 @@ export type MembraneWebRTC = {
   create: () => Promise<void>;
   receiveMediaEvent: (data: string) => Promise<void>;
   connect: <MetadataType extends Metadata>(
-    endpointMetadata: MetadataType
+    endpointMetadata: MetadataType,
   ) => Promise<void>;
   disconnect: () => Promise<void>;
   startCamera: <MetadataType extends Metadata>(
-    config: Partial<CameraConfig<MetadataType>>
+    config: Partial<CameraConfig<MetadataType>>,
   ) => Promise<void>;
   startMicrophone: <MetadataType extends Metadata>(
-    config: Partial<MicrophoneConfig<MetadataType>>
+    config: Partial<MicrophoneConfig<MetadataType>>,
   ) => Promise<void>;
   isMicrophoneOn: boolean;
   toggleMicrophone: () => Promise<boolean>;
@@ -396,7 +396,7 @@ export type MembraneWebRTC = {
   switchCamera: (captureDeviceId: string) => Promise<void>;
   getCaptureDevices: () => Promise<CaptureDevice[]>;
   toggleScreencast: <MetadataType extends Metadata>(
-    screencastOptions: Partial<ScreencastOptions<MetadataType>>
+    screencastOptions: Partial<ScreencastOptions<MetadataType>>,
   ) => Promise<void>;
   isScreencastOn: boolean;
   getEndpoints: <
@@ -411,16 +411,16 @@ export type MembraneWebRTC = {
     >[]
   >;
   updateEndpointMetadata: <MetadataType extends Metadata>(
-    metadata: MetadataType
+    metadata: MetadataType,
   ) => Promise<void>;
   updateVideoTrackMetadata: <MetadataType extends Metadata>(
-    metadata: MetadataType
+    metadata: MetadataType,
   ) => Promise<void>;
   updateAudioTrackMetadata: <MetadataType extends Metadata>(
-    metadata: MetadataType
+    metadata: MetadataType,
   ) => Promise<void>;
   updateScreencastTrackMetadata: <MetadataType extends Metadata>(
-    metadata: MetadataType
+    metadata: MetadataType,
   ) => Promise<void>;
   setOutputAudioDevice: (audioDevice: string) => Promise<void>;
   startAudioSwitcher: () => Promise<void>;
@@ -431,13 +431,13 @@ export type MembraneWebRTC = {
   setScreencastTrackBandwidth: (bandwidth: number) => Promise<void>;
   setScreencastTrackEncodingBandwidth: (
     encoding: string,
-    bandwidth: number
+    bandwidth: number,
   ) => Promise<void>;
   setTargetTrackEncoding: (trackId: string, encoding: string) => Promise<void>;
   toggleVideoTrackEncoding: (encoding: string) => Promise<SimulcastConfig>;
   setVideoTrackEncodingBandwidth: (
     encoding: string,
-    bandwidth: number
+    bandwidth: number,
   ) => Promise<void>;
   setVideoTrackBandwidth: (bandwidth: number) => Promise<void>;
   changeWebRTCLoggingSeverity: (severity: string) => Promise<void>;

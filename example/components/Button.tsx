@@ -1,8 +1,9 @@
-import {AdditionalColors, BrandColors, TextColors} from '../utils/Colors';
-import {Typo} from './Typo';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import { Typo } from './Typo';
 import type AccessibilityLabel from '../types/AccessibilityLabel';
+import { AdditionalColors, BrandColors, TextColors } from '../utils/Colors';
 
 const StandardButtonStyles = StyleSheet.create({
   common: {

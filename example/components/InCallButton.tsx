@@ -1,5 +1,4 @@
-import {AdditionalColors, BrandColors} from '../utils/Colors';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import {
   type GestureResponderEvent,
@@ -7,7 +6,9 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+
 import type AccessibilityLabel from '../types/AccessibilityLabel';
+import { AdditionalColors, BrandColors } from '../utils/Colors';
 
 const IconSize = 25;
 
