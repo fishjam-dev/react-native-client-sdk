@@ -6,7 +6,6 @@
   "scripts": {
     "android": "npx expo run:android -d",
     "ios": "npx expo run:ios -d",
-    "lint": "eslint .",
     "start": "npx react-native start",
     "test": "jest",
     "format:fix": "prettier --write . --ignore-path ./.eslintignore",
