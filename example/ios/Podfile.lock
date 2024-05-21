@@ -33,27 +33,29 @@ PODS:
     - React-jsi (= 0.73.4)
     - ReactCommon/turbomodule/core (= 0.73.4)
   - FishjamClient (0.3.0):
+    - FishjamClient/Broadcast (= 0.3.0)
+    - PromisesSwift
+    - Starscream (~> 4.0.0)
+    - SwiftLogJellyfish (= 1.5.2)
+    - SwiftPhoenixClient (~> 5.0.0)
+    - SwiftProtobuf (~> 1.18.0)
+    - WebRTC-SDK (= 114.5735.08)
+  - FishjamClient/Broadcast (0.3.0):
+    - PromisesSwift
+    - Starscream (~> 4.0.0)
+    - SwiftLogJellyfish (= 1.5.2)
+    - SwiftPhoenixClient (~> 5.0.0)
+    - SwiftProtobuf (~> 1.18.0)
+    - WebRTC-SDK (= 114.5735.08)
+  - FishjamRNClient (0.3.0):
     - ExpoModulesCore
-    - MembraneRTC (= 5.3.0)
+    - FishjamClient (= 0.3.0)
   - fmt (6.2.1)
   - glog (0.3.5)
   - hermes-engine (0.73.4):
     - hermes-engine/Pre-built (= 0.73.4)
   - hermes-engine/Pre-built (0.73.4)
   - libevent (2.1.12)
-  - MembraneRTC (5.3.0):
-    - MembraneRTC/Broadcast (= 5.3.0)
-    - PromisesSwift
-    - SwiftLogJellyfish (= 1.5.2)
-    - SwiftPhoenixClient (~> 4.0.0)
-    - SwiftProtobuf
-    - WebRTC-SDK (= 114.5735.08)
-  - MembraneRTC/Broadcast (5.3.0):
-    - PromisesSwift
-    - SwiftLogJellyfish (= 1.5.2)
-    - SwiftPhoenixClient (~> 4.0.0)
-    - SwiftProtobuf
-    - WebRTC-SDK (= 114.5735.08)
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
@@ -1112,11 +1114,10 @@ PODS:
     - React-Core
     - React-RCTImage
   - SocketRocket (0.6.1)
+  - Starscream (4.0.8)
   - SwiftLogJellyfish (1.5.2)
-  - SwiftPhoenixClient (4.0.0):
-    - SwiftPhoenixClient/Core (= 4.0.0)
-  - SwiftPhoenixClient/Core (4.0.0)
-  - SwiftProtobuf (1.26.0)
+  - SwiftPhoenixClient (5.0.0)
+  - SwiftProtobuf (1.18.0)
   - WebRTC-SDK (114.5735.08)
   - Yoga (1.14.0)
   - ZXingObjC/Core (3.6.9)
@@ -1138,12 +1139,12 @@ DEPENDENCIES:
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
-  - "FishjamClient (from `../node_modules/@jellyfish-dev/react-native-client-sdk/ios`)"
+  - FishjamClient (from `https://github.com/fishjam-dev/ios-client-sdk.git`, branch `prepare-pod-release`)
+  - FishjamClient/Broadcast (from `https://github.com/fishjam-dev/ios-client-sdk.git`, branch `prepare-pod-release`)
+  - "FishjamRNClient (from `../node_modules/@jellyfish-dev/react-native-client-sdk/ios`)"
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
-  - MembraneRTC
-  - MembraneRTC/Broadcast
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -1197,10 +1198,10 @@ SPEC REPOS:
   trunk:
     - fmt
     - libevent
-    - MembraneRTC
     - PromisesObjC
     - PromisesSwift
     - SocketRocket
+    - Starscream
     - SwiftLogJellyfish
     - SwiftPhoenixClient
     - SwiftProtobuf
@@ -1233,6 +1234,9 @@ EXTERNAL SOURCES:
   FBReactNativeSpec:
     :path: "../node_modules/react-native/React/FBReactNativeSpec"
   FishjamClient:
+    :branch: prepare-pod-release
+    :git: https://github.com/fishjam-dev/ios-client-sdk.git
+  FishjamRNClient:
     :path: "../node_modules/@jellyfish-dev/react-native-client-sdk/ios"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
@@ -1332,6 +1336,11 @@ EXTERNAL SOURCES:
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
+CHECKOUT OPTIONS:
+  FishjamClient:
+    :commit: 8356c244308f9dd233ae1dabdd0442a145961533
+    :git: https://github.com/fishjam-dev/ios-client-sdk.git
+
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
@@ -1345,12 +1354,12 @@ SPEC CHECKSUMS:
   ExpoModulesCore: 4a8928a228569301ac4fc4a1e846713e05754d05
   FBLazyVector: 84f6edbe225f38aebd9deaf1540a4160b1f087d7
   FBReactNativeSpec: d0086a479be91c44ce4687a962956a352d2dc697
-  FishjamClient: 960aabb28089e96687d43356943c8e40fafb5281
+  FishjamClient: b811a3384a56839bed9553ad0fee1cd4b3422d3d
+  FishjamRNClient: b4995df19793ac98612291368d67ea9d205fd0a3
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  MembraneRTC: b62d9f01edbee0c251d6671e868ac3b25e68e66a
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
@@ -1399,13 +1408,14 @@ SPEC CHECKSUMS:
   RNReanimated: 071599dab9e3769c03b84c984c87dc79087fef2f
   RNScreens: 79c1020e7f52f4edde5ad96540f6e33c8b9b3b6c
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
   SwiftLogJellyfish: 6207ec91ef3913d303ac797b73298248ee360eb0
-  SwiftPhoenixClient: 4e36f35d00e43d11881c255bd60c20efc0f39c91
-  SwiftProtobuf: 5e8349171e7c2f88f5b9e683cb3cb79d1dc780b3
+  SwiftPhoenixClient: d7b8ed0d7224d8a57367d37c545aa9de50de206a
+  SwiftProtobuf: c3c12645230d9b09c72267e0de89468c5543bd86
   WebRTC-SDK: c24d2a6c9f571f2ed42297cb8ffba9557093142b
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 0e158558e5592173f3e8c383cbb6b32134d0132a
+PODFILE CHECKSUM: 09cfafded03c4ba7af50231bb59f7db770a4e93e
 
 COCOAPODS: 1.14.2
