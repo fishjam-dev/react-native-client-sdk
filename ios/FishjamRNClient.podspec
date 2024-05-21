@@ -3,7 +3,7 @@ require 'json'
 package = JSON.parse(File.read(File.join(__dir__, '..', 'package.json')))
 
 Pod::Spec.new do |s|
-  s.name           = 'FishjamClient'
+  s.name           = 'FishjamRNClient'
   s.version        = package['version']
   s.summary        = package['description']
   s.description    = package['description']
@@ -25,6 +25,6 @@ Pod::Spec.new do |s|
 
   s.source_files = "**/*.{h,m,swift}"
 
-  s.dependency "MembraneRTC", '5.3.0'
+  s.dependency "FishjamClient", '0.3.0'
 
 end

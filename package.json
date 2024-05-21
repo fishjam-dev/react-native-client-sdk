@@ -27,7 +27,8 @@
     "react-native",
     "expo",
     "@jellyfish-dev/react-native-client-sdk",
-    "MembraneWebRTC"
+    "MembraneWebRTC",
+    "Fishjam"
   ],
   "repository": "https://github.com/membraneframework/react-native-client-sdk",
   "author": "Angelika Serwa <angelika.serwa@swmansion.com> (https://github.com/graszka22)",
