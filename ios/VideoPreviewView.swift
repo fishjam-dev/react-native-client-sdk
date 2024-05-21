@@ -1,5 +1,5 @@
 import ExpoModulesCore
-import MembraneRTC
+import FishjamClient
 
 class VideoPreviewView: ExpoView {
     var videoView: VideoView? = nil

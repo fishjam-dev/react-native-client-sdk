@@ -1,4 +1,4 @@
-import MembraneRTC
+import FishjamClient
 
 class MembraneRoom: NSObject {
     static let sharedInstance = MembraneRoom()

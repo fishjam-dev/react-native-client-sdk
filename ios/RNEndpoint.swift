@@ -1,4 +1,4 @@
-import MembraneRTC
+import FishjamClient
 
 struct RNEndpoint {
     let id: String

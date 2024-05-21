@@ -1,6 +1,6 @@
 import Combine
 import ExpoModulesCore
-import MembraneRTC
+import FishjamClient
 
 class VideoRendererView: ExpoView {
     var videoView: VideoView? = nil

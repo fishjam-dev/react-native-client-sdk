@@ -1,5 +1,5 @@
 import Foundation
-import MembraneRTC
+import FishjamClient
 import ReplayKit
 import WebRTC
 import os.log
