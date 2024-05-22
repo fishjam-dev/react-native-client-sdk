@@ -75,7 +75,7 @@ target 'JellyfishExample' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-  pod 'FishjamClient', :git => 'https://github.com/fishjam-dev/ios-client-sdk.git', :branch => 'prepare-pod-release'
+  pod 'FishjamClient'
   
   target 'JellyfishExampleTests' do
     inherit! :complete
@@ -91,5 +91,5 @@ target 'JellyfishExample' do
 end
 
 target 'ScreenBroadcast' do
-  pod 'FishjamClient/Broadcast', :git => 'https://github.com/fishjam-dev/ios-client-sdk.git', :branch => 'prepare-pod-release'
+  pod 'FishjamClient/Broadcast'
 end
