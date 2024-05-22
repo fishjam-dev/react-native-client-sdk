@@ -1,5 +1,5 @@
 {
-  "name": "@jellyfish-dev/react-native-client-sdk",
+  "name": "@fishjam-dev/react-native-client-sdk",
   "version": "0.3.0",
   "description": "A React Native client for Membrane WebRTC server.",
   "main": "build/index.js",
@@ -26,17 +26,17 @@
   "keywords": [
     "react-native",
     "expo",
-    "@jellyfish-dev/react-native-client-sdk",
+    "@fishjam-dev/react-native-client-sdk",
     "MembraneWebRTC",
     "Fishjam"
   ],
-  "repository": "https://github.com/membraneframework/react-native-client-sdk",
+  "repository": "https://github.com/fishjam-dev/react-native-client-sdk",
   "author": "Angelika Serwa <angelika.serwa@swmansion.com> (https://github.com/graszka22)",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/membraneframework/react-native-client-sdk/issues"
+    "url": "https://github.com/fishjam-dev/react-native-client-sdk/issues"
   },
-  "homepage": "https://github.com/membraneframework/react-native-client-sdk#readme",
+  "homepage": "https://github.com/fishjam-dev/react-native-client-sdk#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
