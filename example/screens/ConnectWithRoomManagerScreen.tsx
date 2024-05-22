@@ -1,4 +1,4 @@
-import { useJellyfishClient } from '@jellyfish-dev/react-native-client-sdk';
+import { useJellyfishClient } from '@fishjam-dev/react-native-client-sdk';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';

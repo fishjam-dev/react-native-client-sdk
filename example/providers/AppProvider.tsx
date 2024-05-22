@@ -1,4 +1,4 @@
-import { JellyfishContextProvider } from '@jellyfish-dev/react-native-client-sdk';
+import { JellyfishContextProvider } from '@fishjam-dev/react-native-client-sdk';
 import React from 'react';
 
 import { JellyfishExampleContextProvider } from '../contexts/JellyfishExampleContext';

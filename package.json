@@ -44,7 +44,8 @@
   "dependencies": {
     "phoenix": "^1.7.6",
     "promise-fs": "^2.1.1",
-    "protobufjs": "^7.2.4"
+    "protobufjs": "^7.2.4",
+    "ts-proto": "^1.176.0"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",

@@ -6,7 +6,7 @@ import {
   JellyfishContextProvider,
   useJellyfishClient,
 } from '../JellyfishClientContext';
-import { PeerMessage } from '../protos/jellyfish/peer_notifications';
+import { PeerMessage } from '../protos/fishjam/peer_notifications';
 
 let sendEvent: null | (({ event }: { event: string }) => void) = null;
 

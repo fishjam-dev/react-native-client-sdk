@@ -1141,7 +1141,7 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - FishjamClient
   - FishjamClient/Broadcast
-  - "FishjamRNClient (from `../node_modules/@jellyfish-dev/react-native-client-sdk/ios`)"
+  - "FishjamRNClient (from `../node_modules/@fishjam-dev/react-native-client-sdk/ios`)"
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
@@ -1235,7 +1235,7 @@ EXTERNAL SOURCES:
   FBReactNativeSpec:
     :path: "../node_modules/react-native/React/FBReactNativeSpec"
   FishjamRNClient:
-    :path: "../node_modules/@jellyfish-dev/react-native-client-sdk/ios"
+    :path: "../node_modules/@fishjam-dev/react-native-client-sdk/ios"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   hermes-engine:

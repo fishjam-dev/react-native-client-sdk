@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { NativeEventEmitter } from 'react-native';
 
 import { Metadata } from './MembraneWebRTC.types';
-import { PeerMessage } from './protos/jellyfish/peer_notifications';
+import { PeerMessage } from './protos/fishjam/peer_notifications';
 
 const membraneModule = requireNativeModule('MembraneWebRTC');
 

@@ -14,7 +14,7 @@ import {
   AudioOutputDevice,
   AudioOutputDeviceType,
   AudioSessionMode,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from '@fishjam-dev/react-native-client-sdk';
 import * as Device from 'expo-device';
 import { Platform } from 'expo-modules-core';
 import React, { useCallback, useEffect, useState } from 'react';

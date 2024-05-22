@@ -2,7 +2,7 @@ import {
   VideoPreviewView,
   CaptureDevice,
   VideoLayout,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from '@fishjam-dev/react-native-client-sdk';
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 type Props = {

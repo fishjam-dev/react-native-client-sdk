@@ -2,7 +2,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import {
   CaptureDevice,
   TrackEncoding,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from '@fishjam-dev/react-native-client-sdk';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useRef, useCallback } from 'react';
 import {
