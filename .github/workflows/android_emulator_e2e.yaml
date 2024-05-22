@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     services:
-      jellyfish:
-        image: ghcr.io/fishjam-dev/jellyfish:0.3.0
+      fishjam:
+        image: ghcr.io/fishjam-dev/fishjam:0.6.2
         env:
           JF_CHECK_ORIGIN: false
           JF_HOST: localhost:5002
