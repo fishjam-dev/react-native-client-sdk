@@ -1690,7 +1690,7 @@
   dependencies:
     phoenix "^1.7.6"
     promise-fs "^2.1.1"
-    protobufjs "^7.2.4"
+    protobufjs "^7.3.0"
 
 "@jest/console@^29.7.0":
   version "29.7.0"
@@ -7648,7 +7648,7 @@ prop-types@^15.7.2, prop-types@^15.8.1:
     object-assign "^4.1.1"
     react-is "^16.13.1"
 
-protobufjs@^7.2.4:
+protobufjs@^7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.3.0.tgz#a32ec0422c039798c41a0700306a6e305b9cb32c"
   integrity sha512-YWD03n3shzV9ImZRX3ccbjqLxj7NokGN0V/ESiBV5xWqrommYHYiihuIyavq03pWSGqlyvYUFmfoMKd+1rPA/g==
