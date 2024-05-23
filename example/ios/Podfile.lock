@@ -47,9 +47,6 @@ PODS:
     - SwiftPhoenixClient (~> 5.0.0)
     - SwiftProtobuf (~> 1.18.0)
     - WebRTC-SDK (= 114.5735.08)
-  - FishjamRNClient (0.3.0):
-    - ExpoModulesCore
-    - FishjamClient (= 0.3.0)
   - fmt (6.2.1)
   - glog (0.3.5)
   - hermes-engine (0.73.4):
@@ -1099,6 +1096,9 @@ PODS:
     - React-jsi (= 0.73.4)
     - React-logger (= 0.73.4)
     - React-perflogger (= 0.73.4)
+  - RNFishjamClient (0.3.0):
+    - ExpoModulesCore
+    - FishjamClient (= 0.3.0)
   - RNGestureHandler (2.16.2):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1141,7 +1141,6 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - FishjamClient
   - FishjamClient/Broadcast
-  - "FishjamRNClient (from `../node_modules/@jellyfish-dev/react-native-client-sdk/ios`)"
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
@@ -1189,6 +1188,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNFishjamClient (from `../node_modules/@jellyfish-dev/react-native-client-sdk/ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1234,8 +1234,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
     :path: "../node_modules/react-native/React/FBReactNativeSpec"
-  FishjamRNClient:
-    :path: "../node_modules/@jellyfish-dev/react-native-client-sdk/ios"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   hermes-engine:
@@ -1325,6 +1323,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNFishjamClient:
+    :path: "../node_modules/@jellyfish-dev/react-native-client-sdk/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -1348,7 +1348,6 @@ SPEC CHECKSUMS:
   FBLazyVector: 84f6edbe225f38aebd9deaf1540a4160b1f087d7
   FBReactNativeSpec: d0086a479be91c44ce4687a962956a352d2dc697
   FishjamClient: b811a3384a56839bed9553ad0fee1cd4b3422d3d
-  FishjamRNClient: b4995df19793ac98612291368d67ea9d205fd0a3
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
@@ -1397,6 +1396,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: ed48e5faac6751e66ee1261c4bd01643b436f112
   React-utils: 6e5ad394416482ae21831050928ae27348f83487
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
+  RNFishjamClient: 2c594a9890d93dcbbcad206ff834da4bd11cc03e
   RNGestureHandler: 48c9d38f57c7761b4153def57b718f491f4bbb4b
   RNReanimated: 071599dab9e3769c03b84c984c87dc79087fef2f
   RNScreens: 79c1020e7f52f4edde5ad96540f6e33c8b9b3b6c
