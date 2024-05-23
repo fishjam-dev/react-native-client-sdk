@@ -24,7 +24,7 @@ export {
 export { default as VideoPreviewView } from './VideoPreviewView';
 export { default as VideoRendererView } from './VideoRendererView';
 export * from './MembraneWebRTC.types';
-export * from './JellyfishClientContext';
+export * from './FishjamClientContext';
 
 // below are aliases used by 'old' rn-client-sdk. They should be removed
 export type Peer<

@@ -1,4 +1,4 @@
-import { useJellyfishClient } from '@fishjam-dev/react-native-client-sdk';
+import { useFishjamClient } from '@fishjam-dev/react-native-client-sdk';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -32,12 +32,15 @@ type Props = CompositeScreenProps<
 
 const { URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON } = connectScreenLabels;
 const ConnectScreen = ({ navigation }: Props) => {
-  const { connect } = useJellyfishClient();
+  const { connect } = useFishjamClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
 
-  const [peerToken, onChangePeerToken] = useState('');
-  const [jellyfishUrl, onChangeJellyfishUrl] = useState(
-    process.env.JELLYFISH_URL ?? '',
+  const [peerToken, onChangePeerToken] = useState(
+    'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACQwNjk1YTk5MC1jNzhmLTQyYWQtYmE4YS1lN2EzYTg5MWIyYjRkAAdyb29tX2lkbQAAAAE3bgYAB44BpY8BYgABUYA.B8k6Z9STfSrcYBZcT_-rPBJJAbHH8Or-zVMU-uPBvpk',
+  );
+  const [fishjamUrl, onChangeFishjamUrl] = useState(
+    process.env.JELLYFISH_URL ??
+      'ws://192.168.82.189:5002/socket/peer/websocket',
   );
 
   usePermissionCheck();
@@ -45,7 +48,7 @@ const ConnectScreen = ({ navigation }: Props) => {
   const onTapConnectButton = async () => {
     try {
       setConnectionError(null);
-      await connect(jellyfishUrl.trim(), peerToken.trim());
+      await connect(fishjamUrl.trim(), peerToken.trim());
       navigation.navigate('Preview');
     } catch (e) {
       const message =
@@ -63,14 +66,14 @@ const ConnectScreen = ({ navigation }: Props) => {
           )}
           <Image
             style={styles.logo}
-            source={require('../assets/jellyfish-logo.png')}
+            source={require('../assets/fishjam-logo.png')}
             resizeMode="contain"
           />
           <TextInput
-            onChangeText={onChangeJellyfishUrl}
-            value={jellyfishUrl}
+            onChangeText={onChangeFishjamUrl}
+            value={fishjamUrl}
             accessibilityLabel={URL_INPUT}
-            placeholder="Jellyfish url"
+            placeholder="Fishjam url"
           />
           <TextInput
             onChangeText={onChangePeerToken}

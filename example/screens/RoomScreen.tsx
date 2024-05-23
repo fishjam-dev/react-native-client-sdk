@@ -1,10 +1,10 @@
-import BottomSheet from '@gorhom/bottom-sheet';
 import {
-  useJellyfishClient,
+  useFishjamClient,
   usePeers,
   useScreencast,
   ScreencastQuality,
 } from '@fishjam-dev/react-native-client-sdk';
+import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
@@ -18,7 +18,7 @@ import {
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';
 import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
-import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
+import { useFishjamExampleContext } from '../contexts/FishjamExampleContext';
 import type { AppRootStackParamList } from '../navigators/AppNavigator';
 import { roomScreenLabels } from '../types/ComponentLabels';
 
@@ -44,7 +44,7 @@ const RoomScreen = ({ navigation }: Props) => {
     [peers],
   );
 
-  const { cleanUp } = useJellyfishClient();
+  const { cleanUp } = useFishjamClient();
   const { toggleScreencast, isScreencastOn } = useScreencast();
   const {
     isCameraOn,
@@ -53,7 +53,7 @@ const RoomScreen = ({ navigation }: Props) => {
     toggleCamera,
     flipCamera,
     audioSettings,
-  } = useJellyfishExampleContext();
+  } = useFishjamExampleContext();
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(

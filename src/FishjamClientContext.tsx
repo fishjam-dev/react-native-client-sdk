@@ -18,11 +18,11 @@ const generateMessage = (event: WebSocketCloseEvent) => {
   );
 };
 
-export const JellyfishContext = React.createContext<
+export const FishjamContext = React.createContext<
   | {
       /**
        * Connects to the server using the websocket connection.
-       * If jellyfish server is in local network, on iOS devices make sure to grant local network permission before
+       * If fishjam server is in local network, on iOS devices make sure to grant local network permission before
        * calling this function. Otherwise, the function will fail unless the user grants that permission.
        * @param url - websocket url
        * @param peerToken - token used to authenticate when joining the room
@@ -53,7 +53,7 @@ export const JellyfishContext = React.createContext<
   | undefined
 >(undefined);
 
-const JellyfishContextProvider = (props: any) => {
+const FishjamContextProvider = (props: any) => {
   const websocket = useRef<WebSocket | null>(null);
 
   const sendMediaEvent = ({ event }: { event: string }) => {
@@ -146,20 +146,20 @@ const JellyfishContextProvider = (props: any) => {
   };
 
   return (
-    <JellyfishContext.Provider value={value}>
+    <FishjamContext.Provider value={value}>
       {props.children}
-    </JellyfishContext.Provider>
+    </FishjamContext.Provider>
   );
 };
 
-function useJellyfishClient() {
-  const context = React.useContext(JellyfishContext);
+function useFishjamClient() {
+  const context = React.useContext(FishjamContext);
   if (context === undefined) {
     throw new Error(
-      'useJellyfishClient must be used within a JellyfishContextProvider',
+      'useFishjamClient must be used within a FishjamContextProvider',
     );
   }
   return context;
 }
 
-export { JellyfishContextProvider, useJellyfishClient };
+export { FishjamContextProvider, useFishjamClient };

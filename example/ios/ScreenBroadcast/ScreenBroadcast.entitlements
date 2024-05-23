@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.jellyfish.reactnativejellyfish</string>
+		<string>group.com.fishjam.reactnativefishjam</string>
 	</array>
 </dict>
 </plist>

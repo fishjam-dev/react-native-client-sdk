@@ -1,4 +1,4 @@
-import { useJellyfishClient } from '@fishjam-dev/react-native-client-sdk';
+import { useFishjamClient } from '@fishjam-dev/react-native-client-sdk';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -24,7 +24,7 @@ type Props = CompositeScreenProps<
   NativeStackScreenProps<AppRootStackParamList>
 >;
 
-async function getJellyfishServer(
+async function getFishjamServer(
   roomManagerUrl: string,
   roomName: string,
   userName: string,
@@ -44,13 +44,13 @@ async function getJellyfishServer(
   };
 
   return {
-    jellyfishUrl: tokenData.url,
+    fishjamUrl: tokenData.url,
     token: tokenData.token,
   };
 }
 
 const ConnectScreen = ({ navigation }: Props) => {
-  const { connect } = useJellyfishClient();
+  const { connect } = useFishjamClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -66,13 +66,13 @@ const ConnectScreen = ({ navigation }: Props) => {
     try {
       setConnectionError(null);
       setLoading(true);
-      const { jellyfishUrl, token } = await getJellyfishServer(
+      const { fishjamUrl, token } = await getFishjamServer(
         roomManagerUrl,
         roomName,
         userName,
       );
 
-      await connect(jellyfishUrl, token);
+      await connect(fishjamUrl, token);
 
       navigation.navigate('Preview');
     } catch (e) {
@@ -93,7 +93,7 @@ const ConnectScreen = ({ navigation }: Props) => {
           )}
           <Image
             style={styles.logo}
-            source={require('../assets/jellyfish-logo.png')}
+            source={require('../assets/fishjam-logo.png')}
             resizeMode="contain"
           />
           <TextInput

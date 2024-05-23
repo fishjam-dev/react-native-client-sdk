@@ -25,39 +25,9 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'JellyfishExample' do
+target 'FishjamExample' do
   use_expo_modules!
   post_integrate do |installer|
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
     begin
       expo_patch_react_imports!(installer)
     rescue => e
@@ -75,9 +45,8 @@ target 'JellyfishExample' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-  pod 'FishjamClient'
-  
-  target 'JellyfishExampleTests' do
+
+  target 'FishjamExampleTests' do
     inherit! :complete
   end
 

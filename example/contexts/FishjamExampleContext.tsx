@@ -1,7 +1,7 @@
 import {
   useCamera,
   useMicrophone,
-  useJellyfishClient,
+  useFishjamClient,
   useAudioSettings,
   updateVideoTrackMetadata,
   updateAudioTrackMetadata,
@@ -30,7 +30,7 @@ type AudioSettings = {
   showAudioRoutePicker: () => Promise<void>;
 };
 
-const JellyfishExampleContext = React.createContext<
+const FishjamExampleContext = React.createContext<
   | {
       isCameraOn: boolean;
       toggleCamera: () => void;
@@ -57,8 +57,8 @@ const JellyfishExampleContext = React.createContext<
 
 const isIosEmulator = Platform.OS === 'ios' && !Device.isDevice;
 
-const JellyfishExampleContextProvider = (props: any) => {
-  const { join } = useJellyfishClient();
+const FishjamExampleContextProvider = (props: any) => {
+  const { join } = useFishjamClient();
   const [isCameraOn, setIsCameraOn] = useState(!isIosEmulator);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
   const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
@@ -163,20 +163,20 @@ const JellyfishExampleContextProvider = (props: any) => {
   };
 
   return (
-    <JellyfishExampleContext.Provider value={value}>
+    <FishjamExampleContext.Provider value={value}>
       {props.children}
-    </JellyfishExampleContext.Provider>
+    </FishjamExampleContext.Provider>
   );
 };
 
-function useJellyfishExampleContext() {
-  const context = React.useContext(JellyfishExampleContext);
+function useFishjamExampleContext() {
+  const context = React.useContext(FishjamExampleContext);
   if (context === undefined) {
     throw new Error(
-      'useJellyfishExampleContext must be used within a JellyfishExampleContextProvider',
+      'useFishjamExampleContext must be used within a FishjamExampleContextProvider',
     );
   }
   return context;
 }
 
-export { JellyfishExampleContextProvider, useJellyfishExampleContext };
+export { FishjamExampleContextProvider, useFishjamExampleContext };

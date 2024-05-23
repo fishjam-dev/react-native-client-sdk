@@ -1,8 +1,8 @@
-import BottomSheet from '@gorhom/bottom-sheet';
 import {
   CaptureDevice,
   TrackEncoding,
 } from '@fishjam-dev/react-native-client-sdk';
+import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useRef, useCallback } from 'react';
 import {
@@ -20,7 +20,7 @@ import LetterButton from '../components/LetterButton';
 import { NoCameraView } from '../components/NoCameraView';
 import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
 import VideoPreview from '../components/VideoPreview';
-import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
+import { useFishjamExampleContext } from '../contexts/FishjamExampleContext';
 import type { AppRootStackParamList } from '../navigators/AppNavigator';
 import { previewScreenLabels } from '../types/ComponentLabels';
 import { BrandColors } from '../utils/Colors';
@@ -47,7 +47,7 @@ const PreviewScreen = ({ navigation }: Props) => {
     localCameraSimulcastConfig,
     toggleLocalCameraTrackEncoding,
     audioSettings,
-  } = useJellyfishExampleContext();
+  } = useFishjamExampleContext();
 
   const availableCameras = useRef<CaptureDevice[]>([]);
 

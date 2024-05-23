@@ -22,7 +22,7 @@
   - open example app in xcode, tap on product > archive
   - choose archive and tap on distribute > custom > development > next ... > automatically manage signing > export
   - choose file to export your app, recommend to do it in ios folder
-  - your path should look like path/to/your/app/JellyfishExample.ipa
+  - your path should look like path/to/your/app/FishjamExample.ipa
 
 #### additional envs for github action
 
@@ -43,7 +43,7 @@
    -e JF_WEBRTC_TURN_IP=[ip address] \
    -e JF_WEBRTC_TURN_LISTEN_IP=0.0.0.0 \
    -e JF_SERVER_API_TOKEN=development \
-   ghcr.io/jellyfish-dev/fishjam:0.3.0
+   ghcr.io/fishjam-dev/fishjam:0.3.0
 
 10. Run test in webdriveio-test folder : npx wdio wdio.conf.ts
 
