@@ -3,7 +3,7 @@ import {
   VideoRendererView,
   setTargetTrackEncoding,
   Metadata,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from '@fishjam-dev/react-native-client-sdk';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import Animated, {

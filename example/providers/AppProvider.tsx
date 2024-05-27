@@ -1,16 +1,14 @@
-import { JellyfishContextProvider } from '@jellyfish-dev/react-native-client-sdk';
+import { FishjamContextProvider } from '@fishjam-dev/react-native-client-sdk';
 import React from 'react';
 
-import { JellyfishExampleContextProvider } from '../contexts/JellyfishExampleContext';
+import { FishjamExampleContextProvider } from '../contexts/FishjamExampleContext';
 import type { AppParentNode } from '../types/AppParentNode';
 
 const AppProvider: React.FC<AppParentNode> = ({ children }) => {
   return (
-    <JellyfishContextProvider>
-      <JellyfishExampleContextProvider>
-        {children}
-      </JellyfishExampleContextProvider>
-    </JellyfishContextProvider>
+    <FishjamContextProvider>
+      <FishjamExampleContextProvider>{children}</FishjamExampleContextProvider>
+    </FishjamContextProvider>
   );
 };
 

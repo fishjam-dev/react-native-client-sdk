@@ -52,11 +52,11 @@ type Test = {
 
 const configParam: ConfigurationParameters = {
   accessToken: 'development',
-  basePath: getHttpUrl(process.env.JELLYFISH_HOST_SERVER as string),
+  basePath: getHttpUrl(process.env.FISHJAM_HOST_SERVER as string),
 };
 
 const config = new Configuration(configParam);
-const createJellyfishRoom = async () => {
+const createFishjamRoom = async () => {
   const { createRoom } = RoomApiFp(config);
   const createRoomFunction = await createRoom();
   try {
@@ -91,7 +91,7 @@ const tests: Test[] = [
   {
     name: 'create room and peer to obtain credentials',
     run: async () => {
-      room = await createJellyfishRoom();
+      room = await createFishjamRoom();
       assert.ok(room !== undefined);
       peerDetail = await addPeerToRoom(room.id);
       assert.ok(peerDetail !== undefined);
@@ -99,11 +99,11 @@ const tests: Test[] = [
     skip: false,
   },
   {
-    name: 'type jellyfish url and token',
+    name: 'type fishjam url and token',
     run: async () => {
       assert.ok(peerDetail !== undefined);
       const webSocketUrl = getWebsocketUrl(
-        process.env.JELLYFISH_HOST_MOBILE as string,
+        process.env.FISHJAM_HOST_MOBILE as string,
       );
       await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
       await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
@@ -118,6 +118,7 @@ const tests: Test[] = [
         await driver.acceptAlert();
         await tapApp(driver);
         await tapButton(driver, '~' + CONNECT_BUTTON);
+        await driver.pause(1000);
         await driver.acceptAlert();
       }
     },
@@ -150,6 +151,15 @@ const tests: Test[] = [
     name: 'check if no camera view',
     run: async () => {
       await getElement(driver, '~' + NO_CAMERA_VIEW);
+      //todo remove next lines of code when this issue is solved https://membraneframework.atlassian.net/browse/RTC-549
+      await driver.pause(4000);
+      if (driver.isIOS) {
+        try {
+          await driver.acceptAlert();
+        } finally {
+        }
+      }
+      //todo up to here
     },
     skip: false,
   },

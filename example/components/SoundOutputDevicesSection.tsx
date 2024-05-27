@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   AudioOutputDevice,
   AudioOutputDeviceType,
-} from '@jellyfish-dev/react-native-client-sdk';
+} from '@fishjam-dev/react-native-client-sdk';
 import React from 'react';
 import {
   Text,
@@ -12,14 +12,14 @@ import {
   View,
 } from 'react-native';
 
-import { useJellyfishExampleContext } from '../contexts/JellyfishExampleContext';
+import { useFishjamExampleContext } from '../contexts/FishjamExampleContext';
 import { soundOutputDevicesLabels } from '../types/ComponentLabels';
 import { TextColors } from '../utils/Colors';
 
 const { TITLE_TEXT, OUTPUT_DEVICE_BUTTON } = soundOutputDevicesLabels;
 
 export const SoundOutputDevicesSection = () => {
-  const { audioSettings } = useJellyfishExampleContext();
+  const { audioSettings } = useFishjamExampleContext();
 
   return (
     <View style={styles.wrapper}>

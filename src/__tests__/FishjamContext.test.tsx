@@ -3,10 +3,10 @@ import { requireNativeModule } from 'expo-modules-core';
 import WS from 'jest-websocket-mock';
 
 import {
-  JellyfishContextProvider,
-  useJellyfishClient,
-} from '../JellyfishClientContext';
-import { PeerMessage } from '../protos/jellyfish/peer_notifications';
+  FishjamContextProvider,
+  useFishjamClient,
+} from '../FishjamClientContext';
+import { PeerMessage } from '../protos/fishjam/peer_notifications';
 
 let sendEvent: null | (({ event }: { event: string }) => void) = null;
 
@@ -49,7 +49,7 @@ function encodePeerMessage(peerMessage: object) {
   return newBuffer;
 }
 
-describe('JellyfishClient', () => {
+describe('FishjamClient', () => {
   afterEach(() => {
     WS.clean();
   });
@@ -57,8 +57,8 @@ describe('JellyfishClient', () => {
   const setUpAndConnect = async () => {
     const server = new WS(socketUrl);
 
-    const { result } = renderHook(() => useJellyfishClient(), {
-      wrapper: JellyfishContextProvider,
+    const { result } = renderHook(() => useFishjamClient(), {
+      wrapper: FishjamContextProvider,
     });
 
     const connectPromise = result.current.connect(socketUrl, peerToken);
@@ -95,8 +95,8 @@ describe('JellyfishClient', () => {
       result: {
         current: { connect },
       },
-    } = renderHook(() => useJellyfishClient(), {
-      wrapper: JellyfishContextProvider,
+    } = renderHook(() => useFishjamClient(), {
+      wrapper: FishjamContextProvider,
     });
 
     const connectPromise = connect(socketUrl, peerToken);

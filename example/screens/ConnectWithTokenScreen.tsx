@@ -1,4 +1,4 @@
-import { useJellyfishClient } from '@jellyfish-dev/react-native-client-sdk';
+import { useFishjamClient } from '@fishjam-dev/react-native-client-sdk';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -32,12 +32,12 @@ type Props = CompositeScreenProps<
 
 const { URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON } = connectScreenLabels;
 const ConnectScreen = ({ navigation }: Props) => {
-  const { connect } = useJellyfishClient();
+  const { connect } = useFishjamClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
 
   const [peerToken, onChangePeerToken] = useState('');
-  const [jellyfishUrl, onChangeJellyfishUrl] = useState(
-    process.env.JELLYFISH_URL ?? '',
+  const [fishjamUrl, onChangeFishjamUrl] = useState(
+    process.env.FISHJAM_URL ?? '',
   );
 
   usePermissionCheck();
@@ -45,7 +45,7 @@ const ConnectScreen = ({ navigation }: Props) => {
   const onTapConnectButton = async () => {
     try {
       setConnectionError(null);
-      await connect(jellyfishUrl.trim(), peerToken.trim());
+      await connect(fishjamUrl.trim(), peerToken.trim());
       navigation.navigate('Preview');
     } catch (e) {
       const message =
@@ -63,14 +63,14 @@ const ConnectScreen = ({ navigation }: Props) => {
           )}
           <Image
             style={styles.logo}
-            source={require('../assets/jellyfish-logo.png')}
+            source={require('../assets/fishjam-logo.png')}
             resizeMode="contain"
           />
           <TextInput
-            onChangeText={onChangeJellyfishUrl}
-            value={jellyfishUrl}
+            onChangeText={onChangeFishjamUrl}
+            value={fishjamUrl}
             accessibilityLabel={URL_INPUT}
-            placeholder="Jellyfish url"
+            placeholder="Fishjam url"
           />
           <TextInput
             onChangeText={onChangePeerToken}

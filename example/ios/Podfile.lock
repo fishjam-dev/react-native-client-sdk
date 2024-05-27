@@ -1139,7 +1139,6 @@ DEPENDENCIES:
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
-  - FishjamClient
   - FishjamClient/Broadcast
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
@@ -1188,7 +1187,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNFishjamClient (from `../node_modules/@jellyfish-dev/react-native-client-sdk/ios`)"
+  - "RNFishjamClient (from `../node_modules/@fishjam-dev/react-native-client-sdk/ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1324,7 +1323,7 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   RNFishjamClient:
-    :path: "../node_modules/@jellyfish-dev/react-native-client-sdk/ios"
+    :path: "../node_modules/@fishjam-dev/react-native-client-sdk/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -1396,7 +1395,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: ed48e5faac6751e66ee1261c4bd01643b436f112
   React-utils: 6e5ad394416482ae21831050928ae27348f83487
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
-  RNFishjamClient: 2c594a9890d93dcbbcad206ff834da4bd11cc03e
+  RNFishjamClient: 6a090b2a484c9f09ed8a42ccc434f1c3cd0bf201
   RNGestureHandler: 48c9d38f57c7761b4153def57b718f491f4bbb4b
   RNReanimated: 071599dab9e3769c03b84c984c87dc79087fef2f
   RNScreens: 79c1020e7f52f4edde5ad96540f6e33c8b9b3b6c
@@ -1409,6 +1408,6 @@ SPEC CHECKSUMS:
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 32287e0f28c91c6b3821d489a5d526b4d94f58df
+PODFILE CHECKSUM: 8daa796ed34dbeeeb2b648d198968b27b4c2ae8d
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.13.0
