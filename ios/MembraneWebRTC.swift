@@ -1,6 +1,6 @@
 import AVKit
 import ExpoModulesCore
-import MembraneRTC
+import FishjamClient
 import React
 import ReplayKit
 import WebRTC
