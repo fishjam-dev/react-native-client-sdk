@@ -35,11 +35,9 @@ const ConnectScreen = ({ navigation }: Props) => {
   const { connect } = useFishjamClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
 
-  const [peerToken, onChangePeerToken] = useState(
-    'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACQwNjk1YTk5MC1jNzhmLTQyYWQtYmE4YS1lN2EzYTg5MWIyYjRkAAdyb29tX2lkbQAAAAE3bgYAB44BpY8BYgABUYA.B8k6Z9STfSrcYBZcT_-rPBJJAbHH8Or-zVMU-uPBvpk',
-  );
+  const [peerToken, onChangePeerToken] = useState('');
   const [fishjamUrl, onChangeFishjamUrl] = useState(
-    process.env.FISHJAM_URL ?? 'ws://192.168.82.189:5002/socket/peer/websocket',
+    process.env.FISHJAM_URL ?? '',
   );
 
   usePermissionCheck();

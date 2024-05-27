@@ -66,4 +66,4 @@ yarn-error.log
 # Env
 .env.development
 /ios/FishjamExample.xcworkspace/contents.xcworkspacedata
-/ios/jf/
+/ios/fj/

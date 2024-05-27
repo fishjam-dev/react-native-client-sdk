@@ -35,15 +35,15 @@
 
    docker run -p 50000-50050:50000-50050/udp \
    -p 5002:5002/tcp \
-   -e JF_CHECK_ORIGIN=false \
-   -e JF_HOST=localhost:5002 \
-   -e JF_PORT="5002" \
-   -e JF_WEBRTC_USED=true \
-   -e JF_WEBRTC_TURN_PORT_RANGE=50000-50050 \
-   -e JF_WEBRTC_TURN_IP=[ip address] \
-   -e JF_WEBRTC_TURN_LISTEN_IP=0.0.0.0 \
-   -e JF_SERVER_API_TOKEN=development \
-   ghcr.io/fishjam-dev/fishjam:0.3.0
+   -e FJ_CHECK_ORIGIN=false \
+   -e FJ_HOST=localhost:5002 \
+   -e FJ_PORT="5002" \
+   -e FJ_WEBRTC_USED=true \
+   -e FJ_WEBRTC_TURN_PORT_RANGE=50000-50050 \
+   -e FJ_WEBRTC_TURN_IP=[ip address] \
+   -e FJ_WEBRTC_TURN_LISTEN_IP=0.0.0.0 \
+   -e FJ_SERVER_API_TOKEN=development \
+   ghcr.io/fishjam-dev/fishjam:0.6.2
 
 10. Run test in webdriveio-test folder : npx wdio wdio.conf.ts
 
