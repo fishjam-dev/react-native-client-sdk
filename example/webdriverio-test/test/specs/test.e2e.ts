@@ -118,6 +118,7 @@ const tests: Test[] = [
         await driver.acceptAlert();
         await tapApp(driver);
         await tapButton(driver, '~' + CONNECT_BUTTON);
+        await driver.pause(1000);
         await driver.acceptAlert();
       }
     },
@@ -150,6 +151,15 @@ const tests: Test[] = [
     name: 'check if no camera view',
     run: async () => {
       await getElement(driver, '~' + NO_CAMERA_VIEW);
+      //todo remove next lines of code when this issue is solved https://membraneframework.atlassian.net/browse/RTC-549
+      await driver.pause(4000);
+      if (driver.isIOS) {
+        try {
+          await driver.acceptAlert();
+        } finally {
+        }
+      }
+      //todo up to here
     },
     skip: false,
   },
