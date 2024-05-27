@@ -39,8 +39,7 @@ const ConnectScreen = ({ navigation }: Props) => {
     'SFMyNTY.g2gDdAAAAAJkAAdwZWVyX2lkbQAAACQwNjk1YTk5MC1jNzhmLTQyYWQtYmE4YS1lN2EzYTg5MWIyYjRkAAdyb29tX2lkbQAAAAE3bgYAB44BpY8BYgABUYA.B8k6Z9STfSrcYBZcT_-rPBJJAbHH8Or-zVMU-uPBvpk',
   );
   const [fishjamUrl, onChangeFishjamUrl] = useState(
-    process.env.JELLYFISH_URL ??
-      'ws://192.168.82.189:5002/socket/peer/websocket',
+    process.env.FISHJAM_URL ?? 'ws://192.168.82.189:5002/socket/peer/websocket',
   );
 
   usePermissionCheck();

@@ -26,8 +26,8 @@
 
 #### additional envs for github action
 
-- JELLYFISH_HOST_SERVER = `ip_address:port number` of the server
-- JELLYFISH_HOST_MOBILE = `ip_address:port_number` of the mobile phone
+- FISHJAM_HOST_SERVER = `ip_address:port number` of the server
+- FISHJAM_HOST_MOBILE = `ip_address:port_number` of the mobile phone
 
 7. Run yarn install in webdriveio-test folder
 8. [install wdio cli (Do not run npx wdio config, it is not necessary because it is already configured)](https://v6.webdriver.io/docs/clioptions.html)

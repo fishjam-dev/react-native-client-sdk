@@ -52,7 +52,7 @@ type Test = {
 
 const configParam: ConfigurationParameters = {
   accessToken: 'development',
-  basePath: getHttpUrl(process.env.JELLYFISH_HOST_SERVER as string),
+  basePath: getHttpUrl(process.env.FISHJAM_HOST_SERVER as string),
 };
 
 const config = new Configuration(configParam);
@@ -103,7 +103,7 @@ const tests: Test[] = [
     run: async () => {
       assert.ok(peerDetail !== undefined);
       const webSocketUrl = getWebsocketUrl(
-        process.env.JELLYFISH_HOST_MOBILE as string,
+        process.env.FISHJAM_HOST_MOBILE as string,
       );
       await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
       await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
