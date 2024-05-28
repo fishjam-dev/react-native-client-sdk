@@ -1,5 +1,5 @@
 {
-  "name": "@fishjam-dev/react-native-client-sdk",
+  "name": "@fishjam-dev/react-native-client",
   "version": "0.3.0",
   "description": "A React Native client for Membrane WebRTC server.",
   "main": "build/index.js",
@@ -26,7 +26,7 @@
   "keywords": [
     "react-native",
     "expo",
-    "@fishjam-dev/react-native-client-sdk",
+    "@fishjam-dev/react-native-client",
     "MembraneWebRTC",
     "Fishjam"
   ],

@@ -16,13 +16,13 @@ API documentation is available
 Firstly install `react-native-client-sdk` with `yarn` or `npm`
 
 ```
-yarn add @fishjam-dev/react-native-client-sdk
+yarn add @fishjam-dev/react-native-client
 ```
 
 or
 
 ```
-npm install @fishjam-dev/react-native-client-sdk
+npm install @fishjam-dev/react-native-client
 ```
 
 ### Expo plugin
@@ -31,7 +31,7 @@ If you're using development builds with `eas build` or bare workflow you can try
 using expo plugin to do the configuration below for you. Simply run:
 
 ```
-expo install @fishjam-dev/react-native-client-sdk
+expo install @fishjam-dev/react-native-client
 ```
 
 Add plugin to your `app.json` if it's not already added:
@@ -42,7 +42,7 @@ Add plugin to your `app.json` if it's not already added:
     "name": "example",
     ...
     "plugins": [
-      "@fishjam-dev/react-native-client-sdk"
+      "@fishjam-dev/react-native-client"
     ]
   }
 }
@@ -57,7 +57,7 @@ If you want to use screensharing feature, enable the following flag:
     ...
     "plugins": [
       [
-        "@fishjam-dev/react-native-client-sdk",
+        "@fishjam-dev/react-native-client",
         {
           "setUpScreensharing": true,
         }
