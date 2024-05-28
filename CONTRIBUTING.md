@@ -94,11 +94,20 @@ Our pre-commit hooks verify that the linter and tests pass when committing.
 
 ### Publishing to npm
 
-We use [release-it](https://github.com/release-it/release-it) to make it easier
-to publish new versions. It handles common tasks like bumping version based on
-semver, creating tags and releases etc.
+#### Releasing via GitHub Actions
 
-To publish new versions, run the following:
+To release a new version of the package, navigate to `Actions` >
+`Release package` workflow and trigger it with the chosen release type. The
+workflow will update the package version in `package.json`, release the package
+to NPM, create a new git tag and a GitHub release.
+
+#### Releasing manually
+
+We use [release-it](https://github.com/release-it/release-it) to make it easier
+to publish new versions manually. It handles common tasks like bumping version
+based on semver, creating tags and releases etc.
+
+To publish a new version, run the following:
 
 ```sh
 yarn release
