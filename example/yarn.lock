@@ -1608,7 +1608,7 @@
     find-up "^5.0.0"
     js-yaml "^4.1.0"
 
-"@fishjam-dev/react-native-client@file:..":
+"@fishjam-dev/react-native-client-sdk@file:..":
   version "0.3.0"
   dependencies:
     phoenix "^1.7.6"
