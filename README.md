@@ -1,8 +1,8 @@
-# react-native-client-sdk
+# react-native-client
 
-react-native-client-sdk is a React Native wrapper for
-[android-client-sdk](https://github.com/fishjam-dev/android-client-sdk) and
-[ios-client-sdk](https://github.com/fishjam-dev/ios-client-sdk). It allows you
+react-native-client is a React Native wrapper for
+[android-client](https://github.com/fishjam-dev/android-client-sdk) and
+[ios-client](https://github.com/fishjam-dev/ios-client-sdk). It allows you
 to quickly and easily create a mobile client app in React Native for a
 [Fishjam](https://github.com/fishjam-dev/fishjam) server.
 
@@ -13,7 +13,7 @@ API documentation is available
 
 # Installation
 
-Firstly install `react-native-client-sdk` with `yarn` or `npm`
+Firstly install `react-native-client` with `yarn` or `npm`
 
 ```
 yarn add @fishjam-dev/react-native-client
