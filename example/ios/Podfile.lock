@@ -1187,7 +1187,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNFishjamClient (from `../node_modules/@fishjam-dev/react-native-client-sdk/ios`)"
+  - "RNFishjamClient (from `../node_modules/@fishjam-dev/react-native-client/ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1323,7 +1323,7 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   RNFishjamClient:
-    :path: "../node_modules/@fishjam-dev/react-native-client-sdk/ios"
+    :path: "../node_modules/@fishjam-dev/react-native-client/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:

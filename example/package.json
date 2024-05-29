@@ -16,7 +16,7 @@
   "dependencies": {
     "@expo-google-fonts/noto-sans": "^0.2.3",
     "@gorhom/bottom-sheet": "^4",
-    "@fishjam-dev/react-native-client-sdk": "file:../",
+    "@fishjam-dev/react-native-client": "file:../",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",

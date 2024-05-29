@@ -1,4 +1,4 @@
-import { FishjamContextProvider } from '@fishjam-dev/react-native-client-sdk';
+import { FishjamContextProvider } from '@fishjam-dev/react-native-client';
 import React from 'react';
 
 import { FishjamExampleContextProvider } from '../contexts/FishjamExampleContext';

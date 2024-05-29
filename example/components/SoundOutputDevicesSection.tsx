@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   AudioOutputDevice,
   AudioOutputDeviceType,
-} from '@fishjam-dev/react-native-client-sdk';
+} from '@fishjam-dev/react-native-client';
 import React from 'react';
 import {
   Text,

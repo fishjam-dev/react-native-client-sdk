@@ -3,7 +3,7 @@ import {
   usePeers,
   useScreencast,
   ScreencastQuality,
-} from '@fishjam-dev/react-native-client-sdk';
+} from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';

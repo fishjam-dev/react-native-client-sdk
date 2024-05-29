@@ -1,4 +1,4 @@
-import { useFishjamClient } from '@fishjam-dev/react-native-client-sdk';
+import { useFishjamClient } from '@fishjam-dev/react-native-client';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';

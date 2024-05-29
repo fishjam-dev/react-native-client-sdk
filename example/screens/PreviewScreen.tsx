@@ -1,7 +1,4 @@
-import {
-  CaptureDevice,
-  TrackEncoding,
-} from '@fishjam-dev/react-native-client-sdk';
+import { CaptureDevice, TrackEncoding } from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useRef, useCallback } from 'react';
