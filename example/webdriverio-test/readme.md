@@ -46,6 +46,3 @@
    ghcr.io/fishjam-dev/fishjam:0.6.2
 
 10. Run test in webdriveio-test folder : npx wdio wdio.conf.ts
-
-Content of folder `server-api` was generated and it used to communicate with fishjam server for testing purposes ( e.g. creating a room, creating peer ). <br>
-If you would like to generate code to connect with api download file [openapi.yaml](https://fishjam-dev.github.io/fishjam-docs/for_developers/api_reference/rest_api), place it in `server-api` folder and run command `npx @openapitools/openapi-generator-cli generate -i ./openapi.yaml -g typescript-axios -o ./`. For more details about code generation checkout this [link](https://www.npmjs.com/package/@openapitools/openapi-generator-cli).
