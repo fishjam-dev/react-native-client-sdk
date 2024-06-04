@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   AudioOutputDevice,
   AudioOutputDeviceType,
+  useAudioSettings,
 } from '@fishjam-dev/react-native-client';
 import React from 'react';
 import {
@@ -12,14 +13,13 @@ import {
   View,
 } from 'react-native';
 
-import { useFishjamExampleContext } from '../contexts/FishjamExampleContext';
 import { soundOutputDevicesLabels } from '../types/ComponentLabels';
 import { TextColors } from '../utils/Colors';
 
 const { TITLE_TEXT, OUTPUT_DEVICE_BUTTON } = soundOutputDevicesLabels;
 
 export const SoundOutputDevicesSection = () => {
-  const { audioSettings } = useFishjamExampleContext();
+  const audioSettings = useAudioSettings();
 
   return (
     <View style={styles.wrapper}>

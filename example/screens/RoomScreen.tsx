@@ -3,10 +3,19 @@ import {
   usePeers,
   useScreencast,
   ScreencastQuality,
+  useCamera,
+  useMicrophone,
+  useAudioSettings,
 } from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   BackHandler,
   Platform,
@@ -18,9 +27,11 @@ import {
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';
 import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
-import { useFishjamExampleContext } from '../contexts/FishjamExampleContext';
 import type { AppRootStackParamList } from '../navigators/AppNavigator';
 import { roomScreenLabels } from '../types/ComponentLabels';
+import { useJoinRoom } from '../hooks/useJoinRoom';
+import { useToggleCamera } from '../hooks/useToggleCamera';
+import { useToggleMicrophone } from '../hooks/useToggleMicrophone';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {
@@ -32,7 +43,20 @@ const {
   NO_CAMERA_VIEW,
 } = roomScreenLabels;
 
-const RoomScreen = ({ navigation }: Props) => {
+const RoomScreen = ({ navigation, route }: Props) => {
+  const {
+    isCameraOn: isCameraAvailable,
+    isMicrophoneOn: isMicrophoneAvailable,
+  } = route?.params;
+  const { cleanUp } = useFishjamClient();
+  const audioSettings = useAudioSettings();
+
+  useJoinRoom({ isCameraAvailable, isMicrophoneAvailable });
+  const { isCameraOn, flipCamera } = useCamera();
+  const { toggleCamera } = useToggleCamera();
+  const { isMicrophoneOn } = useMicrophone();
+  const { toggleMicrophone } = useToggleMicrophone();
+
   const peers = usePeers();
   const tracks = useMemo(
     () =>
@@ -44,16 +68,7 @@ const RoomScreen = ({ navigation }: Props) => {
     [peers],
   );
 
-  const { cleanUp } = useFishjamClient();
   const { toggleScreencast, isScreencastOn } = useScreencast();
-  const {
-    isCameraOn,
-    isMicrophoneOn,
-    toggleMicrophone,
-    toggleCamera,
-    flipCamera,
-    audioSettings,
-  } = useFishjamExampleContext();
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -105,12 +120,12 @@ const RoomScreen = ({ navigation }: Props) => {
           accessibilityLabel={DISCONNECT_BUTTON}
         />
         <InCallButton
-          iconName={isMicrophoneOn ? 'microphone-off' : 'microphone'}
+          iconName={!isMicrophoneOn ? 'microphone-off' : 'microphone'}
           onPress={toggleMicrophone}
           accessibilityLabel={TOGGLE_MICROPHONE_BUTTON}
         />
         <InCallButton
-          iconName={isCameraOn ? 'camera-off' : 'camera'}
+          iconName={!isCameraOn ? 'camera-off' : 'camera'}
           onPress={toggleCamera}
           accessibilityLabel={TOGGLE_CAMERA_BUTTON}
         />

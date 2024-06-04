@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Platform, PermissionsAndroid, Permission } from 'react-native';
+import { Platform, PermissionsAndroid } from 'react-native';
 
 export function usePermissionCheck() {
   useEffect(() => {
@@ -9,9 +9,9 @@ export function usePermissionCheck() {
       }
       try {
         await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.CAMERA as Permission,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO as Permission,
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS as Permission,
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
         ]);
       } catch (err) {
         console.warn(err);

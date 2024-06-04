@@ -14,7 +14,10 @@ import { AdditionalColors, BrandColors } from '../utils/Colors';
 export type AppRootStackParamList = {
   Home: undefined;
   Preview: undefined;
-  Room: undefined;
+  Room: {
+    isCameraOn: boolean;
+    isMicrophoneOn: boolean;
+  };
 };
 
 export type TabParamList = {
@@ -37,6 +40,7 @@ const Tab = createBottomTabNavigator<TabParamList>();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="ConnectWithRoomManager"
       screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}>
       <Tab.Screen
         name="ConnectWithToken"

@@ -1,17 +1,43 @@
 # React native fishjam example
 
-## Usage
+## Running the Example app
 
-### To run app please follow those steps:
+1. Clone the repository:
 
-Move to package directory `cd ..`. <br>
-Run `yarn clean` from package directory. <br>
-Run `yarn installAll` from package directory.<br>
-Move to example directory `cd example`.<br>
-Run in one terminal window `yarn start` to start metro.<br>
-Run in other terminal window `yarn ios` or `yarn android` to run app on selected platform.<br>
+```
+git clone https://github.com/fishjam-dev/react-native-client-sdk.git
+cd react-native-client-sdk
+```
+
+2. Install node_modules in project root directory:
+
+```
+yarn
+```
+
+3. Install node_modules in `example/` directory:
+
+```
+cd example
+yarn
+```
+
+4. Start Metro bundler in `example/` directory
+
+```
+cd ..
+yarn start
+```
+
+5. Run in other terminal window command below to run app on selected platform.
+```
+yarn ios
+or 
+yarn android
+```
+
 
 ## Testing
 
-For testing checkout [Readme](webdriverio-test/readme.md) in `webdriverio-test` directory. <br>
-**Note:** If you add crucial files that should affect output of android .apk file make sure to add that file to github actions files: [cache action](../.github/actions/cache_apk_file/action.yml) and [restore action](../.github/actions/restore_apk_file/action.yml).
+- For testing checkout [Readme](webdriverio-test/readme.md) in `webdriverio-test` directory.
+- **Note:** If you add crucial files that should affect output of android .apk file make sure to add that file to github actions files: [cache action](../.github/actions/cache_apk_file/action.yml) and [restore action](../.github/actions/restore_apk_file/action.yml).

@@ -1,7 +1,13 @@
-import { CaptureDevice, TrackEncoding } from '@fishjam-dev/react-native-client';
+import {
+  CaptureDevice,
+  TrackEncoding,
+  useAudioSettings,
+  useCamera,
+  useMicrophone,
+} from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import {
   BackHandler,
   Button,
@@ -17,7 +23,6 @@ import LetterButton from '../components/LetterButton';
 import { NoCameraView } from '../components/NoCameraView';
 import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
 import VideoPreview from '../components/VideoPreview';
-import { useFishjamExampleContext } from '../contexts/FishjamExampleContext';
 import type { AppRootStackParamList } from '../navigators/AppNavigator';
 import { previewScreenLabels } from '../types/ComponentLabels';
 import { BrandColors } from '../utils/Colors';
@@ -32,19 +37,35 @@ const {
 } = previewScreenLabels;
 
 const PreviewScreen = ({ navigation }: Props) => {
+  const audioSettings = useAudioSettings();
+  const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
+    null,
+  );
   const {
-    toggleCamera,
-    toggleMicrophone,
-    isCameraOn,
-    isMicrophoneOn,
-    joinRoom,
     getCaptureDevices,
-    setCurrentCamera,
-    currentCamera,
-    localCameraSimulcastConfig,
-    toggleLocalCameraTrackEncoding,
-    audioSettings,
-  } = useFishjamExampleContext();
+    isCameraOn: isCameraAvailable,
+    simulcastConfig: localCameraSimulcastConfig,
+    toggleVideoTrackEncoding: toggleLocalCameraTrackEncoding,
+  } = useCamera();
+  const { isMicrophoneOn: isMicrophoneAvailable } = useMicrophone();
+  const [isMicrophoneOn, setIsMicrophoneOn] = useState<boolean>(
+    isMicrophoneAvailable,
+  );
+  const [isCameraOn, setIsCameraOn] = useState<boolean>(isCameraAvailable);
+
+  const toggleMicrophone = () => {
+    setIsMicrophoneOn(!isMicrophoneOn);
+  };
+
+  const toggleCamera = () => {
+    setIsCameraOn(!isCameraOn);
+  };
+
+  useEffect(() => {
+    getCaptureDevices().then((devices) => {
+      setCurrentCamera(devices.find((device) => device.isFrontFacing) || null);
+    });
+  }, []);
 
   const availableCameras = useRef<CaptureDevice[]>([]);
 
@@ -72,8 +93,7 @@ const PreviewScreen = ({ navigation }: Props) => {
   }, [currentCamera, setCurrentCamera]);
 
   const onJoinPressed = async () => {
-    await joinRoom();
-    navigation.navigate('Room');
+    navigation.navigate('Room', { isCameraOn, isMicrophoneOn });
   };
 
   useEffect(() => {
