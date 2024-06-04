@@ -8,14 +8,16 @@ import {
   previewScreenLabels,
   soundOutputDevicesLabels,
 } from '../../../types/ComponentLabels';
+
 import {
-  AddPeerRequest,
-  Configuration,
   ConfigurationParameters,
+  Configuration,
+  RoomApiFp,
+  AddPeerRequest,
   PeerDetailsResponseData,
   Room,
-  RoomApiFp,
-} from '../../server-api';
+} from '@fishjam-dev/js-server-sdk';
+
 import {
   getElement,
   getWebsocketUrl,
