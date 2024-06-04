@@ -8,18 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* FishjamExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FishjamExampleTests.m */; };
+		0D0F4510735C5CF7F5697A06 /* libPods-FishjamExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A894B690287A13CE11C6DD5 /* libPods-FishjamExample.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2FDDC44813C4690E73070D26 /* libPods-FishjamExample-FishjamExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFC7EDDA2A5B7F8FFAC657A /* libPods-FishjamExample-FishjamExampleTests.a */; };
-		58E4DE08BBF18B54EE262A53 /* libPods-ScreenBroadcast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0498C8069497C60288FEAEF5 /* libPods-ScreenBroadcast.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A4AE54082454256BB1348002 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6486D552DE55BE12979D457F /* ExpoModulesProvider.swift */; };
 		C36C387544222DE51F95C8C8 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96822F1E4B772E6913DCDDDB /* ExpoModulesProvider.swift */; };
-		C6175AB5E515D7539F3DFF2E /* libPods-FishjamExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B0F9BBA6A97FD80194581C /* libPods-FishjamExample.a */; };
+		C7E6BDC4D4991B46AF86BDFD /* libPods-FishjamExample-FishjamExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0C02DAF087D9628EBF909E /* libPods-FishjamExample-FishjamExampleTests.a */; };
 		D2D7AC482B0BA9380029C1D6 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D249AAD22B06724C0053962E /* ReplayKit.framework */; };
 		D2D7AC4B2B0BA9390029C1D6 /* ScreenBroadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D7AC4A2B0BA9390029C1D6 /* ScreenBroadcast.swift */; };
 		D2D7AC4F2B0BA9390029C1D6 /* ScreenBroadcast.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D2D7AC472B0BA9380029C1D6 /* ScreenBroadcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E4FB20E1E9AA7D81669247AB /* libPods-ScreenBroadcast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C80A69AB8AC23CB192DBF1F /* libPods-ScreenBroadcast.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,24 +57,22 @@
 		00E356EE1AD99517003FC87E /* FishjamExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FishjamExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FishjamExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FishjamExampleTests.m; sourceTree = "<group>"; };
-		0498C8069497C60288FEAEF5 /* libPods-ScreenBroadcast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScreenBroadcast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1053B63D4852B018CC0FC419 /* Pods-FishjamExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample.release.xcconfig"; path = "Target Support Files/Pods-FishjamExample/Pods-FishjamExample.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* FishjamExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FishjamExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FishjamExample/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = FishjamExample/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FishjamExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FishjamExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FishjamExample/main.m; sourceTree = "<group>"; };
-		2E8225C5C7E7A4AAFF4EF8CA /* Pods-FishjamExample-FishjamExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample-FishjamExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		32B0F9BBA6A97FD80194581C /* libPods-FishjamExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FishjamExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C80A69AB8AC23CB192DBF1F /* libPods-ScreenBroadcast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScreenBroadcast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		345414B20B6D45C5698F9A70 /* Pods-FishjamExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample.debug.xcconfig"; path = "Target Support Files/Pods-FishjamExample/Pods-FishjamExample.debug.xcconfig"; sourceTree = "<group>"; };
+		4330D60D9970BD10B361DE91 /* Pods-FishjamExample-FishjamExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample-FishjamExampleTests.release.xcconfig"; path = "Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		46B49A75A6201FD1A790FF33 /* Pods-ScreenBroadcast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.release.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.release.xcconfig"; sourceTree = "<group>"; };
 		6486D552DE55BE12979D457F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-FishjamExample/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		6A894B690287A13CE11C6DD5 /* libPods-FishjamExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FishjamExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FishjamExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96822F1E4B772E6913DCDDDB /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-FishjamExample-FishjamExampleTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		AECF06B227B18C0D5D208C95 /* Pods-ScreenBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.debug.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
-		B89EEA0B674188C3AA7CCA4C /* Pods-ScreenBroadcast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.release.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.release.xcconfig"; sourceTree = "<group>"; };
-		BC0473E3CB8FBF914F94F267 /* Pods-FishjamExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample.debug.xcconfig"; path = "Target Support Files/Pods-FishjamExample/Pods-FishjamExample.debug.xcconfig"; sourceTree = "<group>"; };
-		CAFC7EDDA2A5B7F8FFAC657A /* libPods-FishjamExample-FishjamExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FishjamExample-FishjamExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CBB8550520E028DB03A1AF3E /* Pods-FishjamExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample.release.xcconfig"; path = "Target Support Files/Pods-FishjamExample/Pods-FishjamExample.release.xcconfig"; sourceTree = "<group>"; };
-		D0C45B271B316D4A222ECAA7 /* Pods-FishjamExample-FishjamExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample-FishjamExampleTests.release.xcconfig"; path = "Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		B32657A34388265D5B3716DD /* Pods-ScreenBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenBroadcast.debug.xcconfig"; path = "Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
 		D249AAD22B06724C0053962E /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		D249AADF2B0672950053962E /* FishjamExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FishjamExample.entitlements; path = FishjamExample/FishjamExample.entitlements; sourceTree = "<group>"; };
 		D2D7AC472B0BA9380029C1D6 /* ScreenBroadcast.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenBroadcast.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +80,8 @@
 		D2D7AC4C2B0BA9390029C1D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2D7AC532B0BA98B0029C1D6 /* ScreenBroadcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenBroadcast.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		ED713286705B16AD721923A7 /* Pods-FishjamExample-FishjamExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishjamExample-FishjamExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FC0C02DAF087D9628EBF909E /* libPods-FishjamExample-FishjamExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FishjamExample-FishjamExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FDDC44813C4690E73070D26 /* libPods-FishjamExample-FishjamExampleTests.a in Frameworks */,
+				C7E6BDC4D4991B46AF86BDFD /* libPods-FishjamExample-FishjamExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6175AB5E515D7539F3DFF2E /* libPods-FishjamExample.a in Frameworks */,
+				0D0F4510735C5CF7F5697A06 /* libPods-FishjamExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D7AC482B0BA9380029C1D6 /* ReplayKit.framework in Frameworks */,
-				58E4DE08BBF18B54EE262A53 /* libPods-ScreenBroadcast.a in Frameworks */,
+				E4FB20E1E9AA7D81669247AB /* libPods-ScreenBroadcast.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,9 +149,9 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				D249AAD22B06724C0053962E /* ReplayKit.framework */,
-				32B0F9BBA6A97FD80194581C /* libPods-FishjamExample.a */,
-				CAFC7EDDA2A5B7F8FFAC657A /* libPods-FishjamExample-FishjamExampleTests.a */,
-				0498C8069497C60288FEAEF5 /* libPods-ScreenBroadcast.a */,
+				6A894B690287A13CE11C6DD5 /* libPods-FishjamExample.a */,
+				FC0C02DAF087D9628EBF909E /* libPods-FishjamExample-FishjamExampleTests.a */,
+				1C80A69AB8AC23CB192DBF1F /* libPods-ScreenBroadcast.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,12 +210,12 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BC0473E3CB8FBF914F94F267 /* Pods-FishjamExample.debug.xcconfig */,
-				CBB8550520E028DB03A1AF3E /* Pods-FishjamExample.release.xcconfig */,
-				2E8225C5C7E7A4AAFF4EF8CA /* Pods-FishjamExample-FishjamExampleTests.debug.xcconfig */,
-				D0C45B271B316D4A222ECAA7 /* Pods-FishjamExample-FishjamExampleTests.release.xcconfig */,
-				AECF06B227B18C0D5D208C95 /* Pods-ScreenBroadcast.debug.xcconfig */,
-				B89EEA0B674188C3AA7CCA4C /* Pods-ScreenBroadcast.release.xcconfig */,
+				345414B20B6D45C5698F9A70 /* Pods-FishjamExample.debug.xcconfig */,
+				1053B63D4852B018CC0FC419 /* Pods-FishjamExample.release.xcconfig */,
+				ED713286705B16AD721923A7 /* Pods-FishjamExample-FishjamExampleTests.debug.xcconfig */,
+				4330D60D9970BD10B361DE91 /* Pods-FishjamExample-FishjamExampleTests.release.xcconfig */,
+				B32657A34388265D5B3716DD /* Pods-ScreenBroadcast.debug.xcconfig */,
+				46B49A75A6201FD1A790FF33 /* Pods-ScreenBroadcast.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -245,13 +245,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FishjamExampleTests" */;
 			buildPhases = (
-				F1332AD2CAD3836AE35B2EAB /* [CP] Check Pods Manifest.lock */,
+				B9F17634A7D4EA68AF0F8780 /* [CP] Check Pods Manifest.lock */,
 				EC302C2D573892907E91A28D /* [Expo] Configure project */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				9E9C8CD4274B9A6C83CCC7B3 /* [CP] Embed Pods Frameworks */,
-				C228168664E3FD3AD02A8786 /* [CP] Copy Pods Resources */,
+				F51253A4FD99FA1CD5C728E9 /* [CP] Embed Pods Frameworks */,
+				90E1C3774668C71158FB081E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,7 +267,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FishjamExample" */;
 			buildPhases = (
-				2439D417B48E7AE7D3B04EB4 /* [CP] Check Pods Manifest.lock */,
+				2F9E128DC4A8448374C20E8A /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				2C2C21F5B052BD7681B67CFD /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -275,8 +275,8 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D249AADB2B06724D0053962E /* Embed Foundation Extensions */,
-				B58A303A8421E2538C3FF692 /* [CP] Embed Pods Frameworks */,
-				FE1C4686A052F8F65409B795 /* [CP] Copy Pods Resources */,
+				FB3C69858881B4DD6015FFE0 /* [CP] Embed Pods Frameworks */,
+				292C678CE1260EFA4B6CA498 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -292,11 +292,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2D7AC502B0BA9390029C1D6 /* Build configuration list for PBXNativeTarget "ScreenBroadcast" */;
 			buildPhases = (
-				1512A8AF15AE6DF68DA0B50B /* [CP] Check Pods Manifest.lock */,
+				9AA02610EC746F02483674BB /* [CP] Check Pods Manifest.lock */,
 				D2D7AC432B0BA9380029C1D6 /* Sources */,
 				D2D7AC442B0BA9380029C1D6 /* Frameworks */,
 				D2D7AC452B0BA9380029C1D6 /* Resources */,
-				2D1498FEAAF5ACB122628F9E /* [CP] Copy Pods Resources */,
+				68F108ACE583777BB0B702C3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -391,48 +391,21 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		1512A8AF15AE6DF68DA0B50B /* [CP] Check Pods Manifest.lock */ = {
+		292C678CE1260EFA4B6CA498 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ScreenBroadcast-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2439D417B48E7AE7D3B04EB4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FishjamExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2C2C21F5B052BD7681B67CFD /* [Expo] Configure project */ = {
@@ -454,7 +427,29 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-FishjamExample/expo-configure-project.sh\"\n";
 		};
-		2D1498FEAAF5ACB122628F9E /* [CP] Copy Pods Resources */ = {
+		2F9E128DC4A8448374C20E8A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FishjamExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68F108ACE583777BB0B702C3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -471,41 +466,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ScreenBroadcast/Pods-ScreenBroadcast-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9E9C8CD4274B9A6C83CCC7B3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B58A303A8421E2538C3FF692 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C228168664E3FD3AD02A8786 /* [CP] Copy Pods Resources */ = {
+		90E1C3774668C71158FB081E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -522,26 +483,29 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EC302C2D573892907E91A28D /* [Expo] Configure project */ = {
+		9AA02610EC746F02483674BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[Expo] Configure project";
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ScreenBroadcast-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-FishjamExample-FishjamExampleTests/expo-configure-project.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
-		F1332AD2CAD3836AE35B2EAB /* [CP] Check Pods Manifest.lock */ = {
+		B9F17634A7D4EA68AF0F8780 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -563,6 +527,59 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EC302C2D573892907E91A28D /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-FishjamExample-FishjamExampleTests/expo-configure-project.sh\"\n";
+		};
+		F51253A4FD99FA1CD5C728E9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishjamExample-FishjamExampleTests/Pods-FishjamExample-FishjamExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB3C69858881B4DD6015FFE0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -580,23 +597,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FE1C4686A052F8F65409B795 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishjamExample/Pods-FishjamExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -647,7 +647,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E8225C5C7E7A4AAFF4EF8CA /* Pods-FishjamExample-FishjamExampleTests.debug.xcconfig */;
+			baseConfigurationReference = ED713286705B16AD721923A7 /* Pods-FishjamExample-FishjamExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -675,7 +675,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0C45B271B316D4A222ECAA7 /* Pods-FishjamExample-FishjamExampleTests.release.xcconfig */;
+			baseConfigurationReference = 4330D60D9970BD10B361DE91 /* Pods-FishjamExample-FishjamExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -700,7 +700,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BC0473E3CB8FBF914F94F267 /* Pods-FishjamExample.debug.xcconfig */;
+			baseConfigurationReference = 345414B20B6D45C5698F9A70 /* Pods-FishjamExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -736,7 +736,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CBB8550520E028DB03A1AF3E /* Pods-FishjamExample.release.xcconfig */;
+			baseConfigurationReference = 1053B63D4852B018CC0FC419 /* Pods-FishjamExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -918,7 +918,7 @@
 		};
 		D2D7AC512B0BA9390029C1D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AECF06B227B18C0D5D208C95 /* Pods-ScreenBroadcast.debug.xcconfig */;
+			baseConfigurationReference = B32657A34388265D5B3716DD /* Pods-ScreenBroadcast.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -962,7 +962,7 @@
 		};
 		D2D7AC522B0BA9390029C1D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B89EEA0B674188C3AA7CCA4C /* Pods-ScreenBroadcast.release.xcconfig */;
+			baseConfigurationReference = 46B49A75A6201FD1A790FF33 /* Pods-ScreenBroadcast.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
