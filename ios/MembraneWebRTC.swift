@@ -157,11 +157,12 @@ class MembraneWebRTC: MembraneRTCDelegate {
         initLocalEndpoint()
     }
 
-    func getVideoParametersFromOptions(connectionOptions: CameraConfig) -> VideoParameters {
+    func getVideoParametersFromOptions(connectionOptions: CameraConfig) throws -> VideoParameters {
         let videoQuality = connectionOptions.quality
         let flipVideo = connectionOptions.flipVideo
         let videoBandwidthLimit = getMaxBandwidthFromOptions(
             maxBandwidth: connectionOptions.maxBandwidth)
+        let simulcastConfig = try getSimulcastConfigFromOptions(simulcastConfig: connectionOptions.simulcastConfig) ?? SimulcastConfig()
 
         let preset: VideoParameters = {
             switch videoQuality {
@@ -192,7 +193,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
         let videoParameters = VideoParameters(
             dimensions: flipVideo ? preset.dimensions.flip() : preset.dimensions,
             maxBandwidth: videoBandwidthLimit,
-            simulcastConfig: self.videoSimulcastConfig
+            simulcastConfig: simulcastConfig
         )
         return videoParameters
     }
@@ -284,9 +285,10 @@ class MembraneWebRTC: MembraneRTCDelegate {
         try addTrackToLocalEndpoint(cameraTrack, config.videoTrackMetadata.toMetadata(), simulcastConfig)
         try setCameraTrackState(cameraTrack: cameraTrack, isEnabled: config.cameraEnabled)
     }
+  
     private func createCameraTrack(config: CameraConfig) throws -> LocalVideoTrack? {
         try ensureConnected()
-        let videoParameters = getVideoParametersFromOptions(connectionOptions: config)
+        let videoParameters = try getVideoParametersFromOptions(connectionOptions: config)
         guard
             let simulcastConfig = try getSimulcastConfigFromOptions(
                 simulcastConfig: config.simulcastConfig)
