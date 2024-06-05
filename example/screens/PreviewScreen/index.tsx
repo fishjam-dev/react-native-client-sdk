@@ -16,22 +16,22 @@ import {
   View,
 } from 'react-native';
 
-import { InCallButton } from '../components';
-import LetterButton from '../components/LetterButton';
-import { NoCameraView } from '../components/NoCameraView';
-import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
-import VideoPreview from '../components/VideoPreview';
-import type { AppRootStackParamList } from '../navigators/AppNavigator';
-import { previewScreenLabels } from '../types/ComponentLabels';
-import { BrandColors } from '../utils/Colors';
-import { usePreventBackButton } from '../hooks/usePreventBackButton';
+import { InCallButton } from '../../components';
+import LetterButton from '../../components/LetterButton';
+import { NoCameraView } from '../../components/NoCameraView';
+import { SoundOutputDevicesBottomSheet } from '../../components/SoundOutputDevicesBottomSheet';
+import VideoPreview from '../../components/VideoPreview';
+import type { AppRootStackParamList } from '../../navigators/AppNavigator';
+import { previewScreenLabels } from '../../types/ComponentLabels';
+import { BrandColors } from '../../utils/Colors';
+import { usePreventBackButton } from '../../hooks/usePreventBackButton';
 import {
   displayIosSimulatorCameraAlert,
   isIosSimulator,
-} from '../utils/deviceUtils';
-import { SwitchOutputDeviceButton } from './PreviewScreen/SwitchOutputDeviceButton';
-import { SwitchCameraButton } from './PreviewScreen/SwitchCameraButton';
-import { ToggleCameraButton } from './PreviewScreen/ToggleCameraButton';
+} from '../../utils/deviceUtils';
+import { SwitchOutputDeviceButton } from './SwitchOutputDeviceButton';
+import { SwitchCameraButton } from './SwitchCameraButton';
+import { ToggleCameraButton } from './ToggleCameraButton';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
 const { JOIN_BUTTON, TOGGLE_MICROPHONE_BUTTON } = previewScreenLabels;
