@@ -74,7 +74,7 @@ const ConnectScreen = ({ navigation }: Props) => {
 
       await connect(fishjamUrl, token);
 
-      navigation.navigate('Preview', { userName: userName });
+      navigation.navigate('Preview', { userName });
     } catch (e) {
       const message =
         'message' in (e as Error) ? (e as Error).message : 'Unknown error';
