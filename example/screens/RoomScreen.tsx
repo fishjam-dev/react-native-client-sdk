@@ -9,20 +9,8 @@ import {
 } from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import {
-  BackHandler,
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';
@@ -32,6 +20,7 @@ import { roomScreenLabels } from '../types/ComponentLabels';
 import { useJoinRoom } from '../hooks/useJoinRoom';
 import { useToggleCamera } from '../hooks/useToggleCamera';
 import { useToggleMicrophone } from '../hooks/useToggleMicrophone';
+import { usePreventBackButton } from '../hooks/usePreventBackButton';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {
@@ -47,7 +36,9 @@ const RoomScreen = ({ navigation, route }: Props) => {
   const {
     isCameraOn: isCameraAvailable,
     isMicrophoneOn: isMicrophoneAvailable,
+    userName,
   } = route?.params;
+  usePreventBackButton();
   const { cleanUp } = useFishjamClient();
   const audioSettings = useAudioSettings();
 
@@ -69,14 +60,6 @@ const RoomScreen = ({ navigation, route }: Props) => {
   );
 
   const { toggleScreencast, isScreencastOn } = useScreencast();
-
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => true,
-    );
-    return () => backHandler.remove();
-  }, []);
 
   const onDisconnectPress = useCallback(() => {
     cleanUp();
@@ -109,7 +92,10 @@ const RoomScreen = ({ navigation, route }: Props) => {
       {tracks.length > 0 ? (
         <VideosGrid tracks={tracks} />
       ) : (
-        <NoCameraView username="username" accessibilityLabel={NO_CAMERA_VIEW} />
+        <NoCameraView
+          username={userName || 'username'}
+          accessibilityLabel={NO_CAMERA_VIEW}
+        />
       )}
 
       <View style={styles.callView}>

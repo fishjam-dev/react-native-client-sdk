@@ -1,7 +1,6 @@
 import {
   CaptureDevice,
   TrackEncoding,
-  useAudioSettings,
   useCamera,
   useMicrophone,
 } from '@fishjam-dev/react-native-client';
@@ -9,7 +8,6 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import {
-  BackHandler,
   Button,
   Platform,
   SafeAreaView,
@@ -26,32 +24,42 @@ import VideoPreview from '../components/VideoPreview';
 import type { AppRootStackParamList } from '../navigators/AppNavigator';
 import { previewScreenLabels } from '../types/ComponentLabels';
 import { BrandColors } from '../utils/Colors';
+import { usePreventBackButton } from '../hooks/usePreventBackButton';
+import {
+  displayIosSimulatorCameraAlert,
+  isIosSimulator,
+} from '../utils/deviceUtils';
+import { SwitchOutputDeviceButton } from './PreviewScreen/SwitchOutputDeviceButton';
+import { SwitchCameraButton } from './PreviewScreen/SwitchCameraButton';
+import { ToggleCameraButton } from './PreviewScreen/ToggleCameraButton';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Preview'>;
-const {
-  JOIN_BUTTON,
-  TOGGLE_CAMERA_BUTTON,
-  SWITCH_CAMERA_BUTTON,
-  TOGGLE_MICROPHONE_BUTTON,
-  SELECT_AUDIO_OUTPUT,
-} = previewScreenLabels;
+const { JOIN_BUTTON, TOGGLE_MICROPHONE_BUTTON } = previewScreenLabels;
 
-const PreviewScreen = ({ navigation }: Props) => {
-  const audioSettings = useAudioSettings();
+const PreviewScreen = ({ navigation, route }: Props) => {
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  usePreventBackButton();
+
+  const availableCameras = useRef<CaptureDevice[]>([]);
   const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
     null,
   );
   const {
     getCaptureDevices,
     isCameraOn: isCameraAvailable,
-    simulcastConfig: localCameraSimulcastConfig,
-    toggleVideoTrackEncoding: toggleLocalCameraTrackEncoding,
+    simulcastConfig,
+    toggleVideoTrackEncoding,
   } = useCamera();
   const { isMicrophoneOn: isMicrophoneAvailable } = useMicrophone();
   const [isMicrophoneOn, setIsMicrophoneOn] = useState<boolean>(
     isMicrophoneAvailable,
   );
   const [isCameraOn, setIsCameraOn] = useState<boolean>(isCameraAvailable);
+
+  const encodings: Record<string, TrackEncoding[]> = {
+    ios: ['l', 'h'],
+    android: ['l', 'm', 'h'],
+  };
 
   const toggleMicrophone = () => {
     setIsMicrophoneOn(!isMicrophoneOn);
@@ -61,13 +69,13 @@ const PreviewScreen = ({ navigation }: Props) => {
     setIsCameraOn(!isCameraOn);
   };
 
-  useEffect(() => {
-    getCaptureDevices().then((devices) => {
-      setCurrentCamera(devices.find((device) => device.isFrontFacing) || null);
-    });
-  }, []);
-
-  const availableCameras = useRef<CaptureDevice[]>([]);
+  const toggleSwitchCamera = () => {
+    setCurrentCamera(
+      availableCameras.current.find(
+        (dev) => dev.isFrontFacing !== currentCamera?.isFrontFacing,
+      ) || null,
+    );
+  };
 
   useEffect(() => {
     getCaptureDevices().then((devices) => {
@@ -77,50 +85,27 @@ const PreviewScreen = ({ navigation }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const switchCamera = useCallback(() => {
-    const cameras = availableCameras.current;
-    if (currentCamera === null) {
-      return;
-    }
-
-    //todo Switches between front-facing and back-facing cameras or displays a list of available cameras.
-    setCurrentCamera(
-      cameras[
-        (cameras.findIndex((device) => device === currentCamera) + 1) %
-          cameras.length
-      ] || null,
-    );
-  }, [currentCamera, setCurrentCamera]);
-
   const onJoinPressed = async () => {
-    navigation.navigate('Room', { isCameraOn, isMicrophoneOn });
+    navigation.navigate('Room', {
+      isCameraOn,
+      isMicrophoneOn,
+      userName: route?.params?.userName,
+    });
   };
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => true,
-    );
-    return () => backHandler.remove();
-  }, []);
-
-  const bottomSheetRef = useRef<BottomSheet>(null);
-
-  const toggleOutputSoundDevice = useCallback(async () => {
-    if (Platform.OS === 'ios') {
-      await audioSettings.showAudioRoutePicker();
-    } else if (Platform.OS === 'android') {
-      bottomSheetRef.current?.expand();
+    if (isIosSimulator) {
+      displayIosSimulatorCameraAlert();
     }
-  }, [audioSettings]);
+  }, []);
 
   const body = (
     <SafeAreaView style={styles.container}>
       <View style={styles.cameraPreview}>
-        {isCameraOn ? (
+        {!isIosSimulator && isCameraOn ? (
           <VideoPreview currentCamera={currentCamera} />
         ) : (
-          <NoCameraView />
+          <NoCameraView username={route?.params?.userName || 'RN Mobile'} />
         )}
       </View>
       <View style={styles.mediaButtonsWrapper}>
@@ -129,35 +114,22 @@ const PreviewScreen = ({ navigation }: Props) => {
           onPress={toggleMicrophone}
           accessibilityLabel={TOGGLE_MICROPHONE_BUTTON}
         />
-        <InCallButton
-          iconName={isCameraOn ? 'camera' : 'camera-off'}
-          onPress={toggleCamera}
-          accessibilityLabel={TOGGLE_CAMERA_BUTTON}
+        <ToggleCameraButton
+          toggleCamera={toggleCamera}
+          isCameraOn={isCameraOn}
         />
-        <InCallButton
-          iconName="camera-switch"
-          onPress={switchCamera}
-          accessibilityLabel={SWITCH_CAMERA_BUTTON}
-        />
-        <InCallButton
-          iconName="volume-high"
-          onPress={toggleOutputSoundDevice}
-          accessibilityLabel={SELECT_AUDIO_OUTPUT}
-        />
+        <SwitchCameraButton switchCamera={toggleSwitchCamera} />
+        <SwitchOutputDeviceButton bottomSheetRef={bottomSheetRef} />
       </View>
       <View style={styles.simulcastButtonsWrapper}>
-        {(['h', 'm', 'l'] as TrackEncoding[]).map((val) => {
-          return (
-            <LetterButton
-              trackEncoding={val}
-              key={`encoding-${val}`}
-              selected={localCameraSimulcastConfig.activeEncodings.includes(
-                val,
-              )}
-              onPress={() => toggleLocalCameraTrackEncoding(val)}
-            />
-          );
-        })}
+        {encodings[Platform.OS].map((val) => (
+          <LetterButton
+            trackEncoding={val}
+            key={`encoding-${val}`}
+            selected={simulcastConfig.activeEncodings.includes(val)}
+            onPress={() => toggleVideoTrackEncoding(val)}
+          />
+        ))}
       </View>
       <View style={styles.joinButton}>
         <Button

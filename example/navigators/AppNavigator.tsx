@@ -13,10 +13,13 @@ import { AdditionalColors, BrandColors } from '../utils/Colors';
 
 export type AppRootStackParamList = {
   Home: undefined;
-  Preview: undefined;
+  Preview: {
+    userName?: string;
+  };
   Room: {
     isCameraOn: boolean;
     isMicrophoneOn: boolean;
+    userName?: string;
   };
 };
 
