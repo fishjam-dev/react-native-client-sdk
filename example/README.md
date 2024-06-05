@@ -30,12 +30,12 @@ yarn start
 ```
 
 5. Run in other terminal window command below to run app on selected platform.
+
 ```
 yarn ios
-or 
+or
 yarn android
 ```
-
 
 ## Testing
 
