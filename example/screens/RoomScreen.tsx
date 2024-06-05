@@ -21,6 +21,7 @@ import { useJoinRoom } from '../hooks/useJoinRoom';
 import { useToggleCamera } from '../hooks/useToggleCamera';
 import { useToggleMicrophone } from '../hooks/useToggleMicrophone';
 import { usePreventBackButton } from '../hooks/usePreventBackButton';
+import { isIosSimulator } from '../utils/deviceUtils';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;
 const {
@@ -89,7 +90,7 @@ const RoomScreen = ({ navigation, route }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {tracks.length > 0 ? (
+      {tracks.length > 0 && !isIosSimulator ? (
         <VideosGrid tracks={tracks} />
       ) : (
         <NoCameraView
