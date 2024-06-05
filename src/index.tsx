@@ -9,7 +9,6 @@ export { useEndpoints } from './hooks/useEndpoints';
 export { useMicrophone } from './hooks/useMicrophone';
 export { useRTCStatistics } from './hooks/useRTCStatistics';
 export { useScreencast } from './hooks/useScreencast';
-export { useWebRTC } from './hooks/useWebRTC';
 
 export {
   updateAudioTrackMetadata,
