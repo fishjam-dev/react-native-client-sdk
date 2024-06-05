@@ -43,7 +43,6 @@ const Tab = createBottomTabNavigator<TabParamList>();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="ConnectWithRoomManager"
       screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}>
       <Tab.Screen
         name="ConnectWithToken"
