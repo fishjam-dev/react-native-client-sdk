@@ -13,7 +13,7 @@ import { AdditionalColors, BrandColors } from '../utils/Colors';
 
 export type AppRootStackParamList = {
   Home: undefined;
-  Preview: {
+  Preview?: {
     userName?: string;
   };
   Room: {
