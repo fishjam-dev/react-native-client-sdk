@@ -1,3 +1,8 @@
+const appNavigationLabels = {
+  USE_ROOM_MANAGER_TAB: 'use_room_manager_tab',
+  USE_TOKEN_TAB: 'use_token_tab',
+};
+
 const connectScreenLabels = {
   URL_INPUT: 'url_input',
   TOKEN_INPUT: 'token_input',
@@ -31,6 +36,7 @@ const soundOutputDevicesLabels = {
 };
 
 export {
+  appNavigationLabels,
   connectScreenLabels,
   previewScreenLabels,
   roomScreenLabels,

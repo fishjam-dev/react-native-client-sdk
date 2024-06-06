@@ -9,6 +9,7 @@ import ConnectWithRoomManagerScreen from '../screens/ConnectWithRoomManagerScree
 import ConnectWithTokenScreen from '../screens/ConnectWithTokenScreen';
 import PreviewScreen from '../screens/PreviewScreen';
 import RoomScreen from '../screens/RoomScreen';
+import { appNavigationLabels } from '../types/ComponentLabels';
 import { AdditionalColors, BrandColors } from '../utils/Colors';
 
 export type AppRootStackParamList = {
@@ -40,6 +41,8 @@ const Stack = createNativeStackNavigator<AppRootStackParamList>();
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
+const { USE_ROOM_MANAGER_TAB, USE_TOKEN_TAB } = appNavigationLabels;
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -52,6 +55,7 @@ const TabNavigator = () => {
           tabBarActiveTintColor: BrandColors.darkBlue100,
           tabBarInactiveTintColor: AdditionalColors.grey60,
           tabBarIcon: tabBarIcon('room-service'),
+          tabBarAccessibilityLabel: USE_ROOM_MANAGER_TAB,
         }}
       />
       <Tab.Screen
@@ -62,6 +66,7 @@ const TabNavigator = () => {
           tabBarActiveTintColor: BrandColors.darkBlue100,
           tabBarInactiveTintColor: AdditionalColors.grey60,
           tabBarIcon: tabBarIcon('ticket'),
+          tabBarAccessibilityLabel: USE_TOKEN_TAB,
         }}
       />
     </Tab.Navigator>

@@ -15,6 +15,7 @@ import {
   roomScreenLabels,
   previewScreenLabels,
   soundOutputDevicesLabels,
+  appNavigationLabels,
 } from '../../../types/ComponentLabels';
 import {
   getElement,
@@ -25,6 +26,7 @@ import {
   typeToInput,
 } from '../../utils';
 
+const { USE_TOKEN_TAB } = appNavigationLabels;
 const { URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON } = connectScreenLabels;
 const {
   JOIN_BUTTON,
@@ -105,6 +107,7 @@ const tests: Test[] = [
       const webSocketUrl = getWebsocketUrl(
         process.env.FISHJAM_HOST_MOBILE as string,
       );
+      await tapButton(driver, '~' + USE_TOKEN_TAB);
       await typeToInput(driver, '~' + TOKEN_INPUT, peerDetail.token);
       await typeToInput(driver, '~' + URL_INPUT, webSocketUrl);
     },
