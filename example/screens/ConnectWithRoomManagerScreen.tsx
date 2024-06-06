@@ -6,10 +6,10 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
+  KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
   Text,
-  View,
 } from 'react-native';
 
 import { Button, TextInput, DismissKeyboard } from '../components';
@@ -87,7 +87,7 @@ const ConnectScreen = ({ navigation }: Props) => {
   return (
     <DismissKeyboard>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior="height" style={styles.container}>
           {connectionError && (
             <Text style={styles.errorMessage}>{connectionError}</Text>
           )}
@@ -108,7 +108,7 @@ const ConnectScreen = ({ navigation }: Props) => {
             onPress={onTapConnectButton}
             disabled={loading}
           />
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </DismissKeyboard>
   );

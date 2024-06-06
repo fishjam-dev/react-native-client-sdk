@@ -4,7 +4,7 @@ import {
   useMicrophone,
   VideoQuality,
 } from '@fishjam-dev/react-native-client';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { Platform } from 'react-native';
 
 interface Props {
