@@ -9,7 +9,7 @@ import {
 } from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { InCallButton, VideosGrid } from '../components';
@@ -43,11 +43,18 @@ const RoomScreen = ({ navigation, route }: Props) => {
   const { cleanUp } = useFishjamClient();
   const audioSettings = useAudioSettings();
 
-  useJoinRoom({ isCameraAvailable, isMicrophoneAvailable });
+  const { joinRoom } = useJoinRoom({
+    isCameraAvailable,
+    isMicrophoneAvailable,
+  });
   const { isCameraOn, flipCamera } = useCamera();
   const { toggleCamera } = useToggleCamera();
   const { isMicrophoneOn } = useMicrophone();
   const { toggleMicrophone } = useToggleMicrophone();
+
+  useEffect(() => {
+    joinRoom();
+  }, [joinRoom]);
 
   const peers = usePeers();
   const tracks = useMemo(

@@ -52,7 +52,5 @@ export function useJoinRoom({
     startMicrophone,
   ]);
 
-  useEffect(() => {
-    joinRoom();
-  }, []);
+  return { joinRoom };
 }
