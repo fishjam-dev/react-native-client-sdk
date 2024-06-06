@@ -107,12 +107,12 @@ const RoomScreen = ({ navigation, route }: Props) => {
           accessibilityLabel={DISCONNECT_BUTTON}
         />
         <InCallButton
-          iconName={!isMicrophoneOn ? 'microphone-off' : 'microphone'}
+          iconName={isMicrophoneOn ? 'microphone' : 'microphone-off'}
           onPress={toggleMicrophone}
           accessibilityLabel={TOGGLE_MICROPHONE_BUTTON}
         />
         <InCallButton
-          iconName={!isCameraOn ? 'camera-off' : 'camera'}
+          iconName={isCameraOn ? 'camera' : 'camera-off'}
           onPress={toggleCamera}
           accessibilityLabel={TOGGLE_CAMERA_BUTTON}
         />
@@ -122,7 +122,7 @@ const RoomScreen = ({ navigation, route }: Props) => {
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
         />
         <InCallButton
-          iconName={isScreencastOn ? 'share-off' : 'share'}
+          iconName={isScreencastOn ? 'share' : 'share-off'}
           onPress={onToggleScreenCast}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />

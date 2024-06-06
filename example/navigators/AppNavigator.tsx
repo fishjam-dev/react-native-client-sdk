@@ -45,16 +45,6 @@ const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}>
       <Tab.Screen
-        name="ConnectWithToken"
-        component={ConnectWithTokenScreen}
-        options={{
-          tabBarLabel: 'Use Token',
-          tabBarActiveTintColor: BrandColors.darkBlue100,
-          tabBarInactiveTintColor: AdditionalColors.grey60,
-          tabBarIcon: tabBarIcon('ticket'),
-        }}
-      />
-      <Tab.Screen
         name="ConnectWithRoomManager"
         component={ConnectWithRoomManagerScreen}
         options={{
@@ -62,6 +52,16 @@ const TabNavigator = () => {
           tabBarActiveTintColor: BrandColors.darkBlue100,
           tabBarInactiveTintColor: AdditionalColors.grey60,
           tabBarIcon: tabBarIcon('room-service'),
+        }}
+      />
+      <Tab.Screen
+        name="ConnectWithToken"
+        component={ConnectWithTokenScreen}
+        options={{
+          tabBarLabel: 'Use Token',
+          tabBarActiveTintColor: BrandColors.darkBlue100,
+          tabBarInactiveTintColor: AdditionalColors.grey60,
+          tabBarIcon: tabBarIcon('ticket'),
         }}
       />
     </Tab.Navigator>

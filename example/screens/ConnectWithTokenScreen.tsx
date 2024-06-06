@@ -70,13 +70,13 @@ const ConnectScreen = ({ navigation }: Props) => {
             onChangeText={onChangeFishjamUrl}
             value={fishjamUrl}
             accessibilityLabel={URL_INPUT}
-            placeholder="Fishjam url"
+            placeholder="Fishjam URL"
           />
           <TextInput
             onChangeText={onChangePeerToken}
             value={peerToken}
             accessibilityLabel={TOKEN_INPUT}
-            placeholder="Peer token"
+            placeholder="Peer Token"
           />
           <Button
             title="Connect"
