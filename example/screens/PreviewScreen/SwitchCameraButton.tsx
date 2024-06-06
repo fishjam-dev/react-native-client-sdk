@@ -1,15 +1,16 @@
-import { InCallButton } from '../../components';
 import React, { FC, useCallback } from 'react';
+
+import { InCallButton } from '../../components';
 import { previewScreenLabels } from '../../types/ComponentLabels.ts';
 import {
   displayIosSimulatorCameraAlert,
   isIosSimulator,
 } from '../../utils/deviceUtils.ts';
 
-interface SwitchCameraButton {
+interface SwitchCameraButtonProps {
   switchCamera: () => void;
 }
-export const SwitchCameraButton: FC<SwitchCameraButton> = (props) => {
+export const SwitchCameraButton: FC<SwitchCameraButtonProps> = (props) => {
   const { switchCamera } = props;
 
   const { SWITCH_CAMERA_BUTTON } = previewScreenLabels;

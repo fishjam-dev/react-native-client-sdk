@@ -15,12 +15,12 @@ import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';
 import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
-import type { AppRootStackParamList } from '../navigators/AppNavigator';
-import { roomScreenLabels } from '../types/ComponentLabels';
 import { useJoinRoom } from '../hooks/useJoinRoom';
+import { usePreventBackButton } from '../hooks/usePreventBackButton';
 import { useToggleCamera } from '../hooks/useToggleCamera';
 import { useToggleMicrophone } from '../hooks/useToggleMicrophone';
-import { usePreventBackButton } from '../hooks/usePreventBackButton';
+import type { AppRootStackParamList } from '../navigators/AppNavigator';
+import { roomScreenLabels } from '../types/ComponentLabels';
 import { isIosSimulator } from '../utils/deviceUtils';
 
 type Props = NativeStackScreenProps<AppRootStackParamList, 'Room'>;

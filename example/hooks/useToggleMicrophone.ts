@@ -1,8 +1,8 @@
-import { useCallback } from 'react';
 import {
   updateAudioTrackMetadata,
   useMicrophone,
 } from '@fishjam-dev/react-native-client';
+import { useCallback } from 'react';
 
 export function useToggleMicrophone() {
   const { isMicrophoneOn, toggleMicrophone: membraneToggleMicrophone } =

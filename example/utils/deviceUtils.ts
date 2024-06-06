@@ -1,5 +1,5 @@
-import { Alert, Platform } from 'react-native';
 import * as Device from 'expo-device';
+import { Alert, Platform } from 'react-native';
 
 export const isIosSimulator = Platform.OS === 'ios' && !Device.isDevice;
 

@@ -1,9 +1,10 @@
-import { InCallButton } from '../../components';
+import { useAudioSettings } from '@fishjam-dev/react-native-client';
+import BottomSheet from '@gorhom/bottom-sheet';
 import React, { RefObject, useCallback } from 'react';
 import { Platform } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+
+import { InCallButton } from '../../components';
 import { previewScreenLabels } from '../../types/ComponentLabels.ts';
-import { useAudioSettings } from '@fishjam-dev/react-native-client';
 
 export const SwitchOutputDeviceButton = (props: {
   bottomSheetRef: RefObject<BottomSheet>;

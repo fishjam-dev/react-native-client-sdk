@@ -1,17 +1,18 @@
-import { InCallButton } from '../../components';
 import React, { FC, useCallback } from 'react';
+
+import { InCallButton } from '../../components';
 import { previewScreenLabels } from '../../types/ComponentLabels.ts';
 import {
   displayIosSimulatorCameraAlert,
   isIosSimulator,
 } from '../../utils/deviceUtils.ts';
 
-interface ToggleCameraButton {
+interface ToggleCameraButtonProps {
   toggleCamera: () => void;
   isCameraOn: boolean;
 }
 
-export const ToggleCameraButton: FC<ToggleCameraButton> = ({
+export const ToggleCameraButton: FC<ToggleCameraButtonProps> = ({
   toggleCamera,
   isCameraOn,
 }) => {

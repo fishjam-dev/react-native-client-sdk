@@ -1,11 +1,11 @@
-import { useCallback, useEffect } from 'react';
-import { Platform } from 'react-native';
 import {
   useCamera,
   useFishjamClient,
   useMicrophone,
   VideoQuality,
 } from '@fishjam-dev/react-native-client';
+import { useCallback, useEffect } from 'react';
+import { Platform } from 'react-native';
 
 interface Props {
   isCameraAvailable: boolean;

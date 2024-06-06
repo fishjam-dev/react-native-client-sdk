@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
-
 import {
   updateVideoTrackMetadata,
   useCamera,
 } from '@fishjam-dev/react-native-client';
+import { useCallback } from 'react';
+
 import {
   displayIosSimulatorCameraAlert,
   isIosSimulator,
