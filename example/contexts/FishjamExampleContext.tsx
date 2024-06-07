@@ -19,6 +19,10 @@ import * as Device from 'expo-device';
 import { Platform } from 'expo-modules-core';
 import React, { useCallback, useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
+import notifee, {
+  AndroidImportance,
+  AndroidColor,
+} from '@notifee/react-native';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 
@@ -78,7 +82,34 @@ const FishjamExampleContextProvider = (props: any) => {
   const [videoRoomState, setVideoRoomState] =
     useState<VideoRoomState>('BeforeMeeting');
 
+  const startForegroundService = async () => {
+    if (Platform.OS != 'android') return;
+    const channelId = await notifee.createChannel({
+      id: 'video_call',
+      name: 'Video call',
+      lights: false,
+      vibration: false,
+      importance: AndroidImportance.DEFAULT,
+    });
+
+    await notifee.displayNotification({
+      title: 'Your video call is ongoing',
+      body: 'Tap to return to the call.',
+      android: {
+        channelId,
+        asForegroundService: true,
+        ongoing: true,
+        color: AndroidColor.BLUE,
+        colorized: true,
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  };
+
   const joinRoom = useCallback(async () => {
+    await startForegroundService();
     await startCamera({
       simulcastConfig: {
         enabled: true,

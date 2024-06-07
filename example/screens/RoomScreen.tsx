@@ -14,6 +14,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import notifee from '@notifee/react-native';
 
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';
@@ -88,6 +89,12 @@ const RoomScreen = ({ navigation }: Props) => {
       bottomSheetRef.current?.expand();
     }
   }, [audioSettings]);
+
+  useEffect(() => {
+    return () => {
+      notifee.stopForegroundService();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
