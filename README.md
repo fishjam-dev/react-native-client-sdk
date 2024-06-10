@@ -378,27 +378,28 @@ Then to start the foreground service:
 import notifee, { AndroidImportance } from '@notifee/react-native';
 
 const startForegroundService = async () => {
-  if (Platform.OS === 'android') return;
-  const channelId = await notifee.createChannel({
-    id: 'video_call',
-    name: 'Video call',
-    lights: false,
-    vibration: false,
-    importance: AndroidImportance.DEFAULT,
-  });
+  if (Platform.OS === 'android') {
+    const channelId = await notifee.createChannel({
+      id: 'video_call',
+      name: 'Video call',
+      lights: false,
+      vibration: false,
+      importance: AndroidImportance.DEFAULT,
+    });
 
-  await notifee.displayNotification({
-    title: 'Your video call is ongoing',
-    body: 'Tap to return to the call.',
-    android: {
-      channelId,
-      asForegroundService: true,
-      ongoing: true,
-      pressAction: {
-        id: 'default',
+    await notifee.displayNotification({
+      title: 'Your video call is ongoing',
+      body: 'Tap to return to the call.',
+      android: {
+        channelId,
+        asForegroundService: true,
+        ongoing: true,
+        pressAction: {
+          id: 'default',
+        },
       },
-    },
-  });
+    });
+  }
 };
 ```
 
