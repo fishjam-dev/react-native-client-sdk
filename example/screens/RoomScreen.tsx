@@ -5,6 +5,7 @@ import {
   ScreencastQuality,
 } from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
+import notifee from '@notifee/react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
@@ -14,7 +15,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import notifee from '@notifee/react-native';
 
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';

@@ -15,14 +15,14 @@ import {
   AudioOutputDeviceType,
   AudioSessionMode,
 } from '@fishjam-dev/react-native-client';
-import * as Device from 'expo-device';
-import { Platform } from 'expo-modules-core';
-import React, { useCallback, useEffect, useState } from 'react';
-import Toast from 'react-native-toast-message';
 import notifee, {
   AndroidImportance,
   AndroidColor,
 } from '@notifee/react-native';
+import * as Device from 'expo-device';
+import { Platform } from 'expo-modules-core';
+import React, { useCallback, useEffect, useState } from 'react';
+import Toast from 'react-native-toast-message';
 
 type VideoRoomState = 'BeforeMeeting' | 'InMeeting' | 'AfterMeeting';
 
@@ -61,29 +61,8 @@ const FishjamExampleContext = React.createContext<
 
 const isIosEmulator = Platform.OS === 'ios' && !Device.isDevice;
 
-const FishjamExampleContextProvider = (props: any) => {
-  const { join } = useFishjamClient();
-  const [isCameraOn, setIsCameraOn] = useState(!isIosEmulator);
-  const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
-  const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
-    null,
-  );
-  const {
-    toggleCamera: membraneToggleCamera,
-    startCamera,
-    flipCamera,
-    getCaptureDevices,
-    simulcastConfig: localCameraSimulcastConfig,
-    toggleVideoTrackEncoding: toggleLocalCameraTrackEncoding,
-  } = useCamera();
-  const { toggleMicrophone: membraneToggleMicrophone, startMicrophone } =
-    useMicrophone();
-  const audioSettings = useAudioSettings();
-  const [videoRoomState, setVideoRoomState] =
-    useState<VideoRoomState>('BeforeMeeting');
-
-  const startForegroundService = async () => {
-    if (Platform.OS != 'android') return;
+const startForegroundService = async () => {
+  if (Platform.OS === 'android') {
     const channelId = await notifee.createChannel({
       id: 'video_call',
       name: 'Video call',
@@ -106,7 +85,29 @@ const FishjamExampleContextProvider = (props: any) => {
         },
       },
     });
-  };
+  }
+};
+
+const FishjamExampleContextProvider = (props: any) => {
+  const { join } = useFishjamClient();
+  const [isCameraOn, setIsCameraOn] = useState(!isIosEmulator);
+  const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
+  const [currentCamera, setCurrentCamera] = useState<CaptureDevice | null>(
+    null,
+  );
+  const {
+    toggleCamera: membraneToggleCamera,
+    startCamera,
+    flipCamera,
+    getCaptureDevices,
+    simulcastConfig: localCameraSimulcastConfig,
+    toggleVideoTrackEncoding: toggleLocalCameraTrackEncoding,
+  } = useCamera();
+  const { toggleMicrophone: membraneToggleMicrophone, startMicrophone } =
+    useMicrophone();
+  const audioSettings = useAudioSettings();
+  const [videoRoomState, setVideoRoomState] =
+    useState<VideoRoomState>('BeforeMeeting');
 
   const joinRoom = useCallback(async () => {
     await startForegroundService();
