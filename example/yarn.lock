@@ -1611,6 +1611,7 @@
 "@fishjam-dev/react-native-client@file:..":
   version "0.3.0"
   dependencies:
+    "@notifee/react-native" "^7.8.2"
     phoenix "^1.7.6"
     promise-fs "^2.1.1"
     protobufjs "^7.2.4"
@@ -1977,6 +1978,11 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
+
+"@notifee/react-native@^7.8.2":
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/@notifee/react-native/-/react-native-7.8.2.tgz#72d3199ae830b4128ddaef3c1c2f11604759c9c4"
+  integrity sha512-VG4IkWJIlOKqXwa3aExC3WFCVCGCC9BA55Ivg0SMRfEs+ruvYy/zlLANcrVGiPtgkUEryXDhA8SXx9+JcO8oLA==
 
 "@npmcli/fs@^1.0.0":
   version "1.1.1"

@@ -8,6 +8,7 @@ import {
   useAudioSettings,
 } from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
+import notifee from '@notifee/react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
@@ -93,6 +94,12 @@ const RoomScreen = ({ navigation, route }: Props) => {
       bottomSheetRef.current?.expand();
     }
   }, [audioSettings]);
+
+  useEffect(() => {
+    return () => {
+      notifee.stopForegroundService();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

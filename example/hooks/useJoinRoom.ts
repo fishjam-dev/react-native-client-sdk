@@ -4,12 +4,43 @@ import {
   useMicrophone,
   VideoQuality,
 } from '@fishjam-dev/react-native-client';
+import notifee, {
+  AndroidImportance,
+  AndroidColor,
+} from '@notifee/react-native';
 import { useCallback } from 'react';
 import { Platform } from 'react-native';
 
 interface Props {
   isCameraAvailable: boolean;
   isMicrophoneAvailable: boolean;
+}
+
+async function startForegroundService() {
+  if (Platform.OS === 'android') {
+    const channelId = await notifee.createChannel({
+      id: 'video_call',
+      name: 'Video call',
+      lights: false,
+      vibration: false,
+      importance: AndroidImportance.DEFAULT,
+    });
+
+    await notifee.displayNotification({
+      title: 'Your video call is ongoing',
+      body: 'Tap to return to the call.',
+      android: {
+        channelId,
+        asForegroundService: true,
+        ongoing: true,
+        color: AndroidColor.BLUE,
+        colorized: true,
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  }
 }
 
 export function useJoinRoom({
@@ -21,6 +52,7 @@ export function useJoinRoom({
   const { startMicrophone } = useMicrophone();
 
   const joinRoom = useCallback(async () => {
+    await startForegroundService();
     await startCamera({
       simulcastConfig: {
         enabled: true,

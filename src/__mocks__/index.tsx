@@ -38,13 +38,6 @@ const emptyPromise = async (): Promise<void> => {
   });
 };
 
-export const useWebRTC = () => {
-  return {
-    connect: emptyPromise,
-    disconnect: emptyPromise,
-    error: null,
-  };
-};
 export const useEndpoints = () => [];
 export const setTargetTrackEncoding = emptyPromise;
 export const useCamera = () => {

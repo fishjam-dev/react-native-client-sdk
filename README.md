@@ -345,6 +345,77 @@ toggleScreencast({screencastMetadata: { displayName: "Annie's desktop" }});
 
 Use track metadata to differentiate between video and screencast tracks.
 
+### Android foreground service
+
+In order for the call to continue running when app is in background, you need to
+set up and start a foreground service. You can use a 3rd party library for this,
+for example [notifee](https://notifee.app/).
+
+In `AndroidManifest.xml` specify necessary permissions:
+
+```xml
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+```
+
+And add foreground service:
+
+```xml
+<application
+...
+>
+  ...
+  <service
+    android:name="app.notifee.core.ForegroundService"
+    android:foregroundServiceType="mediaProjection|camera|microphone" />
+</application>
+```
+
+Then to start the foreground service:
+
+```ts
+import notifee, { AndroidImportance } from '@notifee/react-native';
+
+const startForegroundService = async () => {
+  if (Platform.OS === 'android') return;
+  const channelId = await notifee.createChannel({
+    id: 'video_call',
+    name: 'Video call',
+    lights: false,
+    vibration: false,
+    importance: AndroidImportance.DEFAULT,
+  });
+
+  await notifee.displayNotification({
+    title: 'Your video call is ongoing',
+    body: 'Tap to return to the call.',
+    android: {
+      channelId,
+      asForegroundService: true,
+      ongoing: true,
+      pressAction: {
+        id: 'default',
+      },
+    },
+  });
+};
+```
+
+Don't forget to also stop the service when the call has ended:
+
+```ts
+notifee.stopForegroundService();
+```
+
+Also add this code in your `index.js` to register the service:
+
+```js
+notifee.registerForegroundService((notification) => {
+  return new Promise(() => {});
+});
+```
+
 ### Developing
 
 Run `./scripts/init.sh` in the main directory to install swift-format and set up

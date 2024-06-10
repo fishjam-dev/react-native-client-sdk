@@ -168,7 +168,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     }
     videoParameters = videoParameters.copy(
       dimensions = if (createOptions.flipVideo) videoParameters.dimensions.flip() else videoParameters.dimensions,
-      simulcastConfig = videoSimulcastConfig,
+      simulcastConfig = getSimulcastConfigFromOptions(createOptions.simulcastConfig),
       maxBitrate = videoMaxBandwidth
     )
     return videoParameters
