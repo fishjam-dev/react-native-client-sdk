@@ -53,8 +53,7 @@ const PreviewScreen = ({ navigation }: Props) => {
       availableCameras.current = devices;
       setCurrentCamera(devices.find((device) => device.isFrontFacing) || null);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getCaptureDevices, setCurrentCamera]);
 
   const switchCamera = useCallback(() => {
     const cameras = availableCameras.current;

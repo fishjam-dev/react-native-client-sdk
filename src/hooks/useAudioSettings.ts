@@ -43,7 +43,7 @@ export function useAudioSettings() {
         MembraneWebRTCModule.stopAudioSwitcher();
       }
     };
-  }, []);
+  }, [onAudioDevice]);
 
   /**
    * [Android only] selects output audio device.
