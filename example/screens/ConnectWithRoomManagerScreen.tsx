@@ -6,10 +6,10 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
+  KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
   Text,
-  View,
 } from 'react-native';
 
 import { Button, TextInput, DismissKeyboard } from '../components';
@@ -33,7 +33,7 @@ async function getFishjamServer(
     ? roomManagerUrl
     : roomManagerUrl + '/';
   const response = await fetch(
-    `${url}api/rooms/${roomName.trim()}/users/${userName.trim()}`,
+    `${url}rooms/${roomName.trim()}/users/${userName.trim()}`,
   );
   if (!response.ok) {
     throw new Error(JSON.stringify(await response.json()));
@@ -74,7 +74,7 @@ const ConnectScreen = ({ navigation }: Props) => {
 
       await connect(fishjamUrl, token);
 
-      navigation.navigate('Preview');
+      navigation.navigate('Preview', { userName });
     } catch (e) {
       const message =
         'message' in (e as Error) ? (e as Error).message : 'Unknown error';
@@ -87,7 +87,7 @@ const ConnectScreen = ({ navigation }: Props) => {
   return (
     <DismissKeyboard>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior="height" style={styles.container}>
           {connectionError && (
             <Text style={styles.errorMessage}>{connectionError}</Text>
           )}
@@ -108,7 +108,7 @@ const ConnectScreen = ({ navigation }: Props) => {
             onPress={onTapConnectButton}
             disabled={loading}
           />
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </DismissKeyboard>
   );

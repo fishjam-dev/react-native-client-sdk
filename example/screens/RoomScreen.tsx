@@ -3,23 +3,23 @@ import {
   usePeers,
   useScreencast,
   ScreencastQuality,
+  useCamera,
+  useMicrophone,
+  useAudioSettings,
 } from '@fishjam-dev/react-native-client';
 import BottomSheet from '@gorhom/bottom-sheet';
 import notifee from '@notifee/react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import {
-  BackHandler,
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { InCallButton, VideosGrid } from '../components';
 import { NoCameraView } from '../components/NoCameraView';
 import { SoundOutputDevicesBottomSheet } from '../components/SoundOutputDevicesBottomSheet';
-import { useFishjamExampleContext } from '../contexts/FishjamExampleContext';
+import { useJoinRoom } from '../hooks/useJoinRoom';
+import { usePreventBackButton } from '../hooks/usePreventBackButton';
+import { useToggleCamera } from '../hooks/useToggleCamera';
+import { useToggleMicrophone } from '../hooks/useToggleMicrophone';
 import type { AppRootStackParamList } from '../navigators/AppNavigator';
 import { roomScreenLabels } from '../types/ComponentLabels';
 
@@ -33,7 +33,29 @@ const {
   NO_CAMERA_VIEW,
 } = roomScreenLabels;
 
-const RoomScreen = ({ navigation }: Props) => {
+const RoomScreen = ({ navigation, route }: Props) => {
+  const {
+    isCameraOn: isCameraAvailable,
+    isMicrophoneOn: isMicrophoneAvailable,
+    userName,
+  } = route?.params;
+  usePreventBackButton();
+  const { cleanUp } = useFishjamClient();
+  const audioSettings = useAudioSettings();
+
+  const { joinRoom } = useJoinRoom({
+    isCameraAvailable,
+    isMicrophoneAvailable,
+  });
+  const { isCameraOn, flipCamera } = useCamera();
+  const { toggleCamera } = useToggleCamera();
+  const { isMicrophoneOn } = useMicrophone();
+  const { toggleMicrophone } = useToggleMicrophone();
+
+  useEffect(() => {
+    joinRoom();
+  }, [joinRoom]);
+
   const peers = usePeers();
   const tracks = useMemo(
     () =>
@@ -45,24 +67,7 @@ const RoomScreen = ({ navigation }: Props) => {
     [peers],
   );
 
-  const { cleanUp } = useFishjamClient();
   const { toggleScreencast, isScreencastOn } = useScreencast();
-  const {
-    isCameraOn,
-    isMicrophoneOn,
-    toggleMicrophone,
-    toggleCamera,
-    flipCamera,
-    audioSettings,
-  } = useFishjamExampleContext();
-
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => true,
-    );
-    return () => backHandler.remove();
-  }, []);
 
   const onDisconnectPress = useCallback(() => {
     cleanUp();
@@ -101,7 +106,10 @@ const RoomScreen = ({ navigation }: Props) => {
       {tracks.length > 0 ? (
         <VideosGrid tracks={tracks} />
       ) : (
-        <NoCameraView username="username" accessibilityLabel={NO_CAMERA_VIEW} />
+        <NoCameraView
+          username={userName || 'username'}
+          accessibilityLabel={NO_CAMERA_VIEW}
+        />
       )}
 
       <View style={styles.callView}>
@@ -112,12 +120,12 @@ const RoomScreen = ({ navigation }: Props) => {
           accessibilityLabel={DISCONNECT_BUTTON}
         />
         <InCallButton
-          iconName={isMicrophoneOn ? 'microphone-off' : 'microphone'}
+          iconName={isMicrophoneOn ? 'microphone' : 'microphone-off'}
           onPress={toggleMicrophone}
           accessibilityLabel={TOGGLE_MICROPHONE_BUTTON}
         />
         <InCallButton
-          iconName={isCameraOn ? 'camera-off' : 'camera'}
+          iconName={isCameraOn ? 'camera' : 'camera-off'}
           onPress={toggleCamera}
           accessibilityLabel={TOGGLE_CAMERA_BUTTON}
         />
@@ -127,7 +135,7 @@ const RoomScreen = ({ navigation }: Props) => {
           accessibilityLabel={SWITCH_CAMERA_BUTTON}
         />
         <InCallButton
-          iconName={isScreencastOn ? 'share-off' : 'share'}
+          iconName={isScreencastOn ? 'share' : 'share-off'}
           onPress={onToggleScreenCast}
           accessibilityLabel={SHARE_SCREEN_BUTTON}
         />

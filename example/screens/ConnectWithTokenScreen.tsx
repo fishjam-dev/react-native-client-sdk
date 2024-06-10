@@ -6,10 +6,10 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
+  KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
   Text,
-  View,
 } from 'react-native';
 
 import {
@@ -57,7 +57,7 @@ const ConnectScreen = ({ navigation }: Props) => {
   return (
     <DismissKeyboard>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior="height" style={styles.container}>
           {connectionError && (
             <Text style={styles.errorMessage}>{connectionError}</Text>
           )}
@@ -70,13 +70,13 @@ const ConnectScreen = ({ navigation }: Props) => {
             onChangeText={onChangeFishjamUrl}
             value={fishjamUrl}
             accessibilityLabel={URL_INPUT}
-            placeholder="Fishjam url"
+            placeholder="Fishjam URL"
           />
           <TextInput
             onChangeText={onChangePeerToken}
             value={peerToken}
             accessibilityLabel={TOKEN_INPUT}
-            placeholder="Peer token"
+            placeholder="Peer Token"
           />
           <Button
             title="Connect"
@@ -84,7 +84,7 @@ const ConnectScreen = ({ navigation }: Props) => {
             accessibilityLabel={CONNECT_BUTTON}
           />
           <QRCodeScanner onCodeScanned={onChangePeerToken} />
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </DismissKeyboard>
   );

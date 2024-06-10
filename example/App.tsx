@@ -1,17 +1,17 @@
+import { FishjamContextProvider } from '@fishjam-dev/react-native-client';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
 
 import AppNavigator from './navigators/AppNavigator';
-import AppProvider from './providers/AppProvider';
 
 function App(): React.JSX.Element {
   return (
     <>
       <GestureHandlerRootView>
-        <AppProvider>
+        <FishjamContextProvider>
           <AppNavigator />
-        </AppProvider>
+        </FishjamContextProvider>
       </GestureHandlerRootView>
       <Toast />
     </>

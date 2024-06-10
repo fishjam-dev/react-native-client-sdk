@@ -9,12 +9,19 @@ import ConnectWithRoomManagerScreen from '../screens/ConnectWithRoomManagerScree
 import ConnectWithTokenScreen from '../screens/ConnectWithTokenScreen';
 import PreviewScreen from '../screens/PreviewScreen';
 import RoomScreen from '../screens/RoomScreen';
+import { appNavigationLabels } from '../types/ComponentLabels';
 import { AdditionalColors, BrandColors } from '../utils/Colors';
 
 export type AppRootStackParamList = {
   Home: undefined;
-  Preview: undefined;
-  Room: undefined;
+  Preview?: {
+    userName?: string;
+  };
+  Room: {
+    isCameraOn: boolean;
+    isMicrophoneOn: boolean;
+    userName?: string;
+  };
 };
 
 export type TabParamList = {
@@ -34,20 +41,12 @@ const Stack = createNativeStackNavigator<AppRootStackParamList>();
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
+const { ROOM_MANAGER_TAB, TOKEN_TAB } = appNavigationLabels;
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}>
-      <Tab.Screen
-        name="ConnectWithToken"
-        component={ConnectWithTokenScreen}
-        options={{
-          tabBarLabel: 'Use Token',
-          tabBarActiveTintColor: BrandColors.darkBlue100,
-          tabBarInactiveTintColor: AdditionalColors.grey60,
-          tabBarIcon: tabBarIcon('ticket'),
-        }}
-      />
       <Tab.Screen
         name="ConnectWithRoomManager"
         component={ConnectWithRoomManagerScreen}
@@ -56,6 +55,18 @@ const TabNavigator = () => {
           tabBarActiveTintColor: BrandColors.darkBlue100,
           tabBarInactiveTintColor: AdditionalColors.grey60,
           tabBarIcon: tabBarIcon('room-service'),
+          tabBarAccessibilityLabel: ROOM_MANAGER_TAB,
+        }}
+      />
+      <Tab.Screen
+        name="ConnectWithToken"
+        component={ConnectWithTokenScreen}
+        options={{
+          tabBarLabel: 'Use Token',
+          tabBarActiveTintColor: BrandColors.darkBlue100,
+          tabBarInactiveTintColor: AdditionalColors.grey60,
+          tabBarIcon: tabBarIcon('ticket'),
+          tabBarAccessibilityLabel: TOKEN_TAB,
         }}
       />
     </Tab.Navigator>
