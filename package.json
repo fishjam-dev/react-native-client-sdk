@@ -55,6 +55,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "expo": "^50.0.17",
     "expo-module-scripts": "^3.0.4",
     "expo-modules-core": "~1.11.8",
@@ -70,10 +71,10 @@
     "react-dom": "18.2.0",
     "react-native": "0.73.4",
     "release-it": "^17.0.3",
+    "ts-proto": "^1.176.0",
     "typedoc": "^0.25.7",
     "typedoc-plugin-mark-react-functional-components": "^0.2.2",
-    "typescript": "5.3.x",
-    "ts-proto": "^1.176.0"
+    "typescript": "5.3.x"
   },
   "peerDependencies": {
     "expo": "*",
