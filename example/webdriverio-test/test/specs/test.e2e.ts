@@ -1,3 +1,11 @@
+import {
+  ConfigurationParameters,
+  Configuration,
+  RoomApiFp,
+  AddPeerRequest,
+  PeerDetailsResponseData,
+  Room,
+} from '@fishjam-dev/js-server-sdk';
 import { driver } from '@wdio/globals';
 import * as assert from 'assert';
 import type { Suite } from 'mocha';
@@ -8,16 +16,6 @@ import {
   previewScreenLabels,
   soundOutputDevicesLabels,
 } from '../../../types/ComponentLabels';
-
-import {
-  ConfigurationParameters,
-  Configuration,
-  RoomApiFp,
-  AddPeerRequest,
-  PeerDetailsResponseData,
-  Room,
-} from '@fishjam-dev/js-server-sdk';
-
 import {
   getElement,
   getWebsocketUrl,

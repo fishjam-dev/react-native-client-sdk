@@ -15,6 +15,10 @@ import {
   AudioOutputDeviceType,
   AudioSessionMode,
 } from '@fishjam-dev/react-native-client';
+import notifee, {
+  AndroidImportance,
+  AndroidColor,
+} from '@notifee/react-native';
 import * as Device from 'expo-device';
 import { Platform } from 'expo-modules-core';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -57,6 +61,33 @@ const FishjamExampleContext = React.createContext<
 
 const isIosEmulator = Platform.OS === 'ios' && !Device.isDevice;
 
+const startForegroundService = async () => {
+  if (Platform.OS === 'android') {
+    const channelId = await notifee.createChannel({
+      id: 'video_call',
+      name: 'Video call',
+      lights: false,
+      vibration: false,
+      importance: AndroidImportance.DEFAULT,
+    });
+
+    await notifee.displayNotification({
+      title: 'Your video call is ongoing',
+      body: 'Tap to return to the call.',
+      android: {
+        channelId,
+        asForegroundService: true,
+        ongoing: true,
+        color: AndroidColor.BLUE,
+        colorized: true,
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  }
+};
+
 const FishjamExampleContextProvider = (props: any) => {
   const { join } = useFishjamClient();
   const [isCameraOn, setIsCameraOn] = useState(!isIosEmulator);
@@ -79,6 +110,7 @@ const FishjamExampleContextProvider = (props: any) => {
     useState<VideoRoomState>('BeforeMeeting');
 
   const joinRoom = useCallback(async () => {
+    await startForegroundService();
     await startCamera({
       simulcastConfig: {
         enabled: true,
