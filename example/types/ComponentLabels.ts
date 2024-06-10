@@ -1,6 +1,6 @@
 const appNavigationLabels = {
-  ROOM_MANAGER_TAB: 'room_manager_tab',
-  TOKEN_TAB: 'token_tab',
+  ROOM_MANAGER_TAB: 'room_manager_navigation_tab',
+  TOKEN_TAB: 'token_navigation_tab',
 };
 
 const connectScreenLabels = {
