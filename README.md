@@ -378,7 +378,7 @@ Then to start the foreground service:
 import notifee, { AndroidImportance } from '@notifee/react-native';
 
 const startForegroundService = async () => {
-  if (Platform.OS != 'android') return;
+  if (Platform.OS === 'android') return;
   const channelId = await notifee.createChannel({
     id: 'video_call',
     name: 'Video call',
