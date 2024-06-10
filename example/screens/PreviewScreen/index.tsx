@@ -72,7 +72,7 @@ const PreviewScreen = ({ navigation, route }: Props) => {
   const toggleSwitchCamera = () => {
     setCurrentCamera(
       availableCameras.current.find(
-        (dev) => dev.isFrontFacing !== currentCamera?.isFrontFacing,
+        (device) => device.isFrontFacing !== currentCamera?.isFrontFacing,
       ) || null,
     );
   };

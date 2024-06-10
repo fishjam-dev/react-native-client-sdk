@@ -1,7 +1,7 @@
-import * as Device from 'expo-device';
+import { isDevice } from 'expo-device';
 import { Alert, Platform } from 'react-native';
 
-export const isIosSimulator = Platform.OS === 'ios' && !Device.isDevice;
+export const isIosSimulator = Platform.OS === 'ios' && !isDevice;
 
 export const displayIosSimulatorCameraAlert = () =>
   Alert.alert(

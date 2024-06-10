@@ -41,7 +41,7 @@ const Stack = createNativeStackNavigator<AppRootStackParamList>();
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
-const { USE_ROOM_MANAGER_TAB, USE_TOKEN_TAB } = appNavigationLabels;
+const { ROOM_MANAGER_TAB, TOKEN_TAB } = appNavigationLabels;
 
 const TabNavigator = () => {
   return (
@@ -55,7 +55,7 @@ const TabNavigator = () => {
           tabBarActiveTintColor: BrandColors.darkBlue100,
           tabBarInactiveTintColor: AdditionalColors.grey60,
           tabBarIcon: tabBarIcon('room-service'),
-          tabBarAccessibilityLabel: USE_ROOM_MANAGER_TAB,
+          tabBarAccessibilityLabel: ROOM_MANAGER_TAB,
         }}
       />
       <Tab.Screen
@@ -66,7 +66,7 @@ const TabNavigator = () => {
           tabBarActiveTintColor: BrandColors.darkBlue100,
           tabBarInactiveTintColor: AdditionalColors.grey60,
           tabBarIcon: tabBarIcon('ticket'),
-          tabBarAccessibilityLabel: USE_TOKEN_TAB,
+          tabBarAccessibilityLabel: TOKEN_TAB,
         }}
       />
     </Tab.Navigator>
