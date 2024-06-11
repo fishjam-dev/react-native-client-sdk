@@ -70,10 +70,10 @@
     "react-dom": "18.2.0",
     "react-native": "0.73.4",
     "release-it": "^17.0.3",
+    "ts-proto": "^1.176.0",
     "typedoc": "^0.25.7",
     "typedoc-plugin-mark-react-functional-components": "^0.2.2",
-    "typescript": "5.3.x",
-    "ts-proto": "^1.176.0"
+    "typescript": "^5.4.0"
   },
   "peerDependencies": {
     "expo": "*",

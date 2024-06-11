@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/noto-sans": "^0.2.3",
-    "@fishjam-dev/react-native-client": "file:..",
+    "@fishjam-dev/react-native-client": "*",
     "@gorhom/bottom-sheet": "^4",
     "@notifee/react-native": "^7.8.2",
     "@react-navigation/bottom-tabs": "^6.5.20",
@@ -58,7 +58,7 @@
     "react-native-dotenv": "^3.4.8",
     "react-test-renderer": "18.2.0",
     "ts-node": "^10.9.1",
-    "typescript": "~5.3.3"
+    "typescript": "^5.4.0"
   },
   "jest": {
     "preset": "react-native"
