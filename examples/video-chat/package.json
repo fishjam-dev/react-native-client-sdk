@@ -8,6 +8,7 @@
     "ios": "npx expo run:ios -d",
     "start": "npx react-native start",
     "test": "jest",
+    "build": "tsc",
     "format:fix": "prettier --write . --ignore-path ./.eslintignore",
     "format:check": "prettier --check . --ignore-path ./.eslintignore",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
