@@ -1,0 +1,11 @@
+{
+  "name": "fishjam-mobile-sdk",
+  "version": "0.4.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/react-native-client",
+    "examples/video-chat"
+  ],
+  "packageManager": "yarn@4.2.2"
+}
