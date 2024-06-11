@@ -11,6 +11,8 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach -A -p run build"
+    "build": "yarn workspace @fishjam-dev/react-native-client run tsc",
+    "open:ios": "open -a \"Xcode\" examples/video-chat",
+    "open:android": "open -a \"Android Studio\" examples/video-chat/android"
   }
 }
