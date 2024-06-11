@@ -16,7 +16,7 @@ import {
   previewScreenLabels,
   soundOutputDevicesLabels,
   appNavigationLabels,
-} from '../../../types/ComponentLabels';
+} from 'fishjam-example/types/ComponentLabels';
 import {
   getElement,
   getWebsocketUrl,
