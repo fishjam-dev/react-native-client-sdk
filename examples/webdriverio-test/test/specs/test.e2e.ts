@@ -8,8 +8,6 @@ import {
 } from '@fishjam-dev/js-server-sdk';
 import { driver } from '@wdio/globals';
 import * as assert from 'assert';
-import type { Suite } from 'mocha';
-
 import {
   connectScreenLabels,
   roomScreenLabels,
@@ -17,6 +15,8 @@ import {
   soundOutputDevicesLabels,
   appNavigationLabels,
 } from 'fishjam-example/types/ComponentLabels';
+import type { Suite } from 'mocha';
+
 import {
   getElement,
   getWebsocketUrl,
