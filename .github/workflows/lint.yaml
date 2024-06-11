@@ -14,25 +14,11 @@ jobs:
           cache: 'yarn'
       - name: Install node dependencies
         run: yarn
-      - name: Install dependencies for example
-        run: yarn
-        working-directory: ./example
-      - name: Install dependencies for example tests
-        run: yarn
-        working-directory: ./example/webdriverio-test
+      - name: Build Types
+        run: yarn build
       - name: Check types
-        run: yarn typecheck
+        run: yarn tsc
       - name: Lint
         run: yarn lint:check
-      - name: Lint Example
-        run: yarn lint:check
-        working-directory: ./example
       - name: Prettier
         run: yarn format:check
-      - name: Prettier Example
-        run: yarn format:check
-        working-directory: ./example
-      - name: Build
-        run: EXPO_NONINTERACTIVE=true yarn build
-      - name: Build plugin
-        run: EXPO_NONINTERACTIVE=true yarn build plugin

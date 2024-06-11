@@ -2,8 +2,6 @@
 
 # Run the commands in sequence
 yarn
-cd example
-yarn
-cd ios
-pod install
+yarn build
+
 echo "All commands executed successfully!"

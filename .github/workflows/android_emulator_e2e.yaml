@@ -54,7 +54,7 @@ jobs:
           FISHJAM_HOST_MOBILE=10.0.2.2:5002
           ANDROID_DEVICE_NAME=$EMULATOR_DEVICE
           ANDROID_APP_PATH=$ANDROID_APP_PATH
-          " > $GITHUB_WORKSPACE/example/webdriverio-test/.env
+          " > $GITHUB_WORKSPACE/examples/webdriverio-test/.env
 
       - name: Enable KVM group perms
         run: |
@@ -92,27 +92,10 @@ jobs:
           name: yarn-lock
           path: |
             /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock
-      - name: Run yarn install in example directory
+      - name: Run yarn build
         run: |
-          cd $GITHUB_WORKSPACE/example
-          yarn install --frozen-lockfile
-      - name: Upload yarn.lock artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: yarn-lock-example
-          path: |
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock
-      - name: Run yarn install in webdriverio-test directory
-        run: |
-          cd $GITHUB_WORKSPACE/example/webdriverio-test
-          yarn install --frozen-lockfile
-      - name: Upload yarn.lock artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: yarn-lock-webdriverio-test
-          path: |
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/yarn.lock
-
+          cd $GITHUB_WORKSPACE
+          yarn build
       - name: Install appium
         run: npm i --location=global appium
 
@@ -126,10 +109,7 @@ jobs:
           distribution: 'zulu'
           cache: 'gradle'
           cache-dependency-path: |
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/yarn.lock
             /home/runner/work/react-native-client-sdk/react-native-client-sdk/yarn.lock
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/*.gradle*
-            /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/android/gradle-wrapper.properties
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -182,12 +162,12 @@ jobs:
 
       - name: Logs from app to file
         run: |
-          cd $GITHUB_WORKSPACE/example/webdriverio-test
+          cd $GITHUB_WORKSPACE/examples/webdriverio-test
           adb -e  logcat "*:S" ReactNative:V ReactNativeJS:V > logs.txt &
 
       - name: Run tests
         run: |
-          cd $GITHUB_WORKSPACE/example/webdriverio-test
+          cd $GITHUB_WORKSPACE/examples/webdriverio-test
           npx wdio wdio.conf.ts 2>&1 | tee appium.txt; test ${PIPESTATUS[0]} -eq 0
           sleep 10
 
@@ -196,11 +176,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: appium.txt
-          path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/appium.txt
+          path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/examples/webdriverio-test/appium.txt
 
       - name: Upload logs from app
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: logs.txt
-          path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/example/webdriverio-test/logs.txt
+          path: /home/runner/work/react-native-client-sdk/react-native-client-sdk/examples/webdriverio-test/logs.txt

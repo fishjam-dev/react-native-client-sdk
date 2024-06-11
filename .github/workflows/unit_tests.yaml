@@ -16,3 +16,4 @@ jobs:
         run: yarn
       - name: Run unit tests for the library
         run: yarn test -- src/__tests__/*.test.tsx
+        working-directory: ./packages/react-native-client
