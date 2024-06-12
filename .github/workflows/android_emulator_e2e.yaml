@@ -41,7 +41,7 @@ jobs:
       ANDROID_CMD: 'commandlinetools-linux-10406996_latest.zip'
       ANDROID_APP_PATH:
         ${{ github.workspace
-        }}/example/android/app/build/outputs/apk/release/app-release.apk
+        }}/examples/video-chat/android/app/build/outputs/apk/release/app-release.apk
 
     steps:
       - name: Checkout
@@ -153,7 +153,7 @@ jobs:
         if: steps.restore-apk.outputs.cache-hit != 'true'
         timeout-minutes: 20
         run: |
-          cd $GITHUB_WORKSPACE/example/android
+          cd $GITHUB_WORKSPACE/examples/video-chat/android
           ./gradlew assembleRelease
 
       - name: Cache new apk if necessary
