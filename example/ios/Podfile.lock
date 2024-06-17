@@ -1103,6 +1103,11 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
+  - RNNotifee (7.8.2):
+    - React-Core
+    - RNNotifee/NotifeeCore (= 7.8.2)
+  - RNNotifee/NotifeeCore (7.8.2):
+    - React-Core
   - RNReanimated (3.11.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1189,6 +1194,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNFishjamClient (from `../node_modules/@fishjam-dev/react-native-client/ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - "RNNotifee (from `../node_modules/@notifee/react-native`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1326,6 +1332,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@fishjam-dev/react-native-client/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNNotifee:
+    :path: "../node_modules/@notifee/react-native"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -1397,6 +1405,7 @@ SPEC CHECKSUMS:
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
   RNFishjamClient: 6a090b2a484c9f09ed8a42ccc434f1c3cd0bf201
   RNGestureHandler: 48c9d38f57c7761b4153def57b718f491f4bbb4b
+  RNNotifee: 8e2d3df3f0e9ce8f5d1fe4c967431138190b6175
   RNReanimated: 071599dab9e3769c03b84c984c87dc79087fef2f
   RNScreens: 79c1020e7f52f4edde5ad96540f6e33c8b9b3b6c
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
@@ -1410,4 +1419,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8daa796ed34dbeeeb2b648d198968b27b4c2ae8d
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.13.0
