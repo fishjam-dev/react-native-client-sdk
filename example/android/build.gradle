@@ -4,6 +4,9 @@ allprojects {
         maven {
             url "$rootDir/../node_modules/expo-camera/android/maven"
         }
+        maven {
+            url "$rootDir/../node_modules/@notifee/react-native/android/libs"
+        }
     }
 }
 

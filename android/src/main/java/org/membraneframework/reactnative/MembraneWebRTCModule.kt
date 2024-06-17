@@ -1,6 +1,7 @@
 package org.membraneframework.reactnative
 
 import expo.modules.kotlin.Promise
+import expo.modules.kotlin.exception.CodedException
 import expo.modules.kotlin.functions.Coroutine
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
@@ -205,19 +206,34 @@ class MembraneWebRTCModule : Module() {
 
     AsyncFunction("updateVideoTrackMetadata") Coroutine { metadata: Map<String, Any> ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.updateLocalVideoTrackMetadata(metadata)
+        val result = membraneWebRTC.updateLocalVideoTrackMetadata(metadata)
+        result?.let{
+          it.onFailure { error ->
+            throw error
+          }
+        }
       }
     }
 
     AsyncFunction("updateAudioTrackMetadata") Coroutine { metadata: Map<String, Any> ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.updateLocalAudioTrackMetadata(metadata)
+        val result = membraneWebRTC.updateLocalAudioTrackMetadata(metadata)
+        result?.let{
+          it.onFailure { error ->
+            throw error
+          }
+        }
       }
     }
 
     AsyncFunction("updateScreencastTrackMetadata") Coroutine { metadata: Map<String, Any> ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.updateLocalScreencastTrackMetadata(metadata)
+        val result = membraneWebRTC.updateLocalScreencastTrackMetadata(metadata)
+        result?.let{
+          it.onFailure { error ->
+            throw error
+          }
+        }
       }
     }
 

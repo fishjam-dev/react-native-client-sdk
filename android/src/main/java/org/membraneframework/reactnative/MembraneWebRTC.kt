@@ -425,8 +425,11 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     membraneRTC?.updateEndpointMetadata(metadata)
   }
 
-  private fun updateTrackMetadata(trackId: String, metadata: Metadata) {
-    membraneRTC?.updateTrackMetadata(trackId, metadata)
+  private fun updateTrackMetadata(trackId: String, metadata: Metadata) : Result<Unit>? {
+    val updateResult = membraneRTC?.updateTrackMetadata(trackId, metadata)
+    updateResult?.onFailure {
+      return updateResult
+    }
     localEndpointId?.let {
       val endpoint = endpoints[it] ?: throw CodedException("Endpoint with id $it not Found")
       val trackMetadata = endpoint.tracksData[trackId]
@@ -435,30 +438,34 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
       endpoint.tracksData[trackId] = newTrackData
       emitEndpoints()
     }
+    return null
   }
 
-  fun updateLocalVideoTrackMetadata(metadata: Metadata) {
+  fun updateLocalVideoTrackMetadata(metadata: Metadata) : Result<Unit>?{
     ensureVideoTrack()
     localVideoTrack?.let {
       val trackId = it.rtcTrack().id()
-      updateTrackMetadata(trackId, metadata)
+      return updateTrackMetadata(trackId, metadata)
     }
+    return null
   }
 
-  fun updateLocalAudioTrackMetadata(metadata: Metadata) {
+  fun updateLocalAudioTrackMetadata(metadata: Metadata) : Result<Unit>?{
     ensureAudioTrack()
     localAudioTrack?.let {
       val trackId = it.rtcTrack().id()
-      updateTrackMetadata(trackId, metadata)
+      return updateTrackMetadata(trackId, metadata)
     }
+    return null
   }
 
-  fun updateLocalScreencastTrackMetadata(metadata: Metadata) {
+  fun updateLocalScreencastTrackMetadata(metadata: Metadata) : Result<Unit>?{
     ensureScreencastTrack()
     localScreencastTrack?.let {
       val trackId = it.rtcTrack().id()
-      updateTrackMetadata(trackId, metadata)
+      return updateTrackMetadata(trackId, metadata)
     }
+    return null
   }
 
   fun setOutputAudioDevice(audioDevice: String) {
