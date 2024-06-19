@@ -1,5 +1,5 @@
-import { LoggingSeverity, TrackEncoding } from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+import { LoggingSeverity, TrackEncoding } from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 
 /**
  * sets track encoding that server should send to the client library.
@@ -14,7 +14,7 @@ export async function setTargetTrackEncoding(
   trackId: string,
   encoding: TrackEncoding,
 ) {
-  await MembraneWebRTCModule.setTargetTrackEncoding(trackId, encoding);
+  await RNFishjamClientModule.setTargetTrackEncoding(trackId, encoding);
 }
 
 /**
@@ -25,5 +25,5 @@ export async function setTargetTrackEncoding(
 export function changeWebRTCLoggingSeverity(
   severity: LoggingSeverity,
 ): Promise<void> {
-  return MembraneWebRTCModule.changeWebRTCLoggingSeverity(severity);
+  return RNFishjamClientModule.changeWebRTCLoggingSeverity(severity);
 }

@@ -374,7 +374,7 @@ export type VideoRendererProps = {
   style?: ViewStyle;
 };
 
-export type MembraneWebRTC = {
+export type RNFishjamClient = {
   appContext?: any;
   connect: (url: string, peerToken: string) => Promise<void>;
   joinRoom: (peerMetadata: Metadata) => Promise<void>;

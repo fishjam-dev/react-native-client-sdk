@@ -5,8 +5,8 @@ import {
   AudioOutputDevice,
   AudioOutputDeviceType,
   AudioSessionMode,
-} from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+} from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
 
 /**
@@ -36,11 +36,11 @@ export function useAudioSettings() {
       ReceivableEvents.AudioDeviceUpdate,
       onAudioDevice,
     );
-    MembraneWebRTCModule.startAudioSwitcher();
+    RNFishjamClientModule.startAudioSwitcher();
     return () => {
       eventListener.remove();
       if (Platform.OS === 'android') {
-        MembraneWebRTCModule.stopAudioSwitcher();
+        RNFishjamClientModule.stopAudioSwitcher();
       }
     };
   }, []);
@@ -57,7 +57,7 @@ export function useAudioSettings() {
             'To select an output audio device on iOS use selectAudioSessionMode or showAudioRoutePicker functions',
         );
       }
-      await MembraneWebRTCModule.setOutputAudioDevice(device);
+      await RNFishjamClientModule.setOutputAudioDevice(device);
     },
     [],
   );
@@ -72,7 +72,7 @@ export function useAudioSettings() {
       if (Platform.OS === 'android') {
         throw Error('selectAudioSessionMode function is supported only on iOS');
       }
-      await MembraneWebRTCModule.selectAudioSessionMode(audioSessionMode);
+      await RNFishjamClientModule.selectAudioSessionMode(audioSessionMode);
     },
     [],
   );
@@ -88,7 +88,7 @@ export function useAudioSettings() {
           'To select an output audio device on Android use selectOutputAudioDevice function',
       );
     }
-    await MembraneWebRTCModule.showAudioRoutePicker();
+    await RNFishjamClientModule.showAudioRoutePicker();
   }, []);
 
   return {

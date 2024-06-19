@@ -1,18 +1,18 @@
-import { Metadata } from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+import { Metadata } from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 
 export const connect = (url: string, peerToken: string) => {
-  return MembraneWebRTCModule.connect(url, peerToken);
+  return RNFishjamClientModule.connect(url, peerToken);
 };
 
 export const joinRoom = (peerMetadata: Metadata) => {
-  return MembraneWebRTCModule.joinRoom(peerMetadata);
+  return RNFishjamClientModule.joinRoom(peerMetadata);
 };
 
 export const leaveRoom = () => {
-  return MembraneWebRTCModule.leaveRoom();
+  return RNFishjamClientModule.leaveRoom();
 };
 
 export const cleanUp = () => {
-  return MembraneWebRTCModule.cleanUp();
+  return RNFishjamClientModule.cleanUp();
 };

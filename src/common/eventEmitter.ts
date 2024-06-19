@@ -1,6 +1,6 @@
 import { NativeModulesProxy, EventEmitter } from 'expo-modules-core';
 
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 
 export const ReceivableEvents = {
   IsCameraOn: 'IsCameraOn',
@@ -14,5 +14,5 @@ export const ReceivableEvents = {
 } as const;
 
 export const eventEmitter = new EventEmitter(
-  MembraneWebRTCModule ?? NativeModulesProxy.MembraneWebRTC,
+  RNFishjamClientModule ?? NativeModulesProxy.RNFishjamClient,
 );

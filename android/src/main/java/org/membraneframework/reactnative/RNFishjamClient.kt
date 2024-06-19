@@ -34,7 +34,7 @@ import org.membraneframework.rtc.utils.Metadata
 import org.webrtc.Logging
 import java.util.UUID
 
-class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> Unit) :
+class RNFishjamClient(val sendEvent: (name: String, data: Map<String, Any?>) -> Unit) :
   FishjamClientListener {
   private val SCREENCAST_REQUEST = 1
   private var fishjamClient: FishjamClient? = null
@@ -80,7 +80,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     var onTracksUpdateListeners: MutableList<OnTrackUpdateListener> = mutableListOf()
   }
 
-  fun onModuleCreate(appContext: AppContext){
+  fun onModuleCreate(appContext: AppContext) {
     this.appContext = appContext
     this.audioSwitchManager = AudioSwitchManager(appContext.reactContext!!)
   }
@@ -855,6 +855,4 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
   }
 
   override fun onDisconnected() {}
-
-
 }

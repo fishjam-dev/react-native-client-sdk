@@ -4,8 +4,8 @@ import {
   Endpoint,
   EndpointsUpdateEvent,
   Metadata,
-} from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+} from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
 
 /**
@@ -35,7 +35,7 @@ export function useEndpoints<
     >(ReceivableEvents.EndpointsUpdate, (event) => {
       setEndpoints(event.EndpointsUpdate);
     });
-    MembraneWebRTCModule.getEndpoints<
+    RNFishjamClientModule.getEndpoints<
       EndpointMetadataType,
       VideoTrackMetadataType,
       AudioTrackMetadataType

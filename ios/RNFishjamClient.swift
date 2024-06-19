@@ -63,7 +63,7 @@ extension String {
     }
 }
 
-class MembraneWebRTC: FishjamClientListener {
+class RNFishjamClient: FishjamClientListener {
   var fishjamClient: FishjamClient? = nil
 
     var localAudioTrack: LocalAudioTrack?
