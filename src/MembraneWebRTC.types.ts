@@ -376,12 +376,10 @@ export type VideoRendererProps = {
 
 export type MembraneWebRTC = {
   appContext?: any;
-  create: () => Promise<void>;
-  receiveMediaEvent: (data: string) => Promise<void>;
-  connect: <MetadataType extends Metadata>(
-    endpointMetadata: MetadataType,
-  ) => Promise<void>;
-  disconnect: () => Promise<void>;
+  connect: (url: string, peerToken: string) => Promise<void>;
+  joinRoom: (peerMetadata: Metadata) => Promise<void>;
+  leaveRoom: () => Promise<void>;
+  cleanUp: () => Promise<void>;
   startCamera: <MetadataType extends Metadata>(
     config: Partial<CameraConfig<MetadataType>>,
   ) => Promise<void>;

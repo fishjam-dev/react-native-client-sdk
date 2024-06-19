@@ -57,8 +57,11 @@ target 'FishjamExample' do
       :mac_catalyst_enabled => false
     )
   end
+  pod 'FishjamClient', :git => 'https://github.com/fishjam-dev/ios-client-sdk.git', :commit => '9d22ecaf75cc563a24212c13e15cd83a3f76ac0f'
 end
 
+
+
 target 'ScreenBroadcast' do
-  pod 'FishjamClient/Broadcast'
+  pod 'FishjamClient/Broadcast', :git => 'https://github.com/fishjam-dev/ios-client-sdk.git', :commit => '9d22ecaf75cc563a24212c13e15cd83a3f76ac0f'
 end

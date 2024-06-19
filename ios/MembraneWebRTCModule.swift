@@ -74,19 +74,24 @@ public class MembraneWebRTCModule: Module {
         }
 
         AsyncFunction("create") {
-            try membraneWebRTC.create()
+            
         }
 
-        AsyncFunction("connect") { (endpointMetadata: [String: Any], promise: Promise) in
-            membraneWebRTC.connect(metadata: endpointMetadata, promise: promise)
+        AsyncFunction("connect") { (url: String, peerToken: String, promise: Promise ) in
+          try membraneWebRTC.create()
+          membraneWebRTC.connect(url: url, peerToken: peerToken, promise: promise)
         }
 
-        AsyncFunction("disconnect") {
-            membraneWebRTC.disconnect()
+        AsyncFunction("joinRoom") { (peerMetadata: [String: Any], promise: Promise ) in
+            membraneWebRTC.joinRoom(peerMetadata: peerMetadata, promise: promise)
         }
 
-        AsyncFunction("receiveMediaEvent") { (data: String) in
-            try membraneWebRTC.receiveMediaEvent(data: data)
+        AsyncFunction("leaveRoom") { 
+            membraneWebRTC.leaveRoom()
+        }
+
+        AsyncFunction("cleanUp") {
+            membraneWebRTC.cleanUp()
         }
 
         AsyncFunction("startCamera") { (config: CameraConfig) in

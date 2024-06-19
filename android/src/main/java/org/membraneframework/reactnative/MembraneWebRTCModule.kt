@@ -99,34 +99,35 @@ class MembraneWebRTCModule : Module() {
     }
 
     OnActivityDestroys {
-      membraneWebRTC.disconnect()
+      membraneWebRTC.cleanUp()
     }
 
     OnActivityResult { _, result ->
       membraneWebRTC.onActivityResult(result.requestCode, result.resultCode, result.data)
     }
 
-    AsyncFunction("create") Coroutine ({ ->
-      withContext(Dispatchers.Main) {
-        membraneWebRTC.create()
-      }
-    })
-
-    AsyncFunction("receiveMediaEvent") Coroutine { data: String ->
-      withContext(Dispatchers.Main) {
-        membraneWebRTC.receiveMediaEvent(data)
-      }
-    }
-
-    AsyncFunction("connect") { endpointMetadata: Map<String, Any>, promise: Promise ->
+    AsyncFunction("connect") { url: String, peerToken: String, promise: Promise ->
       CoroutineScope(Dispatchers.Main).launch {
-        membraneWebRTC.connect(endpointMetadata, promise)
+        membraneWebRTC.create()
+        membraneWebRTC.connect(url, peerToken, promise)
       }
     }
 
-    AsyncFunction("disconnect") Coroutine { ->
+    AsyncFunction("joinRoom") { peerMetadata: Map<String, Any>, promise: Promise ->
+      CoroutineScope(Dispatchers.Main).launch {
+        membraneWebRTC.joinRoom(peerMetadata, promise)
+      }
+    }
+
+    AsyncFunction("leaveRoom") {  ->
+      CoroutineScope(Dispatchers.Main).launch {
+        membraneWebRTC.leaveRoom()
+      }
+    }
+
+    AsyncFunction("cleanUp") Coroutine { ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.disconnect()
+        membraneWebRTC.cleanUp()
       }
     }
 

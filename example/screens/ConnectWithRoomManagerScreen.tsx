@@ -1,4 +1,4 @@
-import { useFishjamClient } from '@fishjam-dev/react-native-client';
+import { connect } from '@fishjam-dev/react-native-client';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -50,7 +50,6 @@ async function getFishjamServer(
 }
 
 const ConnectScreen = ({ navigation }: Props) => {
-  const { connect } = useFishjamClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
