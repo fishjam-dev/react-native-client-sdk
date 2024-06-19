@@ -9714,52 +9714,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fishjam-example@workspace:examples/video-chat":
-  version: 0.0.0-use.local
-  resolution: "fishjam-example@workspace:examples/video-chat"
-  dependencies:
-    "@babel/core": "npm:^7.20.0"
-    "@babel/preset-env": "npm:^7.20.0"
-    "@babel/runtime": "npm:^7.20.0"
-    "@expo-google-fonts/noto-sans": "npm:^0.2.3"
-    "@fishjam-dev/react-native-client": "npm:*"
-    "@gorhom/bottom-sheet": "npm:^4"
-    "@notifee/react-native": "npm:^7.8.2"
-    "@react-native/babel-preset": "npm:0.73.21"
-    "@react-native/eslint-config": "npm:0.73.2"
-    "@react-native/metro-config": "npm:0.73.5"
-    "@react-native/typescript-config": "npm:0.73.1"
-    "@react-navigation/bottom-tabs": "npm:^6.5.20"
-    "@react-navigation/native": "npm:^6.1.9"
-    "@react-navigation/native-stack": "npm:^6.9.17"
-    "@tsconfig/react-native": "npm:^3.0.0"
-    "@types/jest": "npm:^29.5.12"
-    "@types/lodash": "npm:^4.14.201"
-    "@types/node": "npm:^20.14.2"
-    "@types/react": "npm:^18.2.6"
-    "@types/react-test-renderer": "npm:^18.0.0"
-    babel-jest: "npm:^29.6.3"
-    babel-plugin-module-resolver: "npm:^5.0.0"
-    expo: "npm:^50.0.17"
-    expo-camera: "npm:^14.0.4"
-    expo-device: "npm:^5.9.3"
-    expo-font: "npm:^11.10.2"
-    jest: "npm:^29.6.3"
-    lint-staged: "npm:^15.2.2"
-    react: "npm:18.2.0"
-    react-native: "npm:0.73.4"
-    react-native-dotenv: "npm:^3.4.8"
-    react-native-gesture-handler: "npm:~2.16.0"
-    react-native-reanimated: "npm:^3.5.4"
-    react-native-safe-area-context: "npm:4.8.2"
-    react-native-screens: "npm:^3.27.0"
-    react-native-toast-message: "npm:^2.2.0"
-    react-test-renderer: "npm:18.2.0"
-    ts-node: "npm:^10.9.1"
-    typescript: "npm:^5.4.0"
-  languageName: unknown
-  linkType: soft
-
 "fishjam-mobile-sdk@workspace:.":
   version: 0.0.0-use.local
   resolution: "fishjam-mobile-sdk@workspace:."
@@ -18855,6 +18809,52 @@ __metadata:
   checksum: 10c0/f15d588d79f3675135ba783c91a4083dcd290a2a5be9fcb6514220a1634e23df116847b1cc51f66bfb0644cf9353b2abb7815ae499bab06e46dd33c1a6bf1f4f
   languageName: node
   linkType: hard
+
+"video-chat-example@workspace:examples/video-chat":
+  version: 0.0.0-use.local
+  resolution: "video-chat-example@workspace:examples/video-chat"
+  dependencies:
+    "@babel/core": "npm:^7.20.0"
+    "@babel/preset-env": "npm:^7.20.0"
+    "@babel/runtime": "npm:^7.20.0"
+    "@expo-google-fonts/noto-sans": "npm:^0.2.3"
+    "@fishjam-dev/react-native-client": "npm:*"
+    "@gorhom/bottom-sheet": "npm:^4"
+    "@notifee/react-native": "npm:^7.8.2"
+    "@react-native/babel-preset": "npm:0.73.21"
+    "@react-native/eslint-config": "npm:0.73.2"
+    "@react-native/metro-config": "npm:0.73.5"
+    "@react-native/typescript-config": "npm:0.73.1"
+    "@react-navigation/bottom-tabs": "npm:^6.5.20"
+    "@react-navigation/native": "npm:^6.1.9"
+    "@react-navigation/native-stack": "npm:^6.9.17"
+    "@tsconfig/react-native": "npm:^3.0.0"
+    "@types/jest": "npm:^29.5.12"
+    "@types/lodash": "npm:^4.14.201"
+    "@types/node": "npm:^20.14.2"
+    "@types/react": "npm:^18.2.6"
+    "@types/react-test-renderer": "npm:^18.0.0"
+    babel-jest: "npm:^29.6.3"
+    babel-plugin-module-resolver: "npm:^5.0.0"
+    expo: "npm:^50.0.17"
+    expo-camera: "npm:^14.0.4"
+    expo-device: "npm:^5.9.3"
+    expo-font: "npm:^11.10.2"
+    jest: "npm:^29.6.3"
+    lint-staged: "npm:^15.2.2"
+    react: "npm:18.2.0"
+    react-native: "npm:0.73.4"
+    react-native-dotenv: "npm:^3.4.8"
+    react-native-gesture-handler: "npm:~2.16.0"
+    react-native-reanimated: "npm:^3.5.4"
+    react-native-safe-area-context: "npm:4.8.2"
+    react-native-screens: "npm:^3.27.0"
+    react-native-toast-message: "npm:^2.2.0"
+    react-test-renderer: "npm:18.2.0"
+    ts-node: "npm:^10.9.1"
+    typescript: "npm:^5.4.0"
+  languageName: unknown
+  linkType: soft
 
 "vlq@npm:^1.0.0":
   version: 1.0.1
