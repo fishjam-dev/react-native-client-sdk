@@ -1,6 +1,6 @@
 import {
   useCamera,
-  joinRoom as jsJoinRoom,
+  joinRoom as fjJoinRoom,
   useMicrophone,
   VideoQuality,
 } from '@fishjam-dev/react-native-client';
@@ -67,7 +67,7 @@ export function useJoinRoom({
       cameraEnabled: isCameraAvailable,
     });
 
-    await jsJoinRoom({
+    await fjJoinRoom({
       name: 'RN mobile',
     });
 
@@ -78,7 +78,7 @@ export function useJoinRoom({
   }, [
     isCameraAvailable,
     isMicrophoneAvailable,
-    jsJoinRoom,
+    fjJoinRoom,
     startCamera,
     startMicrophone,
   ]);

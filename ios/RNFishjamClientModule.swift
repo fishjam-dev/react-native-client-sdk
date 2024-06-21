@@ -69,20 +69,21 @@ public class RNFishjamClientModule: Module {
             "SendMediaEvent",
             "BandwidthEstimation")
 
-        let rnFishjamClient: RNFishjamClient = RNFishjamClient { (eventName: String, data: [String: Any]) in
+        let rnFishjamClient: RNFishjamClient = RNFishjamClient {
+            (eventName: String, data: [String: Any]) in
             self.sendEvent(eventName, data)
         }
 
-        AsyncFunction("connect") { (url: String, peerToken: String, promise: Promise ) in
-          try rnFishjamClient.create()
-          rnFishjamClient.connect(url: url, peerToken: peerToken, promise: promise)
+        AsyncFunction("connect") { (url: String, peerToken: String, promise: Promise) in
+            try rnFishjamClient.create()
+            rnFishjamClient.connect(url: url, peerToken: peerToken, promise: promise)
         }
 
-        AsyncFunction("joinRoom") { (peerMetadata: [String: Any], promise: Promise ) in
+        AsyncFunction("joinRoom") { (peerMetadata: [String: Any], promise: Promise) in
             rnFishjamClient.joinRoom(peerMetadata: peerMetadata, promise: promise)
         }
 
-        AsyncFunction("leaveRoom") { 
+        AsyncFunction("leaveRoom") {
             rnFishjamClient.leaveRoom()
         }
 
@@ -163,7 +164,8 @@ public class RNFishjamClientModule: Module {
         }
 
         AsyncFunction("setScreencastTrackEncodingBandwidth") { (encoding: String, bandwidth: Int) in
-            try rnFishjamClient.setScreencastTrackEncodingBandwidth(encoding: encoding, bandwidth: bandwidth)
+            try rnFishjamClient.setScreencastTrackEncodingBandwidth(
+                encoding: encoding, bandwidth: bandwidth)
         }
 
         AsyncFunction("setTargetTrackEncoding") { (trackId: String, encoding: String) in
@@ -175,7 +177,8 @@ public class RNFishjamClientModule: Module {
         }
 
         AsyncFunction("setVideoTrackEncodingBandwidth") { (encoding: String, bandwidth: Int) in
-            try rnFishjamClient.setVideoTrackEncodingBandwidth(encoding: encoding, bandwidth: bandwidth)
+            try rnFishjamClient.setVideoTrackEncodingBandwidth(
+                encoding: encoding, bandwidth: bandwidth)
         }
 
         AsyncFunction("setVideoTrackBandwidth") { (bandwidth: Int) in
