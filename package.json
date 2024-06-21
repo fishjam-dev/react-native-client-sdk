@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "license": "MIT",
   "private": true,
-  "packageManager": "yarn@4.3.0",
+  "packageManager": "yarn@4.3.1",
   "workspaces": {
     "packages": [
       "packages/react-native-client",
