@@ -12,9 +12,6 @@ allprojects {
         react {
             reactNativeDir = rootProject.file("../../../node_modules/react-native/")
         }
-        maven {
-            url "$rootDir/../node_modules/@notifee/react-native/android/libs"
-        }
     }
 }
 
