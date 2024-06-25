@@ -71,9 +71,9 @@ class ScreencastOptions : Record {
   val maxBandwidthInt: Int = 0
 }
 
-class MembraneWebRTCModule : Module() {
+class RNFishjamClientModule : Module() {
   override fun definition() = ModuleDefinition {
-    Name("MembraneWebRTC")
+    Name("RNFishjamClient")
 
     Events(
       "IsCameraOn",
@@ -86,203 +86,204 @@ class MembraneWebRTCModule : Module() {
       "BandwidthEstimation"
     )
 
-    val membraneWebRTC = MembraneWebRTC { name: String, data: Map<String, Any?> ->
+    val rnFishjamClient = RNFishjamClient { name: String, data: Map<String, Any?> ->
       sendEvent(name, data)
     }
 
     OnCreate {
-      membraneWebRTC.onModuleCreate(appContext)
+      rnFishjamClient.onModuleCreate(appContext)
     }
 
     OnDestroy {
-      membraneWebRTC.onModuleDestroy()
+      rnFishjamClient.onModuleDestroy()
     }
 
     OnActivityDestroys {
-      membraneWebRTC.disconnect()
+      rnFishjamClient.cleanUp()
     }
 
     OnActivityResult { _, result ->
-      membraneWebRTC.onActivityResult(result.requestCode, result.resultCode, result.data)
+      rnFishjamClient.onActivityResult(result.requestCode, result.resultCode, result.data)
     }
 
-    AsyncFunction("create") Coroutine ({ ->
-      withContext(Dispatchers.Main) {
-        membraneWebRTC.create()
-      }
-    })
-
-    AsyncFunction("receiveMediaEvent") Coroutine { data: String ->
-      withContext(Dispatchers.Main) {
-        membraneWebRTC.receiveMediaEvent(data)
-      }
-    }
-
-    AsyncFunction("connect") { endpointMetadata: Map<String, Any>, promise: Promise ->
+    AsyncFunction("connect") { url: String, peerToken: String, promise: Promise ->
       CoroutineScope(Dispatchers.Main).launch {
-        membraneWebRTC.connect(endpointMetadata, promise)
+        rnFishjamClient.create()
+        rnFishjamClient.connect(url, peerToken, promise)
       }
     }
 
-    AsyncFunction("disconnect") Coroutine { ->
+    AsyncFunction("joinRoom") { peerMetadata: Map<String, Any>, promise: Promise ->
+      CoroutineScope(Dispatchers.Main).launch {
+        rnFishjamClient.joinRoom(peerMetadata, promise)
+      }
+    }
+
+    AsyncFunction("leaveRoom") { ->
+      CoroutineScope(Dispatchers.Main).launch {
+        rnFishjamClient.leaveRoom()
+      }
+    }
+
+    AsyncFunction("cleanUp") Coroutine { ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.disconnect()
+        rnFishjamClient.cleanUp()
       }
     }
 
 
     AsyncFunction("startCamera") Coroutine { config: CameraConfig ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.startCamera(config)
+        rnFishjamClient.startCamera(config)
       }
     }
 
     AsyncFunction("startMicrophone") Coroutine { config: MicrophoneConfig ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.startMicrophone(config)
+        rnFishjamClient.startMicrophone(config)
       }
     }
 
     Property("isMicrophoneOn") {
-      return@Property membraneWebRTC.isMicrophoneOn
+      return@Property rnFishjamClient.isMicrophoneOn
     }
 
     AsyncFunction("toggleMicrophone") Coroutine { ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.toggleMicrophone()
+        rnFishjamClient.toggleMicrophone()
       }
     }
 
     Property("isCameraOn") {
-      return@Property membraneWebRTC.isCameraOn
+      return@Property rnFishjamClient.isCameraOn
     }
 
     AsyncFunction("toggleCamera") Coroutine { ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.toggleCamera()
+        rnFishjamClient.toggleCamera()
       }
     }
 
     AsyncFunction("flipCamera") Coroutine { ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.flipCamera()
+        rnFishjamClient.flipCamera()
       }
     }
 
     AsyncFunction("switchCamera") Coroutine { captureDeviceId: String ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.switchCamera(captureDeviceId)
+        rnFishjamClient.switchCamera(captureDeviceId)
       }
     }
 
     AsyncFunction("getCaptureDevices") Coroutine { ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.getCaptureDevices()
+        rnFishjamClient.getCaptureDevices()
       }
     }
 
     AsyncFunction("toggleScreencast") { screencastOptions: ScreencastOptions, promise: Promise ->
       CoroutineScope(Dispatchers.Main).launch {
-        membraneWebRTC.toggleScreencast(screencastOptions, promise)
+        rnFishjamClient.toggleScreencast(screencastOptions, promise)
       }
     }
 
     Property("isScreencastOn") {
-      return@Property membraneWebRTC.isScreencastOn
+      return@Property rnFishjamClient.isScreencastOn
     }
 
     AsyncFunction("getEndpoints") Coroutine { ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.getEndpoints()
+        rnFishjamClient.getEndpoints()
       }
     }
 
     AsyncFunction("updateEndpointMetadata") Coroutine { metadata: Map<String, Any> ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.updateEndpointMetadata(metadata)
+        rnFishjamClient.updateEndpointMetadata(metadata)
       }
     }
 
     AsyncFunction("updateVideoTrackMetadata") Coroutine { metadata: Map<String, Any> ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.updateLocalVideoTrackMetadata(metadata)
+        rnFishjamClient.updateLocalVideoTrackMetadata(metadata)
       }
     }
 
     AsyncFunction("updateAudioTrackMetadata") Coroutine { metadata: Map<String, Any> ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.updateLocalAudioTrackMetadata(metadata)
+        rnFishjamClient.updateLocalAudioTrackMetadata(metadata)
       }
     }
 
     AsyncFunction("updateScreencastTrackMetadata") Coroutine { metadata: Map<String, Any> ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.updateLocalScreencastTrackMetadata(metadata)
+        rnFishjamClient.updateLocalScreencastTrackMetadata(metadata)
       }
     }
 
     AsyncFunction("setOutputAudioDevice") { audioDevice: String ->
-      membraneWebRTC.setOutputAudioDevice(audioDevice)
+      rnFishjamClient.setOutputAudioDevice(audioDevice)
     }
 
     AsyncFunction("startAudioSwitcher") {
-      membraneWebRTC.startAudioSwitcher()
+      rnFishjamClient.startAudioSwitcher()
     }
 
     AsyncFunction("stopAudioSwitcher") {
-      membraneWebRTC.stopAudioSwitcher()
+      rnFishjamClient.stopAudioSwitcher()
     }
 
     AsyncFunction("toggleScreencastTrackEncoding") Coroutine { encoding: String ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.toggleScreencastTrackEncoding(encoding)
+        rnFishjamClient.toggleScreencastTrackEncoding(encoding)
       }
     }
 
     AsyncFunction("setScreencastTrackBandwidth") Coroutine { bandwidth: Int ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.setScreencastTrackBandwidth(bandwidth)
+        rnFishjamClient.setScreencastTrackBandwidth(bandwidth)
       }
     }
 
     AsyncFunction("setScreencastTrackEncodingBandwidth") Coroutine { encoding: String, bandwidth: Int ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.setScreencastTrackEncodingBandwidth(encoding, bandwidth)
+        rnFishjamClient.setScreencastTrackEncodingBandwidth(encoding, bandwidth)
       }
     }
 
     AsyncFunction("setTargetTrackEncoding") Coroutine { trackId: String, encoding: String ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.setTargetTrackEncoding(trackId, encoding)
+        rnFishjamClient.setTargetTrackEncoding(trackId, encoding)
       }
     }
 
     AsyncFunction("toggleVideoTrackEncoding") Coroutine { encoding: String ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.toggleVideoTrackEncoding(encoding)
+        rnFishjamClient.toggleVideoTrackEncoding(encoding)
       }
     }
 
     AsyncFunction("setVideoTrackEncodingBandwidth") Coroutine { encoding: String, bandwidth: Int ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.setVideoTrackEncodingBandwidth(encoding, bandwidth)
+        rnFishjamClient.setVideoTrackEncodingBandwidth(encoding, bandwidth)
       }
     }
 
     AsyncFunction("setVideoTrackBandwidth") Coroutine { bandwidth: Int ->
       withContext(Dispatchers.Main) {
-        membraneWebRTC.setVideoTrackBandwidth(bandwidth)
+        rnFishjamClient.setVideoTrackBandwidth(bandwidth)
       }
     }
 
     AsyncFunction("changeWebRTCLoggingSeverity") Coroutine { severity: String ->
       CoroutineScope(Dispatchers.Main).launch {
-        membraneWebRTC.changeWebRTCLoggingSeverity(severity)
+        rnFishjamClient.changeWebRTCLoggingSeverity(severity)
       }
     }
 
     AsyncFunction("getStatistics") { ->
-      membraneWebRTC.getStatistics()
+      rnFishjamClient.getStatistics()
     }
   }
 }

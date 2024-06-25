@@ -10,8 +10,8 @@ import {
   SimulcastConfig,
   SimulcastConfigUpdateEvent,
   TrackEncoding,
-} from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+} from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
 
 const defaultSimulcastConfig = () => ({
@@ -26,7 +26,7 @@ let videoSimulcastConfig: SimulcastConfig = defaultSimulcastConfig();
  */
 export function useCamera() {
   const [isCameraOn, setIsCameraOn] = useState<boolean>(
-    MembraneWebRTCModule.isCameraOn,
+    RNFishjamClientModule.isCameraOn,
   );
 
   const [simulcastConfig, setSimulcastConfig] =
@@ -45,7 +45,7 @@ export function useCamera() {
       ReceivableEvents.IsCameraOn,
       (event) => setIsCameraOn(event.IsCameraOn),
     );
-    setIsCameraOn(MembraneWebRTCModule.isCameraOn);
+    setIsCameraOn(RNFishjamClientModule.isCameraOn);
     return () => eventListener.remove();
   }, []);
 
@@ -56,7 +56,7 @@ export function useCamera() {
   const toggleVideoTrackEncoding = useCallback(
     async (encoding: TrackEncoding) => {
       videoSimulcastConfig =
-        await MembraneWebRTCModule.toggleVideoTrackEncoding(encoding);
+        await RNFishjamClientModule.toggleVideoTrackEncoding(encoding);
       setSimulcastConfig(videoSimulcastConfig);
     },
     [],
@@ -69,7 +69,7 @@ export function useCamera() {
    */
   const setVideoTrackEncodingBandwidth = useCallback(
     async (encoding: TrackEncoding, bandwidth: BandwidthLimit) => {
-      await MembraneWebRTCModule.setVideoTrackEncodingBandwidth(
+      await RNFishjamClientModule.setVideoTrackEncodingBandwidth(
         encoding,
         bandwidth,
       );
@@ -81,7 +81,7 @@ export function useCamera() {
    * Function to toggle camera on/off
    */
   const toggleCamera = useCallback(async () => {
-    const state = await MembraneWebRTCModule.toggleCamera();
+    const state = await RNFishjamClientModule.toggleCamera();
     setIsCameraOn(state);
   }, []);
 
@@ -106,7 +106,7 @@ export function useCamera() {
         }
         delete config.maxBandwidth;
       }
-      await MembraneWebRTCModule.startCamera(config);
+      await RNFishjamClientModule.startCamera(config);
     },
     [],
   );
@@ -116,7 +116,7 @@ export function useCamera() {
    * @returns A promise that resolves when camera is toggled.
    */
   const flipCamera = useCallback(async () => {
-    return MembraneWebRTCModule.flipCamera();
+    return RNFishjamClientModule.flipCamera();
   }, []);
 
   /**
@@ -124,14 +124,16 @@ export function useCamera() {
    * @returns A promise that resolves when camera is switched.
    */
   const switchCamera = useCallback(async (captureDeviceId: string) => {
-    return MembraneWebRTCModule.switchCamera(captureDeviceId);
+    return RNFishjamClientModule.switchCamera(captureDeviceId);
   }, []);
 
   /** Function that queries available cameras.
    * @returns A promise that resolves to the list of available cameras.
    */
   const getCaptureDevices = useCallback(async () => {
-    return MembraneWebRTCModule.getCaptureDevices() as Promise<CaptureDevice[]>;
+    return RNFishjamClientModule.getCaptureDevices() as Promise<
+      CaptureDevice[]
+    >;
   }, []);
 
   /**
@@ -142,7 +144,7 @@ export function useCamera() {
    * @param BandwidthLimit to set
    */
   const setVideoTrackBandwidth = async (bandwidth: BandwidthLimit) => {
-    await MembraneWebRTCModule.setVideoTrackBandwidth(bandwidth);
+    await RNFishjamClientModule.setVideoTrackBandwidth(bandwidth);
   };
 
   return {

@@ -1,5 +1,5 @@
 import {
-  useFishjamClient,
+  cleanUp,
   usePeers,
   useScreencast,
   ScreencastQuality,
@@ -40,7 +40,6 @@ const RoomScreen = ({ navigation, route }: Props) => {
     userName,
   } = route?.params;
   usePreventBackButton();
-  const { cleanUp } = useFishjamClient();
   const audioSettings = useAudioSettings();
 
   const { joinRoom } = useJoinRoom({
@@ -57,6 +56,7 @@ const RoomScreen = ({ navigation, route }: Props) => {
   }, [joinRoom]);
 
   const peers = usePeers();
+
   const tracks = useMemo(
     () =>
       peers.flatMap((peer) =>
@@ -72,7 +72,7 @@ const RoomScreen = ({ navigation, route }: Props) => {
   const onDisconnectPress = useCallback(() => {
     cleanUp();
     navigation.navigate('Home');
-  }, [navigation, cleanUp]);
+  }, [navigation]);
 
   const onToggleScreenCast = useCallback(() => {
     toggleScreencast({

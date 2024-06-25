@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { BandwidthEstimationEvent } from '../MembraneWebRTC.types';
+import { BandwidthEstimationEvent } from '../RNFishjamClient.types';
 import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
 
 /**

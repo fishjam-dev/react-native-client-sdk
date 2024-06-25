@@ -7,8 +7,8 @@ import {
   ScreencastOptions,
   SimulcastConfig,
   TrackEncoding,
-} from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+} from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
 
 const defaultSimulcastConfig = () => ({
@@ -24,7 +24,7 @@ let screencastSimulcastConfig: SimulcastConfig = defaultSimulcastConfig();
  */
 export function useScreencast() {
   const [isScreencastOn, setIsScreencastOn] = useState<boolean>(
-    MembraneWebRTCModule.isScreencastOn,
+    RNFishjamClientModule.isScreencastOn,
   );
   const [simulcastConfig, setSimulcastConfig] = useState<SimulcastConfig>(
     screencastSimulcastConfig,
@@ -34,7 +34,7 @@ export function useScreencast() {
       ReceivableEvents.IsScreencastOn,
       (event) => setIsScreencastOn(event.IsScreencastOn),
     );
-    setIsScreencastOn(MembraneWebRTCModule.isScreencastOn);
+    setIsScreencastOn(RNFishjamClientModule.isScreencastOn);
     return () => eventListener.remove();
   }, []);
 
@@ -47,7 +47,7 @@ export function useScreencast() {
         ScreencastOptions<ScreencastOptionsMetadataType>
       > = {},
     ) => {
-      await MembraneWebRTCModule.toggleScreencast(screencastOptions);
+      await RNFishjamClientModule.toggleScreencast(screencastOptions);
       screencastSimulcastConfig =
         screencastOptions.simulcastConfig || defaultSimulcastConfig();
       setSimulcastConfig(screencastSimulcastConfig);
@@ -63,7 +63,7 @@ export function useScreencast() {
     async <ScreencastMetadataType extends Metadata>(
       metadata: ScreencastMetadataType,
     ) => {
-      await MembraneWebRTCModule.updateScreencastTrackMetadata(metadata);
+      await RNFishjamClientModule.updateScreencastTrackMetadata(metadata);
     },
     [],
   );
@@ -75,7 +75,7 @@ export function useScreencast() {
   const toggleScreencastTrackEncoding = useCallback(
     async (encoding: TrackEncoding) => {
       screencastSimulcastConfig =
-        await MembraneWebRTCModule.toggleScreencastTrackEncoding(encoding);
+        await RNFishjamClientModule.toggleScreencastTrackEncoding(encoding);
       setSimulcastConfig(screencastSimulcastConfig);
     },
     [],
@@ -88,7 +88,7 @@ export function useScreencast() {
    */
   const setScreencastTrackEncodingBandwidth = useCallback(
     async (encoding: TrackEncoding, bandwidth: BandwidthLimit) => {
-      await MembraneWebRTCModule.setScreencastTrackEncodingBandwidth(
+      await RNFishjamClientModule.setScreencastTrackEncodingBandwidth(
         encoding,
         bandwidth,
       );
@@ -105,7 +105,7 @@ export function useScreencast() {
    */
   const setScreencastTrackBandwidth = useCallback(
     async (bandwidth: BandwidthLimit) => {
-      await MembraneWebRTCModule.setScreencastTrackBandwidth(bandwidth);
+      await RNFishjamClientModule.setScreencastTrackBandwidth(bandwidth);
     },
     [],
   );

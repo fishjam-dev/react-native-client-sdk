@@ -63,8 +63,8 @@ extension String {
     }
 }
 
-class MembraneWebRTC: MembraneRTCDelegate {
-    var membraneRTC: MembraneRTC? = nil
+class RNFishjamClient: FishjamClientListener {
+    var fishjamClient: FishjamClient? = nil
 
     var localAudioTrack: LocalAudioTrack?
     var localVideoTrack: LocalVideoTrack?
@@ -78,6 +78,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
     var globalToLocalTrackId: [String: String] = [:]
 
     var connectPromise: Promise? = nil
+    var joinPromise: Promise? = nil
 
     var videoSimulcastConfig: SimulcastConfig = SimulcastConfig()
     var localUserMetadata: Metadata = .init()
@@ -122,7 +123,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
     {
         if let maxBandwidth: Int = maxBandwidth.get() {
             return .BandwidthLimit(maxBandwidth)
-        } else if let maxBandwidth: [String: Int] = maxBandwidth.get() {
+        }
+        else if let maxBandwidth: [String: Int] = maxBandwidth.get() {
             return .SimulcastBandwidthLimit(maxBandwidth)
         }
         return .BandwidthLimit(0)
@@ -135,7 +137,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
         let trackEncoding = encoding.toTrackEncoding()
         guard let trackEncoding = trackEncoding else {
             throw Exception(
-                name: "E_INVALID_ENCODING", description: "Invalid track encoding specified: \(encoding)")
+                name: "E_INVALID_ENCODING",
+                description: "Invalid track encoding specified: \(encoding)")
         }
         return trackEncoding
     }
@@ -152,7 +155,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
     }
 
     func create() throws {
-        self.membraneRTC = MembraneRTC.create(delegate: self)
+        self.fishjamClient = FishjamClient(listener: self)
         try ensureCreated()
         initLocalEndpoint()
     }
@@ -162,7 +165,9 @@ class MembraneWebRTC: MembraneRTCDelegate {
         let flipVideo = connectionOptions.flipVideo
         let videoBandwidthLimit = getMaxBandwidthFromOptions(
             maxBandwidth: connectionOptions.maxBandwidth)
-        let simulcastConfig = try getSimulcastConfigFromOptions(simulcastConfig: connectionOptions.simulcastConfig) ?? SimulcastConfig()
+        let simulcastConfig =
+            try getSimulcastConfigFromOptions(simulcastConfig: connectionOptions.simulcastConfig)
+            ?? SimulcastConfig()
 
         let preset: VideoParameters = {
             switch videoQuality {
@@ -198,22 +203,23 @@ class MembraneWebRTC: MembraneRTCDelegate {
         return videoParameters
     }
     private func ensureCreated() throws {
-        if membraneRTC == nil {
+        if fishjamClient == nil {
             throw Exception(
                 name: "E_NO_MEMBRANERTC",
                 description: "Client not created yet. Make sure to call create() first!")
         }
     }
     private func ensureConnected() throws {
-        if membraneRTC == nil {
+        if fishjamClient == nil {
             throw Exception(
                 name: "E_NOT_CONNECTED",
-                description: "Client not connected to server yet. Make sure to call connect() first!")
+                description:
+                    "Client not connected to server yet. Make sure to call connect() first!")
         }
     }
 
     private func ensureVideoTrack() throws {
-        if membraneRTC == nil {
+        if fishjamClient == nil {
             throw Exception(
                 name: "E_NO_LOCAL_VIDEO_TRACK",
                 description: "No local video track. Make sure to call connect() first!")
@@ -221,7 +227,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
     }
 
     private func ensureAudioTrack() throws {
-        if membraneRTC == nil {
+        if fishjamClient == nil {
             throw Exception(
                 name: "E_NO_LOCAL_AUDIO_TRACK",
                 description: "No local audio track. Make sure to call connect() first!")
@@ -229,7 +235,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
     }
 
     private func ensureScreencastTrack() throws {
-        if membraneRTC == nil {
+        if fishjamClient == nil {
             throw Exception(
                 name: "E_NO_LOCAL_SCREENCAST_TRACK",
                 description: "No local screencast track. Make sure to toggle screencast on first!")
@@ -240,18 +246,77 @@ class MembraneWebRTC: MembraneRTCDelegate {
             throw Exception(
                 name: "E_NO_ENDPOINTS",
                 description:
-                    "No endpoints available. Ensure the connection is established or endpoints are present.")
+                    "No endpoints available. Ensure the connection is established or endpoints are present."
+            )
         }
     }
 
-    func receiveMediaEvent(data: String) throws {
-        try ensureConnected()
-        membraneRTC?.receiveMediaEvent(mediaEvent: data as SerializedMediaEvent)
+    func onSocketClose(code: UInt16, reason: String) {
+        if let connectPromise = connectPromise {
+            connectPromise.reject("E_MEMBRANE_CONNECT", "Failed to connect: socket close")
+        }
+        connectPromise = nil
     }
 
-    func connect(metadata: [String: Any], promise: Promise) {
+    func onSocketError() {
+        if let connectPromise = connectPromise {
+            connectPromise.reject("E_MEMBRANE_CONNECT", "Failed to connect: socket error")
+        }
+        connectPromise = nil
+    }
+
+    func onSocketOpen() {
+
+    }
+
+    func onAuthSuccess() {
+        if let connectPromise = connectPromise {
+            connectPromise.resolve(nil)
+        }
+        connectPromise = nil
+    }
+
+    func onAuthError() {
+        if let connectPromise = connectPromise {
+            connectPromise.reject("E_MEMBRANE_CONNECT", "Failed to connect: socket error")
+        }
+        connectPromise = nil
+    }
+
+    func onDisconnected() {
+
+    }
+
+    func onJoined(peerID: String, peersInRoom: [Endpoint]) {
+        peersInRoom.forEach { endpoint in
+            MembraneRoom.sharedInstance.endpoints[endpoint.id] = RNEndpoint(
+                id: endpoint.id, metadata: endpoint.metadata, type: endpoint.type,
+                tracks: endpoint.tracks ?? [:]
+            )
+        }
+
+        emitEndpoints()
+        if let joinPromise = joinPromise {
+            joinPromise.resolve(nil)
+        }
+        joinPromise = nil
+    }
+
+    func onJoinError(metadata: Any) {
+        if let joinPromise = joinPromise {
+            joinPromise.reject("E_MEMBRANE_CONNECT", "Failed to join room")
+        }
+        joinPromise = nil
+    }
+
+    func connect(url: String, peerToken: String, promise: Promise) {
         connectPromise = promise
-        localUserMetadata = metadata.toMetadata()
+        fishjamClient?.connect(config: Config(websocketUrl: url, token: peerToken))
+    }
+
+    func joinRoom(peerMetadata: [String: Any], promise: Promise) {
+        joinPromise = promise
+        localUserMetadata = peerMetadata.toMetadata()
 
         guard let localEndpointId = localEndpointId,
             var endpoint = MembraneRoom.sharedInstance.endpoints[localEndpointId]
@@ -259,11 +324,11 @@ class MembraneWebRTC: MembraneRTCDelegate {
             return
         }
 
-        endpoint.metadata = metadata.toMetadata()
-        membraneRTC?.connect(metadata: metadata.toMetadata())
+        endpoint.metadata = peerMetadata.toMetadata()
+        fishjamClient?.join(peerMetadata: peerMetadata.toMetadata())
     }
 
-    func disconnect() {
+    func leaveRoom() {
         if isScreensharingEnabled {
             let screencastExtensionBundleId =
                 Bundle.main.infoDictionary?["ScreencastExtensionBundleId"] as? String
@@ -271,9 +336,20 @@ class MembraneWebRTC: MembraneRTCDelegate {
                 RPSystemBroadcastPickerView.show(for: screencastExtensionBundleId)
             }
         }
-        membraneRTC?.remove(delegate: self)
-        membraneRTC?.disconnect()
-        membraneRTC = nil
+        fishjamClient?.leave()
+        MembraneRoom.sharedInstance.endpoints = [:]
+    }
+
+    func cleanUp() {
+        if isScreensharingEnabled {
+            let screencastExtensionBundleId =
+                Bundle.main.infoDictionary?["ScreencastExtensionBundleId"] as? String
+            DispatchQueue.main.async {
+                RPSystemBroadcastPickerView.show(for: screencastExtensionBundleId)
+            }
+        }
+        fishjamClient?.cleanUp()
+        fishjamClient = nil
         MembraneRoom.sharedInstance.endpoints = [:]
     }
 
@@ -281,11 +357,13 @@ class MembraneWebRTC: MembraneRTCDelegate {
         try ensureConnected()
         guard let cameraTrack = try createCameraTrack(config: config) else { return }
         localVideoTrack = cameraTrack
-        let simulcastConfig = try? getSimulcastConfigFromOptions(simulcastConfig: config.simulcastConfig)
-        try addTrackToLocalEndpoint(cameraTrack, config.videoTrackMetadata.toMetadata(), simulcastConfig)
+        let simulcastConfig = try? getSimulcastConfigFromOptions(
+            simulcastConfig: config.simulcastConfig)
+        try addTrackToLocalEndpoint(
+            cameraTrack, config.videoTrackMetadata.toMetadata(), simulcastConfig)
         try setCameraTrackState(cameraTrack: cameraTrack, isEnabled: config.cameraEnabled)
     }
-  
+
     private func createCameraTrack(config: CameraConfig) throws -> LocalVideoTrack? {
         try ensureConnected()
         let videoParameters = try getVideoParametersFromOptions(connectionOptions: config)
@@ -294,11 +372,10 @@ class MembraneWebRTC: MembraneRTCDelegate {
                 simulcastConfig: config.simulcastConfig)
         else { return nil }
         self.videoSimulcastConfig = simulcastConfig
-        return membraneRTC?.createVideoTrack(
+        return fishjamClient?.createVideoTrack(
             videoParameters: videoParameters,
             metadata: config.videoTrackMetadata.toMetadata(),
-            captureDeviceId: config.captureDeviceId,
-            simulcastConfig: simulcastConfig
+            captureDeviceName: config.captureDeviceId
         )
     }
     private func setCameraTrackState(cameraTrack: LocalVideoTrack, isEnabled: Bool) throws {
@@ -309,12 +386,15 @@ class MembraneWebRTC: MembraneRTCDelegate {
         let isCameraEnabledMap = [eventName: isEnabled]
         emitEvent(name: eventName, data: isCameraEnabledMap)
     }
-    private func addTrackToLocalEndpoint(_ track: LocalVideoTrack, _ metadata: Metadata, _ simulcastConfig: SimulcastConfig?) throws {
+    private func addTrackToLocalEndpoint(
+        _ track: LocalVideoTrack, _ metadata: Metadata, _ simulcastConfig: SimulcastConfig?
+    ) throws {
         try ensureEndpoints()
         if let localEndpointId = localEndpointId {
             let trackId = track.trackId()
             MembraneRoom.sharedInstance.endpoints[localEndpointId]?.videoTracks[trackId] = track
-            MembraneRoom.sharedInstance.endpoints[localEndpointId]?.tracksData[trackId] = TrackData(metadata: metadata, simulcastConfig: simulcastConfig)
+            MembraneRoom.sharedInstance.endpoints[localEndpointId]?.tracksData[trackId] = TrackData(
+                metadata: metadata, simulcastConfig: simulcastConfig)
 
             emitEndpoints()
         }
@@ -344,8 +424,10 @@ class MembraneWebRTC: MembraneRTCDelegate {
     private func addTrackToLocalEndpoint(_ track: LocalAudioTrack, _ metadata: Metadata) throws {
         try ensureEndpoints()
         if let localEndpointId = localEndpointId {
-            MembraneRoom.sharedInstance.endpoints[localEndpointId]?.audioTracks[track.trackId()] = track
-            MembraneRoom.sharedInstance.endpoints[localEndpointId]?.tracksData[track.trackId()] = TrackData(metadata: metadata)
+            MembraneRoom.sharedInstance.endpoints[localEndpointId]?.audioTracks[track.trackId()] =
+                track
+            MembraneRoom.sharedInstance.endpoints[localEndpointId]?.tracksData[track.trackId()] =
+                TrackData(metadata: metadata)
             emitEndpoints()
         }
     }
@@ -363,7 +445,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
     func startMicrophone(config: MicrophoneConfig) throws {
         try ensureConnected()
         guard
-            let microphoneTrack = membraneRTC?.createAudioTrack(
+            let microphoneTrack = fishjamClient?.createAudioTrack(
                 metadata: config.audioTrackMetadata.toMetadata())
         else { return }
         localAudioTrack = microphoneTrack
@@ -371,7 +453,9 @@ class MembraneWebRTC: MembraneRTCDelegate {
         try addTrackToLocalEndpoint(microphoneTrack, config.audioTrackMetadata.toMetadata())
         try setMicrophoneTrackState(microphoneTrack, config.microphoneEnabled)
     }
-    private func setMicrophoneTrackState(_ microphoneTrack: LocalAudioTrack, _ isEnabled: Bool) throws {
+    private func setMicrophoneTrackState(_ microphoneTrack: LocalAudioTrack, _ isEnabled: Bool)
+        throws
+    {
         try ensureConnected()
         microphoneTrack.setEnabled(isEnabled)
         isMicEnabled = isEnabled
@@ -386,7 +470,9 @@ class MembraneWebRTC: MembraneRTCDelegate {
         }
         return isMicEnabled
     }
-    private func getScreencastVideoParameters(screencastOptions: ScreencastOptions) -> VideoParameters {
+    private func getScreencastVideoParameters(screencastOptions: ScreencastOptions)
+        -> VideoParameters
+    {
         let preset: VideoParameters
         switch screencastOptions.quality {
         case "VGA":
@@ -418,7 +504,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
     func toggleScreencast(screencastOptions: ScreencastOptions) throws {
         try ensureConnected()
         guard
-            let screencastExtensionBundleId = Bundle.main.infoDictionary?["ScreencastExtensionBundleId"]
+            let screencastExtensionBundleId = Bundle.main.infoDictionary?[
+                "ScreencastExtensionBundleId"]
                 as? String
         else {
             throw Exception(
@@ -450,7 +537,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
             maxBandwidth: screencastOptions.maxBandwidth)
         let screencastMetadata = screencastOptions.screencastMetadata.toMetadata()
         let videoParameters = getScreencastVideoParameters(screencastOptions: screencastOptions)
-        localScreencastTrack = membraneRTC?.createScreencastTrack(
+        localScreencastTrack = fishjamClient?.createScreencastTrack(
             appGroup: appGroupName,
             videoParameters: videoParameters,
             metadata: screencastMetadata,
@@ -463,9 +550,11 @@ class MembraneWebRTC: MembraneRTCDelegate {
                 }
                 do {
                     guard let screencastTrack = localScreencastTrack else { return }
-                    try addTrackToLocalEndpoint(screencastTrack, screencastMetadata, simulcastConfig)
+                    try addTrackToLocalEndpoint(
+                        screencastTrack, screencastMetadata, simulcastConfig)
                     try setScreencastTrackState(isEnabled: true)
-                } catch {
+                }
+                catch {
                     os_log(
                         "Error starting screencast: %{public}s", log: log, type: .error,
                         String(describing: error))
@@ -481,7 +570,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
                     try removeTrackFromLocalEndpoint(screencastTrack)
                     localScreencastTrack = nil
                     try setScreencastTrackState(isEnabled: false)
-                } catch {
+                }
+                catch {
                     os_log(
                         "Error stopping screencast: %{public}s", log: log, type: .error,
                         String(describing: error))
@@ -491,8 +581,9 @@ class MembraneWebRTC: MembraneRTCDelegate {
             RPSystemBroadcastPickerView.show(for: screencastExtensionBundleId)
         }
     }
-    private func isTrackLocal(_ trackId : String) -> Bool{
-        return trackId == localAudioTrack?.trackId() || trackId == localVideoTrack?.trackId() || trackId == localScreencastTrack?.trackId()
+    private func isTrackLocal(_ trackId: String) -> Bool {
+        return trackId == localAudioTrack?.trackId() || trackId == localVideoTrack?.trackId()
+            || trackId == localScreencastTrack?.trackId()
     }
     func getEndpoints() -> [[String: Any]] {
         MembraneRoom.sharedInstance.endpoints.values.sorted(by: { $0.order < $1.order }).map {
@@ -506,11 +597,12 @@ class MembraneWebRTC: MembraneRTCDelegate {
                     "encodingReason": tracksContexts[trackId]?.encodingReason?.rawValue as Any,
                 ]
 
-                var simulcastConfig : SimulcastConfig? = nil
+                var simulcastConfig: SimulcastConfig? = nil
 
                 if isTrackLocal(trackId) {
                     simulcastConfig = p.tracksData[trackId]?.simulcastConfig
-                }else{
+                }
+                else {
                     simulcastConfig = tracksContexts[trackId]?.simulcastConfig
                 }
 
@@ -519,7 +611,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
                         "enabled": simulcastConfig.enabled,
                         "activeEncodings": simulcastConfig.activeEncodings.map({ encoding in
                             encoding.description
-                        })
+                        }),
                     ]
 
                     data["simulcastConfig"] = simulcastConfigMap
@@ -570,11 +662,11 @@ class MembraneWebRTC: MembraneRTCDelegate {
 
     func updateEndpointMetadata(metadata: [String: Any]) throws {
         try ensureConnected()
-        membraneRTC?.updateEndpointMetadata(metadata: metadata.toMetadata())
+        fishjamClient?.updatePeerMetadata(peerMetadata: metadata.toMetadata())
     }
 
     func updateTrackMetadata(trackId: String, metadata: [String: Any]) {
-        guard let room = membraneRTC, let endpointId = localEndpointId else {
+        guard let room = fishjamClient, let endpointId = localEndpointId else {
             return
         }
 
@@ -616,7 +708,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
     private func toggleTrackEncoding(
         encoding: TrackEncoding, trackId: String, simulcastConfig: SimulcastConfig
     ) -> SimulcastConfig? {
-        guard let room = membraneRTC else {
+        guard let room = fishjamClient else {
             return nil
         }
         if simulcastConfig.activeEncodings.contains(encoding) {
@@ -625,7 +717,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
                 enabled: true,
                 activeEncodings: simulcastConfig.activeEncodings.filter { e in e != encoding }
             )
-        } else {
+        }
+        else {
             room.enableTrackEncoding(trackId: trackId, encoding: encoding)
             return SimulcastConfig(
                 enabled: true,
@@ -640,44 +733,49 @@ class MembraneWebRTC: MembraneRTCDelegate {
         guard
             let trackId = localScreencastTrack?.trackId(),
             let simulcastConfig = toggleTrackEncoding(
-                encoding: trackEncoding, trackId: trackId, simulcastConfig: screencastSimulcastConfig)
+                encoding: trackEncoding, trackId: trackId,
+                simulcastConfig: screencastSimulcastConfig)
         else {
             throw Exception(
                 name: "E_NOT_CONNECTED",
-                description: "Client not connected to server yet. Make sure to call connect() first!")
+                description:
+                    "Client not connected to server yet. Make sure to call connect() first!")
         }
         self.screencastSimulcastConfig = simulcastConfig
         return getSimulcastConfigAsRNMap(simulcastConfig: simulcastConfig)
     }
     func setScreencastTrackBandwidth(bandwidth: Int) throws {
         try ensureScreencastTrack()
-        guard let room = membraneRTC, let trackId = localScreencastTrack?.trackId() else {
+        guard let room = fishjamClient, let trackId = localScreencastTrack?.trackId() else {
             return
         }
-        room.setTrackBandwidth(trackId: trackId, bandwidth: BandwidthLimit(bandwidth))
+        room.setTrackBandwidth(trackId: trackId, bandwidthLimit: BandwidthLimit(bandwidth))
     }
 
     func setScreencastTrackEncodingBandwidth(encoding: String, bandwidth: Int) throws {
         try ensureScreencastTrack()
         let trackEncoding = try validateEncoding(encoding: encoding as String)
-        guard let room = membraneRTC, let trackId = localScreencastTrack?.trackId() else {
+        guard let room = fishjamClient, let trackId = localScreencastTrack?.trackId() else {
             return
         }
         room.setEncodingBandwidth(
-            trackId: trackId, encoding: trackEncoding.description, bandwidth: BandwidthLimit(bandwidth))
+            trackId: trackId, encoding: trackEncoding.description,
+            bandwidthLimit: BandwidthLimit(bandwidth))
     }
 
     func setTargetTrackEncoding(trackId: String, encoding: String) throws {
         try ensureConnected()
         guard
-            let room = membraneRTC,
-            let videoTrack = MembraneRoom.sharedInstance.getVideoTrackById(trackId: trackId as String),
+            let room = fishjamClient,
+            let videoTrack = MembraneRoom.sharedInstance.getVideoTrackById(
+                trackId: trackId as String),
             let trackId = (videoTrack as? RemoteVideoTrack)?.track.trackId
                 ?? (videoTrack as? LocalVideoTrack)?.trackId(),
             let globalTrackId = getGlobalTrackId(localTrackId: trackId as String)
         else {
             throw Exception(
-                name: "E_INVALID_TRACK_ID", description: "Remote track with id=\(trackId) not found")
+                name: "E_INVALID_TRACK_ID", description: "Remote track with id=\(trackId) not found"
+            )
         }
         let trackEncoding = try validateEncoding(encoding: encoding as String)
         room.setTargetTrackEncoding(trackId: globalTrackId, encoding: trackEncoding)
@@ -693,7 +791,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
         else {
             throw Exception(
                 name: "E_NOT_CONNECTED",
-                description: "Client not connected to server yet. Make sure to call connect() first!")
+                description:
+                    "Client not connected to server yet. Make sure to call connect() first!")
         }
         self.videoSimulcastConfig = simulcastConfig
         let eventName = EmitableEvents.SimulcastConfigUpdate
@@ -706,36 +805,38 @@ class MembraneWebRTC: MembraneRTCDelegate {
 
     func setVideoTrackEncodingBandwidth(encoding: String, bandwidth: Int) throws {
         try ensureVideoTrack()
-        guard let room = membraneRTC, let trackId = localVideoTrack?.trackId() else {
+        guard let room = fishjamClient, let trackId = localVideoTrack?.trackId() else {
             return
         }
         room.setEncodingBandwidth(
-            trackId: trackId, encoding: encoding as String, bandwidth: BandwidthLimit(bandwidth))
+            trackId: trackId, encoding: encoding as String,
+            bandwidthLimit: BandwidthLimit(bandwidth))
     }
 
     func setVideoTrackBandwidth(bandwidth: Int) throws {
         try ensureVideoTrack()
-        guard let room = membraneRTC, let trackId = localVideoTrack?.trackId() else {
+        guard let room = fishjamClient, let trackId = localVideoTrack?.trackId() else {
             return
         }
-        room.setTrackBandwidth(trackId: trackId, bandwidth: BandwidthLimit(bandwidth))
+        room.setTrackBandwidth(trackId: trackId, bandwidthLimit: BandwidthLimit(bandwidth))
     }
 
     func changeWebRTCLoggingSeverity(severity: String) throws {
         switch severity {
         case "verbose":
-            membraneRTC?.changeWebRTCLoggingSeverity(severity: .verbose)
+            fishjamClient?.changeWebRTCLoggingSeverity(severity: .verbose)
         case "info":
-            membraneRTC?.changeWebRTCLoggingSeverity(severity: .info)
+            fishjamClient?.changeWebRTCLoggingSeverity(severity: .info)
         case "warning":
-            membraneRTC?.changeWebRTCLoggingSeverity(severity: .warning)
+            fishjamClient?.changeWebRTCLoggingSeverity(severity: .warning)
         case "error":
-            membraneRTC?.changeWebRTCLoggingSeverity(severity: .error)
+            fishjamClient?.changeWebRTCLoggingSeverity(severity: .error)
         case "none":
-            membraneRTC?.changeWebRTCLoggingSeverity(severity: .none)
+            fishjamClient?.changeWebRTCLoggingSeverity(severity: .none)
         default:
             throw Exception(
-                name: "E_INVALID_SEVERITY_LEVEL", description: "Severity with name=\(severity) not found")
+                name: "E_INVALID_SEVERITY_LEVEL",
+                description: "Severity with name=\(severity) not found")
         }
     }
 
@@ -783,7 +884,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
         stats?.forEach { pair in
             if let val = pair.value as? RTCOutboundStats {
                 res[pair.key] = getMapFromStatsObject(obj: val)
-            } else {
+            }
+            else {
                 res[pair.key] = getMapFromStatsObject(obj: pair.value as! RTCInboundStats)
             }
         }
@@ -791,7 +893,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
     }
 
     func getStatistics() -> [String: Any] {
-        return statsToRNMap(stats: membraneRTC?.getStats())
+        return statsToRNMap(stats: fishjamClient?.getStats())
     }
 
     func setAudioSessionMode() {
@@ -824,7 +926,8 @@ class MembraneWebRTC: MembraneRTCDelegate {
             throw Exception(
                 name: "E_MEMBRANE_AUDIO_SESSION",
                 description:
-                    "Invalid audio session mode: \(sessionMode). Supported modes: videoChat, voiceChat")
+                    "Invalid audio session mode: \(sessionMode). Supported modes: videoChat, voiceChat"
+            )
         }
         setAudioSessionMode()
     }
@@ -885,32 +988,6 @@ class MembraneWebRTC: MembraneRTCDelegate {
             ] as [String: [String: Any]])
     }
 
-    func onSendMediaEvent(event: SerializedMediaEvent) {
-        let eventName = EmitableEvents.SendMediaEvent
-        emitEvent(name: eventName, data: ["event": event])
-    }
-
-    func onConnected(endpointId: String, otherEndpoints: [Endpoint]) {
-        otherEndpoints.forEach { endpoint in
-            MembraneRoom.sharedInstance.endpoints[endpoint.id] = RNEndpoint(
-                id: endpoint.id, metadata: endpoint.metadata, type: endpoint.type, tracks: endpoint.tracks ?? [:]
-            )
-        }
-
-        emitEndpoints()
-        if let connectPromise = connectPromise {
-            connectPromise.resolve(nil)
-        }
-        connectPromise = nil
-    }
-
-    func onConnectionError(metadata: Any) {
-        if let connectPromise = connectPromise {
-            connectPromise.reject("E_MEMBRANE_CONNECT", "Failed to connect: \(metadata)")
-        }
-        connectPromise = nil
-    }
-
     func updateOrAddTrack(ctx: TrackContext) {
         guard var endpoint = MembraneRoom.sharedInstance.endpoints[ctx.endpoint.id] else {
             return
@@ -938,7 +1015,7 @@ class MembraneWebRTC: MembraneRTCDelegate {
             endpoint.videoTracks[videoTrack.track.trackId] = videoTrack
             let trackData = endpoint.tracksData[videoTrack.track.trackId]
 
-            endpoint.tracksData[videoTrack.track.trackId]  =
+            endpoint.tracksData[videoTrack.track.trackId] =
                 TrackData(metadata: ctx.metadata, simulcastConfig: trackData?.simulcastConfig)
 
             if let localTrackId = localTrackId,
@@ -981,18 +1058,18 @@ class MembraneWebRTC: MembraneRTCDelegate {
         updateOrAddTrack(ctx: ctx)
     }
 
-    func onEndpointAdded(endpoint: Endpoint) {
+    func onPeerJoined(endpoint: Endpoint) {
         MembraneRoom.sharedInstance.endpoints[endpoint.id] = RNEndpoint(
             id: endpoint.id, metadata: endpoint.metadata, type: endpoint.type)
         emitEndpoints()
     }
 
-    func onEndpointRemoved(endpoint: Endpoint) {
+    func onPeerLeft(endpoint: Endpoint) {
         MembraneRoom.sharedInstance.endpoints.removeValue(forKey: endpoint.id)
         emitEndpoints()
     }
 
-    func onEndpointUpdated(endpoint: Endpoint) {
+    func onPeerUpdated(endpoint: Endpoint) {
 
     }
 

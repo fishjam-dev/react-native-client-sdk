@@ -1,5 +1,5 @@
-import { Metadata } from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+import { Metadata } from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 
 /**
 /**
@@ -9,7 +9,7 @@ import MembraneWebRTCModule from '../MembraneWebRTCModule';
 export async function updateEndpointMetadata<
   EndpointMetadataType extends Metadata,
 >(metadata: EndpointMetadataType) {
-  await MembraneWebRTCModule.updateEndpointMetadata(metadata);
+  await RNFishjamClientModule.updateEndpointMetadata(metadata);
 }
 
 /**
@@ -19,7 +19,7 @@ export async function updateEndpointMetadata<
 export async function updateVideoTrackMetadata<
   VideoTrackMetadataType extends Metadata,
 >(metadata: VideoTrackMetadataType) {
-  await MembraneWebRTCModule.updateVideoTrackMetadata(metadata);
+  await RNFishjamClientModule.updateVideoTrackMetadata(metadata);
 }
 /**
  * a function that updates audio metadata on the server
@@ -28,5 +28,5 @@ export async function updateVideoTrackMetadata<
 export async function updateAudioTrackMetadata<
   AudioTrackMetadataType extends Metadata,
 >(metadata: AudioTrackMetadataType) {
-  await MembraneWebRTCModule.updateAudioTrackMetadata(metadata);
+  await RNFishjamClientModule.updateAudioTrackMetadata(metadata);
 }

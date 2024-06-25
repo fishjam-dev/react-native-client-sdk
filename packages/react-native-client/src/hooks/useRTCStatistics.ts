@@ -5,8 +5,8 @@ import {
   RTCInboundStats,
   RTCOutboundStats,
   RTCStats,
-} from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+} from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 
 /**
  * This hook provides access to current rtc statistics data.
@@ -25,7 +25,7 @@ export function useRTCStatistics(refreshInterval: number) {
 
   // Gets stats from the native libraries.
   const getStatistics = useCallback(async () => {
-    const stats = await MembraneWebRTCModule.getStatistics();
+    const stats = await RNFishjamClientModule.getStatistics();
     setStatistics((prev) => {
       const newStats = [...prev, processIncomingStats(prev, stats)];
       takeRight(newStats, MAX_SIZE);

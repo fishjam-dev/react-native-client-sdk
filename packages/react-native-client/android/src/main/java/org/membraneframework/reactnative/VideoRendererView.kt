@@ -11,14 +11,14 @@ import org.membraneframework.rtc.ui.VideoTextureViewRenderer
 import org.webrtc.RendererCommon
 
 class VideoRendererView(context: Context, appContext: AppContext) : ExpoView(context, appContext),
-    MembraneWebRTC.OnTrackUpdateListener {
+    RNFishjamClient.OnTrackUpdateListener {
     var isInitialized = false
     var activeVideoTrack: VideoTrack? = null
     var trackId: String? = null
 
     private val videoView = VideoTextureViewRenderer(context).also {
         addView(it)
-        MembraneWebRTC.onTracksUpdateListeners.add(this)
+        RNFishjamClient.onTracksUpdateListeners.add(this)
     }
 
     private fun setupTrack(videoTrack: VideoTrack) {
@@ -31,7 +31,7 @@ class VideoRendererView(context: Context, appContext: AppContext) : ExpoView(con
 
     private fun update() {
         CoroutineScope(Dispatchers.Main).launch {
-            val endpoint = MembraneWebRTC.endpoints.values.firstOrNull { it.videoTracks[trackId] != null }
+            val endpoint = RNFishjamClient.endpoints.values.firstOrNull { it.videoTracks[trackId] != null }
             val videoTrack = endpoint?.videoTracks?.get(trackId) ?: return@launch
             if(!isInitialized) {
                 isInitialized = true
@@ -49,7 +49,7 @@ class VideoRendererView(context: Context, appContext: AppContext) : ExpoView(con
     fun dispose() {
         activeVideoTrack?.removeRenderer(videoView)
         videoView.release()
-        MembraneWebRTC.onTracksUpdateListeners.remove(this)
+        RNFishjamClient.onTracksUpdateListeners.remove(this)
     }
 
     override fun onTracksUpdate() {

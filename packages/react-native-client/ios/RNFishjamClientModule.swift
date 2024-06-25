@@ -55,9 +55,9 @@ struct ScreencastOptions: Record {
 
 typealias RNTrackBandwidthLimit = Either<Int, [String: Int]>
 
-public class MembraneWebRTCModule: Module {
+public class RNFishjamClientModule: Module {
     public func definition() -> ModuleDefinition {
-        Name("MembraneWebRTC")
+        Name("RNFishjamClient")
 
         Events(
             "IsCameraOn",
@@ -69,136 +69,140 @@ public class MembraneWebRTCModule: Module {
             "SendMediaEvent",
             "BandwidthEstimation")
 
-        let membraneWebRTC: MembraneWebRTC = MembraneWebRTC { (eventName: String, data: [String: Any]) in
+        let rnFishjamClient: RNFishjamClient = RNFishjamClient {
+            (eventName: String, data: [String: Any]) in
             self.sendEvent(eventName, data)
         }
 
-        AsyncFunction("create") {
-            try membraneWebRTC.create()
+        AsyncFunction("connect") { (url: String, peerToken: String, promise: Promise) in
+            try rnFishjamClient.create()
+            rnFishjamClient.connect(url: url, peerToken: peerToken, promise: promise)
         }
 
-        AsyncFunction("connect") { (endpointMetadata: [String: Any], promise: Promise) in
-            membraneWebRTC.connect(metadata: endpointMetadata, promise: promise)
+        AsyncFunction("joinRoom") { (peerMetadata: [String: Any], promise: Promise) in
+            rnFishjamClient.joinRoom(peerMetadata: peerMetadata, promise: promise)
         }
 
-        AsyncFunction("disconnect") {
-            membraneWebRTC.disconnect()
+        AsyncFunction("leaveRoom") {
+            rnFishjamClient.leaveRoom()
         }
 
-        AsyncFunction("receiveMediaEvent") { (data: String) in
-            try membraneWebRTC.receiveMediaEvent(data: data)
+        AsyncFunction("cleanUp") {
+            rnFishjamClient.cleanUp()
         }
 
         AsyncFunction("startCamera") { (config: CameraConfig) in
-            try membraneWebRTC.startCamera(config: config)
+            try rnFishjamClient.startCamera(config: config)
         }
 
         AsyncFunction("startMicrophone") { (config: MicrophoneConfig) in
-            try membraneWebRTC.startMicrophone(config: config)
+            try rnFishjamClient.startMicrophone(config: config)
         }
 
         Property("isMicrophoneOn") {
-            return membraneWebRTC.isMicEnabled
+            return rnFishjamClient.isMicEnabled
         }
 
         AsyncFunction("toggleMicrophone") {
-            try membraneWebRTC.toggleMicrophone()
+            try rnFishjamClient.toggleMicrophone()
         }
 
         Property("isCameraOn") {
-            return membraneWebRTC.isCameraEnabled
+            return rnFishjamClient.isCameraEnabled
         }
 
         AsyncFunction("toggleCamera") {
-            try membraneWebRTC.toggleCamera()
+            try rnFishjamClient.toggleCamera()
         }
 
         AsyncFunction("flipCamera") {
-            try membraneWebRTC.flipCamera()
+            try rnFishjamClient.flipCamera()
         }
 
         AsyncFunction("switchCamera") { (captureDeviceId: String) in
-            try membraneWebRTC.switchCamera(captureDeviceId: captureDeviceId)
+            try rnFishjamClient.switchCamera(captureDeviceId: captureDeviceId)
         }
 
         AsyncFunction("getCaptureDevices") {
-            membraneWebRTC.getCaptureDevices()
+            rnFishjamClient.getCaptureDevices()
         }
 
         AsyncFunction("toggleScreencast") { (screencastOptions: ScreencastOptions) in
-            try membraneWebRTC.toggleScreencast(screencastOptions: screencastOptions)
+            try rnFishjamClient.toggleScreencast(screencastOptions: screencastOptions)
         }
 
         Property("isScreencastOn") {
-            return membraneWebRTC.isScreensharingEnabled
+            return rnFishjamClient.isScreensharingEnabled
         }
 
         AsyncFunction("getEndpoints") {
-            membraneWebRTC.getEndpoints()
+            rnFishjamClient.getEndpoints()
         }
 
         AsyncFunction("updateEndpointMetadata") { (metadata: [String: Any]) in
-            try membraneWebRTC.updateEndpointMetadata(metadata: metadata)
+            try rnFishjamClient.updateEndpointMetadata(metadata: metadata)
         }
 
         AsyncFunction("updateVideoTrackMetadata") { (metadata: [String: Any]) in
-            try membraneWebRTC.updateVideoTrackMetadata(metadata: metadata)
+            try rnFishjamClient.updateVideoTrackMetadata(metadata: metadata)
         }
 
         AsyncFunction("updateAudioTrackMetadata") { (metadata: [String: Any]) in
-            try membraneWebRTC.updateAudioTrackMetadata(metadata: metadata)
+            try rnFishjamClient.updateAudioTrackMetadata(metadata: metadata)
         }
 
         AsyncFunction("updateScreencastTrackMetadata") { (metadata: [String: Any]) in
-            try membraneWebRTC.updateScreencastTrackMetadata(metadata: metadata)
+            try rnFishjamClient.updateScreencastTrackMetadata(metadata: metadata)
         }
 
         AsyncFunction("toggleScreencastTrackEncoding") { (encoding: String) in
-            try membraneWebRTC.toggleScreencastTrackEncoding(encoding: encoding)
+            try rnFishjamClient.toggleScreencastTrackEncoding(encoding: encoding)
         }
 
         AsyncFunction("setScreencastTrackBandwidth") { (bandwidth: Int) in
-            try membraneWebRTC.setScreencastTrackBandwidth(bandwidth: bandwidth)
+            try rnFishjamClient.setScreencastTrackBandwidth(bandwidth: bandwidth)
         }
 
         AsyncFunction("setScreencastTrackEncodingBandwidth") { (encoding: String, bandwidth: Int) in
-            try membraneWebRTC.setScreencastTrackEncodingBandwidth(encoding: encoding, bandwidth: bandwidth)
+            try rnFishjamClient.setScreencastTrackEncodingBandwidth(
+                encoding: encoding, bandwidth: bandwidth)
         }
 
         AsyncFunction("setTargetTrackEncoding") { (trackId: String, encoding: String) in
-            try membraneWebRTC.setTargetTrackEncoding(trackId: trackId, encoding: encoding)
+            try rnFishjamClient.setTargetTrackEncoding(trackId: trackId, encoding: encoding)
         }
 
         AsyncFunction("toggleVideoTrackEncoding") { (encoding: String) in
-            try membraneWebRTC.toggleVideoTrackEncoding(encoding: encoding)
+            try rnFishjamClient.toggleVideoTrackEncoding(encoding: encoding)
         }
 
         AsyncFunction("setVideoTrackEncodingBandwidth") { (encoding: String, bandwidth: Int) in
-            try membraneWebRTC.setVideoTrackEncodingBandwidth(encoding: encoding, bandwidth: bandwidth)
+            try rnFishjamClient.setVideoTrackEncodingBandwidth(
+                encoding: encoding, bandwidth: bandwidth)
         }
 
         AsyncFunction("setVideoTrackBandwidth") { (bandwidth: Int) in
-            try membraneWebRTC.setVideoTrackBandwidth(bandwidth: bandwidth)
+            try rnFishjamClient.setVideoTrackBandwidth(bandwidth: bandwidth)
         }
 
         AsyncFunction("changeWebRTCLoggingSeverity") { (severity: String) in
-            try membraneWebRTC.changeWebRTCLoggingSeverity(severity: severity)
+            try rnFishjamClient.changeWebRTCLoggingSeverity(severity: severity)
         }
 
         AsyncFunction("getStatistics") {
-            membraneWebRTC.getStatistics()
+            rnFishjamClient.getStatistics()
         }
 
         AsyncFunction("selectAudioSessionMode") { (sessionMode: String) in
-            try membraneWebRTC.selectAudioSessionMode(sessionMode: sessionMode)
+            try rnFishjamClient.selectAudioSessionMode(sessionMode: sessionMode)
         }
 
         AsyncFunction("showAudioRoutePicker") { () in
-            membraneWebRTC.showAudioRoutePicker()
+            rnFishjamClient.showAudioRoutePicker()
         }
 
         AsyncFunction("startAudioSwitcher") {
-            membraneWebRTC.startAudioSwitcher()
+            rnFishjamClient.startAudioSwitcher()
         }
     }
 }
