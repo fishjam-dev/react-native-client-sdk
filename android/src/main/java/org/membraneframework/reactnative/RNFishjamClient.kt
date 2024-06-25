@@ -3,20 +3,22 @@ package org.membraneframework.reactnative
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import org.membraneframework.rtc.media.AudioTrack
 import android.media.projection.MediaProjectionManager
 import androidx.appcompat.app.AppCompatActivity
+import com.fishjamdev.client.Config
+import com.fishjamdev.client.FishjamClient
+import com.fishjamdev.client.FishjamClientListener
+import com.fishjamdev.client.Peer
+import com.fishjamdev.client.TrackContext
 import com.twilio.audioswitch.AudioDevice
-import expo.modules.kotlin.Promise
 import expo.modules.kotlin.AppContext
+import expo.modules.kotlin.Promise
 import expo.modules.kotlin.exception.CodedException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.membraneframework.rtc.MembraneRTC
-import org.membraneframework.rtc.MembraneRTCListener
 import org.membraneframework.rtc.SimulcastConfig
-import org.membraneframework.rtc.media.VideoTrack
+import org.membraneframework.rtc.media.AudioTrack
 import org.membraneframework.rtc.media.LocalAudioTrack
 import org.membraneframework.rtc.media.LocalScreencastTrack
 import org.membraneframework.rtc.media.LocalVideoTrack
@@ -24,20 +26,18 @@ import org.membraneframework.rtc.media.RemoteAudioTrack
 import org.membraneframework.rtc.media.RemoteVideoTrack
 import org.membraneframework.rtc.media.TrackBandwidthLimit
 import org.membraneframework.rtc.media.VideoParameters
-import org.membraneframework.rtc.models.Endpoint
+import org.membraneframework.rtc.media.VideoTrack
 import org.membraneframework.rtc.models.RTCInboundStats
 import org.membraneframework.rtc.models.RTCOutboundStats
-import org.membraneframework.rtc.models.TrackContext
 import org.membraneframework.rtc.models.TrackData
 import org.membraneframework.rtc.utils.Metadata
-import org.membraneframework.rtc.utils.SerializedMediaEvent
 import org.webrtc.Logging
 import java.util.UUID
 
-class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> Unit) :
-  MembraneRTCListener {
+class RNFishjamClient(val sendEvent: (name: String, data: Map<String, Any?>) -> Unit) :
+  FishjamClientListener {
   private val SCREENCAST_REQUEST = 1
-  private var membraneRTC: MembraneRTC? = null
+  private var fishjamClient: FishjamClient? = null
 
   var localAudioTrack: LocalAudioTrack? = null
   var localVideoTrack: LocalVideoTrack? = null
@@ -53,6 +53,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
   private val globalToLocalTrackId = HashMap<String, String>()
 
   private var connectPromise: Promise? = null
+  private var joinPromise: Promise? = null
   private var screencastPromise: Promise? = null
 
   var videoSimulcastConfig: SimulcastConfig = SimulcastConfig()
@@ -79,7 +80,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     var onTracksUpdateListeners: MutableList<OnTrackUpdateListener> = mutableListOf()
   }
 
-  fun onModuleCreate(appContext: AppContext){
+  fun onModuleCreate(appContext: AppContext) {
     this.appContext = appContext
     this.audioSwitchManager = AudioSwitchManager(appContext.reactContext!!)
   }
@@ -143,7 +144,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
 
   fun create() {
     audioSwitchManager = AudioSwitchManager(appContext?.reactContext!!)
-    membraneRTC = MembraneRTC.create(
+    fishjamClient = FishjamClient(
       appContext = appContext?.reactContext!!, listener = this
     )
     ensureCreated()
@@ -175,13 +176,13 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
   }
 
   private fun ensureCreated() {
-    if (membraneRTC == null) {
+    if (fishjamClient == null) {
       throw CodedException("Client not created yet. Make sure to call create() first!")
     }
   }
 
   private fun ensureConnected() {
-    if (membraneRTC == null) {
+    if (fishjamClient == null) {
       throw CodedException("Client not connected to server yet. Make sure to call connect() first!")
     }
   }
@@ -210,30 +211,53 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     }
   }
 
-
-  fun receiveMediaEvent(data: String) {
-    ensureConnected()
-    membraneRTC?.receiveMediaEvent(data)
+  override fun onAuthError() {
+    CoroutineScope(Dispatchers.Main).launch {
+      connectPromise?.reject(CodedException("Connection error"))
+      connectPromise = null
+    }
   }
 
-  fun connect(endpointMetadata: Metadata = mapOf(), promise: Promise) {
+  override fun onAuthSuccess() {
+    CoroutineScope(Dispatchers.Main).launch {
+      connectPromise?.resolve()
+      connectPromise = null
+    }
+  }
+
+  fun connect(url: String, peerToken: String, promise: Promise) {
+    ensureCreated()
+    connectPromise = promise
+    fishjamClient?.connect(Config(url, peerToken))
+  }
+
+  fun joinRoom(peerMetadata: Metadata = mapOf(), promise: Promise) {
     ensureCreated()
     ensureEndpoints()
-    connectPromise = promise
-    localUserMetadata = endpointMetadata
+    joinPromise = promise
+    localUserMetadata = peerMetadata
     val id = localEndpointId ?: return
     val endpoint = endpoints[id] ?: return
     endpoints[id] = endpoint.copy(metadata = localUserMetadata)
-    membraneRTC?.connect(localUserMetadata)
+    fishjamClient?.join(localUserMetadata)
   }
 
-  fun disconnect() {
+  fun leaveRoom() {
     ensureCreated()
     if (isScreencastOn) {
       stopScreencast()
     }
-    membraneRTC?.disconnect()
-    membraneRTC = null
+    fishjamClient?.leave()
+    endpoints.clear()
+  }
+
+  fun cleanUp() {
+    ensureCreated()
+    if (isScreencastOn) {
+      stopScreencast()
+    }
+    fishjamClient?.cleanUp()
+    fishjamClient = null
     endpoints.clear()
   }
 
@@ -250,7 +274,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     ensureConnected()
     val videoParameters = getVideoParametersFromOptions(config)
     videoSimulcastConfig = getSimulcastConfigFromOptions(config.simulcastConfig)
-    return membraneRTC?.createVideoTrack(
+    return fishjamClient?.createVideoTrack(
       videoParameters, config.videoTrackMetadata, config.captureDeviceId
     )
   }
@@ -307,7 +331,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     val localEndpoint = endpoints[localEndpointId]
     localEndpoint?.let {
       it.removeTrack(track)
-      membraneRTC?.removeTrack(track.id())
+      fishjamClient?.removeTrack(track.id())
       emitEndpoints()
     }
   }
@@ -317,14 +341,14 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     val localEndpoint = endpoints[localEndpointId]
     localEndpoint?.let {
       it.removeTrack(track)
-      membraneRTC?.removeTrack(track.id())
+      fishjamClient?.removeTrack(track.id())
       emitEndpoints()
     }
   }
 
   fun startMicrophone(config: MicrophoneConfig) {
     ensureConnected()
-    val microphoneTrack = membraneRTC?.createAudioTrack(config.audioTrackMetadata)
+    val microphoneTrack = fishjamClient?.createAudioTrack(config.audioTrackMetadata)
       ?: throw CodedException("Failed to Create Track")
     localAudioTrack = microphoneTrack
     addTrackToLocalEndpoint(microphoneTrack, config.audioTrackMetadata)
@@ -383,12 +407,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
             "encodingReason" to trackContexts[video.id()]?.encodingReason?.value
           )
 
-          val simulcastConfig: SimulcastConfig? =
-            if (video.id() == localAudioTrack?.id() || video.id() == localVideoTrack?.id() || video.id() == localScreencastTrack?.id()) {
-              endpoint.tracksData[video.id()]?.simulcastConfig
-            } else {
-              trackContexts[video.id()]?.simulcastConfig
-            }
+          val simulcastConfig: SimulcastConfig? = endpoint.tracksData[video.id()]?.simulcastConfig
 
           simulcastConfig?.let { config ->
             videoMap["simulcastConfig"] = mutableMapOf(
@@ -422,11 +441,11 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
 
   fun updateEndpointMetadata(metadata: Metadata) {
     ensureConnected()
-    membraneRTC?.updateEndpointMetadata(metadata)
+    fishjamClient?.updatePeerMetadata(metadata)
   }
 
   private fun updateTrackMetadata(trackId: String, metadata: Metadata) {
-    membraneRTC?.updateTrackMetadata(trackId, metadata)
+    fishjamClient?.updateTrackMetadata(trackId, metadata)
     localEndpointId?.let {
       val endpoint = endpoints[it] ?: throw CodedException("Endpoint with id $it not Found")
       val trackMetadata = endpoint.tracksData[trackId]
@@ -486,9 +505,9 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     val isTrackEncodingActive = simulcastConfig.activeEncodings.contains(trackEncoding)
 
     if (isTrackEncodingActive) {
-      membraneRTC?.disableTrackEncoding(trackId, trackEncoding)
+      fishjamClient?.disableTrackEncoding(trackId, trackEncoding)
     } else {
-      membraneRTC?.enableTrackEncoding(trackId, trackEncoding)
+      fishjamClient?.enableTrackEncoding(trackId, trackEncoding)
     }
 
     val updatedActiveEncodings = if (isTrackEncodingActive) {
@@ -515,7 +534,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     ensureScreencastTrack()
     localScreencastTrack?.let {
       val trackId = it.id()
-      membraneRTC?.setTrackBandwidth(trackId, TrackBandwidthLimit.BandwidthLimit(bandwidth))
+      fishjamClient?.setTrackBandwidth(trackId, TrackBandwidthLimit.BandwidthLimit(bandwidth))
     }
   }
 
@@ -523,7 +542,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     ensureScreencastTrack()
     localScreencastTrack?.let {
       val trackId = it.id()
-      membraneRTC?.setEncodingBandwidth(
+      fishjamClient?.setEncodingBandwidth(
         trackId, encoding, TrackBandwidthLimit.BandwidthLimit(bandwidth)
       )
     }
@@ -534,7 +553,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     val globalTrackId =
       getGlobalTrackId(trackId)
         ?: throw CodedException("Remote track with id=$trackId not found")
-    membraneRTC?.setTargetTrackEncoding(globalTrackId, encoding.toTrackEncoding())
+    fishjamClient?.setTargetTrackEncoding(globalTrackId, encoding.toTrackEncoding())
   }
 
   fun toggleVideoTrackEncoding(encoding: String): Map<String, Any> {
@@ -550,7 +569,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     ensureVideoTrack()
     localVideoTrack?.let {
       val trackId = it.id()
-      membraneRTC?.setEncodingBandwidth(
+      fishjamClient?.setEncodingBandwidth(
         trackId, encoding, TrackBandwidthLimit.BandwidthLimit(bandwidth)
       )
     }
@@ -560,17 +579,17 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     ensureVideoTrack()
     localVideoTrack?.let {
       val trackId = it.id()
-      membraneRTC?.setTrackBandwidth(trackId, TrackBandwidthLimit.BandwidthLimit(bandwidth))
+      fishjamClient?.setTrackBandwidth(trackId, TrackBandwidthLimit.BandwidthLimit(bandwidth))
     }
   }
 
   fun changeWebRTCLoggingSeverity(severity: String) {
     when (severity) {
-      "verbose" -> membraneRTC?.changeWebRTCLoggingSeverity(Logging.Severity.LS_VERBOSE)
-      "info" -> membraneRTC?.changeWebRTCLoggingSeverity(Logging.Severity.LS_INFO)
-      "error" -> membraneRTC?.changeWebRTCLoggingSeverity(Logging.Severity.LS_ERROR)
-      "warning" -> membraneRTC?.changeWebRTCLoggingSeverity(Logging.Severity.LS_WARNING)
-      "none" -> membraneRTC?.changeWebRTCLoggingSeverity(Logging.Severity.LS_NONE)
+      "verbose" -> fishjamClient?.changeWebRTCLoggingSeverity(Logging.Severity.LS_VERBOSE)
+      "info" -> fishjamClient?.changeWebRTCLoggingSeverity(Logging.Severity.LS_INFO)
+      "error" -> fishjamClient?.changeWebRTCLoggingSeverity(Logging.Severity.LS_ERROR)
+      "warning" -> fishjamClient?.changeWebRTCLoggingSeverity(Logging.Severity.LS_WARNING)
+      "none" -> fishjamClient?.changeWebRTCLoggingSeverity(Logging.Severity.LS_NONE)
       else -> {
         throw CodedException("Severity with name=$severity not found")
       }
@@ -618,7 +637,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
   fun getStatistics(): MutableMap<String, Map<String, Any?>> {
     ensureCreated()
     val newMap = mutableMapOf<String, Map<String, Any?>>()
-    membraneRTC?.getStats()?.forEach { entry ->
+    fishjamClient?.getStats()?.forEach { entry ->
       newMap[entry.key] = if (entry.value is RTCInboundStats) rtcInboundStatsToRNMap(
         entry.value as RTCInboundStats
       ) else rtcOutboundStatsToRNMap(entry.value as RTCOutboundStats)
@@ -629,7 +648,7 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
   private fun startScreencast(mediaProjectionPermission: Intent) {
     localScreencastId = UUID.randomUUID().toString()
     val videoParameters = getScreencastVideoParameters()
-    val screencastTrack = membraneRTC?.createScreencastTrack(
+    val screencastTrack = fishjamClient?.createScreencastTrack(
       mediaProjectionPermission, videoParameters, screencastMetadata
     ) ?: throw CodedException("Failed to Create ScreenCast Track")
     localScreencastTrack = screencastTrack
@@ -720,29 +739,29 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
       })
   }
 
-  override fun onConnected(endpointID: String, otherEndpoints: List<Endpoint>) {
+  override fun onJoined(peerID: String, peersInRoom: List<Peer>) {
     CoroutineScope(Dispatchers.Main).launch {
-      endpoints.remove(endpointID)
-      otherEndpoints.forEach {
+      endpoints.remove(peerID)
+      peersInRoom.forEach {
         endpoints[it.id] =
           RNEndpoint(it.id, it.metadata ?: mapOf(), it.type, tracksData = HashMap(it.tracks))
       }
-      connectPromise?.resolve(null)
-      connectPromise = null
+      joinPromise?.resolve(null)
+      joinPromise = null
       emitEndpoints()
     }
   }
 
-  override fun onConnectError(metadata: Any) {
+  override fun onJoinError(metadata: Any) {
     CoroutineScope(Dispatchers.Main).launch {
-      connectPromise?.reject(CodedException("Connection error: $metadata"))
-      connectPromise = null
+      joinPromise?.reject(CodedException("Join error: $metadata"))
+      joinPromise = null
     }
   }
 
   private fun addOrUpdateTrack(ctx: TrackContext) {
-    val endpoint = endpoints[ctx.endpoint.id]
-      ?: throw IllegalArgumentException("endpoint with id ${ctx.endpoint.id} not found")
+    val endpoint = endpoints[ctx.peer.id]
+      ?: throw IllegalArgumentException("endpoint with id ${ctx.peer.id} not found")
 
     when (ctx.track) {
       is RemoteVideoTrack -> {
@@ -786,8 +805,8 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
 
   override fun onTrackRemoved(ctx: TrackContext) {
     CoroutineScope(Dispatchers.Main).launch {
-      val endpoint = endpoints[ctx.endpoint.id]
-        ?: throw IllegalArgumentException("endpoint with id ${ctx.endpoint.id} not found")
+      val endpoint = endpoints[ctx.peer.id]
+        ?: throw IllegalArgumentException("endpoint with id ${ctx.peer.id} not found")
 
       when (ctx.track) {
         is RemoteVideoTrack -> endpoint.removeTrack(ctx.track as RemoteVideoTrack)
@@ -796,8 +815,6 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
       }
 
       globalToLocalTrackId.remove(ctx.trackId)
-      ctx.setOnEncodingChangedListener(null)
-      ctx.setOnVoiceActivityChangedListener(null)
       trackContexts.remove(ctx.trackId)
       emitEndpoints()
       onTracksUpdateListeners.forEach { it.onTracksUpdate() }
@@ -810,32 +827,27 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
     }
   }
 
-  override fun onEndpointAdded(endpoint: Endpoint) {
+  override fun onPeerJoined(peer: Peer) {
     CoroutineScope(Dispatchers.Main).launch {
-      endpoints[endpoint.id] =
+      endpoints[peer.id] =
         RNEndpoint(
-          id = endpoint.id,
-          metadata = endpoint.metadata,
-          type = endpoint.type,
-          tracksData = HashMap(endpoint.tracks)
+          id = peer.id,
+          metadata = peer.metadata,
+          type = peer.type,
+          tracksData = HashMap(peer.tracks)
         )
       emitEndpoints()
     }
   }
 
-  override fun onEndpointRemoved(endpoint: Endpoint) {
+  override fun onPeerLeft(peer: Peer) {
     CoroutineScope(Dispatchers.Main).launch {
-      endpoints.remove(endpoint.id)
+      endpoints.remove(peer.id)
       emitEndpoints()
     }
   }
 
-  override fun onEndpointUpdated(endpoint: Endpoint) {}
-
-  override fun onSendMediaEvent(event: SerializedMediaEvent) {
-    val eventName = EmitableEvents.SendMediaEvent
-    emitEvent(eventName, mapOf("event" to event))
-  }
+  override fun onPeerUpdated(peer: Peer) {}
 
   override fun onBandwidthEstimationChanged(estimation: Long) {
     val eventName = EmitableEvents.BandwidthEstimation
@@ -843,6 +855,4 @@ class MembraneWebRTC(val sendEvent: (name: String, data: Map<String, Any?>) -> U
   }
 
   override fun onDisconnected() {}
-
-
 }

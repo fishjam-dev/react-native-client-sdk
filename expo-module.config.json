@@ -2,14 +2,14 @@
   "platforms": ["ios", "android", "web"],
   "ios": {
     "modules": [
-      "MembraneWebRTCModule",
+      "RNFishjamClientModule",
       "VideoPreviewViewModule",
       "VideoRendererViewModule"
     ]
   },
   "android": {
     "modules": [
-      "org.membraneframework.reactnative.MembraneWebRTCModule",
+      "org.membraneframework.reactnative.RNFishjamClientModule",
       "org.membraneframework.reactnative.VideoPreviewViewModule",
       "org.membraneframework.reactnative.VideoRendererViewModule"
     ]

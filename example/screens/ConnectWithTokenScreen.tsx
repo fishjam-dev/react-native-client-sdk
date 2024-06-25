@@ -1,4 +1,4 @@
-import { useFishjamClient } from '@fishjam-dev/react-native-client';
+import { connect } from '@fishjam-dev/react-native-client';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -32,7 +32,6 @@ type Props = CompositeScreenProps<
 
 const { URL_INPUT, TOKEN_INPUT, CONNECT_BUTTON } = connectScreenLabels;
 const ConnectScreen = ({ navigation }: Props) => {
-  const { connect } = useFishjamClient();
   const [connectionError, setConnectionError] = useState<string | null>(null);
 
   const [peerToken, onChangePeerToken] = useState('');

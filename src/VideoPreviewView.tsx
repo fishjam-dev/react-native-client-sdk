@@ -2,7 +2,7 @@ import { requireNativeViewManager } from 'expo-modules-core';
 import * as React from 'react';
 import { View } from 'react-native';
 
-import { VideoPreviewViewProps } from './MembraneWebRTC.types';
+import { VideoPreviewViewProps } from './RNFishjamClient.types';
 import { isJest } from './utils';
 
 const NativeView: React.ComponentType<VideoPreviewViewProps> = isJest()

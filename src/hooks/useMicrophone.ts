@@ -4,8 +4,8 @@ import {
   IsMicrophoneOnEvent,
   Metadata,
   MicrophoneConfig,
-} from '../MembraneWebRTC.types';
-import MembraneWebRTCModule from '../MembraneWebRTCModule';
+} from '../RNFishjamClient.types';
+import RNFishjamClientModule from '../RNFishjamClientModule';
 import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
 
 /**
@@ -13,7 +13,7 @@ import { ReceivableEvents, eventEmitter } from '../common/eventEmitter';
  */
 export function useMicrophone() {
   const [isMicrophoneOn, setIsMicrophoneOn] = useState<boolean>(
-    MembraneWebRTCModule.isMicrophoneOn,
+    RNFishjamClientModule.isMicrophoneOn,
   );
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function useMicrophone() {
       ReceivableEvents.IsMicrophoneOn,
       (event) => setIsMicrophoneOn(event.IsMicrophoneOn),
     );
-    setIsMicrophoneOn(MembraneWebRTCModule.isMicrophoneOn);
+    setIsMicrophoneOn(RNFishjamClientModule.isMicrophoneOn);
     return () => eventListener.remove();
   }, []);
 
@@ -29,7 +29,7 @@ export function useMicrophone() {
    * Function to toggle microphone on/off
    */
   const toggleMicrophone = useCallback(async () => {
-    const state = await MembraneWebRTCModule.toggleMicrophone();
+    const state = await RNFishjamClientModule.toggleMicrophone();
     setIsMicrophoneOn(state);
   }, []);
 
@@ -42,7 +42,7 @@ export function useMicrophone() {
     async <MicrophoneConfigMetadataType extends Metadata>(
       config: Partial<MicrophoneConfig<MicrophoneConfigMetadataType>> = {},
     ) => {
-      await MembraneWebRTCModule.startMicrophone(config);
+      await RNFishjamClientModule.startMicrophone(config);
     },
     [],
   );
