@@ -101,6 +101,10 @@ android {
     }
 }
 
+react {
+    hermesCommand = "../../node_modules/react-native/sdks/hermesc/%OS-BIN%/hermesc"
+}
+
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
@@ -117,5 +121,5 @@ dependencies {
     }
 }
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+apply from: file("../../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
 apply plugin: 'org.jetbrains.kotlin.android'; applyNativeModulesAppBuildGradle(project)

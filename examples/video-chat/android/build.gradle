@@ -2,10 +2,15 @@
 allprojects {
     repositories {
         maven {
-            url "$rootDir/../node_modules/expo-camera/android/maven"
+            url "$rootDir/../../../node_modules/expo-camera/android/maven"
         }
         maven {
-            url "$rootDir/../node_modules/@notifee/react-native/android/libs"
+            url "$rootDir/../../../node_modules/@notifee/react-native/android/libs"
+        }
+    }
+    project.pluginManager.withPlugin("com.facebook.react") {
+        react {
+            reactNativeDir = rootProject.file("../../../node_modules/react-native/")
         }
     }
 }

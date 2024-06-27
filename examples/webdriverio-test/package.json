@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "format": "prettier --write . --ignore-path ./.eslintignore",
+    "format:check": "prettier --check . --ignore-path ./.eslintignore",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "lint:check": "eslint . --ext .ts,.tsx",
     "wdio": "wdio run ./wdio.conf.ts"
   },
   "keywords": [],
@@ -23,8 +27,5 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1"
-  },
-  "resolutions": {
-    "strip-ansi": "6.0.0"
   }
 }

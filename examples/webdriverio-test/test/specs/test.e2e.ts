@@ -9,14 +9,14 @@ import {
 import { driver } from '@wdio/globals';
 import * as assert from 'assert';
 import type { Suite } from 'mocha';
-
 import {
   connectScreenLabels,
   roomScreenLabels,
   previewScreenLabels,
   soundOutputDevicesLabels,
   appNavigationLabels,
-} from '../../../types/ComponentLabels';
+} from 'video-chat-example/types/ComponentLabels';
+
 import {
   getElement,
   getWebsocketUrl,
